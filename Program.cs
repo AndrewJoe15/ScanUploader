@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using ChemicalScan.View;
 using ChemicalScan.Controller;
 
 namespace ChemicalScan
@@ -16,12 +17,13 @@ namespace ChemicalScan
         [STAThread]
         static void Main()
         {
+            ConnectManager.Instance.StartSocketServer();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new HttpLoginForm());
+            //Application.Run(new HttpLoginForm());
             //Application.Run(new MainForm());
-
-            //ConnectManager.Instance.StartSocketServer();
+            Application.Run(new ScanForm());
         }
     }
 }

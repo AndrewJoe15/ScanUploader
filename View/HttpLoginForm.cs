@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using ChemicalScan.Model;
 using ChemicalScan.Controller;
 
-namespace ChemicalScan
+namespace ChemicalScan.View
 {
     public partial class HttpLoginForm : Form
     {

@@ -18,5 +18,10 @@ namespace ChemicalScan.Utils
         {
             throw new ConnectException(msg);
         }
+
+        public static void ExceptionHandler(Exception e)
+        {
+            throw new Exception(e.Message);
+        }
     }
 }

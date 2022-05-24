@@ -51,11 +51,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\ConnectManager.cs" />
+    <Compile Include="Controller\Communicator.cs" />
+    <Compile Include="Controller\ElementManager.cs" />
     <Compile Include="Controller\UserManager.cs" />
     <Compile Include="Model\Container.cs" />
     <Compile Include="Model\SingleTon.cs" />
+    <Compile Include="Utils\JsonUtil.cs" />
+    <Compile Include="Utils\LogUtil.cs" />
     <Compile Include="Utils\SocketServer.cs" />
     <Compile Include="Utils\Tool.cs" />
+    <Compile Include="View\ConfigureForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ConfigureForm.Designer.cs">
+      <DependentUpon>ConfigureForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,6 +93,9 @@
     <Compile Include="View\ScanForm.Designer.cs">
       <DependentUpon>ScanForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\ConfigureForm.resx">
+      <DependentUpon>ConfigureForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

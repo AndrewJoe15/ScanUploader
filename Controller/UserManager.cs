@@ -50,7 +50,7 @@ namespace ChemicalScan.Controller
         private static void UpdateAuthorization(string token)
         {
             //使用"Bearer "拼接token组成authorization
-            ReturnData.authorization = "Bearer " + token;
+            HttpUtil.authorization = "Bearer " + token;
         }
     }
 }

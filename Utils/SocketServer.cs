@@ -5,6 +5,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Diagnostics;
+using ChemicalScan.Controller;
 
 namespace ChemicalScan.Utils
 {
@@ -18,7 +20,7 @@ namespace ChemicalScan.Utils
         private int _port = 0;
         private Socket _socket = null;
         private int backlog = 7;//socket最大连接数
-        private byte[] buffer = new byte[1024 * 2];
+        //private byte[] buffer = new byte[1024 * 1024 * 2];
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -54,7 +56,7 @@ namespace ChemicalScan.Utils
                 //将 Socket 置于侦听状态
                 _socket.Listen(backlog);
 
-                Console.WriteLine("{0}开始监听消息...", _socket.LocalEndPoint.ToString());
+                Debug.WriteLine("{0}开始监听消息...", _socket.LocalEndPoint.ToString());
 
                 //开始监听
                 Thread thread = new Thread(ListenClientConnect);
@@ -78,7 +80,7 @@ namespace ChemicalScan.Utils
                 {
                     //Socket创建的新连接
                     Socket tmp = _socket.Accept();//持续等待接受客户端消息
-                    tmp.Send(Encoding.UTF8.GetBytes("Socket服务端发送消息:"));
+                    tmp.Send(Encoding.Default.GetBytes("Socket服务端发送消息:"));
                     //开启新线程接受客户端消息
                     Thread thread = new Thread(ReceiveMessage);
                     thread.Start(tmp);
@@ -95,7 +97,7 @@ namespace ChemicalScan.Utils
         /// <summary>
         /// 接收客户端消息
         /// </summary>
-        /// <param name="socket">来自客户端的socket</param>
+        /// <param name="socket">socket</param>
         private void ReceiveMessage(object socket)
         {
             Socket clientSocket = (Socket)socket;
@@ -103,21 +105,52 @@ namespace ChemicalScan.Utils
             {
                 try
                 {
+                    byte[] buffer = new byte[1024 * 3];
                     //获取从客户端发来的数据
                     int length = clientSocket.Receive(buffer);
-                    Console.WriteLine("接收客户端{0}消息:{1}。", clientSocket.RemoteEndPoint.ToString(), Encoding.UTF8.GetString(buffer, 0, length));
+                    if(length > 0)
+                    {
+                        string str = Encoding.Default.GetString(buffer, 0, length);
+
+                        if (str == "")
+                        {
+                            Thread.Sleep(100);
+                        }
+                        if (str == "STOP")
+                        {
+                            Debug.WriteLine("与客户端{0}的Socket连接关闭.", clientSocket.RemoteEndPoint);
+                            //写入日志                            
+                            LogUtil.WriteLog(str + "与客户端{0}的Socket连接关闭.");
+                            //停止输出Log
+                            LogUtil.StopLog();
+                            //断开连接
+                            clientSocket.Shutdown(SocketShutdown.Both);
+                            clientSocket.Close();
+                            break;
+                        }
+                        Debug.WriteLine("接收客户端 {0} 的消息: {1}。", clientSocket.RemoteEndPoint.ToString(), str);
+                        LogUtil.WriteLog("收到Machine端的消息: " + str);
+                        
+                        //解析消息传给MES，并将回传数据转发给Machine
+                        string dataToMachine = Communicator.GetDataFromMES(str);
+                        clientSocket.Send(Encoding.Default.GetBytes(dataToMachine));
+
+                        LogUtil.WriteLog("发给Machine端的消息: " + dataToMachine);
+                    }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
-                    clientSocket.Shutdown(SocketShutdown.Both);
-                    clientSocket.Close();
+                    Debug.WriteLine(ex.Message);
+                    ConnectException.ExceptionHandler(ex.Message);
                     break;
                 }
             }
         }
     }
 
+    /// <summary>
+    /// 客户端Socket 调试用
+    /// </summary>
     public class SocketClient
     {
         private string _ip = string.Empty;
@@ -156,26 +189,26 @@ namespace ChemicalScan.Utils
                 IPEndPoint endPoint = new IPEndPoint(address, _port);
                 //4.0 建立连接
                 _socket.Connect(endPoint);
-                Console.WriteLine("连接服务器成功");
+                Debug.WriteLine("连接服务器成功");
                 //5.0 接收数据
                 int length = _socket.Receive(buffer);
-                Console.WriteLine("接收服务器{0},消息:{1}", _socket.RemoteEndPoint.ToString(), Encoding.UTF8.GetString(buffer, 0, length));
+                Debug.WriteLine("接收服务器{0},消息:{1}", _socket.RemoteEndPoint.ToString(), Encoding.Default.GetString(buffer, 0, length));
                 //6.0 向服务器发送消息
                 for (int i = 0; i < 10; i++)
                 {
                     Thread.Sleep(2000);
                     string sendMessage = string.Format("客户端发送的消息,当前时间{0}", DateTime.Now.ToString());
-                    _socket.Send(Encoding.UTF8.GetBytes(sendMessage));
-                    Console.WriteLine("向服务器发送的消息:{0}", sendMessage);
+                    _socket.Send(Encoding.Default.GetBytes(sendMessage));
+                    Debug.WriteLine("向服务器发送的消息:{0}", sendMessage);
                 }
             }
             catch (Exception ex)
             {
                 _socket.Shutdown(SocketShutdown.Both);
                 _socket.Close();
-                Console.WriteLine(ex.Message);
+                Debug.WriteLine(ex.Message);
             }
-            Console.WriteLine("发送消息结束");
+            Debug.WriteLine("发送消息结束");
             Console.ReadKey();
         }
 

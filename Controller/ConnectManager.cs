@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Net.Sockets;
+using System.Diagnostics;
 
 using ChemicalScan.Model;
 using ChemicalScan.Utils;
@@ -14,20 +15,18 @@ namespace ChemicalScan.Controller
     internal class ConnectManager : SingleTon<ConnectManager>
     {
         private const double connectTimeout = 11 * 60 * 60 * 1000; //11小时
+
+        private const string hostIP = "0.0.0.0";
+        private const string clientIP = "127.0.0.1";
         private const int port_L1 = 8888;
 
         public void StartSocketServer()
         {
-            SocketServer socket = new SocketServer(port_L1);
-            socket.StartListen();
-            Console.Read();
-        }
+            //开始输出Log
+            LogUtil.StartLog();
 
-        public void StartSocketClient()
-        {
-            SocketClient socket = new SocketClient(port_L1);
-            socket.StartClient();
-            Console.Read();
+            SocketServer socket = new SocketServer(hostIP, port_L1);
+            socket.StartListen();            
         }
 
         /// <summary>
@@ -36,7 +35,7 @@ namespace ChemicalScan.Controller
         /// </summary>
         public void StartTimer()
         {
-            Console.WriteLine("计时器开0始运行...");
+            Debug.WriteLine("计时器开0始运行...");
             Timer aTimer = new Timer();
             aTimer.Elapsed += new ElapsedEventHandler(TimeEvent);           
             aTimer.Interval = connectTimeout; // 设置触发的时间间隔 此处设置为11小时
@@ -46,7 +45,7 @@ namespace ChemicalScan.Controller
 
         private void TimeEvent(object source, ElapsedEventArgs e)
         {
-            Console.WriteLine("Token过期，重新登录MES端...");
+            Debug.WriteLine("Token过期，重新登录MES端...");
             UserManager.HttpLogin();
         }
     }

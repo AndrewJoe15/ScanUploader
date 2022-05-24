@@ -1,4 +1,4 @@
-﻿namespace ChemicalScan
+﻿namespace ChemicalScan.View
 {
     partial class HttpLoginForm
     {

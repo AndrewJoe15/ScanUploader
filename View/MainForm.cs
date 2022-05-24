@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using ChemicalScan.Model;
 
-namespace ChemicalScan
+namespace ChemicalScan.View
 {
     public partial class MainForm : Form
     {
@@ -107,7 +107,5 @@ namespace ChemicalScan
         {
             basicInfo.createBy = textBox_createBy.Text;
         }
-
-
     }
 }
