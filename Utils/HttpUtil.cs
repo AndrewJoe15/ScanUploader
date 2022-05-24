@@ -8,12 +8,15 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
 
-using ChemicalScan.Objs;
+using ChemicalScan.Model;
 
 namespace ChemicalScan.Utils
 {
     internal class HttpUtil
     {
+        //post请求的Authorization，格式Bearer token
+        //例如: Bearer 10a4b28d‐476d‐4166‐b65d‐651be75df9f8
+        public static string authorization { get; set; } = string.Empty; //静态成员变量必须赋初值
 
         /// <summary>
         /// Get请求 模板方法
@@ -32,9 +35,9 @@ namespace ChemicalScan.Utils
             //http客户端对象
             HttpClient httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            if (BasicInfo.authorization.Length > 0)
+            if (authorization.Length > 0)
             {
-                httpClient.DefaultRequestHeaders.Add("authorization", BasicInfo.authorization);
+                httpClient.DefaultRequestHeaders.Add("Authorization", authorization);
             }
             try
             {
@@ -53,10 +56,10 @@ namespace ChemicalScan.Utils
             catch (Exception e)
             {
                 string msg = e.InnerException.InnerException.Message;
-                if (msg == "无法连接到远程服务器")
+                if (msg == "无法连接到远程服务器...")
                 {                    
-                    MessageUtil.ShowWarning("服务器无响应，请重新配置环境");
-                    exceptionHandler("连接失败");
+                    MessageUtil.ShowWarning("服务器无响应，请重新配置环境...");
+                    ConnectException.ExceptionHandler("连接失败");
                 }
             }
             return result;
@@ -80,9 +83,9 @@ namespace ChemicalScan.Utils
             HttpContent httpContent = new StringContent(postData);
             httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpClient httpClient = new HttpClient();
-            if (BasicInfo.authorization.Length > 0)
+            if (authorization.Length > 0)
             {
-                httpClient.DefaultRequestHeaders.Add("Authorization", BasicInfo.authorization);
+                httpClient.DefaultRequestHeaders.Add("Authorization", authorization);
             }
             try
             {
@@ -102,7 +105,7 @@ namespace ChemicalScan.Utils
                 if (msg == "无法连接到远程服务器")
                 {
                     MessageUtil.ShowWarning("服务器无响应，请重新配置环境");
-                    exceptionHandler("连接失败");
+                    ConnectException.ExceptionHandler("连接失败");
                 }
             }
             return new JObject();
@@ -130,9 +133,9 @@ namespace ChemicalScan.Utils
             HttpClient httpClient = new HttpClient();
 
             T result = default(T);
-            if (BasicInfo.authorization.Length > 0)
+            if (authorization.Length > 0)
             {
-                httpClient.DefaultRequestHeaders.Add("Authorization", BasicInfo.authorization);
+                httpClient.DefaultRequestHeaders.Add("Authorization", authorization);
             }
             try
             {
@@ -153,7 +156,7 @@ namespace ChemicalScan.Utils
                 if (msg == "无法连接到远程服务器")
                 {
                     MessageUtil.ShowWarning("服务器无响应，请重新配置环境");
-                    exceptionHandler("连接失败");
+                    ConnectException.ExceptionHandler("连接失败");
                 }
             }
             return result;
@@ -179,9 +182,9 @@ namespace ChemicalScan.Utils
             httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
             HttpClient httpClient = new HttpClient();
-            if (BasicInfo.authorization.Length > 0)
+            if (authorization.Length > 0)
             {
-                httpClient.DefaultRequestHeaders.Add("authorization", BasicInfo.authorization);
+                httpClient.DefaultRequestHeaders.Add("Authorization", authorization);
             }
             try
             {
@@ -200,7 +203,7 @@ namespace ChemicalScan.Utils
                 if (msg == "无法连接到远程服务器")
                 {
                     MessageUtil.ShowWarning("服务器无响应，请重新配置环境");
-                    exceptionHandler("连接失败");
+                    ConnectException.ExceptionHandler("连接失败");
                 }
             }
             return new JObject();
@@ -223,9 +226,9 @@ namespace ChemicalScan.Utils
             HttpClient httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            if (BasicInfo.authorization.Length > 0)
+            if (authorization.Length > 0)
             {
-                httpClient.DefaultRequestHeaders.Add("authorization", BasicInfo.authorization);
+                httpClient.DefaultRequestHeaders.Add("Authorization", authorization);
             }
             try
             {
@@ -245,8 +248,8 @@ namespace ChemicalScan.Utils
                 string msg = e.InnerException.InnerException.Message;
                 if (msg == "无法连接到远程服务器")
                 {
-                    MessageUtil.ShowWarning("服务器无响应，请重新配置环境");
-                    exceptionHandler("连接失败");
+                    MessageUtil.ShowWarning("服务器无响应，请检测连接配置。");
+                    ConnectException.ExceptionHandler("连接失败");
                 }
             }
             return new JObject();
@@ -284,12 +287,6 @@ namespace ChemicalScan.Utils
             }
 
             return ct;
-        }
-
-
-        private static void exceptionHandler(string msg)
-        {
-            throw new ConnectException(msg);
         }
 
         #endregion

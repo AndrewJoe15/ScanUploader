@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using ChemicalScan.Controller;
+
 namespace ChemicalScan
 {
     internal static class Program
@@ -16,7 +18,10 @@ namespace ChemicalScan
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new HttpLoginForm());
+            //Application.Run(new MainForm());
+
+            //ConnectManager.Instance.StartSocketServer();
         }
     }
 }

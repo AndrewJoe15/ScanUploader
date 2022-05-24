@@ -8,11 +8,15 @@ namespace ChemicalScan.Utils
 {
     internal class ConnectException : Exception
     {
-        public int status = 500;
         public string message;
         public ConnectException(string message)
         {
             this.message = message;
+        }
+
+        public static void ExceptionHandler(string msg)
+        {
+            throw new ConnectException(msg);
         }
     }
 }
