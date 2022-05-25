@@ -26,7 +26,7 @@ namespace ChemicalScan.Model
         //型号版本 
         public string productModelVersion { get; set; } = "V1.0";
         //班次
-        public string shift { get; set; } = SHIFT.Day.ToString();
+        public string shift { get; set; } = "白班";
         //操作人
         public string createBy { get; set; } = "sy100228";
         //操作时间

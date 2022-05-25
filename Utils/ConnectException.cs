@@ -21,7 +21,7 @@ namespace ChemicalScan.Utils
 
         public static void ExceptionHandler(Exception e)
         {
-            throw new Exception(e.Message);
+            //throw new Exception(e.Message);
         }
     }
 }

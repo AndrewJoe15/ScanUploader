@@ -18,11 +18,13 @@ namespace ChemicalScan
         static void Main()
         {
             ConnectManager.Instance.StartSocketServer();
+            UserManager.HttpLogin();
+            ConnectManager.Instance.StartTimer();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new HttpLoginForm());
-            //Application.Run(new MainForm());
+            Application.Run(new MainForm());
             Application.Run(new ScanForm());
         }
     }

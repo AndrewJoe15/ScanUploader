@@ -33,11 +33,11 @@ namespace ChemicalScan.Utils
 
             fileName = DateTime.Now.ToString("yyyy-MM-dd") + ".txt";
             //打开一个文件流，文件尾追加模式
-            if (fileStream == null)
-            {
-                fileStream = new FileStream(logPath + fileName, FileMode.Append);
-                streamWriter = new StreamWriter(fileStream, Encoding.Default);
-            }
+            //if (fileStream == null)
+            //{
+            fileStream = new FileStream(logPath + fileName, FileMode.Append);
+            streamWriter = new StreamWriter(fileStream, Encoding.Default);
+            //}
         }
 
         /// <summary>
@@ -59,16 +59,71 @@ namespace ChemicalScan.Utils
                 }
             }
         }
+        /*
+        public static void WriteLog(string logContent)
+        {
+            //if (!File.Exists(logPath))
+            //    Directory.CreateDirectory(logPath);
 
+            //fileName = DateTime.Now.ToString("yyyy-MM-dd") + ".txt";
+            //打开一个文件流，文件尾追加模式
+            //if (fileStream == null)
+            //{
+            //fileStream = new FileStream(logPath + fileName, FileMode.Append);
+            //streamWriter = new StreamWriter(fileStream, Encoding.Default);
+            //}
+
+            //前部加上时间戳
+            string log = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss ") + logContent;
+            //写入log
+            //streamWriter.Write(log + "\n");
+
+            //界面显示log
+            ScanForm.thisForm.ShowLog(log + "\n");
+            //StopLog();
+        }
         public static void WriteLog(string logContent)
         {
             //前部加上时间戳
-            string log = DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss ") + logContent;
+            string log = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss ") + logContent;
             //写入log
             streamWriter.Write(log + "\n");
 
             //界面显示log
             ScanForm.thisForm.ShowLog(log + "\n");
+        }*/
+
+        public static void WriteLog(string logContent)
+        {
+            if (!File.Exists(logPath))
+                Directory.CreateDirectory(logPath);
+
+            fileName = DateTime.Now.ToString("yyyy-MM-dd") + ".txt";
+            //打开一个文件流，文件尾追加模式
+            fileStream = new FileStream(logPath + fileName, FileMode.Append);
+            streamWriter = new StreamWriter(fileStream, Encoding.Default);
+
+            //前部加上时间戳
+            string log = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss ") + logContent;
+            //写入log
+            streamWriter.Write(log + "\n");
+
+            //界面显示log
+            ScanForm.thisForm.ShowLog(log + "\n");
+            if (fileStream != null)
+            {
+                try
+                {
+                    streamWriter.Close();
+                    fileStream.Close();
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("文件流关闭失败，" + e.Message);
+                    ConnectException.ExceptionHandler(e);
+                }
+            }
         }
+
     }
 }

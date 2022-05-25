@@ -18,7 +18,7 @@ namespace ChemicalScan.Controller
         /// </summary>
         public static void HttpLogin()
         {
-            User httpUser = new User(User.httpUserName, User.httpUserPassword);
+            User httpUser = new User(User.httpUserName, User.httpUserPassword, User.httpUserSite);
             //发送登录post请求
             JObject result = HttpUtil.PostResponse(URL.login, JsonConvert.SerializeObject(httpUser));
             if(result.Count > 0)
@@ -29,7 +29,7 @@ namespace ChemicalScan.Controller
                 {
                     //登陆成功，更新Authorization
                     //提取token
-                    string token = result["data"]["token"].ToObject<string>();
+                    string token = result["data"]["access_token"].ToObject<string>();
                     UpdateAuthorization(token);
                 }else if(code == ReturnData.code_error)
                 {

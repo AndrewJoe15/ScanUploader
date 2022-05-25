@@ -80,7 +80,8 @@ namespace ChemicalScan.Utils
                 {
                     //Socket创建的新连接
                     Socket tmp = _socket.Accept();//持续等待接受客户端消息
-                    tmp.Send(Encoding.Default.GetBytes("Socket服务端发送消息:"));
+                    //tmp.Send(Encoding.UTF8.GetBytes("Socket服务端发送消息:"));
+                    Debug.WriteLine("Socket服务端发送消息:");
                     //开启新线程接受客户端消息
                     Thread thread = new Thread(ReceiveMessage);
                     thread.Start(tmp);
@@ -133,7 +134,7 @@ namespace ChemicalScan.Utils
                         
                         //解析消息传给MES，并将回传数据转发给Machine
                         string dataToMachine = Communicator.GetDataFromMES(str);
-                        clientSocket.Send(Encoding.Default.GetBytes(dataToMachine));
+                        clientSocket.Send(Encoding.UTF8.GetBytes(dataToMachine));
 
                         LogUtil.WriteLog("发给Machine端的消息: " + dataToMachine);
                     }
@@ -198,7 +199,7 @@ namespace ChemicalScan.Utils
                 {
                     Thread.Sleep(2000);
                     string sendMessage = string.Format("客户端发送的消息,当前时间{0}", DateTime.Now.ToString());
-                    _socket.Send(Encoding.Default.GetBytes(sendMessage));
+                    //_socket.Send(Encoding.UTF8.GetBytes(sendMessage));
                     Debug.WriteLine("向服务器发送的消息:{0}", sendMessage);
                 }
             }

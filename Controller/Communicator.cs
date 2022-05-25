@@ -20,12 +20,27 @@ namespace ChemicalScan.Controller
     {
         //Machine发来字符串数据分割符号
         private const char splitChar = ',';
-        private const string containerIn_ID_0   = "L1";
-        private const string containerIn_ID_1   = "L2";
+        private const string containerOut_ID_0   = "L1";
+        private const string containerOut_ID_1   = "L2";
         private const string SN_ID_0            = "L3";
         private const string SN_ID_1            = "L4";
-        private const string containerOut_ID_0  = "L5";
-        private const string containerOut_ID_1  = "L6";
+        private const string containerIn_ID_0  = "L5";
+        private const string containerIn_ID_1  = "L6";
+
+        public static string GetCodeFromMES(string deviceCodeKey, string deviceCodeValue, string url)
+        {
+            BasicInfo.Instance.createTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            string dataToMES = JsonUtil.ToJson(BasicInfo.Instance, deviceCodeKey, deviceCodeValue);
+
+            Debug.WriteLine(dataToMES);
+            LogUtil.WriteLog("发给MES端口的消息: " + dataToMES);
+
+            JObject dataFromMes = HttpUtil.PostResponse(url, dataToMES);
+
+            LogUtil.WriteLog("收到MES端口的消息: " + dataFromMes);
+
+            return dataFromMes["code"].ToString();
+        }
 
         /// <summary>
         /// Communicator <-> MES 
@@ -38,21 +53,25 @@ namespace ChemicalScan.Controller
             string[] data = str.Split(splitChar);
             string deviceID = data[0];
             string deviceCode = data[1];
-            string dataToMachine = deviceID;//字符串最开始为 "L1..." "L2..."
+            //string dataToMachine = deviceID;//字符串最开始为 "L1..." "L2..."
+            string dataToMachine = "";
             //化抛架
             if (deviceID == containerOut_ID_0 || deviceID == containerOut_ID_1)
             {
-                GetData(ref dataToMachine, "containerCode", deviceCode, URL.scanContainerOut);
+                //GetData(ref dataToMachine, "containerCode", deviceCode, URL.scanContainerOut);
+                dataToMachine = GetCodeFromMES("containerCode", deviceCode, URL.scanContainerOut);
             }
             //玻璃
             if (deviceID == SN_ID_0 || deviceID == SN_ID_1)
             {
-                GetData(ref dataToMachine, "snNumber", deviceCode, URL.scanSn);
+                //GetData(ref dataToMachine, "snNumber", deviceCode, URL.scanSn);
+                dataToMachine = GetCodeFromMES("snNumber", deviceCode, URL.scanSn);
             }
             //载具
             if (deviceID == containerIn_ID_0 || deviceID == containerIn_ID_1)
             {
-                GetData(ref dataToMachine, "containerCode", deviceCode, URL.scanContainerIn);
+                //GetData(ref dataToMachine, "containerCode", deviceCode, URL.scanContainerIn);
+                dataToMachine = GetCodeFromMES("containerCode", deviceCode, URL.scanContainerIn);
             }
             return dataToMachine;
         }

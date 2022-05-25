@@ -18,7 +18,7 @@ namespace ChemicalScan.Controller
 
         private const string hostIP = "0.0.0.0";
         private const string clientIP = "127.0.0.1";
-        private const int port_L1 = 8888;
+        private const int port_L1 = 1100;
 
         public void StartSocketServer()
         {
