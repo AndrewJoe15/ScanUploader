@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Diagnostics;
 using ChemicalScan.Controller;
+using ChemicalScan.Model;
 
 namespace ChemicalScan.Utils
 {
@@ -43,14 +44,19 @@ namespace ChemicalScan.Utils
         /// </summary>
         public void StartListen()
         {
+            IPAddress address = null;
+            IPEndPoint endPoint = null;
             try
             {
                 //实例化Socket对象
                 _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 //根据IP地址创建IP对象
-                IPAddress address = IPAddress.Parse(_ip);
+                address = IPAddress.Parse(_ip);
                 //根据IP对象和端口创建网络端口
-                IPEndPoint endPoint = new IPEndPoint(address, _port);
+                endPoint = new IPEndPoint(address, _port);
+                
+                //端口可复用
+                _socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 2);
                 //socket对象绑定端口
                 _socket.Bind(endPoint);
                 //将 Socket 置于侦听状态
@@ -64,9 +70,7 @@ namespace ChemicalScan.Utils
             }
             catch (Exception e)
             {
-                string msg = e.InnerException.Message;
-                MessageUtil.ShowWarning("Socket服务器监听启动失败。");
-                ConnectException.ExceptionHandler(msg);
+                ExceptionUtil.ExceptionHandler(e);
             }
         }
         /// <summary>
@@ -90,8 +94,8 @@ namespace ChemicalScan.Utils
             catch (Exception e)
             {
                 string msg = e.InnerException.Message;
-                MessageUtil.ShowWarning("Socke连接失败。");
-                ConnectException.ExceptionHandler(msg);
+                ShowUtil.ShowWarning("Socke连接失败。");
+                ExceptionUtil.ExceptionHandler(msg);
             }
         }
 
@@ -122,8 +126,7 @@ namespace ChemicalScan.Utils
                             Debug.WriteLine("与客户端{0}的Socket连接关闭.", clientSocket.RemoteEndPoint);
                             //写入日志                            
                             LogUtil.WriteLog(str + "与客户端{0}的Socket连接关闭.");
-                            //停止输出Log
-                            LogUtil.StopLog();
+
                             //断开连接
                             clientSocket.Shutdown(SocketShutdown.Both);
                             clientSocket.Close();
@@ -133,16 +136,27 @@ namespace ChemicalScan.Utils
                         LogUtil.WriteLog("收到Machine端的消息: " + str);
                         
                         //解析消息传给MES，并将回传数据转发给Machine
-                        string dataToMachine = Communicator.GetDataFromMES(str);
-                        clientSocket.Send(Encoding.UTF8.GetBytes(dataToMachine));
+                        ReturnData dataToMachine = Communicator.GetDataFromMES(str);
+                        if(dataToMachine != null)
+                        {
+                            //将code发给machine
+                            clientSocket.Send(Encoding.UTF8.GetBytes(dataToMachine.code));
 
-                        LogUtil.WriteLog("发给Machine端的消息: " + dataToMachine);
+                            LogUtil.WriteLog("发给Machine端的消息: " + dataToMachine.code);
+
+                            //如果返回状态码为错误码，将出错信息展示给操作员
+                            if(dataToMachine.code == ReturnData.code_error)
+                            {
+                                ShowUtil.ShowWarning(dataToMachine.msg);
+                            }
+
+                        }
                     }
                 }
                 catch (Exception ex)
                 {
                     Debug.WriteLine(ex.Message);
-                    ConnectException.ExceptionHandler(ex.Message);
+                    ExceptionUtil.ExceptionHandler(ex.Message);
                     break;
                 }
             }

@@ -24,7 +24,7 @@ namespace ChemicalScan.Controller
             if(result.Count > 0)
             {
                 //提取返回的状态码
-                int code = result["code"].ToObject<int>();
+                string code = result["code"].ToString();
                 if(code == ReturnData.code_success)
                 {
                     //登陆成功，更新Authorization
@@ -34,12 +34,12 @@ namespace ChemicalScan.Controller
                 }else if(code == ReturnData.code_error)
                 {
                     //登录失败，显示失败信息
-                    MessageUtil.ShowWarning(result["msg"].ToObject<string>());
+                    ShowUtil.ShowWarning(result["msg"].ToObject<string>());
                 }
             }
             else
             {
-                MessageUtil.ShowWarning("网络异常...");
+                ShowUtil.ShowWarning("网络异常...");
             }
             
         }

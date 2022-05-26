@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace ChemicalScan.Utils
 {
-    internal class MessageUtil
+    internal class ShowUtil
     {
         /// <summary>
         /// 显示一般的提示信息

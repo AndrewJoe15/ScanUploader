@@ -17,16 +17,25 @@ namespace ChemicalScan.Controller
         private const double connectTimeout = 11 * 60 * 60 * 1000; //11小时
 
         private const string hostIP = "0.0.0.0";
-        private const string clientIP = "127.0.0.1";
-        private const int port_L1 = 1100;
+        private const int port_L1L2 = 1100;
+        private const int port_L3L4 = 1200;
+        private const int port_L5L6 = 1300;
+        private const int port_L7 = 1400;
 
         public void StartSocketServer()
         {
-            //开始输出Log
-            LogUtil.StartLog();
 
-            SocketServer socket = new SocketServer(hostIP, port_L1);
-            socket.StartListen();            
+            SocketServer socket_L1L2 = new SocketServer(hostIP, port_L1L2);
+            socket_L1L2.StartListen();
+
+            SocketServer socket_L3L4 = new SocketServer(hostIP, port_L3L4);
+            socket_L3L4.StartListen();
+
+            SocketServer socket_L5L6 = new SocketServer(hostIP, port_L5L6);
+            socket_L5L6.StartListen();
+
+            SocketServer socket_L7 = new SocketServer(hostIP, port_L7);
+            socket_L7.StartListen();
         }
 
         /// <summary>

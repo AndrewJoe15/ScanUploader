@@ -55,7 +55,9 @@
     <Compile Include="Controller\ElementManager.cs" />
     <Compile Include="Controller\UserManager.cs" />
     <Compile Include="Model\Container.cs" />
+    <Compile Include="Model\Glass.cs" />
     <Compile Include="Model\SingleTon.cs" />
+    <Compile Include="Model\SubmitData.cs" />
     <Compile Include="Utils\JsonUtil.cs" />
     <Compile Include="Utils\LogUtil.cs" />
     <Compile Include="Utils\SocketServer.cs" />
@@ -82,17 +84,11 @@
     <Compile Include="Model\ReturnData.cs" />
     <Compile Include="Model\URL.cs" />
     <Compile Include="Model\User.cs" />
-    <Compile Include="Utils\ConnectException.cs" />
+    <Compile Include="Utils\ExceptionUtil.cs" />
     <Compile Include="Utils\HttpUtil.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\MessageUtil.cs" />
-    <Compile Include="View\ScanForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\ScanForm.Designer.cs">
-      <DependentUpon>ScanForm.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Utils\ShowUtil.cs" />
     <EmbeddedResource Include="View\ConfigureForm.resx">
       <DependentUpon>ConfigureForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -111,9 +107,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="View\ScanForm.resx">
-      <DependentUpon>ScanForm.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

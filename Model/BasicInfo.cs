@@ -35,9 +35,13 @@ namespace ChemicalScan.Model
 
     public enum SHIFT
     {
+        白班,
+        晚班
+        /*
         [Description("白班")]
         Day,
         [Description("晚班")]
         Night
+        */
     }
 }

@@ -9,15 +9,17 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
 using ChemicalScan.Model;
+using ChemicalScan.Utils;
 
 namespace ChemicalScan.View
 {
     public partial class MainForm : Form
     {
+
+        public static MainForm thisForm;
+
         //BasicInfo单例
         private BasicInfo basicInfo = BasicInfo.Instance;
-        //班次下拉列表项
-        List<string> comboBox_shift_items = new List<string>();
 
         public MainForm()
         {
@@ -25,11 +27,25 @@ namespace ChemicalScan.View
             Init();
         }
 
+        //线程安全调用
+        private delegate void _ShowLog();
+        public void ShowLog(string text)
+        {
+            _ShowLog _st = new _ShowLog(delegate ()
+            {
+                textBox_log.AppendText(text);
+                textBox_log.AppendText(Environment.NewLine);
+                textBox_log.ScrollToCaret();
+            });
+            Invoke(_st);
+        }
+
         /// <summary>
         /// 对控件进行初始化
         /// </summary>
         private void Init()
         {
+            thisForm = this;
             //遍历基本信息面板的子控件
             foreach (Control ctrl in panel_basicInformation.Controls)
             {
@@ -47,31 +63,13 @@ namespace ChemicalScan.View
             }
 
             //初始化班次下拉列表
-            ///方式一，显示枚举的Name
-            /*string[] shifts = typeof(SHIFT).GetEnumNames();//获取班次类型数组
-            comboBox_shift.Items.AddRange(shifts);*/
-            //方式二，显示枚举的Description
-            GetComboBoxItems(typeof(SHIFT), comboBox_shift_items);
-            comboBox_shift.Items.AddRange(comboBox_shift_items.ToArray());
-            if (comboBox_shift.Items.Count > 0)
-                comboBox_shift.SelectedIndex = (int)SHIFT.Day;
+            ///显示枚举的Name
+            string[] shifts = typeof(SHIFT).GetEnumNames();//获取班次类型数组
+            comboBox_shift.Items.AddRange(shifts);
+
         }
 
-        private void GetComboBoxItems(Type type, List<string> comboBox_shift_items)
-        {
-            FieldInfo[] fieldInfos = type.GetFields();//获取班次类型数组
 
-            foreach (FieldInfo fieldInfo in fieldInfos)
-            {
-                if (fieldInfo.FieldType.IsEnum)
-                {
-                    //获得枚举的Description
-                    DescriptionAttribute attribute = (DescriptionAttribute)fieldInfo.GetCustomAttribute(typeof(DescriptionAttribute), false);//获取班次类型数组
-                    //每个枚举变量的Description都存入数组
-                    comboBox_shift_items.Add(attribute.Description);
-                }
-            }
-        }
 
         private void textBox_site_TextChanged(object sender, EventArgs e)
         {
@@ -106,6 +104,29 @@ namespace ChemicalScan.View
         private void textBox_createBy_TextChanged(object sender, EventArgs e)
         {
             basicInfo.createBy = textBox_createBy.Text;
+        }
+
+        private void button_start_Click(object sender, EventArgs e)
+        {
+            bool done = true;
+            foreach(Control ctrl in panel_basicInformation.Controls)
+            {
+                if (!(ctrl is Label) && ctrl.Text.Trim() == "")
+                {
+                    done = false;
+                    //反射得到文本控件对应的标签
+                    //分割TextBox控件变量名
+                    string ctrlNamePostfix = ctrl.Name.Remove(0, ctrl.Name.IndexOf("_"));
+                    string name = "label" + ctrlNamePostfix;
+                    FieldInfo fieldInfo = (new Label()).GetType().GetField(name);
+                    //ShowUtil.ShowTips("请输入" + fieldInfo.GetValue("Text") + "信息。");
+                    ShowUtil.ShowTips("请将信息填写完整。");
+                }                    
+            }
+            if (done)
+            {
+                ShowUtil.ShowTips("信息录入成功！");
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Windows.Forms;
 
 using ChemicalScan.View;
 using ChemicalScan.Controller;
+using ChemicalScan.Utils;
 
 namespace ChemicalScan
 {
@@ -17,15 +18,19 @@ namespace ChemicalScan
         [STAThread]
         static void Main()
         {
+            LogUtil.WriteLog("上位机软件启动。");
+
+            //http用户登录以更新Token
+            //UserManager.HttpLogin();
+            //启动连接计时器，每11小时重新登录一次
+            //ConnectManager.Instance.StartTimer();
+            //启动Socket服务器
             ConnectManager.Instance.StartSocketServer();
-            UserManager.HttpLogin();
-            ConnectManager.Instance.StartTimer();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new HttpLoginForm());
             Application.Run(new MainForm());
-            Application.Run(new ScanForm());
         }
     }
 }
