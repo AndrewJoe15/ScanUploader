@@ -33,6 +33,9 @@ namespace ChemicalScan.View
         {
             _ShowLog _st = new _ShowLog(delegate ()
             {
+                if (textBox_log.Text.Length > LogUtil.maxLength)
+                    textBox_log.Clear();
+
                 textBox_log.AppendText(text);
                 textBox_log.AppendText(Environment.NewLine);
                 textBox_log.ScrollToCaret();
@@ -67,6 +70,7 @@ namespace ChemicalScan.View
             string[] shifts = typeof(SHIFT).GetEnumNames();//获取班次类型数组
             comboBox_shift.Items.AddRange(shifts);
 
+            textBox_mo.Text = "";
         }
 
 

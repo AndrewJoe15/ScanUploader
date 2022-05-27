@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace ChemicalScan.Model
 {
-    internal class SubmitData
+    public class SubmitData
     {
-        public BasicInfo basicInfo = BasicInfo.Instance;
-        public string logNumber;
-        public string mo;
-        public string qty;
-        public List<Glass> supplementList;
+
+        public string logNumber = "";
+        public string mo = "";
+        public string qty = "";
+        public List<Glass> supplementList = new List<Glass>();
+
     }
 }

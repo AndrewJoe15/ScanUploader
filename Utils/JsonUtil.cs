@@ -33,5 +33,15 @@ namespace ChemicalScan.Utils
             jObj.Add(new JProperty(key, value));
             return jObj.ToString();
         }
+
+        public static JObject ToJson(object obj, Dictionary<string, string> kvDic)
+        {
+            JObject jObj = ToJObject(obj);
+            foreach(var kv in kvDic)
+            {
+                jObj.Add(new JProperty(kv.Key, kv.Value));
+            }
+            return jObj;
+        }
     }
 }

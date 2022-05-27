@@ -9,7 +9,7 @@ namespace ChemicalScan.Model
     /// <summary>
     /// 玻璃类
     /// </summary>
-    internal class Glass
+    public class Glass
     {
         //扫出载具码
         public string sourceVehicle { get; set; }

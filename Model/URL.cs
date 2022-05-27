@@ -13,7 +13,7 @@ namespace ChemicalScan.Model
     /// </summary>
     internal static class URL
     {
-#if Debug
+#if Debugx
         private static string basicUrl = "https://45e091c7-424a-4dfe-8308-6d1e996672cc.mock.pstmn.io";
         public static string login = basicUrl + "/login";
         public static string scanContainerOut = basicUrl + "/chemicalScanSourceVehicle";

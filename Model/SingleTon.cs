@@ -9,7 +9,7 @@ namespace ChemicalScan.Model
     /// <summary>
     /// 单例类，用来方便地让一个类实现单例模式
     /// </summary>
-    internal class SingleTon<T> where T : class, new()
+    public class SingleTon<T> where T : class, new()
     {
         //私有静态实例
         private static T instance;

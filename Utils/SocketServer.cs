@@ -123,9 +123,10 @@ namespace ChemicalScan.Utils
                         }
                         if (str == "STOP")
                         {
-                            Debug.WriteLine("与客户端{0}的Socket连接关闭.", clientSocket.RemoteEndPoint);
+                            string rep = clientSocket.RemoteEndPoint.ToString();
+                            Debug.WriteLine("与客户端{0}的Socket连接关闭.", rep);
                             //写入日志                            
-                            LogUtil.WriteLog(str + "与客户端{0}的Socket连接关闭.");
+                            LogUtil.WriteLog(str + "与客户端" + rep + "的Socket连接关闭.");
 
                             //断开连接
                             clientSocket.Shutdown(SocketShutdown.Both);
@@ -137,7 +138,7 @@ namespace ChemicalScan.Utils
                         
                         //解析消息传给MES，并将回传数据转发给Machine
                         ReturnData dataToMachine = Communicator.GetDataFromMES(str);
-                        if(dataToMachine != null)
+                        if(dataToMachine != null && dataToMachine.code != null)
                         {
                             //将code发给machine
                             clientSocket.Send(Encoding.UTF8.GetBytes(dataToMachine.code));

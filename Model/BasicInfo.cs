@@ -13,7 +13,7 @@ namespace ChemicalScan.Model
     /// 基本信息类
     /// 放置一些交互界面录入的常量
     /// </summary>
-    internal class BasicInfo : SingleTon <BasicInfo>
+    public class BasicInfo : SingleTon<BasicInfo>
     {
         //工厂代码
         public string site { get; set; } = "2018";

@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ChemicalScan.Model;
 using ChemicalScan.Utils;
+using ChemicalScan.View;
 
 namespace ChemicalScan.Controller
 {
@@ -26,8 +27,9 @@ namespace ChemicalScan.Controller
         private const string SN_ID_1            = "L4";
         private const string containerIn_ID_0  = "L5";
         private const string containerIn_ID_1  = "L6";
-        private const string submit_ID  = "L7";
-        private const string unbind_ID  = "L8";
+        private const string submit_ID_0  = "L7";
+        private const string submit_ID_1  = "L8";
+        private const string unbind_ID  = "L9";
 
         /// <summary>
         /// 向MES请求数据
@@ -82,6 +84,29 @@ namespace ChemicalScan.Controller
             return rdata;
         }
 
+        public static ReturnData SubmitToMES(String submitData, string url)
+        {
+            ReturnData rdata = null;
+
+            Debug.WriteLine(submitData);
+            LogUtil.WriteLog("提交，发给MES端口的消息: \n" + submitData);
+
+            JObject dataFromMes = HttpUtil.PostResponse(url, submitData);
+
+            if (dataFromMes["code"] != null)
+            {
+                //确保发回来的body有内容才赋值
+                rdata = new ReturnData();
+                rdata.code = dataFromMes["code"].ToString();
+                rdata.msg = dataFromMes["msg"].ToString();
+                if (dataFromMes["data"] != null)
+                    rdata.data = dataFromMes["data"].ToString();
+                LogUtil.WriteLog("收到MES端口的消息: \n" + dataFromMes.ToString());
+            }
+
+            return rdata;
+        }
+
         /// <summary>
         /// Communicator <-> MES 
         /// 解析Machine发来的数据，发送给MES，并整理MES传回的数据
@@ -108,6 +133,8 @@ namespace ChemicalScan.Controller
                 //GetData(ref dataToMachine, "snNumber", deviceCode, URL.scanSn);
                 //dataToMachine = GetCodeFromMES("snNumber", deviceCode, URL.scanSn);
                 dataToMachine = GetReturnFromMES("snNumber", deviceCode, URL.scanSn);
+                if (deviceCode == "NoRead")
+                    dataToMachine.code = ReturnData.code_error;
             }
             //载具 扫入
             if (deviceID == containerIn_ID_0 || deviceID == containerIn_ID_1)
@@ -124,15 +151,63 @@ namespace ChemicalScan.Controller
                 dataToMachine = GetReturnFromMES("containerCode", deviceCode, URL.scanContainerUnbind);
             }
 
+            // L7,cOut,cIn,SN,cOut,cIn,SN,cOut,cIn,SN...
             //提交
-            if (deviceID == submit_ID)
+/*          {
+                "site": "2018",
+                "operation": "A0312",
+                "resource": "62046875",
+                "productModel": "L3038LA",
+                "productModelVersion": "1.0",
+                "shift": "晚班",
+                "createBy": "sy100228",
+                "createTime": "2022‐05‐13 20:24:59",
+                "logNumber": "HP2022051300000001",
+                "mo": "",
+                "qty": "1",
+                "supplementList": [
+
             {
-                //dataToMachine = GetCodeFromMES("containerCode", deviceCode, URL.scanSubmit);
-                dataToMachine = GetReturnFromMES("containerCode", deviceCode, URL.scanSubmit);
+                            "sourceVehicle": "220421XSH04",
+                         "targetVehicle": "220426XSH11",
+                        "snNumber": "HDX61975B5J1T9P98"
+
+            },
+                     {
+                            "sourceVehicle": "A18XSH10001",
+                         "targetVehicle": "220426XSH11",
+                        "snNumber": "HDX21472JK313K99A"
+
+            }
+                ] }*/
+            if (deviceID == submit_ID_0 || deviceID == submit_ID_1)
+            {
+                Glass glass = new Glass();
+                SubmitData submitData = new SubmitData();
+
+                BasicInfo.Instance.createTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                submitData.logNumber = LogUtil.logNumber;
+                submitData.mo = MainForm.thisForm.textBox_mo.Text;//工单号
+                submitData.qty = "1";//qty怎么定值待确认
+
+                glass.sourceVehicle = subs[1];
+                glass.targetVehicle = subs[2];
+                glass.snNumber = subs[3];
+                submitData.supplementList.Add(glass);
+
+                //拼接Json数据
+                JObject submitJson = JsonUtil.ToJObject(BasicInfo.Instance);
+                JObject tmp = JsonUtil.ToJObject(submitData);
+                submitJson.Merge(tmp);
+
+                dataToMachine = SubmitToMES(submitJson.ToString(), URL.scanSubmit);
             }
 
             return dataToMachine;
         }
+
+        
 
 
         /// <summary>
