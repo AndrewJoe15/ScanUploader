@@ -18,9 +18,10 @@ namespace ChemicalScan.Utils
     {
         public static string logPath = "./Log/";
 
-        public static string logNumber;
+        public static string logNumber = "00001000";
 
-        public static string streamNumer = "00000026"; //流水号
+        public static string streamNumerStr = "00001000";
+        public static int streamNumer = 0; //流水号
 
         public static int maxLength = 5000; //显示的log 最大长度
 
@@ -28,18 +29,22 @@ namespace ChemicalScan.Utils
 
         private static string prefix = "HP";//日志前两个字母，化抛
 
+/*        public static string getLogNumber()
+        {
+            streamNumerStr = streamNumer.ToString("0000");
+            streamNumer++;
+            logNumber = DateTime.Now.ToString("yyyyMMdd") + streamNumerStr;
+            return logNumber;
+        }*/
         public static string getLogNumber()
         {
-            if(logNumber == "")
-                logNumber = prefix + DateTime.Now.ToString("yyyyMMdd") + streamNumer;
             return logNumber;
         }
-
         public static void WriteLog(string logContent)
         {
             if (!File.Exists(logPath))
                 Directory.CreateDirectory(logPath);
-            logNumber = prefix + DateTime.Now.ToString("yyyyMMdd") + streamNumer;
+            logNumber = DateTime.Now.ToString("yyyyMMdd") + streamNumerStr;
             fileName = logNumber + ".txt";
             //打开一个文件流，文件尾追加模式
             FileStream fileStream = new FileStream(logPath + fileName, FileMode.Append);

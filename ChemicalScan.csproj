@@ -56,6 +56,7 @@
     <Compile Include="Controller\UserManager.cs" />
     <Compile Include="Model\Container.cs" />
     <Compile Include="Model\Glass.cs" />
+    <Compile Include="Model\GlobalValue.cs" />
     <Compile Include="Model\SingleTon.cs" />
     <Compile Include="Model\SubmitData.cs" />
     <Compile Include="Utils\JsonUtil.cs" />

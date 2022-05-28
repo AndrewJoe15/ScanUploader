@@ -19,17 +19,28 @@ namespace ChemicalScan.Controller
     /// </summary>
     public class Communicator
     {
-        //Machine发来字符串数据分割符号
+        //PLC发来字符串数据分割符号
         private const char splitChar = ',';
-        private const string containerOut_ID_0   = "L1";
-        private const string containerOut_ID_1   = "L2";
-        private const string SN_ID_0            = "L3";
-        private const string SN_ID_1            = "L4";
-        private const string containerIn_ID_0  = "L5";
-        private const string containerIn_ID_1  = "L6";
-        private const string submit_ID_0  = "L7";
-        private const string submit_ID_1  = "L8";
-        private const string unbind_ID  = "L9";
+        
+        //*****PLC发过来字符串的标识符
+        //上料
+        //-扫出
+        private const string containerOut_ID_Left   = "L1";
+        private const string containerOut_ID_Right   = "L2";
+        //-解绑
+        private const string unbind_ID_Left = "L11";
+        private const string unbind_ID_Right = "L12";
+        //主体
+        //-玻璃
+        private const string SN_ID_Left            = "L3";
+        private const string SN_ID_Right            = "L4";
+        //下料
+        //-扫入
+        private const string containerIn_OK_ID  = "L5";
+        private const string containerIn_NG_ID  = "L6";
+        //-提交
+        private const string submit_ID_Left  = "L7";
+        private const string submit_ID_Right  = "L8"; 
 
         /// <summary>
         /// 向MES请求数据
@@ -61,26 +72,34 @@ namespace ChemicalScan.Controller
         public static ReturnData GetReturnFromMES(string deviceCodeKey, string deviceCodeValue, string url)
         {
             ReturnData rdata = null;
+            JObject dataFromMes = null;
 
+            //更新BasicInfo的生成时间
             BasicInfo.Instance.createTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            //添加<码,值> 生成json数据
             string dataToMES = JsonUtil.ToJson(BasicInfo.Instance, deviceCodeKey, deviceCodeValue);
 
-            Debug.WriteLine(dataToMES);
-            LogUtil.WriteLog("发给MES端口的消息: \n" + dataToMES);
-
-            JObject dataFromMes = HttpUtil.PostResponse(url, dataToMES);
-            
-            if (dataFromMes["code"] != null)
+            if (dataToMES != null && dataToMES.Trim()!="")
             {
-                //确保发回来的body有内容才赋值
-                rdata = new ReturnData();
-                rdata.code = dataFromMes["code"].ToString();
-                rdata.msg = dataFromMes["msg"].ToString();
-                if(dataFromMes["data"] != null)
-                    rdata.data = dataFromMes["data"].ToString();
-                LogUtil.WriteLog("收到MES端口的消息: \n" + dataFromMes.ToString());
+                Debug.WriteLine(dataToMES);
+                LogUtil.WriteLog("发给MES端口的消息: \n" + dataToMES);
+
+                dataFromMes = HttpUtil.PostResponse(url, dataToMES);
             }
 
+            if (dataFromMes != null)
+            {
+                if (dataFromMes["code"] != null)
+                {
+                    //确保发回来的body有内容才赋值
+                    rdata = new ReturnData();
+                    rdata.code = dataFromMes["code"].ToString();
+                    rdata.msg = dataFromMes["msg"].ToString();
+                    if (dataFromMes["data"] != null)
+                        rdata.data = dataFromMes["data"].ToString();
+                    LogUtil.WriteLog("收到MES端口的消息: \n" + dataFromMes.ToString());
+                }
+            }
             return rdata;
         }
 
@@ -107,9 +126,40 @@ namespace ChemicalScan.Controller
             return rdata;
         }
 
+        private static ReturnData SubmitGetReturn(string[] subs)
+        {
+            ReturnData dataToMachine;
+            Glass glass = new Glass();
+            SubmitData submitData = new SubmitData();
+
+            BasicInfo.Instance.createTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            submitData.logNumber = LogUtil.logNumber;
+            submitData.mo = MainForm.thisForm.textBox_mo.Text;//工单号
+
+            //从subs[1]开始，每三个为一组，分别为 扫出载具码，扫入载具码，玻璃码
+            for(int i = 1; i <= subs.Length - 3; i+=3)
+            {
+                glass.sourceVehicle = subs[i];
+                glass.targetVehicle = subs[i+1];
+                glass.snNumber = subs[i+2];
+                submitData.supplementList.Add(glass);
+            }           
+            submitData.qty = submitData.supplementList.Count.ToString();//qty 载具内玻璃数量
+
+            //拼接Json数据
+            JObject submitJson = JsonUtil.ToJObject(BasicInfo.Instance);
+            JObject tmp = JsonUtil.ToJObject(submitData);
+            submitJson.Merge(tmp);
+
+            dataToMachine = SubmitToMES(submitJson.ToString(), URL.scanSubmit);
+            return dataToMachine;
+        }
+
         /// <summary>
         /// Communicator <-> MES 
         /// 解析Machine发来的数据，发送给MES，并整理MES传回的数据
+        /// 不端口，统一处理
         /// </summary>
         /// <param name="str">Machine 发来的字符串</param>
         public static ReturnData GetDataFromMES(string str)
@@ -121,94 +171,102 @@ namespace ChemicalScan.Controller
             //string dataToMachine = deviceID;//字符串最开始为 "L1..." "L2..."
             ReturnData dataToMachine = new ReturnData();
             //化抛架 载具扫出
-            if (deviceID == containerOut_ID_0 || deviceID == containerOut_ID_1)
+            if (deviceID == containerOut_ID_Left || deviceID == containerOut_ID_Right)
             {
-                //GetData(ref dataToMachine, "containerCode", deviceCode, URL.scanContainerOut);
-                //dataToMachine = GetCodeFromMES("containerCode", deviceCode, URL.scanContainerOut);
                 dataToMachine = GetReturnFromMES("containerCode", deviceCode, URL.scanContainerOut);
             }
             //玻璃
-            if (deviceID == SN_ID_0 || deviceID == SN_ID_1)
+            if (deviceID == SN_ID_Left || deviceID == SN_ID_Right)
             {
-                //GetData(ref dataToMachine, "snNumber", deviceCode, URL.scanSn);
-                //dataToMachine = GetCodeFromMES("snNumber", deviceCode, URL.scanSn);
                 dataToMachine = GetReturnFromMES("snNumber", deviceCode, URL.scanSn);
                 if (deviceCode == "NoRead")
                     dataToMachine.code = ReturnData.code_error;
             }
             //载具 扫入
-            if (deviceID == containerIn_ID_0 || deviceID == containerIn_ID_1)
+            if (deviceID == containerIn_OK_ID || deviceID == containerIn_NG_ID)
             {
-                //GetData(ref dataToMachine, "containerCode", deviceCode, URL.scanContainerIn);
-                //dataToMachine = GetCodeFromMES("containerCode", deviceCode, URL.scanContainerIn);
                 dataToMachine = GetReturnFromMES("containerCode", deviceCode, URL.scanContainerIn);
             }
 
             //解绑
-            if(deviceID == unbind_ID)
+            if(deviceID == unbind_ID_Left || deviceID == unbind_ID_Right)
             {
-                //dataToMachine = GetCodeFromMES("containerCode", deviceCode, URL.scanContainerUnbind);
                 dataToMachine = GetReturnFromMES("containerCode", deviceCode, URL.scanContainerUnbind);
             }
 
-            // L7,cOut,cIn,SN,cOut,cIn,SN,cOut,cIn,SN...
-            //提交
-/*          {
-                "site": "2018",
-                "operation": "A0312",
-                "resource": "62046875",
-                "productModel": "L3038LA",
-                "productModelVersion": "1.0",
-                "shift": "晚班",
-                "createBy": "sy100228",
-                "createTime": "2022‐05‐13 20:24:59",
-                "logNumber": "HP2022051300000001",
-                "mo": "",
-                "qty": "1",
-                "supplementList": [
-
+            // L5,cOut,cIn,SN,cOut,cIn,SN,cOut,cIn,SN...
+            if (deviceID == submit_ID_Left || deviceID == submit_ID_Right)
             {
-                            "sourceVehicle": "220421XSH04",
-                         "targetVehicle": "220426XSH11",
-                        "snNumber": "HDX61975B5J1T9P98"
-
-            },
-                     {
-                            "sourceVehicle": "A18XSH10001",
-                         "targetVehicle": "220426XSH11",
-                        "snNumber": "HDX21472JK313K99A"
-
-            }
-                ] }*/
-            if (deviceID == submit_ID_0 || deviceID == submit_ID_1)
-            {
-                Glass glass = new Glass();
-                SubmitData submitData = new SubmitData();
-
-                BasicInfo.Instance.createTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-
-                submitData.logNumber = LogUtil.logNumber;
-                submitData.mo = MainForm.thisForm.textBox_mo.Text;//工单号
-                submitData.qty = "1";//qty怎么定值待确认
-
-                glass.sourceVehicle = subs[1];
-                glass.targetVehicle = subs[2];
-                glass.snNumber = subs[3];
-                submitData.supplementList.Add(glass);
-
-                //拼接Json数据
-                JObject submitJson = JsonUtil.ToJObject(BasicInfo.Instance);
-                JObject tmp = JsonUtil.ToJObject(submitData);
-                submitJson.Merge(tmp);
-
-                dataToMachine = SubmitToMES(submitJson.ToString(), URL.scanSubmit);
+                dataToMachine = SubmitGetReturn(subs);
             }
 
             return dataToMachine;
         }
 
-        
+        /// <summary>
+        /// Communicator <-> MES 
+        /// 解析Machine发来的数据，发送给MES，并整理MES传回的数据
+        /// 分端口号处理
+        /// </summary>
+        /// <param name="str">Machine 发来的字符串</param>
+        public static ReturnData GetDataFromMES(string str, int port)
+        {
+            //设备编号,设备码  L1,220421XSH01 
+            string[] subs = str.Split(splitChar);
+            string operationID = subs[0];
+            string deviceCode = subs[1];
+            //string dataToMachine = deviceID;//字符串最开始为 "L1..." "L2..."
+            ReturnData dataToMachine = new ReturnData();
+            
+            //上料端口
+            if (port == ConnectManager.port_L1L2)
+            {
+                //化抛架 载具扫出
+                if (operationID == containerOut_ID_Left || operationID == containerOut_ID_Right)
+                {
+                    dataToMachine = GetReturnFromMES("containerCode", deviceCode, URL.scanContainerOut);
+                }
+                //解绑
+                if (operationID == unbind_ID_Left || operationID == unbind_ID_Right)
+                {
+                    dataToMachine = GetReturnFromMES("containerCode", deviceCode, URL.scanContainerUnbind);
+                }
+            }
 
+            //主体端口
+            if (port == ConnectManager.port_L3L4)
+            {
+                //玻璃
+                if (operationID == SN_ID_Left || operationID == SN_ID_Right)
+                {
+                    dataToMachine = GetReturnFromMES("snNumber", deviceCode, URL.scanSn);
+                    if (deviceCode == "NoRead")
+                        dataToMachine.code = ReturnData.code_error;
+                }
+            }
+
+            //下料端口
+            if (port == ConnectManager.port_L5L6)
+            {
+                //载具 扫入
+                if (operationID == containerIn_OK_ID || operationID == containerIn_NG_ID)
+                {
+                    dataToMachine = GetReturnFromMES("containerCode", deviceCode, URL.scanContainerIn);
+                }
+            }
+
+            //提交端口
+            if (port == ConnectManager.port_L7L8)
+            {
+                //提交
+                // L7,cOut,cIn,SN,cOut,cIn,SN,cOut,cIn,SN...
+                if (operationID == submit_ID_Left || operationID == submit_ID_Right)
+                {
+                    dataToMachine = SubmitGetReturn(subs);
+                }
+            }
+            return dataToMachine;
+        }
 
         /// <summary>
         /// 从MES端获取数据，整理成字符串准备发给Machine

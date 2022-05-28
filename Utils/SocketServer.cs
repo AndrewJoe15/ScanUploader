@@ -84,8 +84,6 @@ namespace ChemicalScan.Utils
                 {
                     //Socket创建的新连接
                     Socket tmp = _socket.Accept();//持续等待接受客户端消息
-                    //tmp.Send(Encoding.UTF8.GetBytes("Socket服务端发送消息:"));
-                    Debug.WriteLine("Socket服务端发送消息:");
                     //开启新线程接受客户端消息
                     Thread thread = new Thread(ReceiveMessage);
                     thread.Start(tmp);
@@ -117,11 +115,11 @@ namespace ChemicalScan.Utils
                     {
                         string str = Encoding.Default.GetString(buffer, 0, length);
 
-                        if (str == "")
+                        if (str.Trim() == "")
                         {
                             Thread.Sleep(100);
                         }
-                        if (str == "STOP")
+                        if (str == ConnectManager.finishID)
                         {
                             string rep = clientSocket.RemoteEndPoint.ToString();
                             Debug.WriteLine("与客户端{0}的Socket连接关闭.", rep);
@@ -134,11 +132,13 @@ namespace ChemicalScan.Utils
                             break;
                         }
                         Debug.WriteLine("接收客户端 {0} 的消息: {1}。", clientSocket.RemoteEndPoint.ToString(), str);
-                        LogUtil.WriteLog("收到Machine端的消息: " + str);
+                        LogUtil.WriteLog("上位机收到Machine端的消息: " + str);
                         
                         //解析消息传给MES，并将回传数据转发给Machine
-                        ReturnData dataToMachine = Communicator.GetDataFromMES(str);
-                        if(dataToMachine != null && dataToMachine.code != null)
+                        IPEndPoint endPort = (IPEndPoint)clientSocket.LocalEndPoint;
+                        ReturnData dataToMachine = Communicator.GetDataFromMES(str,endPort.Port);
+
+                        if (dataToMachine != null && dataToMachine.code != null)
                         {
                             //将code发给machine
                             clientSocket.Send(Encoding.UTF8.GetBytes(dataToMachine.code));
@@ -148,7 +148,7 @@ namespace ChemicalScan.Utils
                             //如果返回状态码为错误码，将出错信息展示给操作员
                             if(dataToMachine.code == ReturnData.code_error)
                             {
-                                ShowUtil.ShowWarning(dataToMachine.msg);
+                                //ShowUtil.ShowWarning(dataToMachine.msg);
                             }
 
                         }
