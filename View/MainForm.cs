@@ -82,6 +82,9 @@ namespace ChemicalScan.View
             comboBox_shift.Items.AddRange(shifts);
 
             textBox_mo.Text = "";
+
+            //最大化
+            
         }
 
 

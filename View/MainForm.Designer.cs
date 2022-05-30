@@ -58,12 +58,14 @@
             this.textBox_log = new System.Windows.Forms.TextBox();
             this.label_msgFromMES = new System.Windows.Forms.Label();
             this.textBox_msgFromMES = new System.Windows.Forms.TextBox();
+            this.panel_log = new System.Windows.Forms.Panel();
             this.menuStrip_.SuspendLayout();
             this.panel_basicInformation.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip_
             // 
+            this.menuStrip_.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.menuStrip_.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip_.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.权限ToolStripMenuItem,
@@ -71,8 +73,8 @@
             this.设置ToolStripMenuItem});
             this.menuStrip_.Location = new System.Drawing.Point(0, 0);
             this.menuStrip_.Name = "menuStrip_";
-            this.menuStrip_.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip_.Size = new System.Drawing.Size(948, 25);
+            this.menuStrip_.Padding = new System.Windows.Forms.Padding(5, 3, 0, 3);
+            this.menuStrip_.Size = new System.Drawing.Size(1028, 30);
             this.menuStrip_.TabIndex = 17;
             this.menuStrip_.Text = "menuStrip1";
             // 
@@ -83,179 +85,165 @@
             this.技术支持ToolStripMenuItem,
             this.开发人员ToolStripMenuItem});
             this.权限ToolStripMenuItem.Name = "权限ToolStripMenuItem";
-            this.权限ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.权限ToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
             this.权限ToolStripMenuItem.Text = "权限";
             // 
             // 操作员ToolStripMenuItem
             // 
             this.操作员ToolStripMenuItem.Name = "操作员ToolStripMenuItem";
-            this.操作员ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.操作员ToolStripMenuItem.Size = new System.Drawing.Size(134, 24);
             this.操作员ToolStripMenuItem.Text = "操作人员";
             // 
             // 技术支持ToolStripMenuItem
             // 
             this.技术支持ToolStripMenuItem.Name = "技术支持ToolStripMenuItem";
-            this.技术支持ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.技术支持ToolStripMenuItem.Size = new System.Drawing.Size(134, 24);
             this.技术支持ToolStripMenuItem.Text = "技术支持";
             // 
             // 开发人员ToolStripMenuItem
             // 
             this.开发人员ToolStripMenuItem.Name = "开发人员ToolStripMenuItem";
-            this.开发人员ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.开发人员ToolStripMenuItem.Size = new System.Drawing.Size(134, 24);
             this.开发人员ToolStripMenuItem.Text = "开发人员";
             // 
             // 日志ToolStripMenuItem
             // 
             this.日志ToolStripMenuItem.Name = "日志ToolStripMenuItem";
-            this.日志ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.日志ToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
             this.日志ToolStripMenuItem.Text = "日志";
             // 
             // 设置ToolStripMenuItem
             // 
             this.设置ToolStripMenuItem.Name = "设置ToolStripMenuItem";
-            this.设置ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.设置ToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
             this.设置ToolStripMenuItem.Text = "设置";
             // 
             // textBox_productModel
             // 
-            this.textBox_productModel.Location = new System.Drawing.Point(89, 146);
-            this.textBox_productModel.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_productModel.Location = new System.Drawing.Point(119, 195);
             this.textBox_productModel.Name = "textBox_productModel";
-            this.textBox_productModel.Size = new System.Drawing.Size(204, 21);
+            this.textBox_productModel.Size = new System.Drawing.Size(180, 26);
             this.textBox_productModel.TabIndex = 7;
             this.textBox_productModel.TextChanged += new System.EventHandler(this.textBox_productModel_TextChanged);
             // 
             // label_productModelVersion
             // 
             this.label_productModelVersion.AutoSize = true;
-            this.label_productModelVersion.Location = new System.Drawing.Point(23, 190);
-            this.label_productModelVersion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_productModelVersion.Location = new System.Drawing.Point(31, 253);
             this.label_productModelVersion.Name = "label_productModelVersion";
-            this.label_productModelVersion.Size = new System.Drawing.Size(65, 12);
+            this.label_productModelVersion.Size = new System.Drawing.Size(88, 16);
             this.label_productModelVersion.TabIndex = 8;
             this.label_productModelVersion.Text = "型号版本：";
             // 
             // label_productModel
             // 
             this.label_productModel.AutoSize = true;
-            this.label_productModel.Location = new System.Drawing.Point(23, 154);
-            this.label_productModel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_productModel.Location = new System.Drawing.Point(31, 205);
             this.label_productModel.Name = "label_productModel";
-            this.label_productModel.Size = new System.Drawing.Size(65, 12);
+            this.label_productModel.Size = new System.Drawing.Size(88, 16);
             this.label_productModel.TabIndex = 6;
             this.label_productModel.Text = "产品型号：";
             // 
             // textBox_productModelVersion
             // 
-            this.textBox_productModelVersion.Location = new System.Drawing.Point(89, 182);
-            this.textBox_productModelVersion.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_productModelVersion.Location = new System.Drawing.Point(119, 243);
             this.textBox_productModelVersion.Name = "textBox_productModelVersion";
-            this.textBox_productModelVersion.Size = new System.Drawing.Size(204, 21);
+            this.textBox_productModelVersion.Size = new System.Drawing.Size(180, 26);
             this.textBox_productModelVersion.TabIndex = 9;
             this.textBox_productModelVersion.TextChanged += new System.EventHandler(this.textBox_productModelVersion_TextChanged);
             // 
             // textBox_resource
             // 
-            this.textBox_resource.Location = new System.Drawing.Point(89, 107);
-            this.textBox_resource.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_resource.Location = new System.Drawing.Point(119, 143);
             this.textBox_resource.Name = "textBox_resource";
-            this.textBox_resource.Size = new System.Drawing.Size(204, 21);
+            this.textBox_resource.Size = new System.Drawing.Size(180, 26);
             this.textBox_resource.TabIndex = 5;
             this.textBox_resource.TextChanged += new System.EventHandler(this.textBox_resource_TextChanged);
             // 
             // label_shift
             // 
             this.label_shift.AutoSize = true;
-            this.label_shift.Location = new System.Drawing.Point(23, 226);
-            this.label_shift.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_shift.Location = new System.Drawing.Point(31, 301);
             this.label_shift.Name = "label_shift";
-            this.label_shift.Size = new System.Drawing.Size(41, 12);
+            this.label_shift.Size = new System.Drawing.Size(56, 16);
             this.label_shift.TabIndex = 10;
             this.label_shift.Text = "班次：";
             // 
             // label_resource
             // 
             this.label_resource.AutoSize = true;
-            this.label_resource.Location = new System.Drawing.Point(23, 115);
-            this.label_resource.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_resource.Location = new System.Drawing.Point(31, 153);
             this.label_resource.Name = "label_resource";
-            this.label_resource.Size = new System.Drawing.Size(53, 12);
+            this.label_resource.Size = new System.Drawing.Size(72, 16);
             this.label_resource.TabIndex = 4;
             this.label_resource.Text = "设备号：";
             // 
             // textBox_operation
             // 
-            this.textBox_operation.Location = new System.Drawing.Point(89, 66);
-            this.textBox_operation.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_operation.Location = new System.Drawing.Point(119, 88);
             this.textBox_operation.Name = "textBox_operation";
-            this.textBox_operation.Size = new System.Drawing.Size(204, 21);
+            this.textBox_operation.Size = new System.Drawing.Size(180, 26);
             this.textBox_operation.TabIndex = 3;
             this.textBox_operation.TextChanged += new System.EventHandler(this.textBox_operation_TextChanged);
             // 
             // label_createBy
             // 
             this.label_createBy.AutoSize = true;
-            this.label_createBy.Location = new System.Drawing.Point(23, 266);
-            this.label_createBy.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_createBy.Location = new System.Drawing.Point(31, 355);
             this.label_createBy.Name = "label_createBy";
-            this.label_createBy.Size = new System.Drawing.Size(53, 12);
+            this.label_createBy.Size = new System.Drawing.Size(72, 16);
             this.label_createBy.TabIndex = 12;
             this.label_createBy.Text = "操作人：";
             // 
             // label_operation
             // 
             this.label_operation.AutoSize = true;
-            this.label_operation.Location = new System.Drawing.Point(23, 74);
-            this.label_operation.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_operation.Location = new System.Drawing.Point(31, 99);
             this.label_operation.Name = "label_operation";
-            this.label_operation.Size = new System.Drawing.Size(41, 12);
+            this.label_operation.Size = new System.Drawing.Size(56, 16);
             this.label_operation.TabIndex = 2;
             this.label_operation.Text = "工序：";
             // 
             // textBox_createBy
             // 
-            this.textBox_createBy.Location = new System.Drawing.Point(89, 258);
-            this.textBox_createBy.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_createBy.Location = new System.Drawing.Point(119, 344);
             this.textBox_createBy.Name = "textBox_createBy";
-            this.textBox_createBy.Size = new System.Drawing.Size(204, 21);
+            this.textBox_createBy.Size = new System.Drawing.Size(180, 26);
             this.textBox_createBy.TabIndex = 13;
             this.textBox_createBy.TextChanged += new System.EventHandler(this.textBox_createBy_TextChanged);
             // 
             // textBox_site
             // 
-            this.textBox_site.Location = new System.Drawing.Point(89, 26);
-            this.textBox_site.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_site.Location = new System.Drawing.Point(119, 35);
             this.textBox_site.Name = "textBox_site";
-            this.textBox_site.Size = new System.Drawing.Size(204, 21);
+            this.textBox_site.Size = new System.Drawing.Size(180, 26);
             this.textBox_site.TabIndex = 1;
             this.textBox_site.TextChanged += new System.EventHandler(this.textBox_site_TextChanged);
             // 
             // label_site
             // 
             this.label_site.AutoSize = true;
-            this.label_site.Location = new System.Drawing.Point(23, 34);
-            this.label_site.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_site.Location = new System.Drawing.Point(31, 45);
             this.label_site.Name = "label_site";
-            this.label_site.Size = new System.Drawing.Size(65, 12);
+            this.label_site.Size = new System.Drawing.Size(88, 16);
             this.label_site.TabIndex = 0;
             this.label_site.Text = "工厂编号：";
             // 
             // label_basicInformation
             // 
             this.label_basicInformation.AutoSize = true;
+            this.label_basicInformation.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label_basicInformation.Location = new System.Drawing.Point(-1, 0);
-            this.label_basicInformation.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_basicInformation.Name = "label_basicInformation";
-            this.label_basicInformation.Size = new System.Drawing.Size(53, 12);
+            this.label_basicInformation.Size = new System.Drawing.Size(76, 16);
             this.label_basicInformation.TabIndex = 16;
             this.label_basicInformation.Text = "基本信息";
             // 
             // button_start
             // 
-            this.button_start.Location = new System.Drawing.Point(199, 335);
-            this.button_start.Margin = new System.Windows.Forms.Padding(2);
+            this.button_start.Location = new System.Drawing.Point(207, 447);
             this.button_start.Name = "button_start";
-            this.button_start.Size = new System.Drawing.Size(56, 21);
+            this.button_start.Size = new System.Drawing.Size(75, 28);
             this.button_start.TabIndex = 17;
             this.button_start.Text = "确 定";
             this.button_start.UseVisualStyleBackColor = true;
@@ -264,15 +252,16 @@
             // comboBox_shift
             // 
             this.comboBox_shift.FormattingEnabled = true;
-            this.comboBox_shift.Location = new System.Drawing.Point(89, 220);
-            this.comboBox_shift.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBox_shift.Location = new System.Drawing.Point(119, 293);
             this.comboBox_shift.Name = "comboBox_shift";
-            this.comboBox_shift.Size = new System.Drawing.Size(204, 20);
+            this.comboBox_shift.Size = new System.Drawing.Size(180, 24);
             this.comboBox_shift.TabIndex = 19;
             this.comboBox_shift.SelectedIndexChanged += new System.EventHandler(this.comboBox_shift_SelectedIndexChanged);
             // 
             // panel_basicInformation
             // 
+            this.panel_basicInformation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.panel_basicInformation.Controls.Add(this.textBox_mo);
             this.panel_basicInformation.Controls.Add(this.label_mo);
             this.panel_basicInformation.Controls.Add(this.button_modify);
@@ -292,82 +281,88 @@
             this.panel_basicInformation.Controls.Add(this.label_productModel);
             this.panel_basicInformation.Controls.Add(this.label_productModelVersion);
             this.panel_basicInformation.Controls.Add(this.textBox_productModel);
-            this.panel_basicInformation.Location = new System.Drawing.Point(31, 35);
-            this.panel_basicInformation.Margin = new System.Windows.Forms.Padding(2);
+            this.panel_basicInformation.Location = new System.Drawing.Point(23, 47);
             this.panel_basicInformation.Name = "panel_basicInformation";
-            this.panel_basicInformation.Size = new System.Drawing.Size(323, 380);
+            this.panel_basicInformation.Size = new System.Drawing.Size(343, 550);
             this.panel_basicInformation.TabIndex = 16;
             // 
             // textBox_mo
             // 
-            this.textBox_mo.Location = new System.Drawing.Point(89, 296);
-            this.textBox_mo.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_mo.Location = new System.Drawing.Point(119, 395);
             this.textBox_mo.Name = "textBox_mo";
-            this.textBox_mo.Size = new System.Drawing.Size(204, 21);
+            this.textBox_mo.Size = new System.Drawing.Size(180, 26);
             this.textBox_mo.TabIndex = 22;
             // 
             // label_mo
             // 
             this.label_mo.AutoSize = true;
-            this.label_mo.Location = new System.Drawing.Point(23, 304);
-            this.label_mo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_mo.Location = new System.Drawing.Point(31, 405);
             this.label_mo.Name = "label_mo";
-            this.label_mo.Size = new System.Drawing.Size(53, 12);
+            this.label_mo.Size = new System.Drawing.Size(72, 16);
             this.label_mo.TabIndex = 21;
             this.label_mo.Text = "工单号：";
             // 
             // button_modify
             // 
-            this.button_modify.Location = new System.Drawing.Point(107, 335);
-            this.button_modify.Margin = new System.Windows.Forms.Padding(2);
+            this.button_modify.Location = new System.Drawing.Point(84, 447);
             this.button_modify.Name = "button_modify";
-            this.button_modify.Size = new System.Drawing.Size(56, 21);
+            this.button_modify.Size = new System.Drawing.Size(75, 28);
             this.button_modify.TabIndex = 20;
             this.button_modify.Text = "修 改";
             this.button_modify.UseVisualStyleBackColor = true;
             // 
             // textBox_log
             // 
-            this.textBox_log.Location = new System.Drawing.Point(404, 35);
-            this.textBox_log.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_log.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.textBox_log.Location = new System.Drawing.Point(407, 62);
             this.textBox_log.Multiline = true;
             this.textBox_log.Name = "textBox_log";
             this.textBox_log.ReadOnly = true;
-            this.textBox_log.Size = new System.Drawing.Size(519, 278);
+            this.textBox_log.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox_log.Size = new System.Drawing.Size(594, 492);
             this.textBox_log.TabIndex = 19;
             // 
             // label_msgFromMES
             // 
             this.label_msgFromMES.AutoSize = true;
-            this.label_msgFromMES.Location = new System.Drawing.Point(392, 379);
-            this.label_msgFromMES.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_msgFromMES.Location = new System.Drawing.Point(404, 630);
             this.label_msgFromMES.Name = "label_msgFromMES";
-            this.label_msgFromMES.Size = new System.Drawing.Size(65, 12);
+            this.label_msgFromMES.Size = new System.Drawing.Size(88, 16);
             this.label_msgFromMES.TabIndex = 23;
             this.label_msgFromMES.Text = "错误信息：";
             // 
             // textBox_msgFromMES
             // 
-            this.textBox_msgFromMES.Location = new System.Drawing.Point(452, 363);
-            this.textBox_msgFromMES.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_msgFromMES.Location = new System.Drawing.Point(488, 589);
             this.textBox_msgFromMES.Multiline = true;
             this.textBox_msgFromMES.Name = "textBox_msgFromMES";
             this.textBox_msgFromMES.ReadOnly = true;
-            this.textBox_msgFromMES.Size = new System.Drawing.Size(471, 52);
+            this.textBox_msgFromMES.Size = new System.Drawing.Size(513, 101);
             this.textBox_msgFromMES.TabIndex = 26;
+            // 
+            // panel_log
+            // 
+            this.panel_log.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.panel_log.Location = new System.Drawing.Point(392, 47);
+            this.panel_log.Name = "panel_log";
+            this.panel_log.Size = new System.Drawing.Size(624, 655);
+            this.panel_log.TabIndex = 27;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(948, 457);
+            this.ClientSize = new System.Drawing.Size(1028, 749);
             this.Controls.Add(this.textBox_msgFromMES);
             this.Controls.Add(this.label_msgFromMES);
             this.Controls.Add(this.textBox_log);
             this.Controls.Add(this.panel_basicInformation);
             this.Controls.Add(this.menuStrip_);
+            this.Controls.Add(this.panel_log);
+            this.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.MainMenuStrip = this.menuStrip_;
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.menuStrip_.ResumeLayout(false);
@@ -410,6 +405,7 @@
         public System.Windows.Forms.TextBox textBox_mo;
         private System.Windows.Forms.Label label_msgFromMES;
         public System.Windows.Forms.TextBox textBox_msgFromMES;
+        private System.Windows.Forms.Panel panel_log;
     }
 }
 
