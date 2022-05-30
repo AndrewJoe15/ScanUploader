@@ -14,12 +14,12 @@ namespace ChemicalScan.Controller
 {
     internal class ConnectManager : SingleTon<ConnectManager>
     {
-        public const int port_L1L2 = 1100;
-        public const int port_L3L4 = 1200;
-        public const int port_L5L6 = 1300;
-        public const int port_L7L8 = 1400;
+        public const int port_up = 1100;            //上料端口
+        public const int port_glassScan = 1200;     //玻璃涂油扫码端口
+        public const int port_down = 1300;          //下料端口
+        public const int port_submit = 1400;        //提交端口
 
-        public const string finishID = "STOP";
+        public const string stopID = "STOP";
 
         private const double connectTimeout = 11 * 60 * 60 * 1000; //11小时
 
@@ -29,16 +29,16 @@ namespace ChemicalScan.Controller
         public void StartSocketServer()
         {
 
-            SocketServer socket_L1L2 = new SocketServer(hostIP, port_L1L2);
+            SocketServer socket_L1L2 = new SocketServer(hostIP, port_up);
             socket_L1L2.StartListen();
 
-            SocketServer socket_L3L4 = new SocketServer(hostIP, port_L3L4);
+            SocketServer socket_L3L4 = new SocketServer(hostIP, port_glassScan);
             socket_L3L4.StartListen();
 
-            SocketServer socket_L5L6 = new SocketServer(hostIP, port_L5L6);
+            SocketServer socket_L5L6 = new SocketServer(hostIP, port_down);
             socket_L5L6.StartListen();
 
-            SocketServer socket_L7L8 = new SocketServer(hostIP, port_L7L8);
+            SocketServer socket_L7L8 = new SocketServer(hostIP, port_submit);
             socket_L7L8.StartListen();
         }
 

@@ -119,7 +119,7 @@ namespace ChemicalScan.Utils
                         {
                             Thread.Sleep(100);
                         }
-                        if (str == ConnectManager.finishID)
+                        if (str == ConnectManager.stopID)
                         {
                             string rep = clientSocket.RemoteEndPoint.ToString();
                             Debug.WriteLine("与客户端{0}的Socket连接关闭.", rep);

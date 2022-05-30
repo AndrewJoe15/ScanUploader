@@ -31,6 +31,12 @@ namespace ChemicalScan
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new HttpLoginForm());
             Application.Run(new MainForm());
+
+
+#if CHEMICALSCAN
+#elif KIBBLESCAN
+#elif BDSSCAN
+#endif
         }
     }
 }

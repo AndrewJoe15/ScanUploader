@@ -21,8 +21,9 @@ namespace ChemicalScan.Controller
     {
         //PLC发来字符串数据分割符号
         private const char splitChar = ',';
-        
+
         //*****PLC发过来字符串的标识符
+#if CHEMICALSCAN
         //上料
         //-扫出
         private const string containerOut_ID_Left   = "L1";
@@ -49,6 +50,40 @@ namespace ChemicalScan.Controller
         private const string submit_OK_Right_Finish  = "OK1" + submit_Finish_ID; 
         private const string submit_NG_Left_Finish  = "NG2" + submit_Finish_ID; 
         private const string submit_NG_Right_Finish  = "NG1" + submit_Finish_ID; 
+
+#elif KIBBLESCAN
+        //上料
+        //-扫出载具
+        private const string containerOut_ID_1 = "L1";
+        private const string containerOut_ID_2 = "L2";
+        private const string containerOut_ID_3 = "L3";
+        private const string containerOut_ID_4 = "L4";
+        //-解绑
+        private const string unbind_ID_Left = "L11";
+        private const string unbind_ID_Right = "L12";
+        //主体
+        //-玻璃
+        private const string SN_ID_Left = "L3";
+        private const string SN_ID_Right = "L4";
+        //下料
+        //-扫入载具
+        private const string containerIn_OK_ID = "L5";
+        private const string containerIn_NG_ID = "L6";
+        //-放入玻璃
+        private const string submit_OK_Left = "OK2";
+        private const string submit_OK_Right = "OK1";
+        private const string submit_NG_Left = "NG2";
+        private const string submit_NG_Right = "NG1";
+        //-提交
+        private const string submit_Finish_ID = "FINISH";//插满提交后缀
+        private const string submit_OK_Left_Finish = "OK2" + submit_Finish_ID;
+        private const string submit_OK_Right_Finish = "OK1" + submit_Finish_ID;
+        private const string submit_NG_Left_Finish = "NG2" + submit_Finish_ID;
+        private const string submit_NG_Right_Finish = "NG1" + submit_Finish_ID;
+
+#elif BDSSCAN
+
+#endif
 
         /// <summary>
         /// 向MES请求数据
@@ -139,7 +174,6 @@ namespace ChemicalScan.Controller
         /// </summary>
         /// <param name="glasses"></param>
         /// <returns></returns>
-
         private static ReturnData SubmitToMES(ref List<Glass> glasses)
         {
             ReturnData dataToMachine;
@@ -161,22 +195,67 @@ namespace ChemicalScan.Controller
 
             dataToMachine = SubmitToMES(submitJson.ToString(), URL.scanSubmit);
 
-            glasses.Clear();//清空list
+            glasses.Clear();//最后清空list
             
             return dataToMachine;
         }
 
-        /// <summary>
-        /// 将玻璃添加到list中
-        /// </summary>
-        /// <param name="glass"></param>
-        /// <param name="glassList"></param>
-        /// <returns></returns>
-/*        private static void AddGlassToContainer(Glass glass, ref List<Glass> glassList)
-        {
-            glassList.Add(glass);
-        }*/
 
+        /// <summary>
+        /// Communicator <-> MES 
+        /// 解析Machine发来的数据，发送给MES，并整理MES传回的数据
+        /// 分端口号处理
+        /// </summary>
+        /// <param name="str">Machine 发来的字符串</param>
+        public static ReturnData GetDataFromMES(string str, int port)
+        {
+            //设备编号,设备码  L1,220421XSH01 
+            string[] subs = str.Split(splitChar);
+            string operationID = subs[0];
+            string deviceCode = subs[1];
+            //string dataToMachine = deviceID;//字符串最开始为 "L1..." "L2..."
+            ReturnData dataToMachine = new ReturnData();
+
+            //条件编译
+#if CHEMICALSCAN
+            //化抛
+            ChemicalScanHandler(port, subs, operationID, deviceCode, ref dataToMachine);
+            
+#elif KIBBLESCAN
+            //粗磨
+            //上料端口
+            if (port == ConnectManager.port_up)
+            {
+                
+            }
+
+            //涂油扫码端口
+            if (port == ConnectManager.port_glassScan)
+            {
+                
+            }
+
+            //下料端口
+            if (port == ConnectManager.port_down)
+            {
+                
+            }
+
+            //提交端口
+            if (port == ConnectManager.port_submit)
+            {
+                
+            }
+#elif BDSSCAN
+            //丝印前BDS
+
+#endif
+
+            return dataToMachine;
+        }
+
+        //化抛项目扫码上传业务逻辑
+#if CHEMICALSCAN
         /// <summary>
         /// Communicator <-> MES 
         /// 解析Machine发来的数据，发送给MES，并整理MES传回的数据
@@ -210,7 +289,7 @@ namespace ChemicalScan.Controller
             }
 
             //解绑
-            if(deviceID == unbind_ID_Left || deviceID == unbind_ID_Right)
+            if (deviceID == unbind_ID_Left || deviceID == unbind_ID_Right)
             {
                 dataToMachine = GetReturnFromMES("containerCode", deviceCode, URL.scanContainerUnbind);
             }
@@ -234,7 +313,7 @@ namespace ChemicalScan.Controller
                     GlobalValue.GlassList_NG_Right.Add(glass);
             }
 
-            if(deviceID.ToUpper() == submit_OK_Left_Finish)
+            if (deviceID.ToUpper() == submit_OK_Left_Finish)
                 dataToMachine = SubmitToMES(ref GlobalValue.GlassList_OK_Left);
             if (deviceID.ToUpper() == submit_OK_Right_Finish)
                 dataToMachine = SubmitToMES(ref GlobalValue.GlassList_OK_Right);
@@ -246,42 +325,11 @@ namespace ChemicalScan.Controller
             return dataToMachine;
         }
 
-        /// <summary>
-        /// Communicator <-> MES 
-        /// 解析Machine发来的数据，发送给MES，并整理MES传回的数据
-        /// 分端口号处理
-        /// </summary>
-        /// <param name="str">Machine 发来的字符串</param>
-        public static ReturnData GetDataFromMES(string str, int port)
-        {
-            //设备编号,设备码  L1,220421XSH01 
-            string[] subs = str.Split(splitChar);
-            string operationID = subs[0];
-            string deviceCode = subs[1];
-            //string dataToMachine = deviceID;//字符串最开始为 "L1..." "L2..."
-            ReturnData dataToMachine = new ReturnData();
-
-            //条件编译
-#if CHEMICALSCAN
-            //化抛
-            dataToMachine = ChemicalScanHandler(port, subs, operationID, deviceCode, ref dataToMachine);
-            
-#elif KIBBLESCAN
-            //粗磨
-
-#elif BDSSCAN
-            //丝印前BDS
-
-#endif
-
-            return dataToMachine;
-        }
-
-        private static ReturnData ChemicalScanHandler(int port, string[] subs, string operationID, string deviceCode, ref ReturnData dataToMachine)
+        private static void ChemicalScanHandler(int port, string[] subs, string operationID, string deviceCode, ref ReturnData dataToMachine)
         {
 
             //上料端口
-            if (port == ConnectManager.port_L1L2)
+            if (port == ConnectManager.port_up)
             {
                 //化抛架 载具扫出
                 if (operationID == containerOut_ID_Left || operationID == containerOut_ID_Right)
@@ -296,7 +344,7 @@ namespace ChemicalScan.Controller
             }
 
             //主体端口
-            if (port == ConnectManager.port_L3L4)
+            if (port == ConnectManager.port_glassScan)
             {
                 //玻璃
                 if (operationID == SN_ID_Left || operationID == SN_ID_Right)
@@ -308,7 +356,7 @@ namespace ChemicalScan.Controller
             }
 
             //下料端口
-            if (port == ConnectManager.port_L5L6)
+            if (port == ConnectManager.port_down)
             {
                 //载具 扫入
                 if (operationID == containerIn_OK_ID || operationID == containerIn_NG_ID)
@@ -318,7 +366,7 @@ namespace ChemicalScan.Controller
             }
 
             //提交端口
-            if (port == ConnectManager.port_L7L8)
+            if (port == ConnectManager.port_submit)
             {
                 //提交
                 //OK1,cOut,cIn,SN,
@@ -362,12 +410,13 @@ namespace ChemicalScan.Controller
                     dataToMachine.code = ReturnData.code_success;
                     LogUtil.WriteLog(operationID + "批量提交成功。");
                 }
-
-
             }
-
-            return dataToMachine;
         }
+#endif
+
+
+
+
 
         /// <summary>
         /// 从MES端获取数据，整理成字符串准备发给Machine
