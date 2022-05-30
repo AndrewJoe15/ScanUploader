@@ -140,10 +140,14 @@ namespace ChemicalScan.Utils
 
                         if (dataToMachine != null && dataToMachine.code != null)
                         {
-                            //将code发给machine
-                            clientSocket.Send(Encoding.UTF8.GetBytes(dataToMachine.code));
+                            //保证发给PLC的是200或500
+                            if(dataToMachine.code == ReturnData.code_success || dataToMachine.code == ReturnData.code_error)
+                            {
+                                //将code发给machine
+                                clientSocket.Send(Encoding.UTF8.GetBytes(dataToMachine.code));
 
-                            LogUtil.WriteLog("发给Machine端的消息: " + dataToMachine.code);
+                                LogUtil.WriteLog("发给Machine端的消息: " + dataToMachine.code);
+                            }
 
                             ShowManager.Instance.updateMsgFromMES("");
                             //如果返回状态码为错误码，将出错信息展示给操作员

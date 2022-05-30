@@ -61,6 +61,7 @@
             this.panel_log = new System.Windows.Forms.Panel();
             this.menuStrip_.SuspendLayout();
             this.panel_basicInformation.SuspendLayout();
+            this.panel_log.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip_
@@ -315,18 +316,19 @@
             // 
             this.textBox_log.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox_log.Location = new System.Drawing.Point(407, 62);
+            this.textBox_log.Location = new System.Drawing.Point(15, 16);
             this.textBox_log.Multiline = true;
             this.textBox_log.Name = "textBox_log";
             this.textBox_log.ReadOnly = true;
             this.textBox_log.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox_log.Size = new System.Drawing.Size(594, 492);
+            this.textBox_log.Size = new System.Drawing.Size(594, 471);
             this.textBox_log.TabIndex = 19;
             // 
             // label_msgFromMES
             // 
+            this.label_msgFromMES.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_msgFromMES.AutoSize = true;
-            this.label_msgFromMES.Location = new System.Drawing.Point(404, 630);
+            this.label_msgFromMES.Location = new System.Drawing.Point(12, 548);
             this.label_msgFromMES.Name = "label_msgFromMES";
             this.label_msgFromMES.Size = new System.Drawing.Size(88, 16);
             this.label_msgFromMES.TabIndex = 23;
@@ -334,20 +336,24 @@
             // 
             // textBox_msgFromMES
             // 
-            this.textBox_msgFromMES.Location = new System.Drawing.Point(488, 589);
+            this.textBox_msgFromMES.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox_msgFromMES.Location = new System.Drawing.Point(96, 511);
             this.textBox_msgFromMES.Multiline = true;
             this.textBox_msgFromMES.Name = "textBox_msgFromMES";
             this.textBox_msgFromMES.ReadOnly = true;
-            this.textBox_msgFromMES.Size = new System.Drawing.Size(513, 101);
+            this.textBox_msgFromMES.Size = new System.Drawing.Size(513, 97);
             this.textBox_msgFromMES.TabIndex = 26;
             // 
             // panel_log
             // 
             this.panel_log.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.panel_log.Location = new System.Drawing.Point(392, 47);
+            this.panel_log.Controls.Add(this.textBox_log);
+            this.panel_log.Controls.Add(this.textBox_msgFromMES);
+            this.panel_log.Controls.Add(this.label_msgFromMES);
+            this.panel_log.Location = new System.Drawing.Point(377, 47);
             this.panel_log.Name = "panel_log";
-            this.panel_log.Size = new System.Drawing.Size(624, 655);
+            this.panel_log.Size = new System.Drawing.Size(624, 674);
             this.panel_log.TabIndex = 27;
             // 
             // MainForm
@@ -355,20 +361,20 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1028, 749);
-            this.Controls.Add(this.textBox_msgFromMES);
-            this.Controls.Add(this.label_msgFromMES);
-            this.Controls.Add(this.textBox_log);
             this.Controls.Add(this.panel_basicInformation);
             this.Controls.Add(this.menuStrip_);
             this.Controls.Add(this.panel_log);
             this.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.MainMenuStrip = this.menuStrip_;
             this.Name = "MainForm";
-            this.Text = "MainForm";
+            this.Text = "扫码上传上位机";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.menuStrip_.ResumeLayout(false);
             this.menuStrip_.PerformLayout();
             this.panel_basicInformation.ResumeLayout(false);
             this.panel_basicInformation.PerformLayout();
+            this.panel_log.ResumeLayout(false);
+            this.panel_log.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -66,7 +66,7 @@ namespace ChemicalScan.View
                 //TextBox初始化
                 if (ctrl is TextBox)
                 {
-                    foreach (System.Reflection.PropertyInfo p in basicInfo.GetType().GetProperties())
+                    foreach (PropertyInfo p in basicInfo.GetType().GetProperties())
                     {
                         if (ctrl.Name.EndsWith(p.Name))
                         {
@@ -139,11 +139,32 @@ namespace ChemicalScan.View
                     FieldInfo fieldInfo = (new Label()).GetType().GetField(name);
                     //ShowUtil.ShowTips("请输入" + fieldInfo.GetValue("Text") + "信息。");
                     ShowUtil.ShowTips("请将信息填写完整。");
+                    break;//找到一个为空就行了 避免多次弹窗
                 }                    
             }
             if (done)
             {
                 ShowUtil.ShowTips("信息录入成功！");
+            }
+        }
+
+        /// <summary>
+        /// 关闭程序时执行操作
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //弹窗再次确认是否退出程序
+            if (MessageBox.Show("确定退出程序吗？", "退出",
+                MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                //彻底退出程序，包括socket进程，这样程序不会后台运行
+                Environment.Exit(0);
             }
         }
     }

@@ -22,6 +22,8 @@ namespace ChemicalScan.Controller
         //PLC发来字符串数据分割符号
         private const char splitChar = ',';
 
+        private const string submit_Finish_ID = "FINISH";//插满提交后缀
+
         //*****PLC发过来字符串的标识符
 #if CHEMICALSCAN
         //上料
@@ -45,7 +47,6 @@ namespace ChemicalScan.Controller
         private const string submit_NG_Left  = "NG2"; 
         private const string submit_NG_Right  = "NG1"; 
         //-提交
-        private const string submit_Finish_ID  = "FINISH";//插满提交后缀
         private const string submit_OK_Left_Finish  = "OK2" + submit_Finish_ID;
         private const string submit_OK_Right_Finish  = "OK1" + submit_Finish_ID; 
         private const string submit_NG_Left_Finish  = "NG2" + submit_Finish_ID; 
@@ -58,28 +59,25 @@ namespace ChemicalScan.Controller
         private const string containerOut_ID_2 = "L2";
         private const string containerOut_ID_3 = "L3";
         private const string containerOut_ID_4 = "L4";
-        //-解绑
-        private const string unbind_ID_Left = "L11";
-        private const string unbind_ID_Right = "L12";
+        //-解绑载具
+        private const string unbind_ID_1 = "L11";
+        private const string unbind_ID_2 = "L12";
+        private const string unbind_ID_3 = "L13";
+        private const string unbind_ID_4 = "L14";
         //主体
         //-玻璃
-        private const string SN_ID_Left = "L3";
-        private const string SN_ID_Right = "L4";
+        private const string SN_ID_1 = "L5";
+        private const string SN_ID_2 = "L6";
         //下料
         //-扫入载具
-        private const string containerIn_OK_ID = "L5";
-        private const string containerIn_NG_ID = "L6";
+        private const string containerIn_NG_ID = "L7";
+        private const string containerIn_OK_ID = "L8";
         //-放入玻璃
-        private const string submit_OK_Left = "OK2";
-        private const string submit_OK_Right = "OK1";
-        private const string submit_NG_Left = "NG2";
-        private const string submit_NG_Right = "NG1";
+        private const string submit_OK = "OK";
+        private const string submit_NG = "NG";
         //-提交
-        private const string submit_Finish_ID = "FINISH";//插满提交后缀
-        private const string submit_OK_Left_Finish = "OK2" + submit_Finish_ID;
-        private const string submit_OK_Right_Finish = "OK1" + submit_Finish_ID;
-        private const string submit_NG_Left_Finish = "NG2" + submit_Finish_ID;
-        private const string submit_NG_Right_Finish = "NG1" + submit_Finish_ID;
+        private const string submit_OK_Finish = "OK" + submit_Finish_ID;
+        private const string submit_NG_Finish = "NG" + submit_Finish_ID;
 
 #elif BDSSCAN
 
@@ -103,7 +101,7 @@ namespace ChemicalScan.Controller
             LogUtil.WriteLog("发给MES端口的消息: \n" + dataToMES);
 
             JObject dataFromMes = HttpUtil.PostResponse(url, dataToMES);
-            if(dataFromMes["code"] != null)
+            if (dataFromMes["code"] != null)
             {
                 code = dataFromMes["code"].ToString();
                 LogUtil.WriteLog("收到MES端口的消息: \n" + dataFromMes);
@@ -122,7 +120,7 @@ namespace ChemicalScan.Controller
             //添加<码,值> 生成json数据
             string dataToMES = JsonUtil.ToJson(BasicInfo.Instance, deviceCodeKey, deviceCodeValue);
 
-            if (dataToMES != null && dataToMES.Trim()!="")
+            if (dataToMES != null && dataToMES.Trim() != "")
             {
                 Debug.WriteLine(dataToMES);
                 LogUtil.WriteLog("发给MES端口的消息: \n" + dataToMES);
@@ -196,7 +194,7 @@ namespace ChemicalScan.Controller
             dataToMachine = SubmitToMES(submitJson.ToString(), URL.scanSubmit);
 
             glasses.Clear();//最后清空list
-            
+
             return dataToMachine;
         }
 
@@ -222,34 +220,89 @@ namespace ChemicalScan.Controller
             ChemicalScanHandler(port, subs, operationID, deviceCode, ref dataToMachine);
             
 #elif KIBBLESCAN
+            KibbleScanHandler(port, subs, operationID, deviceCode, ref dataToMachine);
+
+#elif BDSSCAN
+            //丝印前BDS
+
+#endif
+
+            return dataToMachine;
+        }
+
+        private static ReturnData KibbleScanHandler(int port, string[] subs, string operationID, string deviceCode, ref ReturnData dataToMachine)
+        {
             //粗磨
             //上料端口
             if (port == ConnectManager.port_up)
             {
-                
+                //扫出载具
+                if (operationID == containerOut_ID_1 ||
+                    operationID == containerOut_ID_2 ||
+                    operationID == containerOut_ID_3 ||
+                    operationID == containerOut_ID_4)
+                {
+                    //暂无扫码，预留
+                }
             }
 
             //涂油扫码端口
             if (port == ConnectManager.port_glassScan)
             {
-                
+                //上传玻璃码
+                if (operationID == SN_ID_1 || operationID == SN_ID_2)
+                {
+                    dataToMachine = GetReturnFromMES("snNumber", deviceCode, URL.scanSn);
+                }
             }
 
             //下料端口
             if (port == ConnectManager.port_down)
             {
-                
+                //载具 扫入
+                if (operationID == containerIn_OK_ID || operationID == containerIn_NG_ID)
+                {
+                    dataToMachine = GetReturnFromMES("containerCode", deviceCode, URL.scanContainerIn);
+                }
             }
 
             //提交端口
             if (port == ConnectManager.port_submit)
             {
-                
-            }
-#elif BDSSCAN
-            //丝印前BDS
+                //提交
+                //OK1,cOut,cIn,SN,
+                //OK2,cOut,cIn,SN,
+                //NG1,...
+                //NG2
+                if (subs.Length >= 4 && (operationID.Contains("OK") || operationID.Contains("NG")))//要改
+                {
+                    Glass glass = new Glass();
+                    glass.sourceVehicle = subs[1];
+                    glass.targetVehicle = subs[2];
+                    glass.snNumber = subs[3];
 
-#endif
+                    if (operationID == submit_OK)
+                        GlobalValue.GlassList_OK.Add(glass);
+                    if (operationID == submit_NG)
+                        GlobalValue.GlassList_NG.Add(glass);
+
+                    dataToMachine.code = ReturnData.code_success;
+                    LogUtil.WriteLog("玻璃 " + glass.snNumber + " 放入载具 " + glass.targetVehicle + " 中。"); ;
+                }
+
+                //OKFINISH
+                //NGFINISH
+                if (operationID.ToUpper().Contains(submit_Finish_ID))
+                {
+                    //批量提交
+                    if (operationID.ToUpper() == submit_OK_Finish)
+                        dataToMachine = SubmitToMES(ref GlobalValue.GlassList_OK);
+                    if (operationID.ToUpper() == submit_NG_Finish)
+                        dataToMachine = SubmitToMES(ref GlobalValue.GlassList_NG);
+
+                    LogUtil.WriteLog(operationID + "已执行批量提交。");
+                }
+            }
 
             return dataToMachine;
         }
@@ -259,7 +312,7 @@ namespace ChemicalScan.Controller
         /// <summary>
         /// Communicator <-> MES 
         /// 解析Machine发来的数据，发送给MES，并整理MES传回的数据
-        /// 不端口，统一处理
+        /// 不分端口，统一处理
         /// </summary>
         /// <param name="str">Machine 发来的字符串</param>
         public static ReturnData GetDataFromMES(string str)
@@ -279,8 +332,8 @@ namespace ChemicalScan.Controller
             if (deviceID == SN_ID_Left || deviceID == SN_ID_Right)
             {
                 dataToMachine = GetReturnFromMES("snNumber", deviceCode, URL.scanSn);
-                if (deviceCode == "NoRead")
-                    dataToMachine.code = ReturnData.code_error;
+                /*if (deviceCode == "NoRead")
+                    dataToMachine.code = ReturnData.code_error;*/
             }
             //载具 扫入
             if (deviceID == containerIn_OK_ID || deviceID == containerIn_NG_ID)
@@ -350,8 +403,8 @@ namespace ChemicalScan.Controller
                 if (operationID == SN_ID_Left || operationID == SN_ID_Right)
                 {
                     dataToMachine = GetReturnFromMES("snNumber", deviceCode, URL.scanSn);
-                    if (deviceCode == "NoRead")
-                        dataToMachine.code = ReturnData.code_error;
+                    /*if (deviceCode == "NoRead")
+                        dataToMachine.code = ReturnData.code_error;*/
                 }
             }
 
@@ -407,8 +460,8 @@ namespace ChemicalScan.Controller
                     if (operationID.ToUpper() == submit_NG_Right_Finish)
                         dataToMachine = SubmitToMES(ref GlobalValue.GlassList_NG_Right);
 
-                    dataToMachine.code = ReturnData.code_success;
-                    LogUtil.WriteLog(operationID + "批量提交成功。");
+                    //dataToMachine.code = ReturnData.code_success;
+                    LogUtil.WriteLog(operationID + "已执行批量提交。");
                 }
             }
         }
@@ -425,7 +478,7 @@ namespace ChemicalScan.Controller
         /// <param name="deviceCodeKey">MES返回Json中码的键</param>
         /// <param name="deviceCodeValue">Json中码的值</param>
         /// <param name="url">链接</param>
-        private static void GetData(ref string dataToMachine, string deviceCodeKey ,string deviceCodeValue, string url)
+        private static void GetData(ref string dataToMachine, string deviceCodeKey, string deviceCodeValue, string url)
         {
             BasicInfo.Instance.createTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             string dataToMES = JsonUtil.ToJson(BasicInfo.Instance, deviceCodeKey, deviceCodeValue);

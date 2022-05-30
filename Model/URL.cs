@@ -1,4 +1,4 @@
-﻿#define Debug
+﻿#define TEST
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,22 +13,24 @@ namespace ChemicalScan.Model
     /// </summary>
     internal static class URL
     {
-#if Debugx
-        private static string basicUrl = "https://45e091c7-424a-4dfe-8308-6d1e996672cc.mock.pstmn.io";
-        public static string login = basicUrl + "/login";
-        public static string scanContainerOut = basicUrl + "/chemicalScanSourceVehicle";
-        public static string scanContainerIn = basicUrl + "/chemicalScanTargetVehicle";
-        public static string scanContainerUnbind = basicUrl + "/chemicalScanSourceVehicleUnBind";
-        public static string scanSn = basicUrl + "/chemicalScanSn";
-        public static string scanSubmit = basicUrl + "/chemicalScanSubmit";
-#else
-
+        //测试环境url
+#if TEST
         public static string login =                "http://10.219.196.41/stage-api/auth/login";
+#if CHEMICALSCAN
         public static string scanContainerOut =     "http://10.219.196.41/stage-api/mes/machine/api/machineToMes/chemicalScanSourceVehicle";
         public static string scanContainerIn =      "http://10.219.196.41/stage-api/mes/machine/api/machineToMes/chemicalScanTargetVehicle";
         public static string scanContainerUnbind =  "http://10.219.196.41/stage-api/mes/machine/api/machineToMes/chemicalScanSourceVehicleUnBind";
         public static string scanSn =               "http://10.219.196.41/stage-api/mes/machine/api/machineToMes/chemicalScanSn";
         public static string scanSubmit =            "http://10.219.196.41/stage-api/mes/machine/api/machineToMes/chemicalScanSubmit";
+#endif
+#if KIBBLESCAN
+        public static string scanContainerOut       = "";//暂时不需要扫出载具扫码
+        public static string scanContainerUnbind    = "";
+        public static string scanContainerIn        = "http://10.219.196.41/stage-api/mes/machine/api/machineToMes/kibbleScanTargetVehicle";
+        public static string scanSn                 = "http://10.219.196.41/stage-api/mes/machine/api/machineToMes/kibbleScanSn";
+        public static string scanSubmit             = "http://10.219.196.41/stage-api/mes/machine/api/machineToMes/kibbleScanSubmit";
+#endif
+
 #endif
     }
 }

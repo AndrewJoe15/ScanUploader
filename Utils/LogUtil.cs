@@ -27,8 +27,6 @@ namespace ChemicalScan.Utils
 
         private static string fileName = "";
 
-        private static string prefix = "HP";//日志前两个字母，化抛
-
 /*        public static string getLogNumber()
         {
             streamNumerStr = streamNumer.ToString("0000");
