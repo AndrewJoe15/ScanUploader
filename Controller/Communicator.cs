@@ -38,15 +38,17 @@ namespace ChemicalScan.Controller
         //-扫入
         private const string containerIn_OK_ID  = "L5";
         private const string containerIn_NG_ID  = "L6";
-        //-提交
+        //-放入玻璃
         private const string submit_OK_Left  = "OK2";
         private const string submit_OK_Right  = "OK1"; 
         private const string submit_NG_Left  = "NG2"; 
         private const string submit_NG_Right  = "NG1"; 
-        private const string submit_OK_Left_Finish  = "OK2FINISH";
-        private const string submit_OK_Right_Finish  = "OK1FINISH"; 
-        private const string submit_NG_Left_Finish  = "NG2FINISH"; 
-        private const string submit_NG_Right_Finish  = "NG1FINISH"; 
+        //-提交
+        private const string submit_Finish_ID  = "FINISH";//插满提交后缀
+        private const string submit_OK_Left_Finish  = "OK2" + submit_Finish_ID;
+        private const string submit_OK_Right_Finish  = "OK1" + submit_Finish_ID; 
+        private const string submit_NG_Left_Finish  = "NG2" + submit_Finish_ID; 
+        private const string submit_NG_Right_Finish  = "NG1" + submit_Finish_ID; 
 
         /// <summary>
         /// 向MES请求数据
@@ -258,7 +260,26 @@ namespace ChemicalScan.Controller
             string deviceCode = subs[1];
             //string dataToMachine = deviceID;//字符串最开始为 "L1..." "L2..."
             ReturnData dataToMachine = new ReturnData();
+
+            //条件编译
+#if CHEMICALSCAN
+            //化抛
+            dataToMachine = ChemicalScanHandler(port, subs, operationID, deviceCode, ref dataToMachine);
             
+#elif KIBBLESCAN
+            //粗磨
+
+#elif BDSSCAN
+            //丝印前BDS
+
+#endif
+
+            return dataToMachine;
+        }
+
+        private static ReturnData ChemicalScanHandler(int port, string[] subs, string operationID, string deviceCode, ref ReturnData dataToMachine)
+        {
+
             //上料端口
             if (port == ConnectManager.port_L1L2)
             {
@@ -304,7 +325,6 @@ namespace ChemicalScan.Controller
                 //OK2,cOut,cIn,SN,
                 //NG1,...
                 //NG2
-                //OK1FINISH
                 if (subs.Length >= 4 && (operationID.Contains("OK") || operationID.Contains("NG")))//要改
                 {
                     Glass glass = new Glass();
@@ -324,7 +344,10 @@ namespace ChemicalScan.Controller
                     dataToMachine.code = ReturnData.code_success;
                     LogUtil.WriteLog("玻璃 " + glass.snNumber + " 放入载具 " + glass.targetVehicle + " 中。"); ;
                 }
-                if(operationID.ToUpper().Contains("FINISH"))
+
+                //OK1FINISH
+                //NG1FINISH
+                if (operationID.ToUpper().Contains(submit_Finish_ID))
                 {
                     //批量提交
                     if (operationID.ToUpper() == submit_OK_Left_Finish)
@@ -342,6 +365,7 @@ namespace ChemicalScan.Controller
 
 
             }
+
             return dataToMachine;
         }
 
