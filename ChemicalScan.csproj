@@ -52,7 +52,7 @@
   <ItemGroup>
     <Compile Include="Controller\ConnectManager.cs" />
     <Compile Include="Controller\Communicator.cs" />
-    <Compile Include="Controller\ElementManager.cs" />
+    <Compile Include="Controller\ShowManager.cs" />
     <Compile Include="Controller\UserManager.cs" />
     <Compile Include="Model\Container.cs" />
     <Compile Include="Model\Glass.cs" />

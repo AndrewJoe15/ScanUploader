@@ -145,10 +145,12 @@ namespace ChemicalScan.Utils
 
                             LogUtil.WriteLog("发给Machine端的消息: " + dataToMachine.code);
 
+                            ShowManager.Instance.updateMsgFromMES("");
                             //如果返回状态码为错误码，将出错信息展示给操作员
-                            if(dataToMachine.code == ReturnData.code_error)
+                            if (dataToMachine.code == ReturnData.code_error)
                             {
                                 //ShowUtil.ShowWarning(dataToMachine.msg);
+                                ShowManager.Instance.updateMsgFromMES(dataToMachine.msg);
                             }
 
                         }
@@ -157,8 +159,8 @@ namespace ChemicalScan.Utils
                 catch (Exception ex)
                 {
                     Debug.WriteLine(ex.Message);
-                    ExceptionUtil.ExceptionHandler(ex.Message);
-                    break;
+                    //ExceptionUtil.ExceptionHandler(ex.Message);
+                    //break;
                 }
             }
         }

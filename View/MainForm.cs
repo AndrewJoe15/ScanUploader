@@ -43,6 +43,17 @@ namespace ChemicalScan.View
             Invoke(_st);
         }
 
+        //线程安全调用
+        private delegate void _ShowMsg();
+        public void ShowMsg(string text)
+        {
+            _ShowMsg _sm = new _ShowMsg(delegate ()
+            {
+                textBox_msgFromMES.Text = text;
+            });
+            Invoke(_sm);
+        }
+
         /// <summary>
         /// 对控件进行初始化
         /// </summary>

@@ -56,8 +56,8 @@
             this.label_mo = new System.Windows.Forms.Label();
             this.button_modify = new System.Windows.Forms.Button();
             this.textBox_log = new System.Windows.Forms.TextBox();
-            this.label_connectStatus_machine = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.label_msgFromMES = new System.Windows.Forms.Label();
+            this.textBox_msgFromMES = new System.Windows.Forms.TextBox();
             this.menuStrip_.SuspendLayout();
             this.panel_basicInformation.SuspendLayout();
             this.SuspendLayout();
@@ -72,7 +72,7 @@
             this.menuStrip_.Location = new System.Drawing.Point(0, 0);
             this.menuStrip_.Name = "menuStrip_";
             this.menuStrip_.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
-            this.menuStrip_.Size = new System.Drawing.Size(919, 25);
+            this.menuStrip_.Size = new System.Drawing.Size(948, 25);
             this.menuStrip_.TabIndex = 17;
             this.menuStrip_.Text = "menuStrip1";
             // 
@@ -89,19 +89,19 @@
             // 操作员ToolStripMenuItem
             // 
             this.操作员ToolStripMenuItem.Name = "操作员ToolStripMenuItem";
-            this.操作员ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.操作员ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.操作员ToolStripMenuItem.Text = "操作人员";
             // 
             // 技术支持ToolStripMenuItem
             // 
             this.技术支持ToolStripMenuItem.Name = "技术支持ToolStripMenuItem";
-            this.技术支持ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.技术支持ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.技术支持ToolStripMenuItem.Text = "技术支持";
             // 
             // 开发人员ToolStripMenuItem
             // 
             this.开发人员ToolStripMenuItem.Name = "开发人员ToolStripMenuItem";
-            this.开发人员ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.开发人员ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.开发人员ToolStripMenuItem.Text = "开发人员";
             // 
             // 日志ToolStripMenuItem
@@ -333,36 +333,36 @@
             this.textBox_log.Multiline = true;
             this.textBox_log.Name = "textBox_log";
             this.textBox_log.ReadOnly = true;
-            this.textBox_log.Size = new System.Drawing.Size(471, 316);
+            this.textBox_log.Size = new System.Drawing.Size(519, 278);
             this.textBox_log.TabIndex = 19;
             // 
-            // label_connectStatus_machine
+            // label_msgFromMES
             // 
-            this.label_connectStatus_machine.AutoSize = true;
-            this.label_connectStatus_machine.Location = new System.Drawing.Point(424, 379);
-            this.label_connectStatus_machine.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label_connectStatus_machine.Name = "label_connectStatus_machine";
-            this.label_connectStatus_machine.Size = new System.Drawing.Size(41, 12);
-            this.label_connectStatus_machine.TabIndex = 23;
-            this.label_connectStatus_machine.Text = "状态：";
+            this.label_msgFromMES.AutoSize = true;
+            this.label_msgFromMES.Location = new System.Drawing.Point(392, 379);
+            this.label_msgFromMES.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_msgFromMES.Name = "label_msgFromMES";
+            this.label_msgFromMES.Size = new System.Drawing.Size(65, 12);
+            this.label_msgFromMES.TabIndex = 23;
+            this.label_msgFromMES.Text = "错误信息：";
             // 
-            // label2
+            // textBox_msgFromMES
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(666, 379);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 12);
-            this.label2.TabIndex = 24;
-            this.label2.Text = "工单号：";
+            this.textBox_msgFromMES.Location = new System.Drawing.Point(452, 363);
+            this.textBox_msgFromMES.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_msgFromMES.Multiline = true;
+            this.textBox_msgFromMES.Name = "textBox_msgFromMES";
+            this.textBox_msgFromMES.ReadOnly = true;
+            this.textBox_msgFromMES.Size = new System.Drawing.Size(471, 52);
+            this.textBox_msgFromMES.TabIndex = 26;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(919, 457);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label_connectStatus_machine);
+            this.ClientSize = new System.Drawing.Size(948, 457);
+            this.Controls.Add(this.textBox_msgFromMES);
+            this.Controls.Add(this.label_msgFromMES);
             this.Controls.Add(this.textBox_log);
             this.Controls.Add(this.panel_basicInformation);
             this.Controls.Add(this.menuStrip_);
@@ -408,8 +408,8 @@
         private System.Windows.Forms.Button button_modify;
         private System.Windows.Forms.Label label_mo;
         public System.Windows.Forms.TextBox textBox_mo;
-        private System.Windows.Forms.Label label_connectStatus_machine;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label_msgFromMES;
+        public System.Windows.Forms.TextBox textBox_msgFromMES;
     }
 }
 

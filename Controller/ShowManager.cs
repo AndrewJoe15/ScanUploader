@@ -7,14 +7,18 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using ChemicalScan.Model;
+using ChemicalScan.Utils;
 using ChemicalScan.View;
 
 namespace ChemicalScan.Controller
 {
-    internal class ElementManager : SingleTon<ElementManager>
+    internal class ShowManager : SingleTon<ShowManager>
     {
         
 
-
+        public void updateMsgFromMES(string msg)
+        {
+            MainForm.thisForm.ShowMsg(msg);
+        }
     }
 }

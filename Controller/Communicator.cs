@@ -39,8 +39,14 @@ namespace ChemicalScan.Controller
         private const string containerIn_OK_ID  = "L5";
         private const string containerIn_NG_ID  = "L6";
         //-提交
-        private const string submit_ID_Left  = "L7";
-        private const string submit_ID_Right  = "L8"; 
+        private const string submit_OK_Left  = "OK2";
+        private const string submit_OK_Right  = "OK1"; 
+        private const string submit_NG_Left  = "NG2"; 
+        private const string submit_NG_Right  = "NG1"; 
+        private const string submit_OK_Left_Finish  = "OK2FINISH";
+        private const string submit_OK_Right_Finish  = "OK1FINISH"; 
+        private const string submit_NG_Left_Finish  = "NG2FINISH"; 
+        private const string submit_NG_Right_Finish  = "NG1FINISH"; 
 
         /// <summary>
         /// 向MES请求数据
@@ -126,10 +132,15 @@ namespace ChemicalScan.Controller
             return rdata;
         }
 
-        private static ReturnData SubmitGetReturn(string[] subs)
+        /// <summary>
+        /// 提交数据，清空list
+        /// </summary>
+        /// <param name="glasses"></param>
+        /// <returns></returns>
+
+        private static ReturnData SubmitToMES(ref List<Glass> glasses)
         {
             ReturnData dataToMachine;
-            Glass glass = new Glass();
             SubmitData submitData = new SubmitData();
 
             BasicInfo.Instance.createTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -137,15 +148,9 @@ namespace ChemicalScan.Controller
             submitData.logNumber = LogUtil.logNumber;
             submitData.mo = MainForm.thisForm.textBox_mo.Text;//工单号
 
-            //从subs[1]开始，每三个为一组，分别为 扫出载具码，扫入载具码，玻璃码
-            for(int i = 1; i <= subs.Length - 3; i+=3)
-            {
-                glass.sourceVehicle = subs[i];
-                glass.targetVehicle = subs[i+1];
-                glass.snNumber = subs[i+2];
-                submitData.supplementList.Add(glass);
-            }           
-            submitData.qty = submitData.supplementList.Count.ToString();//qty 载具内玻璃数量
+            submitData.qty = glasses.Count.ToString();//qty 载具内玻璃数量
+            submitData.supplementList = glasses;
+
 
             //拼接Json数据
             JObject submitJson = JsonUtil.ToJObject(BasicInfo.Instance);
@@ -153,8 +158,22 @@ namespace ChemicalScan.Controller
             submitJson.Merge(tmp);
 
             dataToMachine = SubmitToMES(submitJson.ToString(), URL.scanSubmit);
+
+            glasses.Clear();//清空list
+            
             return dataToMachine;
         }
+
+        /// <summary>
+        /// 将玻璃添加到list中
+        /// </summary>
+        /// <param name="glass"></param>
+        /// <param name="glassList"></param>
+        /// <returns></returns>
+/*        private static void AddGlassToContainer(Glass glass, ref List<Glass> glassList)
+        {
+            glassList.Add(glass);
+        }*/
 
         /// <summary>
         /// Communicator <-> MES 
@@ -194,11 +213,33 @@ namespace ChemicalScan.Controller
                 dataToMachine = GetReturnFromMES("containerCode", deviceCode, URL.scanContainerUnbind);
             }
 
-            // L5,cOut,cIn,SN,cOut,cIn,SN,cOut,cIn,SN...
-            if (deviceID == submit_ID_Left || deviceID == submit_ID_Right)
+            //提交
+            // OK1,cOut,cIn,SN,
+            if (subs.Length >= 4)
             {
-                dataToMachine = SubmitGetReturn(subs);
+                Glass glass = new Glass();
+                glass.sourceVehicle = subs[1];
+                glass.targetVehicle = subs[2];
+                glass.snNumber = subs[3];
+
+                if (deviceID == submit_OK_Left)
+                    GlobalValue.GlassList_OK_Left.Add(glass);
+                if (deviceID == submit_OK_Right)
+                    GlobalValue.GlassList_OK_Right.Add(glass);
+                if (deviceID == submit_NG_Left)
+                    GlobalValue.GlassList_NG_Left.Add(glass);
+                if (deviceID == submit_NG_Right)
+                    GlobalValue.GlassList_NG_Right.Add(glass);
             }
+
+            if(deviceID.ToUpper() == submit_OK_Left_Finish)
+                dataToMachine = SubmitToMES(ref GlobalValue.GlassList_OK_Left);
+            if (deviceID.ToUpper() == submit_OK_Right_Finish)
+                dataToMachine = SubmitToMES(ref GlobalValue.GlassList_OK_Right);
+            if (deviceID.ToUpper() == submit_NG_Left_Finish)
+                dataToMachine = SubmitToMES(ref GlobalValue.GlassList_NG_Left);
+            if (deviceID.ToUpper() == submit_NG_Right_Finish)
+                dataToMachine = SubmitToMES(ref GlobalValue.GlassList_NG_Right);
 
             return dataToMachine;
         }
@@ -259,11 +300,47 @@ namespace ChemicalScan.Controller
             if (port == ConnectManager.port_L7L8)
             {
                 //提交
-                // L7,cOut,cIn,SN,cOut,cIn,SN,cOut,cIn,SN...
-                if (operationID == submit_ID_Left || operationID == submit_ID_Right)
+                //OK1,cOut,cIn,SN,
+                //OK2,cOut,cIn,SN,
+                //NG1,...
+                //NG2
+                //OK1FINISH
+                if (subs.Length >= 4 && (operationID.Contains("OK") || operationID.Contains("NG")))//要改
                 {
-                    dataToMachine = SubmitGetReturn(subs);
+                    Glass glass = new Glass();
+                    glass.sourceVehicle = subs[1];
+                    glass.targetVehicle = subs[2];
+                    glass.snNumber = subs[3];
+
+                    if (operationID == submit_OK_Left)
+                        GlobalValue.GlassList_OK_Left.Add(glass);
+                    if (operationID == submit_OK_Right)
+                        GlobalValue.GlassList_OK_Right.Add(glass);
+                    if (operationID == submit_NG_Left)
+                        GlobalValue.GlassList_NG_Left.Add(glass);
+                    if (operationID == submit_NG_Right)
+                        GlobalValue.GlassList_NG_Right.Add(glass);
+
+                    dataToMachine.code = ReturnData.code_success;
+                    LogUtil.WriteLog("玻璃 " + glass.snNumber + " 放入载具 " + glass.targetVehicle + " 中。"); ;
                 }
+                if(operationID.ToUpper().Contains("FINISH"))
+                {
+                    //批量提交
+                    if (operationID.ToUpper() == submit_OK_Left_Finish)
+                        dataToMachine = SubmitToMES(ref GlobalValue.GlassList_OK_Left);
+                    if (operationID.ToUpper() == submit_OK_Right_Finish)
+                        dataToMachine = SubmitToMES(ref GlobalValue.GlassList_OK_Right);
+                    if (operationID.ToUpper() == submit_NG_Left_Finish)
+                        dataToMachine = SubmitToMES(ref GlobalValue.GlassList_NG_Left);
+                    if (operationID.ToUpper() == submit_NG_Right_Finish)
+                        dataToMachine = SubmitToMES(ref GlobalValue.GlassList_NG_Right);
+
+                    dataToMachine.code = ReturnData.code_success;
+                    LogUtil.WriteLog(operationID + "批量提交成功。");
+                }
+
+
             }
             return dataToMachine;
         }
