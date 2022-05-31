@@ -24,13 +24,18 @@ namespace ChemicalScan.Model
         public static string scanSubmit =            "http://10.219.196.41/stage-api/mes/machine/api/machineToMes/chemicalScanSubmit";
 #endif
 #if KIBBLESCAN
-        public static string scanContainerOut       = "";//暂时不需要扫出载具扫码
+        public static string scanContainerOut       = "http://10.219.196.41/stage-api/mes/machine/api/machineToMes/kibbleScanSourceVehicle";//暂时不需要扫出载具扫码
         public static string scanContainerUnbind    = "";
         public static string scanContainerIn        = "http://10.219.196.41/stage-api/mes/machine/api/machineToMes/kibbleScanTargetVehicle";
         public static string scanSn                 = "http://10.219.196.41/stage-api/mes/machine/api/machineToMes/kibbleScanSn";
         public static string scanSubmit             = "http://10.219.196.41/stage-api/mes/machine/api/machineToMes/kibbleScanSubmit";
 #endif
-
+#if BDSSCAN
+        public static string scanSn = "http://10.219.196.41/stage-api/mes/machine/api/machineToMes/insertByScaning";
 #endif
+
+#else
+#endif
+
     }
 }

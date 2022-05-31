@@ -31,6 +31,8 @@ namespace ChemicalScan.Model
         public string shift { get; set; } = "白班";
         //操作人
         public string createBy { get; set; } = "sy100228";
+        //操作时间
+        public string createTime { get; set; } = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 #endif
 
 #if KIBBLESCAN
@@ -48,9 +50,30 @@ namespace ChemicalScan.Model
         public string shift { get; set; } = "白班";
         //操作人
         public string createBy { get; set; } = "sy100228";
-#endif
         //操作时间
         public string createTime { get; set; } = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+#endif
+
+
+#if BDSSCAN
+        //工厂代码
+        public string site { get; set; } = "2018";
+        //工序
+        public string operation { get; set; } = "03";
+        //资源编码/设备号 
+        public string resource { get; set; } = "1";
+        //产品型号
+        public string productModel { get; set; } = "S3018B02";
+        //型号版本 
+        public string productModelVersion { get; set; } = "1.0";
+        //班次
+        public string shift { get; set; } = "白班";
+        //操作人
+        public string createBy { get; set; } = "sy100228";
+        //操作时间
+        public string submitTime { get; set; } = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        public string order = "000600003375";
+#endif
     }
 
     public enum SHIFT

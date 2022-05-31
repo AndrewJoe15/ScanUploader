@@ -10,7 +10,11 @@ namespace ChemicalScan.Model
     {
 
         public string logNumber = "";
+#if BDSSCAN
+        public string order = "000600003375";
+#else
         public string mo = "";
+#endif
         public string qty = "";
         public List<Glass> supplementList = new List<Glass>();
 

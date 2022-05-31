@@ -80,7 +80,10 @@ namespace ChemicalScan.Controller
         private const string submit_NG_Finish = "NG" + submit_Finish_ID;
 
 #elif BDSSCAN
-
+        //主体
+        //-玻璃
+        private const string SN_ID_1 = "L1";
+        private const string SN_ID_2 = "L2";
 #endif
 
         /// <summary>
@@ -93,9 +96,13 @@ namespace ChemicalScan.Controller
         public static string GetCodeFromMES(string deviceCodeKey, string deviceCodeValue, string url)
         {
             string code = "";
-
+#if BDSSCAN
+            BasicInfo.Instance.submitTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+#else
             BasicInfo.Instance.createTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+#endif
             string dataToMES = JsonUtil.ToJson(BasicInfo.Instance, deviceCodeKey, deviceCodeValue);
+
 
             Debug.WriteLine(dataToMES);
             LogUtil.WriteLog("发给MES端口的消息: \n" + dataToMES);
@@ -116,7 +123,11 @@ namespace ChemicalScan.Controller
             JObject dataFromMes = null;
 
             //更新BasicInfo的生成时间
+#if BDSSCAN
+            BasicInfo.Instance.submitTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+#else
             BasicInfo.Instance.createTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+#endif
             //添加<码,值> 生成json数据
             string dataToMES = JsonUtil.ToJson(BasicInfo.Instance, deviceCodeKey, deviceCodeValue);
 
@@ -149,7 +160,7 @@ namespace ChemicalScan.Controller
             ReturnData rdata = null;
 
             Debug.WriteLine(submitData);
-            LogUtil.WriteLog("提交，发给MES端口的消息: \n" + submitData);
+            LogUtil.WriteLog("数据提交，发给MES端口的消息: \n" + submitData);
 
             JObject dataFromMes = HttpUtil.PostResponse(url, submitData);
 
@@ -167,6 +178,7 @@ namespace ChemicalScan.Controller
             return rdata;
         }
 
+#if !BDSSCAN
         /// <summary>
         /// 提交数据，清空list
         /// </summary>
@@ -180,7 +192,9 @@ namespace ChemicalScan.Controller
             BasicInfo.Instance.createTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             submitData.logNumber = LogUtil.logNumber;
+
             submitData.mo = MainForm.thisForm.textBox_mo.Text;//工单号
+
 
             submitData.qty = glasses.Count.ToString();//qty 载具内玻璃数量
             submitData.supplementList = glasses;
@@ -197,7 +211,7 @@ namespace ChemicalScan.Controller
 
             return dataToMachine;
         }
-
+#endif
 
         /// <summary>
         /// Communicator <-> MES 
@@ -223,12 +237,30 @@ namespace ChemicalScan.Controller
             KibbleScanHandler(port, subs, operationID, deviceCode, ref dataToMachine);
 
 #elif BDSSCAN
-            //丝印前BDS
-
+            BDSScanHandler(port, operationID, deviceCode, ref dataToMachine);
 #endif
+            return dataToMachine;
+        }
+#if BDSSCAN
+        private static ReturnData BDSScanHandler(int port, string operationID, string deviceCode, ref ReturnData dataToMachine)
+        {
+            //丝印前BDS
+            //涂油扫码端口
+            if (port == ConnectManager.port_glassScan)
+            {
+                //上传玻璃码
+                if (operationID == SN_ID_1 || operationID == SN_ID_2)
+                {
+                    dataToMachine = GetReturnFromMES("snNumber", deviceCode, URL.scanSn);
+                }
+            }
 
             return dataToMachine;
         }
+#endif
+
+        //粗磨项目扫码上传业务逻辑
+#if KIBBLESCAN
 
         private static ReturnData KibbleScanHandler(int port, string[] subs, string operationID, string deviceCode, ref ReturnData dataToMachine)
         {
@@ -242,7 +274,7 @@ namespace ChemicalScan.Controller
                     operationID == containerOut_ID_3 ||
                     operationID == containerOut_ID_4)
                 {
-                    //暂无扫码，预留
+                    dataToMachine = GetReturnFromMES("containerCode", deviceCode, URL.scanContainerOut);
                 }
             }
 
@@ -306,7 +338,7 @@ namespace ChemicalScan.Controller
 
             return dataToMachine;
         }
-
+#endif
         //化抛项目扫码上传业务逻辑
 #if CHEMICALSCAN
         /// <summary>
@@ -480,7 +512,11 @@ namespace ChemicalScan.Controller
         /// <param name="url">链接</param>
         private static void GetData(ref string dataToMachine, string deviceCodeKey, string deviceCodeValue, string url)
         {
+#if BDSSCAN
+            BasicInfo.Instance.submitTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+#else
             BasicInfo.Instance.createTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+#endif
             string dataToMES = JsonUtil.ToJson(BasicInfo.Instance, deviceCodeKey, deviceCodeValue);
 
             Debug.WriteLine(dataToMES);

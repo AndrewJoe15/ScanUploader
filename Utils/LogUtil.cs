@@ -51,11 +51,11 @@ namespace ChemicalScan.Utils
             //前部加上时间戳
             string log = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss ") + logContent;
             //写入log
-            streamWriter.Write(log + "\n");
+            streamWriter.Write(log + "\r\n\r\n");
 
             //界面显示log
             if(MainForm.thisForm != null)
-                MainForm.thisForm.ShowLog(log + "\n");
+                MainForm.thisForm.ShowLog(log + "\r\n\r\n");
 
             if (fileStream != null)
             {
