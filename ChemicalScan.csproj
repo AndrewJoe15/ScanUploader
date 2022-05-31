@@ -92,6 +92,7 @@
       <HintPath>bin\Debug\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -104,8 +105,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.cs" />
+    <Compile Include="Config.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Config.settings</DependentUpon>
+    </Compile>
     <Compile Include="Controller\ConnectManager.cs" />
     <Compile Include="Controller\Communicator.cs" />
+    <Compile Include="Controller\Initializer.cs" />
     <Compile Include="Controller\ShowManager.cs" />
     <Compile Include="Controller\UserManager.cs" />
     <Compile Include="Model\Container.cs" />
@@ -129,11 +137,11 @@
     <Compile Include="View\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\HttpLoginForm.cs">
+    <Compile Include="View\AdminLoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\HttpLoginForm.Designer.cs">
-      <DependentUpon>HttpLoginForm.cs</DependentUpon>
+    <Compile Include="View\AdminLoginForm.Designer.cs">
+      <DependentUpon>AdminLoginForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\BasicInfo.cs" />
     <Compile Include="Model\ReturnData.cs" />
@@ -150,8 +158,8 @@
     <EmbeddedResource Include="View\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\HttpLoginForm.resx">
-      <DependentUpon>HttpLoginForm.cs</DependentUpon>
+    <EmbeddedResource Include="View\AdminLoginForm.resx">
+      <DependentUpon>AdminLoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -162,6 +170,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Config.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Config.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

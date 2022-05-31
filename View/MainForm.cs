@@ -49,7 +49,7 @@ namespace ChemicalScan.View
         {
             _ShowMsg _sm = new _ShowMsg(delegate ()
             {
-                textBox_msgFromMES.Text = text;
+                textBox_errorInfo.Text = text;
             });
             Invoke(_sm);
         }
@@ -87,7 +87,35 @@ namespace ChemicalScan.View
             
         }
 
+        /// <summary>
+        /// 关闭程序时执行操作
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //弹窗再次确认是否退出程序
+            if (MessageBox.Show("确定退出程序吗？", "退出",
+                MessageBoxButtons.OKCancel) == DialogResult.Cancel)
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                //彻底退出程序，包括socket进程，这样程序不会后台运行
+                Environment.Exit(0);
+            }
+        }
 
+        /// <summary>
+        /// MainForm 显示事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Maximized;
+        }
 
         private void textBox_site_TextChanged(object sender, EventArgs e)
         {
@@ -148,24 +176,20 @@ namespace ChemicalScan.View
             }
         }
 
-        /// <summary>
-        /// 关闭程序时执行操作
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void menuStrip_top_Config_Click(object sender, EventArgs e)
         {
-            //弹窗再次确认是否退出程序
-            if (MessageBox.Show("确定退出程序吗？", "退出",
-                MessageBoxButtons.OKCancel) == DialogResult.Cancel)
-            {
-                e.Cancel = true;
-            }
-            else
-            {
-                //彻底退出程序，包括socket进程，这样程序不会后台运行
-                Environment.Exit(0);
-            }
+            new AdminLoginForm().Show();
+        }
+
+        private void menuStrip_top_log_openCurrent_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("notepad.exe", "Log\\2022060100001000.txt");
+        }
+
+        private void menuStrip_top_log_openFolder_Click(object sender, EventArgs e)
+        {
+            string logDir = 
+            System.Diagnostics.Process.Start("explorer.exe", logDir);
         }
     }
 }

@@ -29,17 +29,19 @@ namespace ChemicalScan.Controller
         public void StartSocketServer()
         {
 
+            SocketServer socket_L3L4 = new SocketServer(hostIP, port_glassScan);
+            socket_L3L4.StartListen();
+#if !BDSSCAN
             SocketServer socket_L1L2 = new SocketServer(hostIP, port_up);
             socket_L1L2.StartListen();
 
-            SocketServer socket_L3L4 = new SocketServer(hostIP, port_glassScan);
-            socket_L3L4.StartListen();
 
             SocketServer socket_L5L6 = new SocketServer(hostIP, port_down);
             socket_L5L6.StartListen();
 
             SocketServer socket_L7L8 = new SocketServer(hostIP, port_submit);
             socket_L7L8.StartListen();
+#endif
         }
 
         /// <summary>

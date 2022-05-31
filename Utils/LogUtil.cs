@@ -14,17 +14,31 @@ namespace ChemicalScan.Utils
     /// <summary>
     /// 日志工具类
     /// </summary>
-    internal class LogUtil : SingleTon<LogUtil>
+    public class LogUtil : SingleTon<LogUtil>
     {
         public static string logPath = "./Log/";
 
-        public static string logNumber = "00001000";
+        public static string currentLogName
+        {
+            get
+            {
+                return DateTime.Now.ToString("yyyyMMdd") + streamNumerStr;
+            }
+        }
 
-        public static string streamNumerStr = "00001000";
-        public static int streamNumer = 0; //流水号
+        public static string logNumber = "00001000";
 
         public static int maxLength = 5000; //显示的log 最大长度
 
+
+        public static int preStreamNumer; //流水号
+        private static string streamNumerStr
+        {
+            get
+            {
+                return string.Format("{ 0:D" + "4" + "}", preStreamNumer);
+            }
+        }
         private static string fileName = "";
 
 /*        public static string getLogNumber()
@@ -51,11 +65,11 @@ namespace ChemicalScan.Utils
             //前部加上时间戳
             string log = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss ") + logContent;
             //写入log
-            streamWriter.Write(log + "\r\n\r\n");
+            streamWriter.Write(log + "\r\n");
 
             //界面显示log
             if(MainForm.thisForm != null)
-                MainForm.thisForm.ShowLog(log + "\r\n\r\n");
+                MainForm.thisForm.ShowLog(log + "\r\n");
 
             if (fileStream != null)
             {
