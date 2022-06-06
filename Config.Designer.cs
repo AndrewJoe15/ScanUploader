@@ -23,12 +23,27 @@ namespace ChemicalScan {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int log_preStreamNumer {
+        public int log_currSerialNumber {
             get {
-                return ((int)(this["log_preStreamNumer"]));
+                return ((int)(this["log_currSerialNumber"]));
+            }
+            set {
+                this["log_currSerialNumber"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int log_nextSerialNumber {
+            get {
+                return ((int)(this["log_nextSerialNumber"]));
+            }
+            set {
+                this["log_nextSerialNumber"] = value;
             }
         }
     }

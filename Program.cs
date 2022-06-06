@@ -21,9 +21,8 @@ namespace ChemicalScan
             LogUtil.WriteLog("上位机软件启动。");
 
             //http用户登录以更新Token
-            //UserManager.HttpLogin();
+            UserManager.HttpLogin();
             //启动连接计时器，每11小时重新登录一次
-            //ConnectManager.Instance.StartTimer();
             //启动Socket服务器
             ConnectManager.Instance.StartSocketServer();
 

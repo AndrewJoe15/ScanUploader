@@ -2,7 +2,10 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ChemicalScan" GeneratedClassName="Config">
   <Profiles />
   <Settings>
-    <Setting Name="log_preStreamNumer" Type="System.Int32" Scope="Application">
+    <Setting Name="log_currSerialNumber" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="log_nextSerialNumber" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>

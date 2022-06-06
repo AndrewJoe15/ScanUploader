@@ -113,7 +113,7 @@
     </Compile>
     <Compile Include="Controller\ConnectManager.cs" />
     <Compile Include="Controller\Communicator.cs" />
-    <Compile Include="Controller\Initializer.cs" />
+    <Compile Include="Controller\Configurator.cs" />
     <Compile Include="Controller\ShowManager.cs" />
     <Compile Include="Controller\UserManager.cs" />
     <Compile Include="Model\Container.cs" />

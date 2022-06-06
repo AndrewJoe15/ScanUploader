@@ -16,50 +16,66 @@ namespace ChemicalScan.Utils
     /// </summary>
     public class LogUtil : SingleTon<LogUtil>
     {
-        public static string logPath = "./Log/";
+        //log文件路径（相对地址）
+        public static string logPath = Environment.CurrentDirectory + "\\Log\\";
 
-        public static string currentLogName
+        //*********logFileName = prefix + yyyyMMdd + serialNumber +  fileFormat
+        //**********             HP        20220601     12345678       .txt
+        //                      ***********  logNumber  ***********
+        //前缀
+        public static string prefix = "HP";
+        //日志文件名中的日期格式
+        public static string dateFormat = "yyyyMMdd";
+
+        //log流水号位数
+        public static int serialFigures = 8;
+        //流水号  需要在配置器中初始化
+        public static int currentSerialNumer = 0; //当前流水号数字
+        public static int nextSerialNumer = 0;    //下一个流水号数字   双数字控制流水号在规定位数内增长 归零
+        public static string serialNumString     //将流水号数字转为指定位数字符串
         {
             get
             {
-                return DateTime.Now.ToString("yyyyMMdd") + streamNumerStr;
+                //将流水号转为指定位数编号，位数不足以0填充 ({0:D4},3)  ->  0003
+                string fmt = "{0:D" + serialFigures.ToString() + "}";
+                return string.Format(fmt, currentSerialNumer);
             }
         }
-
-        public static string logNumber = "00001000";
-
-        public static int maxLength = 5000; //显示的log 最大长度
-
-
-        public static int preStreamNumer; //流水号
-        private static string streamNumerStr
+        
+        public static string logNumber
         {
             get
             {
-                return string.Format("{ 0:D" + "4" + "}", preStreamNumer);
+                return prefix + DateTime.Now.ToString(dateFormat) + serialNumString;
             }
         }
-        private static string fileName = "";
 
-/*        public static string getLogNumber()
+        public static string currentLogFileName = ""; 
+
+        public static int maxLength = 10000; //显示的log 最大长度
+
+        public static string logFileFormat = ".txt";
+
+        public static void setNextSerialNumber()
         {
-            streamNumerStr = streamNumer.ToString("0000");
-            streamNumer++;
-            logNumber = DateTime.Now.ToString("yyyyMMdd") + streamNumerStr;
-            return logNumber;
-        }*/
-        public static string getLogNumber()
-        {
-            return logNumber;
+            if ((currentSerialNumer + 1).ToString().Length > serialFigures)
+                nextSerialNumer = 0;
+            else
+                nextSerialNumer = currentSerialNumer + 1;
         }
+
         public static void WriteLog(string logContent)
         {
             if (!File.Exists(logPath))
                 Directory.CreateDirectory(logPath);
-            logNumber = DateTime.Now.ToString("yyyyMMdd") + streamNumerStr;
-            fileName = logNumber + ".txt";
+
+            //不等说明提交的时候nextSerialNumer循环+1了
+            if (currentSerialNumer != nextSerialNumer)
+                currentSerialNumer = nextSerialNumer;
+            
+            currentLogFileName = logNumber + ".txt";
             //打开一个文件流，文件尾追加模式
-            FileStream fileStream = new FileStream(logPath + fileName, FileMode.Append);
+            FileStream fileStream = new FileStream(logPath + currentLogFileName, FileMode.Append);
             StreamWriter streamWriter = new StreamWriter(fileStream, Encoding.Default);
 
             //前部加上时间戳

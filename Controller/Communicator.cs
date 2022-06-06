@@ -223,8 +223,8 @@ namespace ChemicalScan.Controller
         {
             //设备编号,设备码  L1,220421XSH01 
             string[] subs = str.Split(splitChar);
-            string operationID = subs[0];
-            string deviceCode = subs[1];
+            string operationID = subs[0].ToUpper();
+            string deviceCode = subs[1].ToUpper();
             //string dataToMachine = deviceID;//字符串最开始为 "L1..." "L2..."
             ReturnData dataToMachine = new ReturnData();
 
@@ -333,6 +333,9 @@ namespace ChemicalScan.Controller
                         dataToMachine = SubmitToMES(ref GlobalValue.GlassList_NG);
 
                     LogUtil.WriteLog(operationID + "已执行批量提交。");
+
+                    //更新日志流水号
+                    LogUtil.setNextSerialNumber();
                 }
             }
 
@@ -407,6 +410,8 @@ namespace ChemicalScan.Controller
             if (deviceID.ToUpper() == submit_NG_Right_Finish)
                 dataToMachine = SubmitToMES(ref GlobalValue.GlassList_NG_Right);
 
+            //更新日志流水号
+            LogUtil.setNextSerialNumber();
             return dataToMachine;
         }
 
