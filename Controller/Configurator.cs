@@ -39,7 +39,7 @@ namespace ChemicalScan.Controller
         {
 
         }
-
+            
         /// <summary>
         /// 将当前URL值保存到配置文件中
         /// </summary>

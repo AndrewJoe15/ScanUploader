@@ -92,7 +92,7 @@
             // menuStrip_top_Config
             // 
             this.menuStrip_top_Config.Name = "menuStrip_top_Config";
-            this.menuStrip_top_Config.Size = new System.Drawing.Size(60, 28);
+            this.menuStrip_top_Config.Size = new System.Drawing.Size(49, 24);
             this.menuStrip_top_Config.Text = "配置";
             this.menuStrip_top_Config.Click += new System.EventHandler(this.menuStrip_top_Config_Click);
             // 
@@ -102,7 +102,7 @@
             this.menuStrip_top_log_openCurrent,
             this.menuStrip_top_log_openFolder});
             this.menuStrip_top_log.Name = "menuStrip_top_log";
-            this.menuStrip_top_log.Size = new System.Drawing.Size(60, 28);
+            this.menuStrip_top_log.Size = new System.Drawing.Size(49, 24);
             this.menuStrip_top_log.Text = "日志";
             // 
             // menuStrip_top_log_openCurrent
@@ -123,7 +123,7 @@
             // 
             this.textBox_productModel.Location = new System.Drawing.Point(123, 177);
             this.textBox_productModel.Name = "textBox_productModel";
-            this.textBox_productModel.Size = new System.Drawing.Size(180, 30);
+            this.textBox_productModel.Size = new System.Drawing.Size(180, 26);
             this.textBox_productModel.TabIndex = 7;
             this.textBox_productModel.TextChanged += new System.EventHandler(this.textBox_productModel_TextChanged);
             // 
@@ -132,7 +132,7 @@
             this.label_productModelVersion.AutoSize = true;
             this.label_productModelVersion.Location = new System.Drawing.Point(23, 229);
             this.label_productModelVersion.Name = "label_productModelVersion";
-            this.label_productModelVersion.Size = new System.Drawing.Size(109, 20);
+            this.label_productModelVersion.Size = new System.Drawing.Size(88, 16);
             this.label_productModelVersion.TabIndex = 8;
             this.label_productModelVersion.Text = "型号版本：";
             // 
@@ -141,7 +141,7 @@
             this.label_productModel.AutoSize = true;
             this.label_productModel.Location = new System.Drawing.Point(23, 184);
             this.label_productModel.Name = "label_productModel";
-            this.label_productModel.Size = new System.Drawing.Size(109, 20);
+            this.label_productModel.Size = new System.Drawing.Size(88, 16);
             this.label_productModel.TabIndex = 6;
             this.label_productModel.Text = "产品型号：";
             // 
@@ -149,7 +149,7 @@
             // 
             this.textBox_productModelVersion.Location = new System.Drawing.Point(123, 222);
             this.textBox_productModelVersion.Name = "textBox_productModelVersion";
-            this.textBox_productModelVersion.Size = new System.Drawing.Size(180, 30);
+            this.textBox_productModelVersion.Size = new System.Drawing.Size(180, 26);
             this.textBox_productModelVersion.TabIndex = 9;
             this.textBox_productModelVersion.TextChanged += new System.EventHandler(this.textBox_productModelVersion_TextChanged);
             // 
@@ -157,7 +157,7 @@
             // 
             this.textBox_resource.Location = new System.Drawing.Point(123, 128);
             this.textBox_resource.Name = "textBox_resource";
-            this.textBox_resource.Size = new System.Drawing.Size(180, 30);
+            this.textBox_resource.Size = new System.Drawing.Size(180, 26);
             this.textBox_resource.TabIndex = 5;
             this.textBox_resource.TextChanged += new System.EventHandler(this.textBox_resource_TextChanged);
             // 
@@ -166,7 +166,7 @@
             this.label_shift.AutoSize = true;
             this.label_shift.Location = new System.Drawing.Point(23, 273);
             this.label_shift.Name = "label_shift";
-            this.label_shift.Size = new System.Drawing.Size(69, 20);
+            this.label_shift.Size = new System.Drawing.Size(56, 16);
             this.label_shift.TabIndex = 10;
             this.label_shift.Text = "班次：";
             // 
@@ -175,7 +175,7 @@
             this.label_resource.AutoSize = true;
             this.label_resource.Location = new System.Drawing.Point(23, 135);
             this.label_resource.Name = "label_resource";
-            this.label_resource.Size = new System.Drawing.Size(89, 20);
+            this.label_resource.Size = new System.Drawing.Size(72, 16);
             this.label_resource.TabIndex = 4;
             this.label_resource.Text = "设备号：";
             // 
@@ -183,7 +183,7 @@
             // 
             this.textBox_operation.Location = new System.Drawing.Point(123, 78);
             this.textBox_operation.Name = "textBox_operation";
-            this.textBox_operation.Size = new System.Drawing.Size(180, 30);
+            this.textBox_operation.Size = new System.Drawing.Size(180, 26);
             this.textBox_operation.TabIndex = 3;
             this.textBox_operation.TextChanged += new System.EventHandler(this.textBox_operation_TextChanged);
             // 
@@ -192,7 +192,7 @@
             this.label_createBy.AutoSize = true;
             this.label_createBy.Location = new System.Drawing.Point(23, 322);
             this.label_createBy.Name = "label_createBy";
-            this.label_createBy.Size = new System.Drawing.Size(89, 20);
+            this.label_createBy.Size = new System.Drawing.Size(72, 16);
             this.label_createBy.TabIndex = 12;
             this.label_createBy.Text = "操作人：";
             // 
@@ -201,7 +201,7 @@
             this.label_operation.AutoSize = true;
             this.label_operation.Location = new System.Drawing.Point(23, 86);
             this.label_operation.Name = "label_operation";
-            this.label_operation.Size = new System.Drawing.Size(69, 20);
+            this.label_operation.Size = new System.Drawing.Size(56, 16);
             this.label_operation.TabIndex = 2;
             this.label_operation.Text = "工序：";
             // 
@@ -209,7 +209,7 @@
             // 
             this.textBox_createBy.Location = new System.Drawing.Point(123, 314);
             this.textBox_createBy.Name = "textBox_createBy";
-            this.textBox_createBy.Size = new System.Drawing.Size(180, 30);
+            this.textBox_createBy.Size = new System.Drawing.Size(180, 26);
             this.textBox_createBy.TabIndex = 13;
             this.textBox_createBy.TextChanged += new System.EventHandler(this.textBox_createBy_TextChanged);
             // 
@@ -217,7 +217,7 @@
             // 
             this.textBox_site.Location = new System.Drawing.Point(123, 29);
             this.textBox_site.Name = "textBox_site";
-            this.textBox_site.Size = new System.Drawing.Size(180, 30);
+            this.textBox_site.Size = new System.Drawing.Size(180, 26);
             this.textBox_site.TabIndex = 1;
             this.textBox_site.TextChanged += new System.EventHandler(this.textBox_site_TextChanged);
             // 
@@ -226,7 +226,7 @@
             this.label_site.AutoSize = true;
             this.label_site.Location = new System.Drawing.Point(23, 36);
             this.label_site.Name = "label_site";
-            this.label_site.Size = new System.Drawing.Size(109, 20);
+            this.label_site.Size = new System.Drawing.Size(88, 16);
             this.label_site.TabIndex = 0;
             this.label_site.Text = "工厂编号：";
             // 
@@ -236,7 +236,7 @@
             this.label_basicInformation.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label_basicInformation.Location = new System.Drawing.Point(14, 33);
             this.label_basicInformation.Name = "label_basicInformation";
-            this.label_basicInformation.Size = new System.Drawing.Size(93, 20);
+            this.label_basicInformation.Size = new System.Drawing.Size(76, 16);
             this.label_basicInformation.TabIndex = 16;
             this.label_basicInformation.Text = "基本信息";
             // 
@@ -255,7 +255,7 @@
             this.comboBox_shift.FormattingEnabled = true;
             this.comboBox_shift.Location = new System.Drawing.Point(123, 268);
             this.comboBox_shift.Name = "comboBox_shift";
-            this.comboBox_shift.Size = new System.Drawing.Size(180, 28);
+            this.comboBox_shift.Size = new System.Drawing.Size(180, 24);
             this.comboBox_shift.TabIndex = 19;
             this.comboBox_shift.SelectedIndexChanged += new System.EventHandler(this.comboBox_shift_SelectedIndexChanged);
             // 
@@ -288,7 +288,7 @@
             // 
             this.textBox_mo.Location = new System.Drawing.Point(123, 362);
             this.textBox_mo.Name = "textBox_mo";
-            this.textBox_mo.Size = new System.Drawing.Size(180, 30);
+            this.textBox_mo.Size = new System.Drawing.Size(180, 26);
             this.textBox_mo.TabIndex = 22;
             // 
             // label_mo
@@ -296,7 +296,7 @@
             this.label_mo.AutoSize = true;
             this.label_mo.Location = new System.Drawing.Point(23, 369);
             this.label_mo.Name = "label_mo";
-            this.label_mo.Size = new System.Drawing.Size(89, 20);
+            this.label_mo.Size = new System.Drawing.Size(72, 16);
             this.label_mo.TabIndex = 21;
             this.label_mo.Text = "工单号：";
             // 
@@ -342,7 +342,7 @@
             this.label_errorInfo.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label_errorInfo.Location = new System.Drawing.Point(7, 465);
             this.label_errorInfo.Name = "label_errorInfo";
-            this.label_errorInfo.Size = new System.Drawing.Size(93, 20);
+            this.label_errorInfo.Size = new System.Drawing.Size(76, 16);
             this.label_errorInfo.TabIndex = 27;
             this.label_errorInfo.Text = "错误信息";
             // 
@@ -361,7 +361,7 @@
             this.label1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.Location = new System.Drawing.Point(358, 33);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(84, 20);
+            this.label1.Size = new System.Drawing.Size(69, 16);
             this.label1.TabIndex = 28;
             this.label1.Text = "Log日志";
             // 
@@ -427,7 +427,7 @@
             this.label2.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label2.Location = new System.Drawing.Point(14, 507);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(93, 20);
+            this.label2.Size = new System.Drawing.Size(76, 16);
             this.label2.TabIndex = 31;
             this.label2.Text = "连接状态";
             // 
@@ -460,7 +460,7 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 681);
             this.Controls.Add(this.label_timer_main);
