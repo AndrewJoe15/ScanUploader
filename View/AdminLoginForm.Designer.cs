@@ -48,7 +48,7 @@
             // textBox_userName
             // 
             this.textBox_userName.Location = new System.Drawing.Point(219, 92);
-            this.textBox_userName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox_userName.Margin = new System.Windows.Forms.Padding(4);
             this.textBox_userName.Name = "textBox_userName";
             this.textBox_userName.Size = new System.Drawing.Size(199, 30);
             this.textBox_userName.TabIndex = 1;
@@ -57,7 +57,7 @@
             // textBox_password
             // 
             this.textBox_password.Location = new System.Drawing.Point(219, 176);
-            this.textBox_password.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox_password.Margin = new System.Windows.Forms.Padding(4);
             this.textBox_password.Name = "textBox_password";
             this.textBox_password.PasswordChar = '*';
             this.textBox_password.Size = new System.Drawing.Size(199, 30);
@@ -76,7 +76,7 @@
             // button_login
             // 
             this.button_login.Location = new System.Drawing.Point(235, 262);
-            this.button_login.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_login.Margin = new System.Windows.Forms.Padding(4);
             this.button_login.Name = "button_login";
             this.button_login.Size = new System.Drawing.Size(94, 40);
             this.button_login.TabIndex = 4;
@@ -86,6 +86,7 @@
             // 
             // AdminLoginForm
             // 
+            this.AcceptButton = this.button_login;
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(551, 344);
@@ -95,7 +96,7 @@
             this.Controls.Add(this.textBox_userName);
             this.Controls.Add(this.label_userName);
             this.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "AdminLoginForm";
             this.Text = "LoginForm";
             this.ResumeLayout(false);

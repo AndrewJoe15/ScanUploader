@@ -20,7 +20,7 @@ namespace ChemicalScan.Controller
         {
             User httpUser = new User(User.httpUserName, User.httpUserPassword, User.httpUserSite);
             //发送登录post请求
-            JObject result = HttpUtil.PostResponse(URL.login, JsonConvert.SerializeObject(httpUser));
+            JObject result = HttpUtil.PostResponse(URL.httpLogin, JsonConvert.SerializeObject(httpUser));
             if(result.Count > 0)
             {
                 //提取返回的状态码

@@ -4,12 +4,13 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
 using ChemicalScan.Model;
 using ChemicalScan.Utils;
+using ChemicalScan.Controller;
+using System.IO;
 
 namespace ChemicalScan.View
 {
@@ -25,6 +26,16 @@ namespace ChemicalScan.View
         {
             InitializeComponent();
             Init();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            timer_main.Start();
+        }
+
+        private void timer_main_Tick(object sender, EventArgs e)
+        {
+            label_timer_main.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         }
 
         //线程安全调用
@@ -60,10 +71,11 @@ namespace ChemicalScan.View
         private void Init()
         {
             thisForm = this;
+
             //遍历基本信息面板的子控件
             foreach (Control ctrl in panel_basicInformation.Controls)
             {
-                //TextBox初始化
+                //基本信息的 TextBox初始化
                 if (ctrl is TextBox)
                 {
                     foreach (PropertyInfo p in basicInfo.GetType().GetProperties())
@@ -83,8 +95,6 @@ namespace ChemicalScan.View
 
             textBox_mo.Text = "";
 
-            //最大化
-            
         }
 
         /// <summary>
@@ -102,6 +112,8 @@ namespace ChemicalScan.View
             }
             else
             {
+                //保存日志流水号
+                LogUtil.SaveData();
                 //彻底退出程序，包括socket进程，这样程序不会后台运行
                 Environment.Exit(0);
             }
@@ -178,17 +190,27 @@ namespace ChemicalScan.View
 
         private void menuStrip_top_Config_Click(object sender, EventArgs e)
         {
-            new AdminLoginForm().Show();
+            AdminLoginForm form = new AdminLoginForm();
+            form.ShowDialog(this);
         }
 
         private void menuStrip_top_log_openCurrent_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("notepad.exe", "Log\\2022060100001000.txt");
+            if (LogUtil.currentLogFileName == "")
+                ShowUtil.ShowTips("当前无日志。");
+
+            string logFile = LogUtil.logPath + LogUtil.currentLogFileName;
+            if(!File.Exists(logFile))
+                ShowUtil.ShowTips("当前日志无内容。");
+            else
+            {
+                System.Diagnostics.Process.Start("notepad.exe", logFile);
+            }
         }
 
         private void menuStrip_top_log_openFolder_Click(object sender, EventArgs e)
         {
-            string logDir = 
+            string logDir = LogUtil.logPath;
             System.Diagnostics.Process.Start("explorer.exe", logDir);
         }
     }

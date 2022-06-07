@@ -27,8 +27,13 @@ namespace ChemicalScan.View
         {
             if(textBox_userName.Text == userName && textBox_password.Text == password)
             {
+                this.Hide();
+                
+                ConfigureForm form = new ConfigureForm();
+                //模式对话框，窗体始终在前，其他窗体无法操作
+                form.ShowDialog(MainForm.thisForm);
+                
                 this.Close();
-                new ConfigureForm().Show();
             }
             else
             {

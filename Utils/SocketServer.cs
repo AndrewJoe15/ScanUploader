@@ -56,7 +56,7 @@ namespace ChemicalScan.Utils
                 endPoint = new IPEndPoint(address, _port);
                 
                 //端口可复用
-                _socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 2);
+                //_socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 2);
                 //socket对象绑定端口
                 _socket.Bind(endPoint);
                 //将 Socket 置于侦听状态
@@ -139,15 +139,11 @@ namespace ChemicalScan.Utils
                         ReturnData dataToMachine = Communicator.GetDataFromMES(str,endPort.Port);
 
                         if (dataToMachine != null && dataToMachine.code != null)
-                        {
-                            //保证发给PLC的是200或500
-                            if(dataToMachine.code == ReturnData.code_success || dataToMachine.code == ReturnData.code_error)
-                            {
-                                //将code发给machine
-                                clientSocket.Send(Encoding.UTF8.GetBytes(dataToMachine.code));
+                        {                            
+                            //将code发给machine
+                            clientSocket.Send(Encoding.UTF8.GetBytes(dataToMachine.code));
 
-                                LogUtil.WriteLog("发给Machine端的消息: " + dataToMachine.code);
-                            }
+                            LogUtil.WriteLog("发给Machine端的消息: " + dataToMachine.code);
 
                             ShowManager.Instance.updateMsgFromMES("");
                             //如果返回状态码为错误码，将出错信息展示给操作员

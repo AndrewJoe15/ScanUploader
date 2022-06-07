@@ -14,34 +14,59 @@ namespace ChemicalScan.Controller
 {
     internal class ConnectManager : SingleTon<ConnectManager>
     {
-        public const int port_up = 1100;            //上料端口
-        public const int port_glassScan = 1200;     //玻璃涂油扫码端口
-        public const int port_down = 1300;          //下料端口
-        public const int port_submit = 1400;        //提交端口
+        public static int port_up = Properties.Socket.Default.port_up;            //上料端口
+        public static int port_main = Properties.Socket.Default.port_main;   //玻璃涂油扫码端口
+        public static int port_down = Properties.Socket.Default.port_down;        //下料端口
+        public static int port_submit = Properties.Socket.Default.port_submit;    //提交端口
+
+        public static string hostIP = Properties.Socket.Default.IP_host;
 
         public const string stopID = "STOP";
 
         private const double connectTimeout = 11 * 60 * 60 * 1000; //11小时
 
-        private const string hostIP = "0.0.0.0";
+        public static void SaveSocketConfig()
+        {
+            Properties.Socket.Default.port_up = port_up;            //上料端口
+            Properties.Socket.Default.port_main = port_main;   //玻璃涂油扫码端口
+            Properties.Socket.Default.port_down = port_down;        //下料端口
+            Properties.Socket.Default.port_submit = port_submit;    //提交端口
 
+            Properties.Socket.Default.IP_host = hostIP;
+
+            URL.UpdateURL();
+
+            //保存到文件
+            Properties.Socket.Default.Save();
+        }
 
         public void StartSocketServer()
         {
 
-            SocketServer socket_L3L4 = new SocketServer(hostIP, port_glassScan);
-            socket_L3L4.StartListen();
-#if !BDSSCAN
-            SocketServer socket_L1L2 = new SocketServer(hostIP, port_up);
-            socket_L1L2.StartListen();
+            if (Properties.Socket.Default.socket_up)
+            {                    
+                SocketServer socket_L1L2 = new SocketServer(hostIP, port_up);
+                socket_L1L2.StartListen();
+            }
+
+            if (Properties.Socket.Default.socket_main)
+            {
+                SocketServer socket_L3L4 = new SocketServer(hostIP, port_main);
+                socket_L3L4.StartListen();
+            }
+            if (Properties.Socket.Default.socket_down)
+            {
+                SocketServer socket_L5L6 = new SocketServer(hostIP, port_down);
+                socket_L5L6.StartListen();
+            }
 
 
-            SocketServer socket_L5L6 = new SocketServer(hostIP, port_down);
-            socket_L5L6.StartListen();
+            if (Properties.Socket.Default.socket_submit)
+            {
+                SocketServer socket_L7L8 = new SocketServer(hostIP, port_submit);
+                socket_L7L8.StartListen();
+            }
 
-            SocketServer socket_L7L8 = new SocketServer(hostIP, port_submit);
-            socket_L7L8.StartListen();
-#endif
         }
 
         /// <summary>
@@ -52,7 +77,7 @@ namespace ChemicalScan.Controller
         {
             Debug.WriteLine("计时器开0始运行...");
             Timer aTimer = new Timer();
-            aTimer.Elapsed += new ElapsedEventHandler(TimeEvent);           
+            aTimer.Elapsed += new ElapsedEventHandler(TimeEvent);
             aTimer.Interval = connectTimeout; // 设置触发的时间间隔 此处设置为11小时
             aTimer.AutoReset = true;//自动重置，每11小时执行一次TimeEvent()
             aTimer.Enabled = true;

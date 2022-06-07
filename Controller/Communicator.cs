@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading;
 using System.Diagnostics;
 
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ChemicalScan.Model;
 using ChemicalScan.Utils;
@@ -29,28 +24,28 @@ namespace ChemicalScan.Controller
         //上料
         //-扫出
         private const string containerOut_ID_Left   = "L1";
-        private const string containerOut_ID_Right   = "L2";
+        private const string containerOut_ID_Right  = "L2";
         //-解绑
-        private const string unbind_ID_Left = "L11";
-        private const string unbind_ID_Right = "L12";
+        private const string unbind_ID_Left         = "L11";
+        private const string unbind_ID_Right        = "L12";
         //主体
         //-玻璃
-        private const string SN_ID_Left            = "L3";
+        private const string SN_ID_Left             = "L3";
         private const string SN_ID_Right            = "L4";
         //下料
         //-扫入
-        private const string containerIn_OK_ID  = "L5";
-        private const string containerIn_NG_ID  = "L6";
+        private const string containerIn_OK_ID      = "L5";
+        private const string containerIn_NG_ID      = "L6";
         //-放入玻璃
-        private const string submit_OK_Left  = "OK2";
-        private const string submit_OK_Right  = "OK1"; 
-        private const string submit_NG_Left  = "NG2"; 
-        private const string submit_NG_Right  = "NG1"; 
+        private const string submit_OK_Left         = "OK2";
+        private const string submit_OK_Right        = "OK1"; 
+        private const string submit_NG_Left         = "NG2"; 
+        private const string submit_NG_Right        = "NG1"; 
         //-提交
         private const string submit_OK_Left_Finish  = "OK2" + submit_Finish_ID;
-        private const string submit_OK_Right_Finish  = "OK1" + submit_Finish_ID; 
+        private const string submit_OK_Right_Finish = "OK1" + submit_Finish_ID; 
         private const string submit_NG_Left_Finish  = "NG2" + submit_Finish_ID; 
-        private const string submit_NG_Right_Finish  = "NG1" + submit_Finish_ID; 
+        private const string submit_NG_Right_Finish = "NG1" + submit_Finish_ID; 
 
 #elif KIBBLESCAN
         //上料
@@ -141,14 +136,18 @@ namespace ChemicalScan.Controller
 
             if (dataFromMes != null)
             {
+                //确保发回来的body有内容才赋值
                 if (dataFromMes["code"] != null)
                 {
-                    //确保发回来的body有内容才赋值
                     rdata = new ReturnData();
                     rdata.code = dataFromMes["code"].ToString();
                     rdata.msg = dataFromMes["msg"].ToString();
                     if (dataFromMes["data"] != null)
-                        rdata.data = dataFromMes["data"].ToString();
+                    {
+                        //化抛架扫码，返回化抛架绑定的玻璃数量
+                        if(dataFromMes["data"]["bandQty"] != null)
+                            rdata.data = dataFromMes["data"]["bandQty"].ToString();
+                    }
                     LogUtil.WriteLog("收到MES端口的消息: \n" + dataFromMes.ToString());
                 }
             }
@@ -223,8 +222,8 @@ namespace ChemicalScan.Controller
         {
             //设备编号,设备码  L1,220421XSH01 
             string[] subs = str.Split(splitChar);
-            string operationID = subs[0];
-            string deviceCode = subs[1];
+            string operationID = subs[0].ToUpper();
+            string deviceCode = subs[1].ToUpper();
             //string dataToMachine = deviceID;//字符串最开始为 "L1..." "L2..."
             ReturnData dataToMachine = new ReturnData();
 
@@ -333,6 +332,9 @@ namespace ChemicalScan.Controller
                         dataToMachine = SubmitToMES(ref GlobalValue.GlassList_NG);
 
                     LogUtil.WriteLog(operationID + "已执行批量提交。");
+
+                    //更新日志流水号
+                    LogUtil.setNextSerialNumber();
                 }
             }
 
@@ -407,6 +409,8 @@ namespace ChemicalScan.Controller
             if (deviceID.ToUpper() == submit_NG_Right_Finish)
                 dataToMachine = SubmitToMES(ref GlobalValue.GlassList_NG_Right);
 
+            //更新日志流水号
+            LogUtil.setNextSerialNumber();
             return dataToMachine;
         }
 
@@ -416,10 +420,13 @@ namespace ChemicalScan.Controller
             //上料端口
             if (port == ConnectManager.port_up)
             {
-                //化抛架 载具扫出
+                //化抛架 扫出载具
                 if (operationID == containerOut_ID_Left || operationID == containerOut_ID_Right)
                 {
                     dataToMachine = GetReturnFromMES("containerCode", deviceCode, URL.scanContainerOut);
+                    //将化抛架绑定的数量 赋给 code 发给PLC
+                    if(dataToMachine != null)
+                        dataToMachine.code = dataToMachine.data;
                 }
                 //解绑
                 if (operationID == unbind_ID_Left || operationID == unbind_ID_Right)
@@ -429,7 +436,7 @@ namespace ChemicalScan.Controller
             }
 
             //主体端口
-            if (port == ConnectManager.port_glassScan)
+            if (port == ConnectManager.port_main)
             {
                 //玻璃
                 if (operationID == SN_ID_Left || operationID == SN_ID_Right)
