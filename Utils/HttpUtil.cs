@@ -16,7 +16,8 @@ namespace ChemicalScan.Utils
     {
         //post请求的Authorization，格式Bearer token
         //例如: Bearer 10a4b28d‐476d‐4166‐b65d‐651be75df9f8
-        public static string authorization = string.Empty; //静态成员变量必须赋初值
+        public static string authorization_MES = string.Empty; //初值为""
+        public static string authorization_WMS = string.Empty; 
 
         /// <summary>
         /// Get请求 模板方法
@@ -35,9 +36,9 @@ namespace ChemicalScan.Utils
             //http客户端对象
             HttpClient httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            if (authorization.Length > 0)
+            if (authorization_MES.Length > 0)
             {
-                httpClient.DefaultRequestHeaders.Add("Authorization", authorization);
+                httpClient.DefaultRequestHeaders.Add("Authorization", authorization_MES);
             }
             try
             {
@@ -83,9 +84,44 @@ namespace ChemicalScan.Utils
             HttpContent httpContent = new StringContent(postData);
             httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpClient httpClient = new HttpClient();
-            if (authorization.Length > 0)
+            if (authorization_MES.Length > 0)
             {
-                httpClient.DefaultRequestHeaders.Add("Authorization", authorization);
+                httpClient.DefaultRequestHeaders.Add("Authorization", authorization_MES);
+            }
+            try
+            {
+                HttpResponseMessage response = httpClient.PostAsync(url, httpContent).Result;
+                StatusCodeHandler(response);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string result = response.Content.ReadAsStringAsync().Result;
+                    JObject jo = (JObject)JsonConvert.DeserializeObject(result);
+                    return jo;
+                }
+            }
+            catch (Exception e)
+            {
+                ExceptionUtil.ExceptionHandler(e);
+            }
+            return new JObject();
+        }
+
+        public static JObject PostResponse_WMS(string url, string postData)
+        {
+            if (string.IsNullOrEmpty(url))
+            {
+                throw new ArgumentNullException("url");
+            }
+            if (url.StartsWith("https"))
+                System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+
+            HttpContent httpContent = new StringContent(postData);
+            httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            HttpClient httpClient = new HttpClient();
+            if (authorization_WMS.Length > 0)
+            {
+                httpClient.DefaultRequestHeaders.Add("Authorization", authorization_WMS);
             }
             try
             {
@@ -128,9 +164,9 @@ namespace ChemicalScan.Utils
             HttpClient httpClient = new HttpClient();
 
             T result = default(T);
-            if (authorization.Length > 0)
+            if (authorization_MES.Length > 0)
             {
-                httpClient.DefaultRequestHeaders.Add("Authorization", authorization);
+                httpClient.DefaultRequestHeaders.Add("Authorization", authorization_MES);
             }
             try
             {
@@ -177,9 +213,9 @@ namespace ChemicalScan.Utils
             httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
             HttpClient httpClient = new HttpClient();
-            if (authorization.Length > 0)
+            if (authorization_MES.Length > 0)
             {
-                httpClient.DefaultRequestHeaders.Add("Authorization", authorization);
+                httpClient.DefaultRequestHeaders.Add("Authorization", authorization_MES);
             }
             try
             {
@@ -221,9 +257,9 @@ namespace ChemicalScan.Utils
             HttpClient httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            if (authorization.Length > 0)
+            if (authorization_MES.Length > 0)
             {
-                httpClient.DefaultRequestHeaders.Add("Authorization", authorization);
+                httpClient.DefaultRequestHeaders.Add("Authorization", authorization_MES);
             }
             try
             {

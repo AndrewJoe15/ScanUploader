@@ -21,7 +21,6 @@ namespace ChemicalScan.Controller
         /// </summary>
         public static void InitChemical()
         {
-
         }
 
         /// <summary>
@@ -38,23 +37,6 @@ namespace ChemicalScan.Controller
         public static void InitBDS()
         {
 
-        }
-            
-        /// <summary>
-        /// 将当前URL值保存到配置文件中
-        /// </summary>
-        public static void SaveURL()
-        {
-            Properties.URL.Default.prefix = URL.prefix;
-            Properties.URL.Default.postfix_httpLogin = URL.postfix_httpLogin;
-            Properties.URL.Default.subPrefix_MES = URL.subPrefix_MES;
-            Properties.URL.Default.postfix_scanContainerIn = URL.postfix_scanContainerIn;
-            Properties.URL.Default.postfix_scanSn = URL.postfix_scanSn;
-            Properties.URL.Default.postfix_scanContainerOut = URL.postfix_scanContainerOut;
-            Properties.URL.Default.postfix_scanContainerUnbind = URL.postfix_scanContainerUnbind;
-            Properties.URL.Default.postfix_submit = URL.postfix_submit;
-
-            Properties.URL.Default.Save();
         }
 
 

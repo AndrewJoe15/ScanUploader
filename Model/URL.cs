@@ -10,46 +10,25 @@ namespace ChemicalScan.Model
     /// URL 静态类
     /// 用来存放一些URL
     /// </summary>
-    public static class URL
+    public class URL : SingleTon<URL>
     {
+        //获取url配置 静态对象
+        static readonly Properties.URL url = Properties.URL.Default;
+
         //登录http的url
-        public static string httpLogin = "";
+        public static string httpLogin = url.httpLogin_MES; //postfix_httpLogin 暂时用完整的url
 
         //扫码上传url
         //-载具扫出
-        public static string scanContainerOut       = "";
+        public static string scanContainerOut = url.prefix + url.subPrefix_MES + url.postfix_scanContainerOut; 
         //-单片玻璃
-        public static string scanSn                 = "";
+        public static string scanSn = url.prefix + url.subPrefix_MES + url.postfix_scanSn; 
         //-载具扫入
-        public static string scanContainerIn        = "";
+        public static string scanContainerIn = url.prefix + url.subPrefix_MES + url.postfix_scanContainerIn; 
         //-载具解绑
-        public static string scanContainerUnbind    = "";
+        public static string scanContainerUnbind = url.prefix + url.subPrefix_MES + url.postfix_scanContainerUnbind;
         //-提交
-        public static string scanSubmit             = "";
+        public static string scanSubmit = url.prefix + url.subPrefix_MES + url.postfix_submit; 
 
-        //URL 分段字符串
-        //-前缀 http://10.219.95.85/prod-api/
-        public static string prefix                    = Properties.URL.Default.prefix;
-        //-登录后缀
-        public static string postfix_httpLogin         = Properties.URL.Default.postfix_httpLogin;
-        //-MES端口 
-        public static string subPrefix_MES             = Properties.URL.Default.subPrefix_MES;
-     
-        public static string postfix_scanContainerOut  = Properties.URL.Default.postfix_scanContainerOut;
-        public static string postfix_scanSn            = Properties.URL.Default.postfix_scanSn;
-        public static string postfix_scanContainerIn   = Properties.URL.Default.postfix_scanContainerIn;
-        public static string postfix_scanContainerUnbind = Properties.URL.Default.postfix_scanContainerUnbind;
-        public static string postfix_submit            = Properties.URL.Default.postfix_submit;
-
-        public static void UpdateURL()
-        {
-            httpLogin = postfix_httpLogin;
-
-            scanContainerOut = prefix + subPrefix_MES + postfix_scanContainerOut;
-            scanSn = prefix + subPrefix_MES + postfix_scanSn;
-            scanContainerIn = prefix + subPrefix_MES + postfix_scanContainerIn;
-            scanContainerUnbind = prefix + subPrefix_MES + postfix_scanContainerUnbind;
-            scanSubmit = prefix + subPrefix_MES + postfix_submit;
-        }
     }
 }

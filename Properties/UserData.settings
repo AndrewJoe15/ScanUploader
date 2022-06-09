@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ChemicalScan.Properties" GeneratedClassName="UserData">
+  <Profiles />
+  <Settings>
+    <Setting Name="userName_http_MES" Type="System.String" Scope="User">
+      <Value Profile="(Default)">sbjk</Value>
+    </Setting>
+    <Setting Name="password_http_MES" Type="System.String" Scope="User">
+      <Value Profile="(Default)">sbjk2018</Value>
+    </Setting>
+    <Setting Name="site_http_MES" Type="System.String" Scope="User">
+      <Value Profile="(Default)">2018</Value>
+    </Setting>
+    <Setting Name="userName_http_WMS" Type="System.String" Scope="User">
+      <Value Profile="(Default)">device</Value>
+    </Setting>
+    <Setting Name="password_http_WMS" Type="System.String" Scope="User">
+      <Value Profile="(Default)">123456</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

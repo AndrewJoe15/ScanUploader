@@ -8,10 +8,6 @@ namespace ChemicalScan.Model
 {
     internal class User
     {
-        public static string httpUserName = "sbjk";
-        public static string httpUserPassword = "sbjk2018";
-        public static string httpUserSite = "2018";
-
         public string username { get; set; }
         public string password { get; set; }
 

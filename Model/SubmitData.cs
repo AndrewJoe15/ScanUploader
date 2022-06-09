@@ -13,7 +13,7 @@ namespace ChemicalScan.Model
 #if BDSSCAN
         public string order = "000600003375";
 #else
-        public string mo = "";
+        public string mo = "0010";
 #endif
         public string qty = "";
         public List<Glass> supplementList = new List<Glass>();

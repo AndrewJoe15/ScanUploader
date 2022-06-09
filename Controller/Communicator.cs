@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ChemicalScan.Model;
 using ChemicalScan.Utils;
@@ -112,6 +113,7 @@ namespace ChemicalScan.Controller
             return code;
         }
 
+
         public static ReturnData GetReturnFromMES(string deviceCodeKey, string deviceCodeValue, string url)
         {
             ReturnData rdata = null;
@@ -149,6 +151,75 @@ namespace ChemicalScan.Controller
                             rdata.data = dataFromMes["data"]["bandQty"].ToString();
                     }
                     LogUtil.WriteLog("收到MES端口的消息: \n" + dataFromMes.ToString());
+                }
+            }
+            return rdata;
+        }
+
+        /// <summary>
+        /// 向WMS查询、验证
+        /// </summary>
+        public static ReturnData GetReturnFromWMS(string deviceCodeValue)
+        {
+            ReturnData rdata = new ReturnData();
+            JObject dataFromWMS = null;
+            
+            //载具码
+            Query_WMS.Instance.holderNo = deviceCodeValue;
+            BasicInfo_WMS.Instance.upperMaterialLoadNumber = deviceCodeValue;
+
+            string dataToWMS = JsonConvert.SerializeObject(Query_WMS.Instance);
+            
+            if (dataToWMS != "{}")//空 Json
+            {
+                Debug.WriteLine(dataToWMS);
+                LogUtil.WriteLog("给WMS端口发送查询请求: \n" + dataToWMS);
+                //向WMS查询
+                JObject jsonRetrun = HttpUtil.PostResponse_WMS(Properties.URL.Default.stockQuery_WMS, dataToWMS);
+                if(jsonRetrun["code"] != null)
+                {
+                    LogUtil.WriteLog("收到WMS端口的消息: \n" + jsonRetrun.ToString());
+
+                    if (jsonRetrun["code"].ToString() == ReturnData.code_success)//查询成功
+                        //获取可用数量
+                        BasicInfo_WMS.Instance.upperMaterialQty = jsonRetrun["usable_qty"].ToString();
+                    else if(jsonRetrun["code"].ToString() == ReturnData.code_error)//查询失败
+                    {
+                        //查询失败，保存信息 返回
+                        rdata.code = ReturnData.code_error;
+                        if (jsonRetrun["code"] != null)
+                            rdata.msg = jsonRetrun["msg"].ToString();
+                        return rdata;
+                    }
+                }
+                
+            }
+            
+            //生成json数据
+            dataToWMS = JsonConvert.SerializeObject(BasicInfo_WMS.Instance);
+
+            if (dataToWMS != "{}")
+            {
+                Debug.WriteLine(dataToWMS);
+                LogUtil.WriteLog("向WMS端口发送校验请求: \n" + dataToWMS);
+
+                dataFromWMS = HttpUtil.PostResponse_WMS(Properties.URL.Default.validate_WMS, dataToWMS);
+            }
+
+            if (dataFromWMS != null)
+            {
+                //确保发回来的body有内容才赋值
+                if (dataFromWMS["omasgType"] != null)
+                {                    
+                    if (dataFromWMS["omasgType"].ToString() == "1")//校验通过
+                        rdata.code = ReturnData.code_success;
+                    else if(dataFromWMS["omasgType"].ToString() == "0")//校验失败
+                        rdata.code = ReturnData.code_error;
+                    
+                    if(dataFromWMS["omasg"] != null)
+                        rdata.msg = dataFromWMS["omasg"].ToString();
+
+                    LogUtil.WriteLog("收到WMS端口的消息: \n" + dataFromWMS.ToString());
                 }
             }
             return rdata;
@@ -245,7 +316,7 @@ namespace ChemicalScan.Controller
         {
             //丝印前BDS
             //涂油扫码端口
-            if (port == ConnectManager.port_glassScan)
+            if (port == ConnectManager.port_main)
             {
                 //上传玻璃码
                 if (operationID == SN_ID_1 || operationID == SN_ID_2)
@@ -273,17 +344,38 @@ namespace ChemicalScan.Controller
                     operationID == containerOut_ID_3 ||
                     operationID == containerOut_ID_4)
                 {
-                    dataToMachine = GetReturnFromMES("containerCode", deviceCode, URL.scanContainerOut);
+                    dataToMachine = GetReturnFromWMS(deviceCode);
                 }
             }
 
             //涂油扫码端口
-            if (port == ConnectManager.port_glassScan)
+            if (port == ConnectManager.port_main)
             {
                 //上传玻璃码
                 if (operationID == SN_ID_1 || operationID == SN_ID_2)
                 {
                     dataToMachine = GetReturnFromMES("snNumber", deviceCode, URL.scanSn);
+                    //良率统计
+                    if (operationID == SN_ID_1)
+                    {
+                        if (dataToMachine.code == ReturnData.code_success)
+                            Statistics.OK1++;
+                        if (dataToMachine.code == ReturnData.code_error)
+                            Statistics.NG1++;
+
+                        //更新界面良率
+                        MainForm.thisForm.UpdateStatistics(1);
+                    }
+                    if (operationID == SN_ID_2)
+                    {
+                        if (dataToMachine.code == ReturnData.code_success)
+                            Statistics.OK2++;
+                        if (dataToMachine.code == ReturnData.code_error)
+                            Statistics.NG2++;
+
+                        //更新界面良率
+                        MainForm.thisForm.UpdateStatistics(2);
+                    }
                 }
             }
 
@@ -344,76 +436,13 @@ namespace ChemicalScan.Controller
         //化抛项目扫码上传业务逻辑
 #if CHEMICALSCAN
         /// <summary>
-        /// Communicator <-> MES 
-        /// 解析Machine发来的数据，发送给MES，并整理MES传回的数据
-        /// 不分端口，统一处理
+        /// 化抛项目扫码上传处理逻辑
         /// </summary>
-        /// <param name="str">Machine 发来的字符串</param>
-        public static ReturnData GetDataFromMES(string str)
-        {
-            //设备编号,设备码  L1,220421XSH01 
-            string[] subs = str.Split(splitChar);
-            string deviceID = subs[0];
-            string deviceCode = subs[1];
-            //string dataToMachine = deviceID;//字符串最开始为 "L1..." "L2..."
-            ReturnData dataToMachine = new ReturnData();
-            //化抛架 载具扫出
-            if (deviceID == containerOut_ID_Left || deviceID == containerOut_ID_Right)
-            {
-                dataToMachine = GetReturnFromMES("containerCode", deviceCode, URL.scanContainerOut);
-            }
-            //玻璃
-            if (deviceID == SN_ID_Left || deviceID == SN_ID_Right)
-            {
-                dataToMachine = GetReturnFromMES("snNumber", deviceCode, URL.scanSn);
-                /*if (deviceCode == "NoRead")
-                    dataToMachine.code = ReturnData.code_error;*/
-            }
-            //载具 扫入
-            if (deviceID == containerIn_OK_ID || deviceID == containerIn_NG_ID)
-            {
-                dataToMachine = GetReturnFromMES("containerCode", deviceCode, URL.scanContainerIn);
-            }
-
-            //解绑
-            if (deviceID == unbind_ID_Left || deviceID == unbind_ID_Right)
-            {
-                dataToMachine = GetReturnFromMES("containerCode", deviceCode, URL.scanContainerUnbind);
-            }
-
-            //提交
-            // OK1,cOut,cIn,SN,
-            if (subs.Length >= 4)
-            {
-                Glass glass = new Glass();
-                glass.sourceVehicle = subs[1];
-                glass.targetVehicle = subs[2];
-                glass.snNumber = subs[3];
-
-                if (deviceID == submit_OK_Left)
-                    GlobalValue.GlassList_OK_Left.Add(glass);
-                if (deviceID == submit_OK_Right)
-                    GlobalValue.GlassList_OK_Right.Add(glass);
-                if (deviceID == submit_NG_Left)
-                    GlobalValue.GlassList_NG_Left.Add(glass);
-                if (deviceID == submit_NG_Right)
-                    GlobalValue.GlassList_NG_Right.Add(glass);
-            }
-
-            if (deviceID.ToUpper() == submit_OK_Left_Finish)
-                dataToMachine = SubmitToMES(ref GlobalValue.GlassList_OK_Left);
-            if (deviceID.ToUpper() == submit_OK_Right_Finish)
-                dataToMachine = SubmitToMES(ref GlobalValue.GlassList_OK_Right);
-            if (deviceID.ToUpper() == submit_NG_Left_Finish)
-                dataToMachine = SubmitToMES(ref GlobalValue.GlassList_NG_Left);
-            if (deviceID.ToUpper() == submit_NG_Right_Finish)
-                dataToMachine = SubmitToMES(ref GlobalValue.GlassList_NG_Right);
-
-            //更新日志流水号
-            LogUtil.setNextSerialNumber();
-            return dataToMachine;
-        }
-
+        /// <param name="port">socket端口</param>
+        /// <param name="subs">PLC发来数据</param>
+        /// <param name="operationID">操作标识符</param>
+        /// <param name="deviceCode">扫到的码</param>
+        /// <param name="dataToMachine">返给PLC的数据</param>
         private static void ChemicalScanHandler(int port, string[] subs, string operationID, string deviceCode, ref ReturnData dataToMachine)
         {
 

@@ -5,7 +5,7 @@
     <Setting Name="prefix" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://10.219.95.85/prod-api/</Value>
     </Setting>
-    <Setting Name="postfix_httpLogin" Type="System.String" Scope="User">
+    <Setting Name="httpLogin_MES" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://10.219.196.41/stage-api/auth/login</Value>
     </Setting>
     <Setting Name="subPrefix_MES" Type="System.String" Scope="User">
@@ -25,6 +25,15 @@
     </Setting>
     <Setting Name="postfix_submit" Type="System.String" Scope="User">
       <Value Profile="(Default)">chemicalScanSubmit</Value>
+    </Setting>
+    <Setting Name="httpLogin_WMS" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://10.210.192.31/stage-api/auth/login</Value>
+    </Setting>
+    <Setting Name="stockQuery_WMS" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://10.210.192.31/stage-api/process/mes/stock/query</Value>
+    </Setting>
+    <Setting Name="validate_WMS" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://10.210.192.31/stage-api/process/mesUpperMaterialRecord/public/mes/validate</Value>
     </Setting>
   </Settings>
 </SettingsFile>

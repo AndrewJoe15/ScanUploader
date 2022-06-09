@@ -12,7 +12,7 @@ namespace ChemicalScan.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     internal sealed partial class URL : global::System.Configuration.ApplicationSettingsBase {
         
         private static URL defaultInstance = ((URL)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new URL())));
@@ -38,12 +38,12 @@ namespace ChemicalScan.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("http://10.219.196.41/stage-api/auth/login")]
-        public string postfix_httpLogin {
+        public string httpLogin_MES {
             get {
-                return ((string)(this["postfix_httpLogin"]));
+                return ((string)(this["httpLogin_MES"]));
             }
             set {
-                this["postfix_httpLogin"] = value;
+                this["httpLogin_MES"] = value;
             }
         }
         
@@ -116,6 +116,43 @@ namespace ChemicalScan.Properties {
             }
             set {
                 this["postfix_submit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://10.210.192.31/stage-api/auth/login")]
+        public string httpLogin_WMS {
+            get {
+                return ((string)(this["httpLogin_WMS"]));
+            }
+            set {
+                this["httpLogin_WMS"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://10.210.192.31/stage-api/process/mes/stock/query")]
+        public string stockQuery_WMS {
+            get {
+                return ((string)(this["stockQuery_WMS"]));
+            }
+            set {
+                this["stockQuery_WMS"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://10.210.192.31/stage-api/process/mesUpperMaterialRecord/public/mes/validate" +
+            "")]
+        public string validate_WMS {
+            get {
+                return ((string)(this["validate_WMS"]));
+            }
+            set {
+                this["validate_WMS"] = value;
             }
         }
     }

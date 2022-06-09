@@ -12,12 +12,12 @@ namespace ChemicalScan.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.1.0.0")]
+    internal sealed partial class LogFile : global::System.Configuration.ApplicationSettingsBase {
         
-        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
+        private static LogFile defaultInstance = ((LogFile)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new LogFile())));
         
-        public static Settings Default {
+        public static LogFile Default {
             get {
                 return defaultInstance;
             }
@@ -25,37 +25,37 @@ namespace ChemicalScan.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool is_chemicalScan {
+        [global::System.Configuration.DefaultSettingValueAttribute("HP")]
+        public string prefix {
             get {
-                return ((bool)(this["is_chemicalScan"]));
+                return ((string)(this["prefix"]));
             }
             set {
-                this["is_chemicalScan"] = value;
+                this["prefix"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool is_kibbleScan {
+        [global::System.Configuration.DefaultSettingValueAttribute("yyyyMMdd")]
+        public string dateFormat {
             get {
-                return ((bool)(this["is_kibbleScan"]));
+                return ((string)(this["dateFormat"]));
             }
             set {
-                this["is_kibbleScan"] = value;
+                this["dateFormat"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool is_BDS {
+        [global::System.Configuration.DefaultSettingValueAttribute("8")]
+        public int serialFigures {
             get {
-                return ((bool)(this["is_BDS"]));
+                return ((int)(this["serialFigures"]));
             }
             set {
-                this["is_BDS"] = value;
+                this["serialFigures"] = value;
             }
         }
     }

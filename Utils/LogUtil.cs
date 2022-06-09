@@ -23,12 +23,11 @@ namespace ChemicalScan.Utils
         //**********             HP        20220601     12345678       .txt
         //                      ***********  logNumber  ***********
         //前缀
-        public static string prefix = "HP";
+        public static string prefix = Properties.LogFile.Default.prefix;
         //日志文件名中的日期格式
-        public static string dateFormat = "yyyyMMdd";
-
+        public static string dateFormat = Properties.LogFile.Default.dateFormat;
         //log流水号位数
-        public static int serialFigures = 8;
+        public static int serialFigures = Properties.LogFile.Default.serialFigures;
         
         public static string serialNumString     //将流水号数字转为指定位数字符串
         {
@@ -110,6 +109,7 @@ namespace ChemicalScan.Utils
             //保存日志流水号
             Properties.LogSN.Default.log_currSerialNumber = currentSerialNumer;
             Properties.LogSN.Default.log_nextSerialNumber = nextSerialNumer;
+
             Properties.LogSN.Default.Save();
         }
 

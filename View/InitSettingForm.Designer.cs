@@ -32,7 +32,7 @@
             this.radioButton_Kibble = new System.Windows.Forms.RadioButton();
             this.radioButton_BDS = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
-            this.button_certain = new System.Windows.Forms.Button();
+            this.button_confirm = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // radioButton_Chemical
@@ -42,11 +42,12 @@
             this.radioButton_Chemical.Location = new System.Drawing.Point(149, 155);
             this.radioButton_Chemical.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radioButton_Chemical.Name = "radioButton_Chemical";
-            this.radioButton_Chemical.Size = new System.Drawing.Size(65, 22);
+            this.radioButton_Chemical.Size = new System.Drawing.Size(68, 23);
             this.radioButton_Chemical.TabIndex = 0;
             this.radioButton_Chemical.TabStop = true;
             this.radioButton_Chemical.Text = "化抛";
             this.radioButton_Chemical.UseVisualStyleBackColor = true;
+            this.radioButton_Chemical.CheckedChanged += new System.EventHandler(this.radioButton_Chemical_CheckedChanged);
             // 
             // radioButton_Kibble
             // 
@@ -54,11 +55,12 @@
             this.radioButton_Kibble.Location = new System.Drawing.Point(288, 155);
             this.radioButton_Kibble.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radioButton_Kibble.Name = "radioButton_Kibble";
-            this.radioButton_Kibble.Size = new System.Drawing.Size(65, 22);
+            this.radioButton_Kibble.Size = new System.Drawing.Size(68, 23);
             this.radioButton_Kibble.TabIndex = 1;
             this.radioButton_Kibble.TabStop = true;
             this.radioButton_Kibble.Text = "粗磨";
             this.radioButton_Kibble.UseVisualStyleBackColor = true;
+            this.radioButton_Kibble.CheckedChanged += new System.EventHandler(this.radioButton_Kibble_CheckedChanged);
             // 
             // radioButton_BDS
             // 
@@ -66,38 +68,38 @@
             this.radioButton_BDS.Location = new System.Drawing.Point(415, 155);
             this.radioButton_BDS.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radioButton_BDS.Name = "radioButton_BDS";
-            this.radioButton_BDS.Size = new System.Drawing.Size(110, 22);
+            this.radioButton_BDS.Size = new System.Drawing.Size(117, 23);
             this.radioButton_BDS.TabIndex = 2;
             this.radioButton_BDS.TabStop = true;
             this.radioButton_BDS.Text = "丝印前BDS";
             this.radioButton_BDS.UseVisualStyleBackColor = true;
+            this.radioButton_BDS.CheckedChanged += new System.EventHandler(this.radioButton_BDS_CheckedChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(134, 90);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(206, 18);
+            this.label1.Size = new System.Drawing.Size(218, 19);
             this.label1.TabIndex = 3;
             this.label1.Text = "选择项目以初始化配置。";
             // 
-            // button_certain
+            // button_confirm
             // 
-            this.button_certain.Location = new System.Drawing.Point(278, 236);
-            this.button_certain.Name = "button_certain";
-            this.button_certain.Size = new System.Drawing.Size(75, 37);
-            this.button_certain.TabIndex = 4;
-            this.button_certain.Text = "确 定";
-            this.button_certain.UseVisualStyleBackColor = true;
-            this.button_certain.Click += new System.EventHandler(this.button_certain_Click);
+            this.button_confirm.Location = new System.Drawing.Point(279, 227);
+            this.button_confirm.Name = "button_confirm";
+            this.button_confirm.Size = new System.Drawing.Size(95, 39);
+            this.button_confirm.TabIndex = 4;
+            this.button_confirm.Text = "确 定";
+            this.button_confirm.UseVisualStyleBackColor = true;
+            this.button_confirm.Click += new System.EventHandler(this.button_confirm_Click);
             // 
             // InitSettingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(655, 315);
-            this.ControlBox = false;
-            this.Controls.Add(this.button_certain);
+            this.Controls.Add(this.button_confirm);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.radioButton_BDS);
             this.Controls.Add(this.radioButton_Kibble);
@@ -111,6 +113,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "选择项目";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InitSettingForm_Closing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -122,6 +125,6 @@
         private System.Windows.Forms.RadioButton radioButton_Kibble;
         private System.Windows.Forms.RadioButton radioButton_BDS;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button_certain;
+        private System.Windows.Forms.Button button_confirm;
     }
 }

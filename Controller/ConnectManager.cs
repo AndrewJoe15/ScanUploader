@@ -25,21 +25,6 @@ namespace ChemicalScan.Controller
 
         private const double connectTimeout = 11 * 60 * 60 * 1000; //11小时
 
-        public static void SaveSocketConfig()
-        {
-            Properties.Socket.Default.port_up = port_up;            //上料端口
-            Properties.Socket.Default.port_main = port_main;   //玻璃涂油扫码端口
-            Properties.Socket.Default.port_down = port_down;        //下料端口
-            Properties.Socket.Default.port_submit = port_submit;    //提交端口
-
-            Properties.Socket.Default.IP_host = hostIP;
-
-            URL.UpdateURL();
-
-            //保存到文件
-            Properties.Socket.Default.Save();
-        }
-
         public void StartSocketServer()
         {
 
@@ -59,7 +44,6 @@ namespace ChemicalScan.Controller
                 SocketServer socket_L5L6 = new SocketServer(hostIP, port_down);
                 socket_L5L6.StartListen();
             }
-
 
             if (Properties.Socket.Default.socket_submit)
             {
@@ -85,8 +69,12 @@ namespace ChemicalScan.Controller
 
         private void TimeEvent(object source, ElapsedEventArgs e)
         {
-            Debug.WriteLine("Token过期，重新登录MES端...");
+            Debug.WriteLine("Token即将过期，重新登录MES端...");
+            //MES
             UserManager.HttpLogin();
+            //粗磨项目还要登陆 WMS 获取token
+            if (Properties.Settings.Default.is_kibbleScan)
+                UserManager.HttpLogin_WMS();
         }
     }
 

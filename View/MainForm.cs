@@ -40,9 +40,10 @@ namespace ChemicalScan.View
 
         //线程安全调用
         private delegate void _ShowLog();
+        //显示日志信息
         public void ShowLog(string text)
         {
-            _ShowLog _st = new _ShowLog(delegate ()
+            _ShowLog _sl = new _ShowLog(delegate ()
             {
                 if (textBox_log.Text.Length > LogUtil.maxLength)
                     textBox_log.Clear();
@@ -51,11 +52,12 @@ namespace ChemicalScan.View
                 textBox_log.AppendText(Environment.NewLine);
                 textBox_log.ScrollToCaret();
             });
-            Invoke(_st);
+            Invoke(_sl);
         }
 
         //线程安全调用
         private delegate void _ShowMsg();
+        //显示错误信息
         public void ShowMsg(string text)
         {
             _ShowMsg _sm = new _ShowMsg(delegate ()
@@ -63,6 +65,30 @@ namespace ChemicalScan.View
                 textBox_errorInfo.Text = text;
             });
             Invoke(_sm);
+        }
+
+        //线程安全调用
+        private delegate void _UpdateStatistics();
+        //显示错误信息
+        public void UpdateStatistics(int index)
+        {
+            _UpdateStatistics _us = new _UpdateStatistics(delegate ()
+            {
+                if(index == 1)
+                {
+                    label_text_statistics_OK1.Text = Statistics.OK1.ToString();
+                    label_text_statistics_NG1.Text = Statistics.NG1.ToString();
+                    label_text_statistics_yield1.Text = Statistics.yield1;
+                }
+                if(index == 2)
+                {
+                    label_text_statistics_OK2.Text = Statistics.OK2.ToString();
+                    label_text_statistics_NG2.Text = Statistics.NG2.ToString();
+                    label_text_statistics_yield2.Text = Statistics.yield2;
+                }
+
+            });
+            Invoke(_us);
         }
 
         /// <summary>
@@ -73,7 +99,7 @@ namespace ChemicalScan.View
             thisForm = this;
 
             //遍历基本信息面板的子控件
-            foreach (Control ctrl in panel_basicInformation.Controls)
+            foreach (Control ctrl in tabPage_basicInfo.Controls)
             {
                 //基本信息的 TextBox初始化
                 if (ctrl is TextBox)
@@ -92,8 +118,12 @@ namespace ChemicalScan.View
             ///显示枚举的Name
             string[] shifts = typeof(SHIFT).GetEnumNames();//获取班次类型数组
             comboBox_shift.Items.AddRange(shifts);
+            comboBox_shift.SelectedIndex = 0;
 
-            textBox_mo.Text = "";
+            textBox_orgnizationId.Text = textBox_site.Text;
+
+            textBox_upperMaterialCode.Text = BasicInfo_WMS.Instance.upperMaterialCode;
+            textBox_standardTextCode.Text = BasicInfo_WMS.Instance.standardTextCode;
 
         }
 
@@ -126,6 +156,7 @@ namespace ChemicalScan.View
         /// <param name="e"></param>
         private void MainForm_Shown(object sender, EventArgs e)
         {
+            //最大化窗口
             WindowState = FormWindowState.Maximized;
         }
 
@@ -212,6 +243,36 @@ namespace ChemicalScan.View
         {
             string logDir = LogUtil.logPath;
             System.Diagnostics.Process.Start("explorer.exe", logDir);
+        }
+
+        private void textBox_standardTextCode_TextChanged(object sender, EventArgs e)
+        {
+            BasicInfo_WMS.Instance.standardTextCode = textBox_standardTextCode.Text;
+        }
+
+        private void textBox_upperMaterialCode_TextChanged(object sender, EventArgs e)
+        {
+            BasicInfo_WMS.Instance.upperMaterialCode = textBox_upperMaterialCode.Text;
+        }
+
+        private void textBox_mo_TextChanged(object sender, EventArgs e)
+        {
+            BasicInfo_WMS.Instance.workOrder = textBox_mo.Text;
+        }
+
+        private void textBox_wareHouseCode_TextChanged(object sender, EventArgs e)
+        {
+            Query_WMS.Instance.wareHouseCode = textBox_wareHouseCode.Text;
+        }
+
+        private void textBox_orgnizationId_TextChanged(object sender, EventArgs e)
+        {
+            Query_WMS.Instance.orgnizationId = textBox_orgnizationId.Text;
+        }
+
+        private void textBox_cargoNumber_TextChanged(object sender, EventArgs e)
+        {
+            BasicInfo_WMS.Instance.cargoNumber = Query_WMS.Instance.cargoNumber = textBox_cargoNumber.Text;
         }
     }
 }

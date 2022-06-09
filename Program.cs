@@ -23,10 +23,11 @@ namespace ChemicalScan
         {
             LogUtil.WriteLog("上位机软件启动。");
 
-            URL.UpdateURL();
-
             //http用户登录以更新Token
-            UserManager.HttpLogin();
+            //UserManager.HttpLogin();
+            //粗磨项目还要登陆 WMS 获取token
+            if (Properties.Settings.Default.is_kibbleScan)
+                //UserManager.HttpLogin_WMS();
             //启动连接计时器，每11小时重新登录一次
             ConnectManager.Instance.StartTimer();
 
@@ -39,15 +40,9 @@ namespace ChemicalScan
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            //Application.Run(new ConfigureForm());
             //Application.Run(new InitSettingForm());
             Application.Run(new MainForm());
-            //Application.Run(new ConfigureForm());
-
-
-#if CHEMICALSCAN
-#elif KIBBLESCAN
-#elif BDSSCAN
-#endif
         }
 
     }
