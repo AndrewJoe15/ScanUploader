@@ -194,11 +194,16 @@ namespace ChemicalScan.Controller
                 }
                 
             }
-            
-            //生成json数据
-            dataToWMS = JsonConvert.SerializeObject(BasicInfo_WMS.Instance);
 
-            if (dataToWMS != "{}")
+            //发给WMS检验的字符串以[]包裹
+            //[
+            dataToWMS = "[";
+            //生成json数据
+            dataToWMS += JsonConvert.SerializeObject(BasicInfo_WMS.Instance);
+            //]
+            dataToWMS += "]";
+
+            if (dataToWMS != "[{}]" && dataToWMS != "[{{}}]")
             {
                 Debug.WriteLine(dataToWMS);
                 LogUtil.WriteLog("向WMS端口发送校验请求: \n" + dataToWMS);

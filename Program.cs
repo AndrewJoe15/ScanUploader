@@ -24,10 +24,10 @@ namespace ChemicalScan
             LogUtil.WriteLog("上位机软件启动。");
 
             //http用户登录以更新Token
-            //UserManager.HttpLogin();
+            UserManager.HttpLogin();
             //粗磨项目还要登陆 WMS 获取token
             if (Properties.Settings.Default.is_kibbleScan)
-                //UserManager.HttpLogin_WMS();
+                UserManager.HttpLogin_WMS();
             //启动连接计时器，每11小时重新登录一次
             ConnectManager.Instance.StartTimer();
 
