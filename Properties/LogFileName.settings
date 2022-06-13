@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ChemicalScan.Properties" GeneratedClassName="LogFileName">
+  <Profiles />
+  <Settings>
+    <Setting Name="prefix" Type="System.String" Scope="User">
+      <Value Profile="(Default)">HP</Value>
+    </Setting>
+    <Setting Name="dateFormat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">yyyyMMdd</Value>
+    </Setting>
+    <Setting Name="serialFigureCount" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">4</Value>
+    </Setting>
+    <Setting Name="nextSerialNumber" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="fileFormat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.text</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

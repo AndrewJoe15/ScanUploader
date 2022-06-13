@@ -12,12 +12,12 @@ namespace ChemicalScan.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.1.0.0")]
-    internal sealed partial class LogFile : global::System.Configuration.ApplicationSettingsBase {
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
+    internal sealed partial class LogFileName : global::System.Configuration.ApplicationSettingsBase {
         
-        private static LogFile defaultInstance = ((LogFile)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new LogFile())));
+        private static LogFileName defaultInstance = ((LogFileName)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new LogFileName())));
         
-        public static LogFile Default {
+        public static LogFileName Default {
             get {
                 return defaultInstance;
             }
@@ -49,13 +49,37 @@ namespace ChemicalScan.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("8")]
-        public int serialFigures {
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public int serialFigureCount {
             get {
-                return ((int)(this["serialFigures"]));
+                return ((int)(this["serialFigureCount"]));
             }
             set {
-                this["serialFigures"] = value;
+                this["serialFigureCount"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int nextSerialNumber {
+            get {
+                return ((int)(this["nextSerialNumber"]));
+            }
+            set {
+                this["nextSerialNumber"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(".text")]
+        public string fileFormat {
+            get {
+                return ((string)(this["fileFormat"]));
+            }
+            set {
+                this["fileFormat"] = value;
             }
         }
     }

@@ -123,8 +123,6 @@ namespace ChemicalScan.Utils
                         {
                             string rep = clientSocket.RemoteEndPoint.ToString();
                             Debug.WriteLine("与客户端{0}的Socket连接关闭.", rep);
-                            //写入日志                            
-                            LogUtil.WriteLog(str + "与客户端" + rep + "的Socket连接关闭.");
 
                             //断开连接
                             clientSocket.Shutdown(SocketShutdown.Both);
@@ -132,7 +130,6 @@ namespace ChemicalScan.Utils
                             break;
                         }
                         Debug.WriteLine("接收客户端 {0} 的消息: {1}。", clientSocket.RemoteEndPoint.ToString(), str);
-                        LogUtil.WriteLog("上位机收到Machine端的消息: " + str);
                         
                         //解析消息传给MES，并将回传数据转发给Machine
                         IPEndPoint endPort = (IPEndPoint)clientSocket.LocalEndPoint;
@@ -143,7 +140,7 @@ namespace ChemicalScan.Utils
                             //将code发给machine
                             clientSocket.Send(Encoding.UTF8.GetBytes(dataToMachine.code));
 
-                            LogUtil.WriteLog("发给Machine端的消息: " + dataToMachine.code);
+                            Debug.WriteLine("发给Machine端的消息: " + dataToMachine.code);
 
                             ShowManager.Instance.updateMsgFromMES("");
                             //如果返回状态码为错误码，将出错信息展示给操作员

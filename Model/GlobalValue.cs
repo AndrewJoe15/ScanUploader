@@ -21,6 +21,5 @@ namespace ChemicalScan.Model
         public static List<Glass> GlassList_NG = new List<Glass>();
 #endif
 
-
     }
 }

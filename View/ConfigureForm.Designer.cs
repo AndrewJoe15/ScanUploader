@@ -96,6 +96,10 @@
             this.label_url_login_MES = new System.Windows.Forms.Label();
             this.textBox_url_login_MES = new System.Windows.Forms.TextBox();
             this.tabPage_logFileName = new System.Windows.Forms.TabPage();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.radioButton_BDS = new System.Windows.Forms.RadioButton();
+            this.radioButton_Kibble = new System.Windows.Forms.RadioButton();
+            this.radioButton_Chemical = new System.Windows.Forms.RadioButton();
             this.panel_url.SuspendLayout();
             this.panel_port.SuspendLayout();
             this.panel_logFormat.SuspendLayout();
@@ -106,6 +110,7 @@
             this.tabPage_httpUser.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tabPage_logFileName.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_url
@@ -129,7 +134,7 @@
             this.panel_url.Controls.Add(this.label_url_scanVehicleOut);
             this.panel_url.Controls.Add(this.label_url_scanVehicleUnbind);
             this.panel_url.Controls.Add(this.label_url_scanSn);
-            this.panel_url.Location = new System.Drawing.Point(116, 7);
+            this.panel_url.Location = new System.Drawing.Point(26, 7);
             this.panel_url.Margin = new System.Windows.Forms.Padding(4);
             this.panel_url.Name = "panel_url";
             this.panel_url.Size = new System.Drawing.Size(683, 464);
@@ -686,6 +691,7 @@
             // 
             // tabPage_url
             // 
+            this.tabPage_url.Controls.Add(this.panel3);
             this.tabPage_url.Controls.Add(this.panel_url);
             this.tabPage_url.Location = new System.Drawing.Point(4, 28);
             this.tabPage_url.Name = "tabPage_url";
@@ -835,6 +841,56 @@
             this.tabPage_logFileName.Text = "Log文件名格式";
             this.tabPage_logFileName.UseVisualStyleBackColor = true;
             // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.radioButton_BDS);
+            this.panel3.Controls.Add(this.radioButton_Chemical);
+            this.panel3.Controls.Add(this.radioButton_Kibble);
+            this.panel3.Location = new System.Drawing.Point(716, 90);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(178, 287);
+            this.panel3.TabIndex = 20;
+            // 
+            // radioButton_BDS
+            // 
+            this.radioButton_BDS.AutoSize = true;
+            this.radioButton_BDS.Location = new System.Drawing.Point(26, 207);
+            this.radioButton_BDS.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.radioButton_BDS.Name = "radioButton_BDS";
+            this.radioButton_BDS.Size = new System.Drawing.Size(117, 23);
+            this.radioButton_BDS.TabIndex = 5;
+            this.radioButton_BDS.TabStop = true;
+            this.radioButton_BDS.Text = "丝印前BDS";
+            this.radioButton_BDS.UseVisualStyleBackColor = true;
+            this.radioButton_BDS.CheckedChanged += new System.EventHandler(this.radioButton_BDS_CheckedChanged);
+            // 
+            // radioButton_Kibble
+            // 
+            this.radioButton_Kibble.AutoSize = true;
+            this.radioButton_Kibble.Location = new System.Drawing.Point(26, 134);
+            this.radioButton_Kibble.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.radioButton_Kibble.Name = "radioButton_Kibble";
+            this.radioButton_Kibble.Size = new System.Drawing.Size(68, 23);
+            this.radioButton_Kibble.TabIndex = 4;
+            this.radioButton_Kibble.TabStop = true;
+            this.radioButton_Kibble.Text = "粗磨";
+            this.radioButton_Kibble.UseVisualStyleBackColor = true;
+            this.radioButton_Kibble.CheckedChanged += new System.EventHandler(this.radioButton_Kibble_CheckedChanged);
+            // 
+            // radioButton_Chemical
+            // 
+            this.radioButton_Chemical.AutoSize = true;
+            this.radioButton_Chemical.Checked = true;
+            this.radioButton_Chemical.Location = new System.Drawing.Point(26, 59);
+            this.radioButton_Chemical.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.radioButton_Chemical.Name = "radioButton_Chemical";
+            this.radioButton_Chemical.Size = new System.Drawing.Size(68, 23);
+            this.radioButton_Chemical.TabIndex = 3;
+            this.radioButton_Chemical.TabStop = true;
+            this.radioButton_Chemical.Text = "化抛";
+            this.radioButton_Chemical.UseVisualStyleBackColor = true;
+            this.radioButton_Chemical.CheckedChanged += new System.EventHandler(this.radioButton_Chemical_CheckedChanged);
+            // 
             // ConfigureForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -864,6 +920,8 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.tabPage_logFileName.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -939,5 +997,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBox_validate_WMS;
         private System.Windows.Forms.Label label_validate_WMS;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.RadioButton radioButton_BDS;
+        private System.Windows.Forms.RadioButton radioButton_Chemical;
+        private System.Windows.Forms.RadioButton radioButton_Kibble;
     }
 }

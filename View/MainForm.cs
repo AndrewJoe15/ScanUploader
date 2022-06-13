@@ -22,6 +22,8 @@ namespace ChemicalScan.View
         //BasicInfo单例
         private BasicInfo basicInfo = BasicInfo.Instance;
 
+        private static int textBox_log_maxLength = 10000;
+
         public MainForm()
         {
             InitializeComponent();
@@ -45,7 +47,7 @@ namespace ChemicalScan.View
         {
             _ShowLog _sl = new _ShowLog(delegate ()
             {
-                if (textBox_log.Text.Length > LogUtil.maxLength)
+                if (textBox_log.Text.Length > textBox_log_maxLength)
                     textBox_log.Clear();
 
                 textBox_log.AppendText(text);
@@ -67,9 +69,8 @@ namespace ChemicalScan.View
             Invoke(_sm);
         }
 
-        //线程安全调用
+        //更新良率统计信息
         private delegate void _UpdateStatistics();
-        //显示错误信息
         public void UpdateStatistics(int index)
         {
             _UpdateStatistics _us = new _UpdateStatistics(delegate ()
@@ -98,7 +99,7 @@ namespace ChemicalScan.View
         {
             thisForm = this;
 
-            //遍历基本信息面板的子控件
+            //遍历基本信息面板的子控件，填充信息
             foreach (Control ctrl in tabPage_basicInfo.Controls)
             {
                 //基本信息的 TextBox初始化
@@ -120,11 +121,17 @@ namespace ChemicalScan.View
             comboBox_shift.Items.AddRange(shifts);
             comboBox_shift.SelectedIndex = 0;
 
+            //WMS 校验信息
             textBox_orgnizationId.Text = textBox_site.Text;
-
             textBox_upperMaterialCode.Text = BasicInfo_WMS.Instance.upperMaterialCode;
             textBox_standardTextCode.Text = BasicInfo_WMS.Instance.standardTextCode;
 
+            //初始化日志文件对象
+            LogFile.nextSerialNumer = Properties.LogFileName.Default.nextSerialNumber;
+            LogFile.logFile_line1 = new LogFile();
+            //- 化抛项目有两路日志文件
+            if (Properties.Settings.Default.is_chemicalScan)
+                LogFile.logFile_line2 = new LogFile();
         }
 
         /// <summary>
@@ -143,8 +150,10 @@ namespace ChemicalScan.View
             else
             {
                 //保存日志流水号
-                LogUtil.SaveData();
-                //彻底退出程序，包括socket进程，这样程序不会后台运行
+                LogFile.SaveSerialNumber();
+
+                //彻底退出程序，包括socket进程
+                //这样关闭软件后不会有进程后台运行
                 Environment.Exit(0);
             }
         }
@@ -227,22 +236,27 @@ namespace ChemicalScan.View
 
         private void menuStrip_top_log_openCurrent_Click(object sender, EventArgs e)
         {
-            if (LogUtil.currentLogFileName == "")
-                ShowUtil.ShowTips("当前无日志。");
+            openLogFile(LogFile.logFile_line1);
+            openLogFile(LogFile.logFile_line2);
+        }
 
-            string logFile = LogUtil.logPath + LogUtil.currentLogFileName;
-            if(!File.Exists(logFile))
-                ShowUtil.ShowTips("当前日志无内容。");
-            else
+        private void openLogFile(LogFile logFile)
+        {
+            if (logFile != null)
             {
-                System.Diagnostics.Process.Start("notepad.exe", logFile);
+                string fullPath = logFile.logPath + logFile.logFileName;
+                if (!File.Exists(fullPath))
+                    ShowUtil.ShowTips("当前日志无内容。");
+                else
+                    System.Diagnostics.Process.Start("notepad.exe", fullPath);
             }
         }
 
+
         private void menuStrip_top_log_openFolder_Click(object sender, EventArgs e)
         {
-            string logDir = LogUtil.logPath;
-            System.Diagnostics.Process.Start("explorer.exe", logDir);
+            if(LogFile.logFile_line1 != null)
+                System.Diagnostics.Process.Start("explorer.exe", LogFile.logFile_line1.logPath);
         }
 
         private void textBox_standardTextCode_TextChanged(object sender, EventArgs e)

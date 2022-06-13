@@ -21,8 +21,19 @@ namespace ChemicalScan
         [STAThread]
         static void Main()
         {
-            LogUtil.WriteLog("上位机软件启动。");
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
 
+            Init();
+
+            //打开窗体
+            //Application.Run(new ConfigureForm());
+            Application.Run(new MainForm());
+        }
+
+        private static void Init()
+        {
+#if !DEBUG
             //http用户登录以更新Token
             UserManager.HttpLogin();
             //粗磨项目还要登陆 WMS 获取token
@@ -30,6 +41,7 @@ namespace ChemicalScan
                 UserManager.HttpLogin_WMS();
             //启动连接计时器，每11小时重新登录一次
             ConnectManager.Instance.StartTimer();
+#endif
 
             //启动Socket服务器
             ConnectManager.Instance.StartSocketServer();
@@ -37,13 +49,8 @@ namespace ChemicalScan
             //启动定时垃圾回收 以解决内存占用越来越大的问题
             Optimizer.StartPeriodGarbageCollection();
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-
-            //Application.Run(new ConfigureForm());
-            //Application.Run(new InitSettingForm());
-            Application.Run(new MainForm());
+            //初始化配置
+            Configurator.Init();
         }
-
     }
 }

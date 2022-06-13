@@ -25,7 +25,7 @@ namespace ChemicalScan.Model
                 if (OK1 + NG1 <= 0)
                     return "-";
                 else
-                    return ((float)OK1 / (OK1 + NG1)).ToString("F2");//保留两位小数
+                    return (100.0 * OK1 / (OK1 + NG1)).ToString("F2");//保留2位小数（百分数两位小数）
             }
         }
         public static string yield2
@@ -35,7 +35,7 @@ namespace ChemicalScan.Model
                 if (OK2 + NG2 <= 0)
                     return "-";
                 else
-                    return ((float)OK2 / (OK2 + NG2)).ToString("F2");//保留两位小数
+                    return (100.0 * OK2 / (OK2 + NG2)).ToString("F2");//保留2位小数（百分数两位小数）
             }
         }
     }

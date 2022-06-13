@@ -85,6 +85,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.timer_main = new System.Windows.Forms.Timer(this.components);
             this.label_timer_main = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.menuStrip_top.SuspendLayout();
             this.panel_basicInformation.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -507,6 +509,8 @@
             // panel_connectStatus
             // 
             this.panel_connectStatus.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel_connectStatus.Controls.Add(this.label10);
+            this.panel_connectStatus.Controls.Add(this.label9);
             this.panel_connectStatus.Controls.Add(this.label_text_statistics_yield2);
             this.panel_connectStatus.Controls.Add(this.label_text_statistics_NG2);
             this.panel_connectStatus.Controls.Add(this.label_text_statistics_OK2);
@@ -526,11 +530,11 @@
             this.label_text_statistics_yield2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_text_statistics_yield2.AutoSize = true;
             this.label_text_statistics_yield2.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_text_statistics_yield2.Location = new System.Drawing.Point(266, 87);
+            this.label_text_statistics_yield2.Location = new System.Drawing.Point(253, 87);
             this.label_text_statistics_yield2.Name = "label_text_statistics_yield2";
-            this.label_text_statistics_yield2.Size = new System.Drawing.Size(19, 19);
+            this.label_text_statistics_yield2.Size = new System.Drawing.Size(59, 19);
             this.label_text_statistics_yield2.TabIndex = 41;
-            this.label_text_statistics_yield2.Text = "-";
+            this.label_text_statistics_yield2.Text = "00.00";
             this.label_text_statistics_yield2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label_text_statistics_NG2
@@ -562,11 +566,11 @@
             this.label_text_statistics_yield1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_text_statistics_yield1.AutoSize = true;
             this.label_text_statistics_yield1.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_text_statistics_yield1.Location = new System.Drawing.Point(266, 51);
+            this.label_text_statistics_yield1.Location = new System.Drawing.Point(253, 51);
             this.label_text_statistics_yield1.Name = "label_text_statistics_yield1";
-            this.label_text_statistics_yield1.Size = new System.Drawing.Size(19, 19);
+            this.label_text_statistics_yield1.Size = new System.Drawing.Size(59, 19);
             this.label_text_statistics_yield1.TabIndex = 38;
-            this.label_text_statistics_yield1.Text = "-";
+            this.label_text_statistics_yield1.Text = "00.00";
             this.label_text_statistics_yield1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label4
@@ -662,6 +666,28 @@
             this.label_timer_main.Size = new System.Drawing.Size(199, 19);
             this.label_timer_main.TabIndex = 32;
             this.label_timer_main.Text = "2012-06-26 00:00:00";
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label9.Location = new System.Drawing.Point(311, 51);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(19, 19);
+            this.label9.TabIndex = 42;
+            this.label9.Text = "%";
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label10.Location = new System.Drawing.Point(311, 87);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(19, 19);
+            this.label10.TabIndex = 43;
+            this.label10.Text = "%";
             // 
             // MainForm
             // 
@@ -762,6 +788,8 @@
         private System.Windows.Forms.Label label7;
         public System.Windows.Forms.TextBox textBox_wareHouseCode;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
     }
 }
 

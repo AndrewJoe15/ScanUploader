@@ -7,7 +7,7 @@
     <ProjectGuid>{D92D44EA-434C-4276-BC6C-226884164D69}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>ChemicalScan</RootNamespace>
-    <AssemblyName>ChemicalScan</AssemblyName>
+    <AssemblyName>ScanUploader</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -107,13 +107,14 @@
   <ItemGroup>
     <Compile Include="Controller\Optimizer.cs" />
     <Compile Include="Model\BasicInfo_WMS.cs" />
+    <Compile Include="Model\LogFile.cs" />
     <Compile Include="Model\Query_WMS.cs" />
     <Compile Include="Model\Statistics.cs" />
-    <Compile Include="Properties\LogFile.cs" />
-    <Compile Include="Properties\LogFile.Designer.cs">
+    <Compile Include="Properties\LogFileName.cs" />
+    <Compile Include="Properties\LogFileName.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>LogFile.settings</DependentUpon>
+      <DependentUpon>LogFileName.settings</DependentUpon>
     </Compile>
     <Compile Include="Properties\Socket.cs" />
     <Compile Include="Properties\Socket.Designer.cs">
@@ -132,12 +133,6 @@
     <Compile Include="Controller\Configurator.cs" />
     <Compile Include="Controller\ShowManager.cs" />
     <Compile Include="Controller\UserManager.cs" />
-    <Compile Include="Properties\LogSN.cs" />
-    <Compile Include="Properties\LogSN.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>LogSN.settings</DependentUpon>
-    </Compile>
     <Compile Include="Model\Container.cs" />
     <Compile Include="Model\Glass.cs" />
     <Compile Include="Model\GlobalValue.cs" />
@@ -148,6 +143,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>UserData.settings</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Settings.cs" />
     <Compile Include="Utils\GuiUtil.cs" />
     <Compile Include="Utils\JsonUtil.cs" />
     <Compile Include="Utils\LogUtil.cs" />
@@ -158,12 +154,6 @@
     </Compile>
     <Compile Include="View\ConfigureForm.Designer.cs">
       <DependentUpon>ConfigureForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="View\InitSettingForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\InitSettingForm.Designer.cs">
-      <DependentUpon>InitSettingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>
@@ -189,9 +179,6 @@
     <EmbeddedResource Include="View\ConfigureForm.resx">
       <DependentUpon>ConfigureForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\InitSettingForm.resx">
-      <DependentUpon>InitSettingForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="View\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -207,9 +194,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="Properties\LogFile.settings">
+    <None Include="Properties\LogFileName.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>LogFile.Designer.cs</LastGenOutput>
+      <LastGenOutput>LogFileName.Designer.cs</LastGenOutput>
     </None>
     <None Include="Properties\Socket.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -218,10 +205,6 @@
     <None Include="Properties\URL.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>URL.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="Properties\LogSN.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>LogSN.Designer.cs</LastGenOutput>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

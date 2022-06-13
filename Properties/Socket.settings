@@ -17,16 +17,16 @@
     <Setting Name="IP_host" Type="System.String" Scope="User">
       <Value Profile="(Default)">0.0.0.0</Value>
     </Setting>
-    <Setting Name="socket_up" Type="System.Boolean" Scope="User">
+    <Setting Name="enable_socket_up" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="socket_main" Type="System.Boolean" Scope="User">
+    <Setting Name="enable_socket_main" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="socket_down" Type="System.Boolean" Scope="User">
+    <Setting Name="enable_socket_down" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="socket_submit" Type="System.Boolean" Scope="User">
+    <Setting Name="enable_socket_submit" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>

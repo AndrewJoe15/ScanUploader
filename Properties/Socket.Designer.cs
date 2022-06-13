@@ -12,7 +12,7 @@ namespace ChemicalScan.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     internal sealed partial class Socket : global::System.Configuration.ApplicationSettingsBase {
         
         private static Socket defaultInstance = ((Socket)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Socket())));
@@ -86,48 +86,48 @@ namespace ChemicalScan.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool socket_up {
+        public bool enable_socket_up {
             get {
-                return ((bool)(this["socket_up"]));
+                return ((bool)(this["enable_socket_up"]));
             }
             set {
-                this["socket_up"] = value;
+                this["enable_socket_up"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool socket_main {
+        public bool enable_socket_main {
             get {
-                return ((bool)(this["socket_main"]));
+                return ((bool)(this["enable_socket_main"]));
             }
             set {
-                this["socket_main"] = value;
+                this["enable_socket_main"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool socket_down {
+        public bool enable_socket_down {
             get {
-                return ((bool)(this["socket_down"]));
+                return ((bool)(this["enable_socket_down"]));
             }
             set {
-                this["socket_down"] = value;
+                this["enable_socket_down"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool socket_submit {
+        public bool enable_socket_submit {
             get {
-                return ((bool)(this["socket_submit"]));
+                return ((bool)(this["enable_socket_submit"]));
             }
             set {
-                this["socket_submit"] = value;
+                this["enable_socket_submit"] = value;
             }
         }
     }

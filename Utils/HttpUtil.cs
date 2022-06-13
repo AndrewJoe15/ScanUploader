@@ -131,7 +131,7 @@ namespace ChemicalScan.Utils
                 if (response.IsSuccessStatusCode)
                 {
                     string result = response.Content.ReadAsStringAsync().Result;
-                    //移除中括号
+                    //WMS发来的数据可能带有中括号，移除中括号
                     if (result.Contains("["))
                         result.Remove(result.IndexOf("["), 1);
                     if (result.Contains("]"))

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 
+using ChemicalScan.Controller;
+
 namespace ChemicalScan.View
 {
     public partial class ConfigureForm : Form
@@ -18,7 +20,7 @@ namespace ChemicalScan.View
         private static Properties.Settings settings = Properties.Settings.Default;
         private static Properties.Socket socket = Properties.Socket.Default;
         private static Properties.UserData userData = Properties.UserData.Default;
-        private static Properties.LogFile log = Properties.LogFile.Default;
+        private static Properties.LogFileName log = Properties.LogFileName.Default;
 
         public ConfigureForm()
         {
@@ -46,10 +48,18 @@ namespace ChemicalScan.View
         }
         private void InitURL()
         {
+            textBox_url_postfix_scanContainerOut.Enabled = true;
+            textBox_url_postfix_scanSn.Enabled = true;
+            textBox_url_postfix_scanContainerIn.Enabled = true;
+            textBox_url_postfix_scanContainerUnbind.Enabled = true;
+            textBox_url_postfix_submit.Enabled = true;
+
+
+
             textBox_url_prefix.Text = url.prefix;
             textBox_url_subPrefix_MES.Text = url.subPrefix_MES;
 
-            textBox_url_postfix_scanContainerOut.Text = url.httpLogin_MES;
+            textBox_url_postfix_scanContainerOut.Text = url.postfix_scanContainerOut;
             textBox_url_postfix_scanSn.Text = url.postfix_scanSn;
             textBox_url_postfix_scanContainerIn.Text = url.postfix_scanContainerIn;
             textBox_url_postfix_scanContainerUnbind.Text = url.postfix_scanContainerUnbind;
@@ -57,6 +67,9 @@ namespace ChemicalScan.View
             
             if (settings.is_kibbleScan)
             {
+                textBox_stockQuery_WMS.Enabled = true;
+                textBox_validate_WMS.Enabled = true;
+
                 textBox_url_postfix_scanContainerUnbind.Enabled = false;
                 textBox_stockQuery_WMS.Text = Properties.URL.Default.stockQuery_WMS;
                 textBox_validate_WMS.Text = Properties.URL.Default.validate_WMS;
@@ -74,6 +87,11 @@ namespace ChemicalScan.View
                 textBox_url_postfix_scanContainerUnbind.Enabled = false;
                 textBox_url_postfix_submit.Enabled = false;
             }
+
+            //项目URL配置单选框
+            radioButton_Chemical.Checked = settings.is_chemicalScan;
+            radioButton_Kibble.Checked = settings.is_kibbleScan;
+            radioButton_BDS.Checked = settings.is_BDS;
         }
 
         private void InitSocket()
@@ -84,24 +102,24 @@ namespace ChemicalScan.View
             textBox_port_down.Text = socket.port_down.ToString();
             textBox_port_submit.Text = socket.port_submit.ToString();            
 
-            textBox_port_up.Enabled = checkBox_socket_up.Checked = socket.socket_up;
-            textBox_port_main.Enabled = checkBox_socket_main.Checked = socket.socket_main;
-            textBox_port_down.Enabled = checkBox_socket_down.Checked = socket.socket_down;
-            textBox_port_submit.Enabled = checkBox_socket_submit.Checked = socket.socket_submit;
-
+            textBox_port_up.Enabled = checkBox_socket_up.Checked = socket.enable_socket_up;
+            textBox_port_main.Enabled = checkBox_socket_main.Checked = socket.enable_socket_main;
+            textBox_port_down.Enabled = checkBox_socket_down.Checked = socket.enable_socket_down;
+            textBox_port_submit.Enabled = checkBox_socket_submit.Checked = socket.enable_socket_submit;
         }
 
         private void InitUser()
         {
+            //MES
             textBox_httpUserName_MES.Text = userData.userName_http_MES;
             textBox_httpPassword_MES.Text = userData.password_http_MES;
             textBox_httpSite_MES.Text = userData.site_http_MES;
 
             textBox_url_login_MES.Text = url.httpLogin_MES;
 
-            textBox_httpUserName_MES.Text = userData.userName_http_MES;
-            textBox_httpPassword_MES.Text = userData.password_http_MES;
-            textBox_httpSite_MES.Text = userData.site_http_MES;
+            //WMS
+            textBox_httpUserName_WMS.Text = userData.userName_http_WMS;
+            textBox_httpPassword_WMS.Text = userData.password_http_WMS;
 
             textBox_url_login_WMS.Text = url.httpLogin_WMS;
 
@@ -111,7 +129,7 @@ namespace ChemicalScan.View
         {
             textBox_logPrefix.Text = log.prefix;
             textBox_logDateFormat.Text = log.dateFormat;
-            textBox_serialFigures.Text = log.serialFigures.ToString();
+            textBox_serialFigures.Text = log.serialFigureCount.ToString();
         }
 
         /// <summary>
@@ -155,6 +173,7 @@ namespace ChemicalScan.View
             url.validate_WMS = textBox_validate_WMS.Text;
 
             url.Save();
+            settings.Save();
         }
 
         private void SaveSocketConfig()
@@ -166,10 +185,10 @@ namespace ChemicalScan.View
             socket.port_down = int.Parse(textBox_port_down.Text);
             socket.port_submit = int.Parse(textBox_port_submit.Text);
 
-            socket.socket_up = checkBox_socket_up.Checked;
-            socket.socket_down = checkBox_socket_down.Checked;
-            socket.socket_down = checkBox_socket_down.Checked;
-            socket.socket_submit = checkBox_socket_submit.Checked;
+            socket.enable_socket_up = checkBox_socket_up.Checked;
+            socket.enable_socket_down = checkBox_socket_down.Checked;
+            socket.enable_socket_down = checkBox_socket_down.Checked;
+            socket.enable_socket_submit = checkBox_socket_submit.Checked;
 
             socket.Save();
         }
@@ -194,7 +213,7 @@ namespace ChemicalScan.View
         {
             log.prefix = textBox_logPrefix.Text;
             log.dateFormat = textBox_logDateFormat.Text;
-            log.serialFigures = int.Parse(textBox_serialFigures.Text);
+            log.serialFigureCount = int.Parse(textBox_serialFigures.Text);
 
             log.Save();
         }
@@ -242,6 +261,36 @@ namespace ChemicalScan.View
         {
             SaveButtonToggle(true);
 
+        }        
+        private void radioButton_Chemical_CheckedChanged(object sender, EventArgs e)
+        {
+            settings.is_chemicalScan = radioButton_Chemical.Checked;
+            if (radioButton_Chemical.Checked)
+            {
+                Configurator.InitChemical();
+                InitURL();
+            }
+
+        }
+
+        private void radioButton_Kibble_CheckedChanged(object sender, EventArgs e)
+        {
+            settings.is_kibbleScan = radioButton_Kibble.Checked;
+            if (radioButton_Kibble.Checked)
+            {
+                Configurator.InitKibble();
+                InitURL();
+            }
+        }
+
+        private void radioButton_BDS_CheckedChanged(object sender, EventArgs e)
+        {
+            settings.is_BDS = radioButton_BDS.Checked;
+            if (radioButton_BDS.Checked)
+            {
+                Configurator.InitBDS();
+                InitURL();
+            }
         }
         #endregion
 
@@ -359,6 +408,8 @@ namespace ChemicalScan.View
             SaveButtonToggle(true);
 
         }
+
+
 
 
         #endregion
