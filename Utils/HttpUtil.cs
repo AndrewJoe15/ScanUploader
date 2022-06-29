@@ -8,9 +8,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
 
-using ChemicalScan.Model;
+using ScanUploader.Model;
 
-namespace ChemicalScan.Utils
+namespace ScanUploader.Utils
 {
     internal class HttpUtil
     {

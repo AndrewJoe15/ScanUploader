@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
 
-using ChemicalScan.View;
-using ChemicalScan.Model;
+using ScanUploader.View;
+using ScanUploader.Model;
 
-namespace ChemicalScan.Utils
+namespace ScanUploader.Utils
 {
     /// <summary>
     /// 日志工具类

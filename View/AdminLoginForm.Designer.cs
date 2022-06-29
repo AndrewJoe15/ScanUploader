@@ -1,4 +1,4 @@
-﻿namespace ChemicalScan.View
+﻿namespace ScanUploader.View
 {
     partial class AdminLoginForm
     {

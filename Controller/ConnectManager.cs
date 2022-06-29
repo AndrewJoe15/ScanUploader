@@ -7,10 +7,10 @@ using System.Timers;
 using System.Net.Sockets;
 using System.Diagnostics;
 
-using ChemicalScan.Model;
-using ChemicalScan.Utils;
+using ScanUploader.Model;
+using ScanUploader.Utils;
 
-namespace ChemicalScan.Controller
+namespace ScanUploader.Controller
 {
     internal class ConnectManager : SingleTon<ConnectManager>
     {

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using ChemicalScan.Model;
-using ChemicalScan.Utils;
+using ScanUploader.Model;
+using ScanUploader.Utils;
 
-namespace ChemicalScan.Controller
+namespace ScanUploader.Controller
 {
     internal static class UserManager
     {

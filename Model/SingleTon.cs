@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChemicalScan.Model
+namespace ScanUploader.Model
 {
     /// <summary>
     /// 单例类，用来方便地让一个类实现单例模式

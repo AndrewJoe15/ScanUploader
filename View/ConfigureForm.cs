@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 
-using ChemicalScan.Controller;
+using ScanUploader.Controller;
 
-namespace ChemicalScan.View
+namespace ScanUploader.View
 {
     public partial class ConfigureForm : Form
     {

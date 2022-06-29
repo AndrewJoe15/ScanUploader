@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChemicalScan.Utils
+namespace ScanUploader.Utils
 {
     /// <summary>
     /// 使用工具类

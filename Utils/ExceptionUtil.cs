@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Net.Sockets;
 
-namespace ChemicalScan.Utils
+namespace ScanUploader.Utils
 {
     internal class ExceptionUtil : Exception
     {

@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using ChemicalScan.View;
+using ScanUploader.View;
 
-namespace ChemicalScan.Utils
+namespace ScanUploader.Utils
 {
     internal class ShowUtil
     {

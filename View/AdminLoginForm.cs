@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using ChemicalScan.Utils;
+using ScanUploader.Utils;
 
-namespace ChemicalScan.View
+namespace ScanUploader.View
 {
     public partial class AdminLoginForm : Form
     {

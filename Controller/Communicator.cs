@@ -4,12 +4,12 @@ using System.Diagnostics;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using ChemicalScan.Model;
-using ChemicalScan.Utils;
-using ChemicalScan.View;
+using ScanUploader.Model;
+using ScanUploader.Utils;
+using ScanUploader.View;
 using System.Text;
 
-namespace ChemicalScan.Controller
+namespace ScanUploader.Controller
 {
     /// <summary>
     /// 数据处理类

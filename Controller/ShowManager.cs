@@ -6,11 +6,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-using ChemicalScan.Model;
-using ChemicalScan.Utils;
-using ChemicalScan.View;
+using ScanUploader.Model;
+using ScanUploader.Utils;
+using ScanUploader.View;
 
-namespace ChemicalScan.Controller
+namespace ScanUploader.Controller
 {
     internal class ShowManager : SingleTon<ShowManager>
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChemicalScan.Model
+namespace ScanUploader.Model
 {
     internal class User
     {

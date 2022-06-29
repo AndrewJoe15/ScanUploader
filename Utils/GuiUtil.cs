@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using static System.Windows.Forms.Control;
 
-namespace ChemicalScan.Utils
+namespace ScanUploader.Utils
 {
     public class GuiUtil
     {

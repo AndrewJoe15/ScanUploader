@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace ChemicalScan.Utils
+namespace ScanUploader.Utils
 {
     public static class JsonUtil
     {

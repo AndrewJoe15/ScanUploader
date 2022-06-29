@@ -6,12 +6,12 @@ using System.Timers;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
-using ChemicalScan.View;
-using ChemicalScan.Controller;
-using ChemicalScan.Utils;
-using ChemicalScan.Model;
+using ScanUploader.View;
+using ScanUploader.Controller;
+using ScanUploader.Utils;
+using ScanUploader.Model;
 
-namespace ChemicalScan
+namespace ScanUploader
 {
     internal static class Program
     {

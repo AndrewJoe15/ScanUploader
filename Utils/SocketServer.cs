@@ -6,10 +6,10 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Diagnostics;
-using ChemicalScan.Controller;
-using ChemicalScan.Model;
+using ScanUploader.Controller;
+using ScanUploader.Model;
 
-namespace ChemicalScan.Utils
+namespace ScanUploader.Utils
 {
     /// <summary>
     /// Socket 工具类

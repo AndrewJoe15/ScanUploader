@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 
-namespace ChemicalScan.Controller
+namespace ScanUploader.Controller
 {
     /// <summary>
     /// 程序优化器

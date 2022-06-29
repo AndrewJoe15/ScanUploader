@@ -7,12 +7,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
-using ChemicalScan.Model;
-using ChemicalScan.Utils;
-using ChemicalScan.Controller;
+using ScanUploader.Model;
+using ScanUploader.Utils;
+using ScanUploader.Controller;
 using System.IO;
 
-namespace ChemicalScan.View
+namespace ScanUploader.View
 {
     public partial class MainForm : Form
     {

@@ -110,12 +110,12 @@
     <Compile Include="Model\LogFile.cs" />
     <Compile Include="Model\Query_WMS.cs" />
     <Compile Include="Model\Statistics.cs" />
-    <Compile Include="Properties\LogFileName.cs" />
     <Compile Include="Properties\LogFileName.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>LogFileName.settings</DependentUpon>
     </Compile>
+    <Compile Include="Properties\LogFileName.cs" />
     <Compile Include="Properties\Socket.cs" />
     <Compile Include="Properties\Socket.Designer.cs">
       <AutoGen>True</AutoGen>

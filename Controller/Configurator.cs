@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using ChemicalScan.Model;
-using ChemicalScan.Utils;
-using ChemicalScan.View;
+using ScanUploader.Model;
+using ScanUploader.Utils;
+using ScanUploader.View;
 
-namespace ChemicalScan.Controller
+namespace ScanUploader.Controller
 {
     /// <summary>
     /// 初始化器

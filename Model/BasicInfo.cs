@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 
-using ChemicalScan.Utils;
+using ScanUploader.Utils;
 
-namespace ChemicalScan.Model
+namespace ScanUploader.Model
 {
     /// <summary>
     /// 基本信息类
