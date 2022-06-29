@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{D92D44EA-434C-4276-BC6C-226884164D69}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ChemicalScan</RootNamespace>
+    <RootNamespace>ScanUploader</RootNamespace>
     <AssemblyName>ScanUploader</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -194,6 +194,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\LogFileName.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
