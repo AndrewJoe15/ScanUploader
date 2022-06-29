@@ -144,6 +144,7 @@
       <DependentUpon>UserData.settings</DependentUpon>
     </Compile>
     <Compile Include="Properties\Settings.cs" />
+    <Compile Include="Utils\FileUtil.cs" />
     <Compile Include="Utils\GuiUtil.cs" />
     <Compile Include="Utils\JsonUtil.cs" />
     <Compile Include="Utils\LogUtil.cs" />

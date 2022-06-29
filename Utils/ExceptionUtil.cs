@@ -44,7 +44,7 @@ namespace ChemicalScan.Utils
                 ShowUtil.ShowError(error2Message[errorCode]);
 
             if (errorCode == -1 || !error2Message.ContainsKey(errorCode))
-                ShowUtil.ShowError("未知错误。\n" + e.Message);
+                ShowUtil.ShowError("未知错误。\n" + "错误码：" + errorCode + "\n 错误信息：" + e.Message);
             
         }
 

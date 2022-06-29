@@ -92,6 +92,27 @@ namespace ChemicalScan.View
             Invoke(_us);
         }
 
+
+        //更新NG信息统计表
+        private delegate void _UpdateNGInfo();
+        public void AddNGInfo(string snNumber, string msg)
+        {
+            _UpdateNGInfo _uni = new _UpdateNGInfo(delegate ()
+            {
+                //一行数据
+                ListViewItem item = new ListViewItem();
+                item.SubItems[0].Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");//.Add() 从1开始添加，所以第0个以[0]方式访问
+                item.SubItems.Add(snNumber);
+                item.SubItems.Add(msg);
+
+                //添加listView项
+                listView_NG_info.Items.Add(item);
+                listView_NG_info.Items[listView_NG_info.Items.Count - 1].EnsureVisible();//最后一行可见
+            });
+            Invoke(_uni);
+        }
+
+
         /// <summary>
         /// 对控件进行初始化
         /// </summary>
@@ -287,6 +308,16 @@ namespace ChemicalScan.View
         private void textBox_cargoNumber_TextChanged(object sender, EventArgs e)
         {
             BasicInfo_WMS.Instance.cargoNumber = Query_WMS.Instance.cargoNumber = textBox_cargoNumber.Text;
+        }
+
+        private void button_empty_Click(object sender, EventArgs e)
+        {
+            listView_NG_info.Items.Clear(); //清空所有数据项
+        }
+
+        private void button_export_excel_Click(object sender, EventArgs e)
+        {
+            FileUtil.ExportExcel("NG信息统计", listView_NG_info);
         }
     }
 }

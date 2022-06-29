@@ -32,8 +32,8 @@ namespace ChemicalScan.Controller
         private const string unbind_ID_Right        = "L12";
         //主体
         //-玻璃
-        private const string SN_ID_Left             = "L3";
-        private const string SN_ID_Right            = "L4";
+        private const string SN_ID_1             = "L3";
+        private const string SN_ID_2            = "L4";
         //下料
         //-扫入
         private const string containerIn_OK_ID      = "L5";
@@ -56,7 +56,7 @@ namespace ChemicalScan.Controller
         private const string containerOut_ID_2 = "L2";
         private const string containerOut_ID_3 = "L3";
         private const string containerOut_ID_4 = "L4";
-        //-解绑载具
+        //-解绑载具 用不到
         private const string unbind_ID_1 = "L11";
         private const string unbind_ID_2 = "L12";
         private const string unbind_ID_3 = "L13";
@@ -116,7 +116,7 @@ namespace ChemicalScan.Controller
 
         public static ReturnData GetReturnFromMES(string deviceCodeKey, string deviceCodeValue, string url)
         {
-            ReturnData rdata = null;
+            ReturnData rdata = new ReturnData();
             JObject dataFromMes = null;
 
             //更新BasicInfo的生成时间
@@ -141,7 +141,6 @@ namespace ChemicalScan.Controller
                 //确保发回来的body有内容才赋值
                 if (dataFromMes["code"] != null)
                 {
-                    rdata = new ReturnData();
                     rdata.code = dataFromMes["code"].ToString();
                     rdata.msg = dataFromMes["msg"].ToString();
                     if (dataFromMes["data"] != null)
@@ -152,17 +151,26 @@ namespace ChemicalScan.Controller
                     }
                     Debug.WriteLine("收到MES端口的消息: \n" + dataFromMes.ToString());
                 }
+                else
+                {
+                    rdata.code = ReturnData.code_error;
+                    rdata.msg = "MES返回数据有误。";
+                }
             }
 #if DEBUG
-            rdata = new ReturnData();
             //随机成功失败
             Random random = new Random();
             if (random.Next(0, 99) < 80)
+            {
                 rdata.code = ReturnData.code_success;
+                rdata.msg = deviceCodeValue + " OK";
+            }
             else
+            {
                 rdata.code = ReturnData.code_error;
-            rdata.msg = deviceCodeValue;
-            rdata.data = "111";
+                rdata.msg = deviceCodeValue + " NG";
+            }            
+            rdata.data = "Debug Data";
 #endif
             return rdata;
         }
@@ -280,7 +288,6 @@ namespace ChemicalScan.Controller
 
             submitData.mo = MainForm.thisForm.textBox_mo.Text;//工单号
 
-
             submitData.qty = glasses.Count.ToString();//qty 载具内玻璃数量
             submitData.supplementList = glasses;
 
@@ -290,9 +297,10 @@ namespace ChemicalScan.Controller
             JObject tmp = JsonUtil.ToJObject(submitData);
             submitJson.Merge(tmp);
 
+            glasses.Clear();//最后提交前清空list
+
             dataToMachine = SubmitToMES(submitJson.ToString(), URL.scanSubmit);
 
-            glasses.Clear();//最后清空list
 
             return dataToMachine;
         }
@@ -328,7 +336,7 @@ namespace ChemicalScan.Controller
         }
 
 #if BDSSCAN
-        private static ReturnData BDSScanHandler(int port, string operationID, string deviceCode, ref ReturnData dataToMachine)
+        private static void BDSScanHandler(int port, string operationID, string deviceCode, ref ReturnData dataToMachine)
         {
             //丝印前BDS
             //涂油扫码端口
@@ -340,10 +348,14 @@ namespace ChemicalScan.Controller
                     dataToMachine = GetReturnFromMES("snNumber", deviceCode, URL.scanSn);
 
                     LogUtil.WriteLog("单片扫码，" + dataToMachine.msg);
+
+                    //更新用户界面显示的数据
+                    UpdateUIInfo(operationID, deviceCode, dataToMachine);
+                    return;
                 }
             }
 
-            return dataToMachine;
+            return;
         }
 #endif
 
@@ -391,27 +403,8 @@ namespace ChemicalScan.Controller
 
                     LogUtil.WriteLog("单片玻璃扫码，" + dataToMachine.msg);
 
-                    //良率统计
-                    if (operationID == SN_ID_1)
-                    {
-                        if (dataToMachine.code == ReturnData.code_success)
-                            Statistics.OK1++;
-                        if (dataToMachine.code == ReturnData.code_error)
-                            Statistics.NG1++;
-
-                        //更新界面良率
-                        MainForm.thisForm.UpdateStatistics(1);
-                    }
-                    if (operationID == SN_ID_2)
-                    {
-                        if (dataToMachine.code == ReturnData.code_success)
-                            Statistics.OK2++;
-                        if (dataToMachine.code == ReturnData.code_error)
-                            Statistics.NG2++;
-
-                        //更新界面良率
-                        MainForm.thisForm.UpdateStatistics(2);
-                    }
+                    //更新用户界面显示的数据
+                    UpdateUIInfo(operationID, deviceCode, dataToMachine);
                     return;
                 }
             }
@@ -535,12 +528,15 @@ namespace ChemicalScan.Controller
             if (port == ConnectManager.port_main)
             {
                 //玻璃
-                if (operationID == SN_ID_Left || operationID == SN_ID_Right)
+                if (operationID == SN_ID_1 || operationID == SN_ID_2)
                 {
                     dataToMachine = GetReturnFromMES("snNumber", deviceCode, URL.scanSn);
 
+                    //更新用户界面显示的数据
+                    UpdateUIInfo(operationID, deviceCode, dataToMachine);
+
                     //分两路写入日志
-                    if (operationID == SN_ID_Left)
+                    if (operationID == SN_ID_1)
                         LogUtil.WriteLog("左单片扫码，" + dataToMachine.msg, LogFile.logFile_line1);
                     else
                         LogUtil.WriteLog("右单片扫码，" + dataToMachine.msg, LogFile.logFile_line2);
@@ -653,9 +649,41 @@ namespace ChemicalScan.Controller
         }
 #endif
 
+        /// <summary>
+        /// 更新用户界面数据，如NG统计信息，NG表格等
+        /// </summary>
+        /// <param name="operationID"></param>
+        /// <param name="deviceCode"></param>
+        /// <param name="dataToMachine"></param>
+        private static void UpdateUIInfo(string operationID, string deviceCode, ReturnData dataToMachine)
+        {
+            //NG信息表
+            //- 若玻璃NG，信息显示到窗体表格中
+            if (dataToMachine.code == ReturnData.code_error)
+                MainForm.thisForm.AddNGInfo(deviceCode, dataToMachine.msg);
 
+            //良率统计
+            if (operationID == SN_ID_1)
+            {
+                if (dataToMachine.code == ReturnData.code_success)
+                    Statistics.OK1++;
+                if (dataToMachine.code == ReturnData.code_error)
+                    Statistics.NG1++;
 
+                //-更新界面良率
+                MainForm.thisForm.UpdateStatistics(1);
+            }
+            if (operationID == SN_ID_2)
+            {
+                if (dataToMachine.code == ReturnData.code_success)
+                    Statistics.OK2++;
+                if (dataToMachine.code == ReturnData.code_error)
+                    Statistics.NG2++;
 
+                //-更新界面良率
+                MainForm.thisForm.UpdateStatistics(2);
+            }
+        }
 
         /// <summary>
         /// 从MES端获取数据，整理成字符串准备发给Machine
