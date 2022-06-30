@@ -16,9 +16,5 @@ namespace ScanUploader.Controller
     {
         
 
-        public void updateMsgFromMES(string msg)
-        {
-            MainForm.thisForm.ShowMsg(msg);
-        }
     }
 }

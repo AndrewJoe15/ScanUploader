@@ -20,7 +20,7 @@ namespace ScanUploader.Utils
             //判断ListView 是否存在数据
             if (listView.Items.Count == 0)
             {
-                MessageBox.Show("没有可导出的数据");
+                MessageBox.Show(listView.Name + " 没有可导出的数据");
                 return;
             }
             //创建SaveFileDialog 保存文件

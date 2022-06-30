@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Diagnostics;
 using ScanUploader.Controller;
+using ScanUploader.View;
 using ScanUploader.Model;
 
 namespace ScanUploader.Utils
@@ -142,12 +143,10 @@ namespace ScanUploader.Utils
 
                             Debug.WriteLine("发给Machine端的消息: " + dataToMachine.code);
 
-                            ShowManager.Instance.updateMsgFromMES("");
-                            //如果返回状态码为错误码，将出错信息展示给操作员
-                            if (dataToMachine.code == ReturnData.code_error)
+                            //如果返回状态码不是成功码，将出错信息展示给操作员
+                            if (dataToMachine.code != ReturnData.code_success)
                             {
-                                //ShowUtil.ShowWarning(dataToMachine.msg);
-                                ShowManager.Instance.updateMsgFromMES(dataToMachine.msg);
+                                MainForm.thisForm.AddErrorInfo(dataToMachine.code, dataToMachine.msg);
                             }
 
                         }

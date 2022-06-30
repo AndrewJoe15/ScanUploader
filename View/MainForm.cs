@@ -57,18 +57,6 @@ namespace ScanUploader.View
             Invoke(_sl);
         }
 
-        //线程安全调用
-        private delegate void _ShowMsg();
-        //显示错误信息
-        public void ShowMsg(string text)
-        {
-            _ShowMsg _sm = new _ShowMsg(delegate ()
-            {
-                textBox_errorInfo.Text = text;
-            });
-            Invoke(_sm);
-        }
-
         //更新良率统计信息
         private delegate void _UpdateStatistics();
         public void UpdateStatistics(int index)
@@ -92,22 +80,37 @@ namespace ScanUploader.View
             Invoke(_us);
         }
 
+        private static void AddItem(string subItem_1, string subItem_2, ListView listView)
+        {
+            //一行数据
+            ListViewItem item = new ListViewItem();
+            item.SubItems[0].Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");//.Add() 从1开始添加，所以第0个以[0]方式访问
+            item.SubItems.Add(subItem_1);
+            item.SubItems.Add(subItem_2);
 
-        //更新NG信息统计表
-        private delegate void _UpdateNGInfo();
+            //添加listView项
+            listView.Items.Add(item);
+            listView.Items[listView.Items.Count - 1].EnsureVisible();//最后一行可见
+        }
+
+        //添加Error信息统计数据
+        private delegate void _AddErrorInfo();
+        public void AddErrorInfo(string errorCode, string msg)
+        {
+            _AddErrorInfo _aei = new _AddErrorInfo(delegate ()
+            {
+                AddItem(errorCode, msg, listView_errorInfo);
+            });
+            Invoke(_aei);
+        }
+
+        //添加NG信息统计数据
+        private delegate void _AddNGInfo();
         public void AddNGInfo(string snNumber, string msg)
         {
-            _UpdateNGInfo _uni = new _UpdateNGInfo(delegate ()
+            _AddNGInfo _uni = new _AddNGInfo(delegate ()
             {
-                //一行数据
-                ListViewItem item = new ListViewItem();
-                item.SubItems[0].Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");//.Add() 从1开始添加，所以第0个以[0]方式访问
-                item.SubItems.Add(snNumber);
-                item.SubItems.Add(msg);
-
-                //添加listView项
-                listView_NG_info.Items.Add(item);
-                listView_NG_info.Items[listView_NG_info.Items.Count - 1].EnsureVisible();//最后一行可见
+                AddItem(snNumber, msg, listView_NG_info);
             });
             Invoke(_uni);
         }
@@ -312,12 +315,26 @@ namespace ScanUploader.View
 
         private void button_empty_Click(object sender, EventArgs e)
         {
-            listView_NG_info.Items.Clear(); //清空所有数据项
+            if (tabControl_error_info.SelectedTab == tabPage_errorInfo)
+            {
+                listView_errorInfo.Items.Clear(); //清空error表格所有数据项
+            }
+            else if (tabControl_error_info.SelectedTab == tabPage_NG_info)
+            {
+                listView_NG_info.Items.Clear(); //清空NG表格所有数据项
+            }
         }
 
         private void button_export_excel_Click(object sender, EventArgs e)
         {
-            FileUtil.ExportExcel("NG信息统计", listView_NG_info);
+            if (tabControl_error_info.SelectedTab == tabPage_errorInfo)
+            {
+                FileUtil.ExportExcel("Error信息统计", listView_errorInfo);
+            }
+            else if (tabControl_error_info.SelectedTab == tabPage_NG_info)
+            {
+                FileUtil.ExportExcel("NG信息统计", listView_NG_info);
+            }
         }
     }
 }
