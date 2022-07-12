@@ -12,7 +12,7 @@ namespace ScanUploader.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     internal sealed partial class Socket : global::System.Configuration.ApplicationSettingsBase {
         
         private static Socket defaultInstance = ((Socket)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Socket())));
@@ -61,7 +61,7 @@ namespace ScanUploader.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1400")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1500")]
         public int port_submit {
             get {
                 return ((int)(this["port_submit"]));
@@ -128,6 +128,30 @@ namespace ScanUploader.Properties {
             }
             set {
                 this["enable_socket_submit"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1400")]
+        public int port_insert {
+            get {
+                return ((int)(this["port_insert"]));
+            }
+            set {
+                this["port_insert"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool enable_socket_insert {
+            get {
+                return ((bool)(this["enable_socket_insert"]));
+            }
+            set {
+                this["enable_socket_insert"] = value;
             }
         }
     }

@@ -24,11 +24,14 @@ namespace ScanUploader
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            Form mainForm = new MainForm();
+
+            //应用程序初始化
             Init();
 
-            //打开窗体
-            //Application.Run(new ConfigureForm());
-            Application.Run(new MainForm());
+            //打开主窗体
+            Application.Run(mainForm);
+
         }
 
         private static void Init()
@@ -37,8 +40,8 @@ namespace ScanUploader
             //http用户登录以更新Token
             UserManager.HttpLogin();
             //粗磨项目还要登陆 WMS 获取token
-            if (Properties.Settings.Default.is_kibbleScan)
-                UserManager.HttpLogin_WMS();
+            /*if(Properties.Settings.Default.is_kibbleScan)
+                UserManager.HttpLogin_WMS();*/
             //启动连接计时器，每11小时重新登录一次
             ConnectManager.Instance.StartTimer();
 #endif

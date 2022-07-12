@@ -12,7 +12,7 @@ namespace ScanUploader.Model
     /// <summary>
     /// 基本信息类
     /// 放置一些交互界面录入的常量
-    /// 由于该类需要序列化生成Json数据，所以不允许添加额外变量
+    /// 由于该类需要序列化生成Json数据，所以谨慎改动，原则上不允许增删变量
     /// </summary>
     public class BasicInfo : SingleTon<BasicInfo>
     {
@@ -30,9 +30,9 @@ namespace ScanUploader.Model
         //班次
         public string shift { get; set; } = "白班";
         //操作人
-        public string createBy { get; set; } = "sy100228";
+        public string createBy { get; set; } = "ly611937";
         //操作时间
-        public string createTime { get; set; } = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        public string createTime { get => TimeUtil.currentTimeString; }
 #endif
 
 #if KIBBLESCAN
@@ -51,7 +51,7 @@ namespace ScanUploader.Model
         //操作人
         public string createBy { get; set; } = "sy100228";
         //操作时间
-        public string createTime { get; set; } = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        public string createTime { get => TimeUtil.currentTimeString; }
 #endif
 
 
@@ -71,8 +71,9 @@ namespace ScanUploader.Model
         //操作人
         public string createBy { get; set; } = "sy100228";
         //操作时间
-        public string submitTime { get; set; } = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-        public string order = "000600003375";
+        public string submitTime { get => TimeUtil.currentTimeString; }
+        //工单号
+        public string order = "";
 #endif
     }
 

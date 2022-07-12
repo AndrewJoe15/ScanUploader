@@ -15,7 +15,7 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="fileFormat" Type="System.String" Scope="User">
-      <Value Profile="(Default)">.text</Value>
+      <Value Profile="(Default)">.txt</Value>
     </Setting>
   </Settings>
 </SettingsFile>

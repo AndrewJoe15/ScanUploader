@@ -83,6 +83,10 @@
             this.label_httpPassword = new System.Windows.Forms.Label();
             this.tabControl_config = new System.Windows.Forms.TabControl();
             this.tabPage_url = new System.Windows.Forms.TabPage();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.radioButton_BDS = new System.Windows.Forms.RadioButton();
+            this.radioButton_Chemical = new System.Windows.Forms.RadioButton();
+            this.radioButton_Kibble = new System.Windows.Forms.RadioButton();
             this.tabPage_socketPort = new System.Windows.Forms.TabPage();
             this.tabPage_httpUser = new System.Windows.Forms.TabPage();
             this.label_url_login_WMS = new System.Windows.Forms.Label();
@@ -96,21 +100,18 @@
             this.label_url_login_MES = new System.Windows.Forms.Label();
             this.textBox_url_login_MES = new System.Windows.Forms.TextBox();
             this.tabPage_logFileName = new System.Windows.Forms.TabPage();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.radioButton_BDS = new System.Windows.Forms.RadioButton();
-            this.radioButton_Kibble = new System.Windows.Forms.RadioButton();
-            this.radioButton_Chemical = new System.Windows.Forms.RadioButton();
+            this.button_restoreConfig = new System.Windows.Forms.Button();
             this.panel_url.SuspendLayout();
             this.panel_port.SuspendLayout();
             this.panel_logFormat.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabControl_config.SuspendLayout();
             this.tabPage_url.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.tabPage_socketPort.SuspendLayout();
             this.tabPage_httpUser.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tabPage_logFileName.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_url
@@ -155,7 +156,7 @@
             this.label_validate_WMS.Location = new System.Drawing.Point(37, 421);
             this.label_validate_WMS.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_validate_WMS.Name = "label_validate_WMS";
-            this.label_validate_WMS.Size = new System.Drawing.Size(66, 19);
+            this.label_validate_WMS.Size = new System.Drawing.Size(62, 18);
             this.label_validate_WMS.TabIndex = 25;
             this.label_validate_WMS.Text = "验证：";
             // 
@@ -174,7 +175,7 @@
             this.label5.Location = new System.Drawing.Point(37, 374);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(104, 19);
+            this.label5.Size = new System.Drawing.Size(98, 18);
             this.label5.TabIndex = 23;
             this.label5.Text = "库存查询：";
             // 
@@ -193,7 +194,7 @@
             this.label_url_subPrefix.Location = new System.Drawing.Point(111, 69);
             this.label_url_subPrefix.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_url_subPrefix.Name = "label_url_subPrefix";
-            this.label_url_subPrefix.Size = new System.Drawing.Size(115, 19);
+            this.label_url_subPrefix.Size = new System.Drawing.Size(107, 18);
             this.label_url_subPrefix.TabIndex = 21;
             this.label_url_subPrefix.Text = "MES子前缀：";
             // 
@@ -212,7 +213,7 @@
             this.label_url_prefix.Location = new System.Drawing.Point(37, 21);
             this.label_url_prefix.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_url_prefix.Name = "label_url_prefix";
-            this.label_url_prefix.Size = new System.Drawing.Size(96, 19);
+            this.label_url_prefix.Size = new System.Drawing.Size(89, 18);
             this.label_url_prefix.TabIndex = 19;
             this.label_url_prefix.Text = "URL前缀：";
             // 
@@ -231,7 +232,7 @@
             this.label_url_submit.Location = new System.Drawing.Point(234, 318);
             this.label_url_submit.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_url_submit.Name = "label_url_submit";
-            this.label_url_submit.Size = new System.Drawing.Size(66, 19);
+            this.label_url_submit.Size = new System.Drawing.Size(62, 18);
             this.label_url_submit.TabIndex = 17;
             this.label_url_submit.Text = "提交：";
             // 
@@ -277,7 +278,7 @@
             this.label_url_scanContainerIn.Location = new System.Drawing.Point(234, 216);
             this.label_url_scanContainerIn.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_url_scanContainerIn.Name = "label_url_scanContainerIn";
-            this.label_url_scanContainerIn.Size = new System.Drawing.Size(104, 19);
+            this.label_url_scanContainerIn.Size = new System.Drawing.Size(98, 18);
             this.label_url_scanContainerIn.TabIndex = 2;
             this.label_url_scanContainerIn.Text = "扫入载具：";
             // 
@@ -287,7 +288,7 @@
             this.label_url_scanVehicleOut.Location = new System.Drawing.Point(234, 117);
             this.label_url_scanVehicleOut.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_url_scanVehicleOut.Name = "label_url_scanVehicleOut";
-            this.label_url_scanVehicleOut.Size = new System.Drawing.Size(104, 19);
+            this.label_url_scanVehicleOut.Size = new System.Drawing.Size(98, 18);
             this.label_url_scanVehicleOut.TabIndex = 4;
             this.label_url_scanVehicleOut.Text = "扫出载具：";
             // 
@@ -297,7 +298,7 @@
             this.label_url_scanVehicleUnbind.Location = new System.Drawing.Point(234, 266);
             this.label_url_scanVehicleUnbind.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_url_scanVehicleUnbind.Name = "label_url_scanVehicleUnbind";
-            this.label_url_scanVehicleUnbind.Size = new System.Drawing.Size(104, 19);
+            this.label_url_scanVehicleUnbind.Size = new System.Drawing.Size(98, 18);
             this.label_url_scanVehicleUnbind.TabIndex = 6;
             this.label_url_scanVehicleUnbind.Text = "载具解绑：";
             // 
@@ -307,7 +308,7 @@
             this.label_url_scanSn.Location = new System.Drawing.Point(234, 169);
             this.label_url_scanSn.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_url_scanSn.Name = "label_url_scanSn";
-            this.label_url_scanSn.Size = new System.Drawing.Size(86, 19);
+            this.label_url_scanSn.Size = new System.Drawing.Size(80, 18);
             this.label_url_scanSn.TabIndex = 8;
             this.label_url_scanSn.Text = "SN校验：";
             // 
@@ -352,7 +353,7 @@
             this.label2.Location = new System.Drawing.Point(33, 91);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 19);
+            this.label2.Size = new System.Drawing.Size(65, 18);
             this.label2.TabIndex = 16;
             this.label2.Text = "端口：";
             // 
@@ -373,7 +374,7 @@
             this.label_socket_IP.Location = new System.Drawing.Point(33, 39);
             this.label_socket_IP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_socket_IP.Name = "label_socket_IP";
-            this.label_socket_IP.Size = new System.Drawing.Size(51, 19);
+            this.label_socket_IP.Size = new System.Drawing.Size(47, 18);
             this.label_socket_IP.TabIndex = 14;
             this.label_socket_IP.Text = "IP：";
             // 
@@ -463,7 +464,7 @@
             this.label_port_up.Location = new System.Drawing.Point(90, 91);
             this.label_port_up.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_port_up.Name = "label_port_up";
-            this.label_port_up.Size = new System.Drawing.Size(47, 19);
+            this.label_port_up.Size = new System.Drawing.Size(44, 18);
             this.label_port_up.TabIndex = 0;
             this.label_port_up.Text = "上料";
             // 
@@ -473,7 +474,7 @@
             this.label_port_submit.Location = new System.Drawing.Point(90, 238);
             this.label_port_submit.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_port_submit.Name = "label_port_submit";
-            this.label_port_submit.Size = new System.Drawing.Size(47, 19);
+            this.label_port_submit.Size = new System.Drawing.Size(44, 18);
             this.label_port_submit.TabIndex = 2;
             this.label_port_submit.Text = "提交";
             // 
@@ -483,7 +484,7 @@
             this.label_port_main.Location = new System.Drawing.Point(90, 139);
             this.label_port_main.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_port_main.Name = "label_port_main";
-            this.label_port_main.Size = new System.Drawing.Size(47, 19);
+            this.label_port_main.Size = new System.Drawing.Size(44, 18);
             this.label_port_main.TabIndex = 4;
             this.label_port_main.Text = "主体";
             // 
@@ -493,7 +494,7 @@
             this.label_port_down.Location = new System.Drawing.Point(90, 191);
             this.label_port_down.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_port_down.Name = "label_port_down";
-            this.label_port_down.Size = new System.Drawing.Size(47, 19);
+            this.label_port_down.Size = new System.Drawing.Size(44, 18);
             this.label_port_down.TabIndex = 8;
             this.label_port_down.Text = "下料";
             // 
@@ -548,7 +549,7 @@
             this.label4.Location = new System.Drawing.Point(35, 37);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(66, 19);
+            this.label4.Size = new System.Drawing.Size(62, 18);
             this.label4.TabIndex = 0;
             this.label4.Text = "前缀：";
             // 
@@ -558,7 +559,7 @@
             this.label6.Location = new System.Drawing.Point(35, 85);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(104, 19);
+            this.label6.Size = new System.Drawing.Size(98, 18);
             this.label6.TabIndex = 4;
             this.label6.Text = "日期格式：";
             // 
@@ -568,7 +569,7 @@
             this.label7.Location = new System.Drawing.Point(35, 137);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(123, 19);
+            this.label7.Size = new System.Drawing.Size(116, 18);
             this.label7.TabIndex = 8;
             this.label7.Text = "流水号位数：";
             // 
@@ -578,12 +579,12 @@
             this.label_logFormat.Location = new System.Drawing.Point(371, 449);
             this.label_logFormat.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_logFormat.Name = "label_logFormat";
-            this.label_logFormat.Size = new System.Drawing.Size(0, 19);
+            this.label_logFormat.Size = new System.Drawing.Size(0, 18);
             this.label_logFormat.TabIndex = 16;
             // 
             // button_saveConfig
             // 
-            this.button_saveConfig.Location = new System.Drawing.Point(437, 556);
+            this.button_saveConfig.Location = new System.Drawing.Point(516, 557);
             this.button_saveConfig.Name = "button_saveConfig";
             this.button_saveConfig.Size = new System.Drawing.Size(119, 45);
             this.button_saveConfig.TabIndex = 22;
@@ -613,7 +614,7 @@
             this.label1.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.Location = new System.Drawing.Point(4, -1);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 19);
+            this.label1.Size = new System.Drawing.Size(38, 18);
             this.label1.TabIndex = 8;
             this.label1.Text = "MES";
             // 
@@ -633,7 +634,7 @@
             this.label_httpSite.Location = new System.Drawing.Point(35, 131);
             this.label_httpSite.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_httpSite.Name = "label_httpSite";
-            this.label_httpSite.Size = new System.Drawing.Size(66, 19);
+            this.label_httpSite.Size = new System.Drawing.Size(62, 18);
             this.label_httpSite.TabIndex = 6;
             this.label_httpSite.Text = "站点：";
             // 
@@ -663,7 +664,7 @@
             this.label_httpUserName.Location = new System.Drawing.Point(35, 37);
             this.label_httpUserName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_httpUserName.Name = "label_httpUserName";
-            this.label_httpUserName.Size = new System.Drawing.Size(85, 19);
+            this.label_httpUserName.Size = new System.Drawing.Size(80, 18);
             this.label_httpUserName.TabIndex = 0;
             this.label_httpUserName.Text = "用户名：";
             // 
@@ -673,7 +674,7 @@
             this.label_httpPassword.Location = new System.Drawing.Point(35, 85);
             this.label_httpPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_httpPassword.Name = "label_httpPassword";
-            this.label_httpPassword.Size = new System.Drawing.Size(66, 19);
+            this.label_httpPassword.Size = new System.Drawing.Size(62, 18);
             this.label_httpPassword.TabIndex = 4;
             this.label_httpPassword.Text = "密码：";
             // 
@@ -700,6 +701,56 @@
             this.tabPage_url.TabIndex = 0;
             this.tabPage_url.Text = "URL";
             this.tabPage_url.UseVisualStyleBackColor = true;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.radioButton_BDS);
+            this.panel3.Controls.Add(this.radioButton_Chemical);
+            this.panel3.Controls.Add(this.radioButton_Kibble);
+            this.panel3.Location = new System.Drawing.Point(716, 90);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(178, 287);
+            this.panel3.TabIndex = 20;
+            // 
+            // radioButton_BDS
+            // 
+            this.radioButton_BDS.AutoSize = true;
+            this.radioButton_BDS.Location = new System.Drawing.Point(26, 207);
+            this.radioButton_BDS.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.radioButton_BDS.Name = "radioButton_BDS";
+            this.radioButton_BDS.Size = new System.Drawing.Size(110, 22);
+            this.radioButton_BDS.TabIndex = 5;
+            this.radioButton_BDS.TabStop = true;
+            this.radioButton_BDS.Text = "丝印前BDS";
+            this.radioButton_BDS.UseVisualStyleBackColor = true;
+            this.radioButton_BDS.CheckedChanged += new System.EventHandler(this.radioButton_BDS_CheckedChanged);
+            // 
+            // radioButton_Chemical
+            // 
+            this.radioButton_Chemical.AutoSize = true;
+            this.radioButton_Chemical.Checked = true;
+            this.radioButton_Chemical.Location = new System.Drawing.Point(26, 59);
+            this.radioButton_Chemical.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.radioButton_Chemical.Name = "radioButton_Chemical";
+            this.radioButton_Chemical.Size = new System.Drawing.Size(65, 22);
+            this.radioButton_Chemical.TabIndex = 3;
+            this.radioButton_Chemical.TabStop = true;
+            this.radioButton_Chemical.Text = "化抛";
+            this.radioButton_Chemical.UseVisualStyleBackColor = true;
+            this.radioButton_Chemical.CheckedChanged += new System.EventHandler(this.radioButton_Chemical_CheckedChanged);
+            // 
+            // radioButton_Kibble
+            // 
+            this.radioButton_Kibble.AutoSize = true;
+            this.radioButton_Kibble.Location = new System.Drawing.Point(26, 134);
+            this.radioButton_Kibble.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.radioButton_Kibble.Name = "radioButton_Kibble";
+            this.radioButton_Kibble.Size = new System.Drawing.Size(65, 22);
+            this.radioButton_Kibble.TabIndex = 4;
+            this.radioButton_Kibble.TabStop = true;
+            this.radioButton_Kibble.Text = "粗磨";
+            this.radioButton_Kibble.UseVisualStyleBackColor = true;
+            this.radioButton_Kibble.CheckedChanged += new System.EventHandler(this.radioButton_Kibble_CheckedChanged);
             // 
             // tabPage_socketPort
             // 
@@ -734,7 +785,7 @@
             this.label_url_login_WMS.Location = new System.Drawing.Point(395, 368);
             this.label_url_login_WMS.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_url_login_WMS.Name = "label_url_login_WMS";
-            this.label_url_login_WMS.Size = new System.Drawing.Size(96, 19);
+            this.label_url_login_WMS.Size = new System.Drawing.Size(89, 18);
             this.label_url_login_WMS.TabIndex = 27;
             this.label_url_login_WMS.Text = "登录url：";
             // 
@@ -767,7 +818,7 @@
             this.label3.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label3.Location = new System.Drawing.Point(4, -1);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(42, 19);
+            this.label3.Size = new System.Drawing.Size(38, 18);
             this.label3.TabIndex = 8;
             this.label3.Text = "WMS";
             // 
@@ -797,7 +848,7 @@
             this.label8.Location = new System.Drawing.Point(35, 37);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(85, 19);
+            this.label8.Size = new System.Drawing.Size(80, 18);
             this.label8.TabIndex = 0;
             this.label8.Text = "用户名：";
             // 
@@ -807,7 +858,7 @@
             this.label9.Location = new System.Drawing.Point(35, 85);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(66, 19);
+            this.label9.Size = new System.Drawing.Size(62, 18);
             this.label9.TabIndex = 4;
             this.label9.Text = "密码：";
             // 
@@ -817,7 +868,7 @@
             this.label_url_login_MES.Location = new System.Drawing.Point(395, 167);
             this.label_url_login_MES.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_url_login_MES.Name = "label_url_login_MES";
-            this.label_url_login_MES.Size = new System.Drawing.Size(96, 19);
+            this.label_url_login_MES.Size = new System.Drawing.Size(89, 18);
             this.label_url_login_MES.TabIndex = 0;
             this.label_url_login_MES.Text = "登录url：";
             // 
@@ -841,61 +892,21 @@
             this.tabPage_logFileName.Text = "Log文件名格式";
             this.tabPage_logFileName.UseVisualStyleBackColor = true;
             // 
-            // panel3
+            // button_restoreConfig
             // 
-            this.panel3.Controls.Add(this.radioButton_BDS);
-            this.panel3.Controls.Add(this.radioButton_Chemical);
-            this.panel3.Controls.Add(this.radioButton_Kibble);
-            this.panel3.Location = new System.Drawing.Point(716, 90);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(178, 287);
-            this.panel3.TabIndex = 20;
-            // 
-            // radioButton_BDS
-            // 
-            this.radioButton_BDS.AutoSize = true;
-            this.radioButton_BDS.Location = new System.Drawing.Point(26, 207);
-            this.radioButton_BDS.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.radioButton_BDS.Name = "radioButton_BDS";
-            this.radioButton_BDS.Size = new System.Drawing.Size(117, 23);
-            this.radioButton_BDS.TabIndex = 5;
-            this.radioButton_BDS.TabStop = true;
-            this.radioButton_BDS.Text = "丝印前BDS";
-            this.radioButton_BDS.UseVisualStyleBackColor = true;
-            this.radioButton_BDS.CheckedChanged += new System.EventHandler(this.radioButton_BDS_CheckedChanged);
-            // 
-            // radioButton_Kibble
-            // 
-            this.radioButton_Kibble.AutoSize = true;
-            this.radioButton_Kibble.Location = new System.Drawing.Point(26, 134);
-            this.radioButton_Kibble.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.radioButton_Kibble.Name = "radioButton_Kibble";
-            this.radioButton_Kibble.Size = new System.Drawing.Size(68, 23);
-            this.radioButton_Kibble.TabIndex = 4;
-            this.radioButton_Kibble.TabStop = true;
-            this.radioButton_Kibble.Text = "粗磨";
-            this.radioButton_Kibble.UseVisualStyleBackColor = true;
-            this.radioButton_Kibble.CheckedChanged += new System.EventHandler(this.radioButton_Kibble_CheckedChanged);
-            // 
-            // radioButton_Chemical
-            // 
-            this.radioButton_Chemical.AutoSize = true;
-            this.radioButton_Chemical.Checked = true;
-            this.radioButton_Chemical.Location = new System.Drawing.Point(26, 59);
-            this.radioButton_Chemical.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.radioButton_Chemical.Name = "radioButton_Chemical";
-            this.radioButton_Chemical.Size = new System.Drawing.Size(68, 23);
-            this.radioButton_Chemical.TabIndex = 3;
-            this.radioButton_Chemical.TabStop = true;
-            this.radioButton_Chemical.Text = "化抛";
-            this.radioButton_Chemical.UseVisualStyleBackColor = true;
-            this.radioButton_Chemical.CheckedChanged += new System.EventHandler(this.radioButton_Chemical_CheckedChanged);
+            this.button_restoreConfig.Location = new System.Drawing.Point(332, 557);
+            this.button_restoreConfig.Name = "button_restoreConfig";
+            this.button_restoreConfig.Size = new System.Drawing.Size(119, 45);
+            this.button_restoreConfig.TabIndex = 28;
+            this.button_restoreConfig.Text = "还 原";
+            this.button_restoreConfig.UseVisualStyleBackColor = true;
             // 
             // ConfigureForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(962, 644);
+            this.Controls.Add(this.button_restoreConfig);
             this.Controls.Add(this.tabControl_config);
             this.Controls.Add(this.button_saveConfig);
             this.Controls.Add(this.label_logFormat);
@@ -914,14 +925,14 @@
             this.panel1.PerformLayout();
             this.tabControl_config.ResumeLayout(false);
             this.tabPage_url.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.tabPage_socketPort.ResumeLayout(false);
             this.tabPage_httpUser.ResumeLayout(false);
             this.tabPage_httpUser.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.tabPage_logFileName.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1001,5 +1012,6 @@
         private System.Windows.Forms.RadioButton radioButton_BDS;
         private System.Windows.Forms.RadioButton radioButton_Chemical;
         private System.Windows.Forms.RadioButton radioButton_Kibble;
+        public System.Windows.Forms.Button button_restoreConfig;
     }
 }

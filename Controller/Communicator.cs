@@ -93,21 +93,17 @@ namespace ScanUploader.Controller
         public static string GetCodeFromMES(string deviceCodeKey, string deviceCodeValue, string url)
         {
             string code = "";
-#if BDSSCAN
-            BasicInfo.Instance.submitTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-#else
-            BasicInfo.Instance.createTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-#endif
+
             string dataToMES = JsonUtil.ToJson(BasicInfo.Instance, deviceCodeKey, deviceCodeValue);
 
 
-            Debug.WriteLine("发给MES端口的消息: \n" + dataToMES);
+            UIInfoManager.AppendDebugInfo("发给MES端口的消息: \n" + dataToMES);
 
             JObject dataFromMes = HttpUtil.PostResponse(url, dataToMES);
             if (dataFromMes["code"] != null)
             {
                 code = dataFromMes["code"].ToString();
-                Debug.WriteLine("收到MES端口的消息: \n" + dataFromMes);
+                UIInfoManager.AppendDebugInfo("收到MES端口的消息: \n" + dataFromMes);
             }
 
             return code;
@@ -119,19 +115,15 @@ namespace ScanUploader.Controller
             ReturnData rdata = new ReturnData();
             JObject dataFromMes = null;
 
-            //更新BasicInfo的生成时间
-#if BDSSCAN
-            BasicInfo.Instance.submitTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-#else
-            BasicInfo.Instance.createTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-#endif
             //添加<码,值> 生成json数据
             string dataToMES = JsonUtil.ToJson(BasicInfo.Instance, deviceCodeKey, deviceCodeValue);
 
             if (dataToMES != null && dataToMES.Trim() != "")
             {
-                Debug.WriteLine("发给MES端口的消息: \n" + dataToMES);
-#if !DEBUG //厂外Debug时不进行Http通信
+                UIInfoManager.AppendDebugInfo("发给MES端口的消息: \n" + dataToMES);
+#if DEBUG //厂外Debug时不进行Http通信
+                
+#else
                 dataFromMes = HttpUtil.PostResponse(url, dataToMES);
 #endif
             }
@@ -143,13 +135,15 @@ namespace ScanUploader.Controller
                 {
                     rdata.code = dataFromMes["code"].ToString();
                     rdata.msg = dataFromMes["msg"].ToString();
+                    //data默认值为code的值
+                    rdata.data = rdata.code;
                     if (dataFromMes["data"] != null)
                     {
                         //化抛架扫码，返回化抛架绑定的玻璃数量
                         if(dataFromMes["data"]["bandQty"] != null)
                             rdata.data = dataFromMes["data"]["bandQty"].ToString();
                     }
-                    Debug.WriteLine("收到MES端口的消息: \n" + dataFromMes.ToString());
+                    UIInfoManager.AppendDebugInfo("收到MES端口的消息: \n" + dataFromMes.ToString());
                 }
                 else
                 {
@@ -169,8 +163,8 @@ namespace ScanUploader.Controller
             {
                 rdata.code = ReturnData.code_error;
                 rdata.msg = deviceCodeValue + " NG";
-            }            
-            rdata.data = "Debug Data";
+            }
+            rdata.data = rdata.code;
 #endif
             return rdata;
         }
@@ -191,12 +185,12 @@ namespace ScanUploader.Controller
             
             if (dataToWMS != "{}")//空 Json
             {
-                Debug.WriteLine("给WMS端口发送查询请求: \n" + dataToWMS);
+                UIInfoManager.AppendDebugInfo("给WMS端口发送查询请求: \n" + dataToWMS);
                 //向WMS查询
                 JObject jsonRetrun = HttpUtil.PostResponse_WMS(Properties.URL.Default.stockQuery_WMS, dataToWMS);
                 if(jsonRetrun["code"] != null)
                 {
-                    Debug.WriteLine("收到WMS端口的消息: \n" + jsonRetrun.ToString());
+                    UIInfoManager.AppendDebugInfo("收到WMS端口的消息: \n" + jsonRetrun.ToString());
 
                     if (jsonRetrun["code"].ToString() == ReturnData.code_success)//查询成功
                         //获取可用数量
@@ -218,7 +212,7 @@ namespace ScanUploader.Controller
 
             if (dataToWMS != "[{}]" && dataToWMS != "[{{}}]")
             {
-                Debug.WriteLine("向WMS端口发送校验请求: \n" + dataToWMS);
+                UIInfoManager.AppendDebugInfo("向WMS端口发送校验请求: \n" + dataToWMS);
 
                 dataFromWMS = HttpUtil.PostResponse_WMS(Properties.URL.Default.validate_WMS, dataToWMS);
             }
@@ -234,7 +228,7 @@ namespace ScanUploader.Controller
                 if(dataFromWMS["omasg"] != null)
                     rdata.msg = dataFromWMS["omasg"].ToString();
 
-                Debug.WriteLine("收到WMS端口的消息: \n" + dataFromWMS.ToString());
+                UIInfoManager.AppendDebugInfo("收到WMS端口的消息: \n" + dataFromWMS.ToString());
             }
 #else
             rdata.code = deviceCodeValue;
@@ -247,7 +241,7 @@ namespace ScanUploader.Controller
         {
             ReturnData rdata = null;
 
-            Debug.WriteLine("数据提交，发给MES端口的消息: \n" + submitData);
+            UIInfoManager.AppendDebugInfo("数据提交，发给MES端口的消息: \n" + submitData);
 #if !DEBUG
             JObject dataFromMes = HttpUtil.PostResponse(url, submitData);
 
@@ -259,12 +253,15 @@ namespace ScanUploader.Controller
                 rdata.msg = dataFromMes["msg"].ToString();
                 if (dataFromMes["data"] != null)
                     rdata.data = dataFromMes["data"].ToString();
+                else
+                    rdata.data = rdata.code;
 
-                Debug.WriteLine("收到MES端口的消息: \n" + dataFromMes.ToString());
+                UIInfoManager.AppendDebugInfo("收到MES端口的消息: \n" + dataFromMes.ToString());
             }
 #else
             rdata = new ReturnData();
             rdata.code = ReturnData.code_success;
+            rdata.data = rdata.code;
             rdata.msg = "数据提交";
 #endif
 
@@ -281,8 +278,6 @@ namespace ScanUploader.Controller
         {
             ReturnData dataToMachine;
             SubmitData submitData = new SubmitData();
-
-            BasicInfo.Instance.createTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             submitData.logNumber = logNumber;
 
@@ -497,14 +492,11 @@ namespace ScanUploader.Controller
                 {
                     dataToMachine = GetReturnFromMES("containerCode", deviceCode, URL.scanContainerOut);
                     
-                    //将化抛架绑定的数量 赋给 code 发给PLC
-                    dataToMachine.code = dataToMachine.data;
-
-                    //分两路写入日志
+                    //写入日志
                     if (operationID == containerOut_ID_Left)
-                        LogUtil.WriteLog("左化抛架扫出载具，" + dataToMachine.msg, LogFile.logFile_line1);
+                        LogUtil.WriteLog("左化抛架扫出载具，" + dataToMachine.msg);
                     else
-                        LogUtil.WriteLog("右化抛架扫出载具，" + dataToMachine.msg, LogFile.logFile_line2);
+                        LogUtil.WriteLog("右化抛架扫出载具，" + dataToMachine.msg);
 
                     return;
                 }
@@ -516,9 +508,13 @@ namespace ScanUploader.Controller
 
                     //记录解绑状态
                     if (operationID == unbind_ID_Left)
-                        LogUtil.WriteLog("左化抛架解绑，" + dataToMachine.msg, LogFile.logFile_line1);
+                        LogUtil.WriteLog("左化抛架解绑，" + dataToMachine.msg);
                     else
-                        LogUtil.WriteLog("右化抛架解绑，" + dataToMachine.msg, LogFile.logFile_line2);
+                        LogUtil.WriteLog("右化抛架解绑，" + dataToMachine.msg);
+
+
+                    //拿空了一个化抛架，解绑时更新日志文件对象，新建一个日志文件
+                    LogFile.logFile = new LogFile();
 
                     return;
                 }
@@ -535,11 +531,11 @@ namespace ScanUploader.Controller
                     //更新用户界面显示的数据
                     UpdateUIInfo(operationID, deviceCode, dataToMachine);
 
-                    //分两路写入日志
+                    //写入日志
                     if (operationID == SN_ID_1)
-                        LogUtil.WriteLog("左单片扫码，" + dataToMachine.msg, LogFile.logFile_line1);
+                        LogUtil.WriteLog("左单片扫码，" + dataToMachine.msg);
                     else
-                        LogUtil.WriteLog("右单片扫码，" + dataToMachine.msg, LogFile.logFile_line2);
+                        LogUtil.WriteLog("右单片扫码，" + dataToMachine.msg);
 
                     return;
                 }
@@ -555,60 +551,62 @@ namespace ScanUploader.Controller
 
                     if(operationID == containerIn_OK_ID)
                     {
-                        LogUtil.WriteLog("扫入OK载具，" + dataToMachine.msg, LogFile.logFile_line1);
-                        LogUtil.WriteLog("扫入OK载具，" + dataToMachine.msg, LogFile.logFile_line2, false);
+                        LogUtil.WriteLog("扫入OK载具，" + dataToMachine.msg);
+                        LogUtil.WriteLog("扫入OK载具，" + dataToMachine.msg, LogFile.debugFile, false);
                     }
                     else
                     {
-                        LogUtil.WriteLog("扫入NG载具，" + dataToMachine.msg, LogFile.logFile_line1);
-                        LogUtil.WriteLog("扫入NG载具，" + dataToMachine.msg, LogFile.logFile_line2, false);
+                        LogUtil.WriteLog("扫入NG载具，" + dataToMachine.msg);
+                        LogUtil.WriteLog("扫入NG载具，" + dataToMachine.msg, LogFile.debugFile, false);
                     }
 
                     return;
                 }
             }
 
-            //提交端口
-            if (port == ConnectManager.port_submit)
+            //插架端口
+            if (port == ConnectManager.port_insert)
             {
-                //提交
-                //OK1,cOut,cIn,SN,
-                //OK2,cOut,cIn,SN,
-                //NG1,...
-                //NG2
-                if (subs.Length >= 4 && (operationID.Contains("OK") || operationID.Contains("NG")))//要改
+                if (subs.Length >= 4)
                 {
                     Glass glass = new Glass();
                     glass.sourceVehicle = subs[1];
                     glass.targetVehicle = subs[2];
                     glass.snNumber = subs[3];
+                    //插架
+                    //OK1,cOut,cIn,SN,
+                    //NG1,...
 
-                    if (operationID == submit_OK_Left)
+                    if (operationID == submit_OK_Left && !GlobalValue.GlassList_OK_Left.Contains(glass))
                     {
                         GlobalValue.GlassList_OK_Left.Add(glass);
-                        LogUtil.WriteLog("玻璃 " + glass.snNumber + " 放入左OK载具 " + glass.targetVehicle + " 中。", LogFile.logFile_line1);
+                        LogUtil.WriteLog("玻璃 " + glass.snNumber + " 放入左OK载具 " + glass.targetVehicle + " 中。");
                     }
-                    if (operationID == submit_OK_Right)
+                    if (operationID == submit_OK_Right && !GlobalValue.GlassList_OK_Right.Contains(glass))
                     {
                         GlobalValue.GlassList_OK_Right.Add(glass);
-                        LogUtil.WriteLog("玻璃 " + glass.snNumber + " 放入右OK载具 " + glass.targetVehicle + " 中。", LogFile.logFile_line2);
+                        LogUtil.WriteLog("玻璃 " + glass.snNumber + " 放入右OK载具 " + glass.targetVehicle + " 中。");
                     }
-                    if (operationID == submit_NG_Left)
+                    if (operationID == submit_NG_Left && !GlobalValue.GlassList_NG_Left.Contains(glass))
                     {
                         GlobalValue.GlassList_NG_Left.Add(glass);
-                        LogUtil.WriteLog("玻璃 " + glass.snNumber + " 放入左NG载具 " + glass.targetVehicle + " 中。", LogFile.logFile_line1);
+                        LogUtil.WriteLog("玻璃 " + glass.snNumber + " 放入左NG载具 " + glass.targetVehicle + " 中。");
                     }
-                    if (operationID == submit_NG_Right)
+                    if (operationID == submit_NG_Right && !GlobalValue.GlassList_NG_Right.Contains(glass))
                     {
                         GlobalValue.GlassList_NG_Right.Add(glass);
-                        LogUtil.WriteLog("玻璃 " + glass.snNumber + " 放入右NG载具 " + glass.targetVehicle + " 中。", LogFile.logFile_line2);
+                        LogUtil.WriteLog("玻璃 " + glass.snNumber + " 放入右NG载具 " + glass.targetVehicle + " 中。");
                     }
 
                     dataToMachine.code = ReturnData.code_success;
-
-                    return;
                 }
+                return;
+            }
 
+            //提交端口
+            if (port == ConnectManager.port_submit)
+            {
+                //提交
                 //OK1FINISH
                 //NG1FINISH
                 if (operationID.ToUpper().Contains(submit_Finish_ID))
@@ -617,31 +615,25 @@ namespace ScanUploader.Controller
                     //- OK
                     if (operationID.ToUpper() == submit_OK_Left_Finish)
                     {
-                        dataToMachine = SubmitToMES(ref GlobalValue.GlassList_OK_Left, LogFile.logFile_line1.logNumber);
-                        LogUtil.WriteLog("左OK载具提交，" + dataToMachine.msg, LogFile.logFile_line1);
-
-                        //更新日志文件对象
-                        LogFile.logFile_line1 = new LogFile();
+                        dataToMachine = SubmitToMES(ref GlobalValue.GlassList_OK_Left, LogFile.logFile.logNumber);
+                        LogUtil.WriteLog("左OK载具提交，" + dataToMachine.msg);
                     }
                     if (operationID.ToUpper() == submit_OK_Right_Finish)
                     {
-                        dataToMachine = SubmitToMES(ref GlobalValue.GlassList_OK_Right, LogFile.logFile_line2.logNumber);
-                        LogUtil.WriteLog("右OK载具提交，" + dataToMachine.msg, LogFile.logFile_line2);
-
-                        //更新日志文件对象
-                        LogFile.logFile_line2 = new LogFile();
+                        dataToMachine = SubmitToMES(ref GlobalValue.GlassList_OK_Right, LogFile.debugFile.logNumber);
+                        LogUtil.WriteLog("右OK载具提交，" + dataToMachine.msg);
                     }
-                    /*//- NG  ?是否需要提交?
+                    //- NG  预留提交功能
                     if (operationID.ToUpper() == submit_NG_Left_Finish)
                     {
-                        dataToMachine = SubmitToMES(ref GlobalValue.GlassList_NG_Left, LogFile.logFile_line1.logNumber);
-                        LogUtil.WriteLog("左NG载具提交，" + dataToMachine.msg, LogFile.logFile_line1);
+                        dataToMachine = SubmitToMES(ref GlobalValue.GlassList_NG_Left, LogFile.logFile.logNumber);
+                        LogUtil.WriteLog("左NG载具提交，" + dataToMachine.msg);
                     }
                     if (operationID.ToUpper() == submit_NG_Right_Finish)
                     {
-                        dataToMachine = SubmitToMES(ref GlobalValue.GlassList_NG_Right, LogFile.logFile_line2.logNumber);
-                        LogUtil.WriteLog("右NG载具提交，" + dataToMachine.msg, LogFile.logFile_line2);
-                    }*/
+                        dataToMachine = SubmitToMES(ref GlobalValue.GlassList_NG_Right, LogFile.debugFile.logNumber);
+                        LogUtil.WriteLog("右NG载具提交，" + dataToMachine.msg);
+                    }
 
                     return;
                 }
@@ -666,9 +658,9 @@ namespace ScanUploader.Controller
             if (operationID == SN_ID_1)
             {
                 if (dataToMachine.code == ReturnData.code_success)
-                    Statistics.OK1++;
-                if (dataToMachine.code == ReturnData.code_error)
-                    Statistics.NG1++;
+                    Statistics.OK_1++;
+                else
+                    Statistics.NG_1++;
 
                 //-更新界面良率
                 MainForm.thisForm.UpdateStatistics(1);
@@ -676,9 +668,9 @@ namespace ScanUploader.Controller
             if (operationID == SN_ID_2)
             {
                 if (dataToMachine.code == ReturnData.code_success)
-                    Statistics.OK2++;
-                if (dataToMachine.code == ReturnData.code_error)
-                    Statistics.NG2++;
+                    Statistics.OK_2++;
+                else
+                    Statistics.NG_2++;
 
                 //-更新界面良率
                 MainForm.thisForm.UpdateStatistics(2);
@@ -694,18 +686,13 @@ namespace ScanUploader.Controller
         /// <param name="url">链接</param>
         private static void GetData(ref string dataToMachine, string deviceCodeKey, string deviceCodeValue, string url)
         {
-#if BDSSCAN
-            BasicInfo.Instance.submitTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-#else
-            BasicInfo.Instance.createTime = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-#endif
             string dataToMES = JsonUtil.ToJson(BasicInfo.Instance, deviceCodeKey, deviceCodeValue);
 
-            Debug.WriteLine("发给MES端口的消息: " + dataToMES);
+            UIInfoManager.AppendDebugInfo("发给MES端口的消息: \n" + dataToMES);
 
             JObject dataFromMes = HttpUtil.PostResponse(url, dataToMES);
 
-            Debug.WriteLine("收到MES端口的消息: " + dataFromMes);
+            UIInfoManager.AppendDebugInfo("收到MES端口的消息: \n" + dataFromMes);
 
             ConcatData(ref dataToMachine, deviceCodeKey, deviceCodeValue);
             ConcatData(ref dataToMachine, "code", dataFromMes["code"].ToString());

@@ -35,7 +35,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_ChemicalScan|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug_ChemicalScan\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;CHEMICALSCAN</DefineConstants>
+    <DefineConstants>TRACE;CHEMICALSCAN</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>7.3</LangVersion>
@@ -131,7 +131,7 @@
     <Compile Include="Controller\ConnectManager.cs" />
     <Compile Include="Controller\Communicator.cs" />
     <Compile Include="Controller\Configurator.cs" />
-    <Compile Include="Controller\ShowManager.cs" />
+    <Compile Include="Controller\UIInfoManager.cs" />
     <Compile Include="Controller\UserManager.cs" />
     <Compile Include="Model\Container.cs" />
     <Compile Include="Model\Glass.cs" />
@@ -149,6 +149,7 @@
     <Compile Include="Utils\JsonUtil.cs" />
     <Compile Include="Utils\LogUtil.cs" />
     <Compile Include="Utils\SocketServer.cs" />
+    <Compile Include="Utils\TimeUtil.cs" />
     <Compile Include="Utils\Tool.cs" />
     <Compile Include="View\ConfigureForm.cs">
       <SubType>Form</SubType>

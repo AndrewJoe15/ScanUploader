@@ -1,12 +1,12 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ChemicalScan.Properties" GeneratedClassName="URL">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ScanUploader.Properties" GeneratedClassName="URL">
   <Profiles />
   <Settings>
     <Setting Name="prefix" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://10.219.95.85/prod-api/</Value>
     </Setting>
     <Setting Name="httpLogin_MES" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://10.219.196.41/stage-api/auth/login</Value>
+      <Value Profile="(Default)">http://10.219.95.85/prod-api/auth/login</Value>
     </Setting>
     <Setting Name="subPrefix_MES" Type="System.String" Scope="User">
       <Value Profile="(Default)">mes/machine/api/machineToMes/</Value>

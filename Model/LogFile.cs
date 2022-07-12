@@ -9,8 +9,8 @@ namespace ScanUploader.Model
     public class LogFile
     {
         //化抛项目两路log分别记录
-        public static LogFile logFile_line1 = null;
-        public static LogFile logFile_line2 = null;
+        public static LogFile logFile = null;
+        public static LogFile debugFile = null;
 
         //log文件路径（相对地址）
         public string logPath = Environment.CurrentDirectory + "\\Log\\";

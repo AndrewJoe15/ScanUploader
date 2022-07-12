@@ -12,7 +12,7 @@ namespace ScanUploader.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     internal sealed partial class URL : global::System.Configuration.ApplicationSettingsBase {
         
         private static URL defaultInstance = ((URL)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new URL())));
@@ -37,7 +37,7 @@ namespace ScanUploader.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://10.219.196.41/stage-api/auth/login")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://10.219.95.85/prod-api/auth/login")]
         public string httpLogin_MES {
             get {
                 return ((string)(this["httpLogin_MES"]));

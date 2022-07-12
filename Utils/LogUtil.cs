@@ -8,6 +8,7 @@ using System.Diagnostics;
 
 using ScanUploader.View;
 using ScanUploader.Model;
+using ScanUploader.Controller;
 
 namespace ScanUploader.Utils
 {
@@ -22,7 +23,7 @@ namespace ScanUploader.Utils
         /// <param name="logContent"></param>
         public static void WriteLog(string logContent)
         {
-            WriteLog(logContent, LogFile.logFile_line1);
+            WriteLog(logContent, LogFile.logFile);
         }
 
         /// <summary>
@@ -40,13 +41,12 @@ namespace ScanUploader.Utils
             StreamWriter streamWriter = new StreamWriter(fileStream, Encoding.Default);
 
             //前部加上时间戳
-            string log = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss ") + logContent;
+            string log = TimeUtil.currentTimeString_log + logContent + "\r\n";
             //写入log
-            streamWriter.Write(log + "\r\n");
+            streamWriter.Write(log);
 
             //界面显示log
-            if(MainForm.thisForm != null)
-                MainForm.thisForm.ShowLog(log + "\r\n");
+            UIInfoManager.AppendLogInfo(log);
 
             if (fileStream != null)
             {
@@ -57,7 +57,7 @@ namespace ScanUploader.Utils
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("文件流关闭失败，" + e.Message);
+                    UIInfoManager.AppendDebugInfo("文件流关闭失败，" + e.Message);
                     ExceptionUtil.ExceptionHandler(e);
                 }
             }
@@ -86,7 +86,7 @@ namespace ScanUploader.Utils
             {
                 //界面显示log
                 if (MainForm.thisForm != null)
-                    MainForm.thisForm.ShowLog(log + "\r\n");
+                    MainForm.thisForm.ShowLogInfo(log + "\r\n");
             }
 
             if (fileStream != null)
@@ -98,7 +98,7 @@ namespace ScanUploader.Utils
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("文件流关闭失败，" + e.Message);
+                    UIInfoManager.AppendDebugInfo("文件流关闭失败，" + e.Message);
                     ExceptionUtil.ExceptionHandler(e);
                 }
             }

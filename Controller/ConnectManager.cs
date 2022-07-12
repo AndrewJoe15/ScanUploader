@@ -17,6 +17,7 @@ namespace ScanUploader.Controller
         public static int port_up = Properties.Socket.Default.port_up;            //上料端口
         public static int port_main = Properties.Socket.Default.port_main;   //玻璃涂油扫码端口
         public static int port_down = Properties.Socket.Default.port_down;        //下料端口
+        public static int port_insert = Properties.Socket.Default.port_insert;    //插架端口
         public static int port_submit = Properties.Socket.Default.port_submit;    //提交端口
 
         public static string hostIP = Properties.Socket.Default.IP_host;
@@ -45,10 +46,16 @@ namespace ScanUploader.Controller
                 socket_L5L6.StartListen();
             }
 
+            if (Properties.Socket.Default.enable_socket_insert)
+            {
+                SocketServer socket_OKNG = new SocketServer(hostIP, port_insert);
+                socket_OKNG.StartListen();
+            }
+            
             if (Properties.Socket.Default.enable_socket_submit)
             {
-                SocketServer socket_L7L8 = new SocketServer(hostIP, port_submit);
-                socket_L7L8.StartListen();
+                SocketServer socket_Finish = new SocketServer(hostIP, port_submit);
+                socket_Finish.StartListen();
             }
 
         }
@@ -59,7 +66,6 @@ namespace ScanUploader.Controller
         /// </summary>
         public void StartTimer()
         {
-            Debug.WriteLine("计时器开0始运行...");
             Timer aTimer = new Timer();
             aTimer.Elapsed += new ElapsedEventHandler(TimeEvent);
             aTimer.Interval = connectTimeout; // 设置触发的时间间隔 此处设置为11小时
@@ -69,7 +75,7 @@ namespace ScanUploader.Controller
 
         private void TimeEvent(object source, ElapsedEventArgs e)
         {
-            Debug.WriteLine("Token即将过期，重新登录MES端...");
+            UIInfoManager.AppendDebugInfo("Token即将过期，重新登录MES端...");
             //MES
             UserManager.HttpLogin();
             //粗磨项目还要登陆 WMS 获取token

@@ -27,11 +27,11 @@ namespace ScanUploader.Controller
         public static void Init()
         {
 #if CHEMICALSCAN
-            
+            InitChemical();
 #elif KIBBLESCAN
-            
+            InitKibble();
 #elif BDSSCAN
-            
+            InitBDS();
 #endif
             url.Save();
             settings.Save();

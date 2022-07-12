@@ -22,7 +22,7 @@ namespace ScanUploader.View
         //BasicInfo单例
         private BasicInfo basicInfo = BasicInfo.Instance;
 
-        private static int textBox_log_maxLength = 10000;
+        private static readonly int textBox_text_maxLength = 1024 * 128;
 
         public MainForm()
         {
@@ -33,6 +33,8 @@ namespace ScanUploader.View
         private void MainForm_Load(object sender, EventArgs e)
         {
             timer_main.Start();
+
+            UIInfoManager.AppendLogInfo("上位机启动。");
         }
 
         private void timer_main_Tick(object sender, EventArgs e)
@@ -41,13 +43,13 @@ namespace ScanUploader.View
         }
 
         //线程安全调用
-        private delegate void _ShowLog();
+        private delegate void _ShowLogInfo();
         //显示日志信息
-        public void ShowLog(string text)
+        public void ShowLogInfo(string text)
         {
-            _ShowLog _sl = new _ShowLog(delegate ()
+            _ShowLogInfo _sl = new _ShowLogInfo(delegate ()
             {
-                if (textBox_log.Text.Length > textBox_log_maxLength)
+                if (textBox_log.Text.Length > textBox_text_maxLength)
                     textBox_log.Clear();
 
                 textBox_log.AppendText(text);
@@ -57,27 +59,59 @@ namespace ScanUploader.View
             Invoke(_sl);
         }
 
+        //线程安全调用
+        private delegate void _ShowDebugInfo();
+        //显示Debug信息
+        public void ShowDebugInfo(string debugInfo)
+        {
+            _ShowDebugInfo _sdi = new _ShowDebugInfo(delegate ()
+            {
+                if (textBox_debug.Text.Length > textBox_text_maxLength)
+                    textBox_debug.Clear();
+
+                textBox_debug.AppendText(debugInfo);
+                textBox_debug.AppendText(Environment.NewLine);
+                textBox_debug.ScrollToCaret();
+            });
+            Invoke(_sdi);
+        }
+
         //更新良率统计信息
         private delegate void _UpdateStatistics();
+        /// <summary>
+        /// 更新良率统计信息
+        /// </summary>
+        /// <param name="index">1：左通道 2：右通道</param>
         public void UpdateStatistics(int index)
         {
             _UpdateStatistics _us = new _UpdateStatistics(delegate ()
             {
                 if(index == 1)
                 {
-                    label_text_statistics_OK1.Text = Statistics.OK1.ToString();
-                    label_text_statistics_NG1.Text = Statistics.NG1.ToString();
+                    label_text_statistics_OK1.Text = Statistics.OK_1.ToString();
+                    label_text_statistics_NG1.Text = Statistics.NG_1.ToString();
                     label_text_statistics_yield1.Text = Statistics.yield1;
                 }
-                if(index == 2)
+                if (index == 2)
                 {
-                    label_text_statistics_OK2.Text = Statistics.OK2.ToString();
-                    label_text_statistics_NG2.Text = Statistics.NG2.ToString();
+                    label_text_statistics_OK2.Text = Statistics.OK_2.ToString();
+                    label_text_statistics_NG2.Text = Statistics.NG_2.ToString();
                     label_text_statistics_yield2.Text = Statistics.yield2;
                 }
+                //更新良率总计
+                UpdateStatisticsTotal();
 
             });
             Invoke(_us);
+        }
+        /// <summary>
+        /// 总良率统计
+        /// </summary>
+        private void UpdateStatisticsTotal()
+        {
+            label_text_statistics_OK_total.Text = Statistics.OK_total.ToString();
+            label_text_statistics_NG_total.Text = Statistics.NG_total.ToString();
+            label_text_statistics_yield_total.Text = Statistics.yield_total;
         }
 
         private static void AddItem(string subItem_1, string subItem_2, ListView listView)
@@ -152,10 +186,10 @@ namespace ScanUploader.View
 
             //初始化日志文件对象
             LogFile.nextSerialNumer = Properties.LogFileName.Default.nextSerialNumber;
-            LogFile.logFile_line1 = new LogFile();
+            LogFile.logFile = new LogFile();
             //- 化抛项目有两路日志文件
             if (Properties.Settings.Default.is_chemicalScan)
-                LogFile.logFile_line2 = new LogFile();
+                LogFile.debugFile = new LogFile();
         }
 
         /// <summary>
@@ -260,8 +294,8 @@ namespace ScanUploader.View
 
         private void menuStrip_top_log_openCurrent_Click(object sender, EventArgs e)
         {
-            openLogFile(LogFile.logFile_line1);
-            openLogFile(LogFile.logFile_line2);
+            openLogFile(LogFile.logFile);
+            openLogFile(LogFile.debugFile);
         }
 
         private void openLogFile(LogFile logFile)
@@ -279,8 +313,8 @@ namespace ScanUploader.View
 
         private void menuStrip_top_log_openFolder_Click(object sender, EventArgs e)
         {
-            if(LogFile.logFile_line1 != null)
-                System.Diagnostics.Process.Start("explorer.exe", LogFile.logFile_line1.logPath);
+            if(LogFile.logFile != null)
+                System.Diagnostics.Process.Start("explorer.exe", LogFile.logFile.logPath);
         }
 
         private void textBox_standardTextCode_TextChanged(object sender, EventArgs e)
@@ -295,7 +329,12 @@ namespace ScanUploader.View
 
         private void textBox_mo_TextChanged(object sender, EventArgs e)
         {
+#if KIBBLESCAN
             BasicInfo_WMS.Instance.workOrder = textBox_mo.Text;
+#endif
+#if BDSSCAN
+            basicInfo.order = textBox_mo.Text;
+#endif
         }
 
         private void textBox_wareHouseCode_TextChanged(object sender, EventArgs e)

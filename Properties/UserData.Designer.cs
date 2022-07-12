@@ -12,7 +12,7 @@ namespace ScanUploader.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     internal sealed partial class UserData : global::System.Configuration.ApplicationSettingsBase {
         
         private static UserData defaultInstance = ((UserData)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new UserData())));
@@ -25,7 +25,7 @@ namespace ScanUploader.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("sbjk")]
+        [global::System.Configuration.DefaultSettingValueAttribute("yfhp")]
         public string userName_http_MES {
             get {
                 return ((string)(this["userName_http_MES"]));
@@ -37,7 +37,7 @@ namespace ScanUploader.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("sbjk2018")]
+        [global::System.Configuration.DefaultSettingValueAttribute("123456")]
         public string password_http_MES {
             get {
                 return ((string)(this["password_http_MES"]));

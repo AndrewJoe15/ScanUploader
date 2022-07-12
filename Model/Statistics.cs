@@ -11,31 +11,43 @@ namespace ScanUploader.Model
     /// </summary>
     public class Statistics
     {
-        public static int OK1 = 0;
-        public static int OK2 = 0;
+        public static int OK_1 = 0;
+        public static int OK_2 = 0;
+        public static int OK_total => OK_1 + OK_2;
 
-        public static int NG1 = 0;
-        public static int NG2 = 0;
+        public static int NG_1 = 0;
+        public static int NG_2 = 0;
+        public static int NG_total => NG_1 + NG_2;
 
         //良率 以字符串的形式输出
         public static string yield1
         {
             get
             {
-                if (OK1 + NG1 <= 0)
+                if (OK_1 + NG_1 <= 0)
                     return "-";
                 else
-                    return (100.0 * OK1 / (OK1 + NG1)).ToString("F2");//保留2位小数（百分数两位小数）
+                    return (100.0 * OK_1 / (OK_1 + NG_1)).ToString("F2");//保留2位小数（百分数两位小数）
             }
         }
         public static string yield2
         {
             get
             {
-                if (OK2 + NG2 <= 0)
+                if (OK_2 + NG_2 <= 0)
                     return "-";
                 else
-                    return (100.0 * OK2 / (OK2 + NG2)).ToString("F2");//保留2位小数（百分数两位小数）
+                    return (100.0 * OK_2 / (OK_2 + NG_2)).ToString("F2");//保留2位小数（百分数两位小数）
+            }
+        }
+        public static string yield_total
+        {
+            get
+            {
+                if (OK_total + NG_total <= 0)
+                    return "-";
+                else
+                    return (100.0 * OK_total / (OK_total + NG_total)).ToString("F2");//保留2位小数（百分数两位小数）
             }
         }
     }

@@ -10,11 +10,9 @@ namespace ScanUploader.Model
     {
 
         public string logNumber = "";
-#if BDSSCAN
-        public string order = "000600003375";
-#else
-        public string mo = "0010";
-#endif
+
+        public string mo = "";
+
         public string qty = "";
         public List<Glass> supplementList = new List<Glass>();
 
