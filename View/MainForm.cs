@@ -158,7 +158,7 @@ namespace ScanUploader.View
             thisForm = this;
 
             //遍历基本信息面板的子控件，填充信息
-            foreach (Control ctrl in tabPage_basicInfo.Controls)
+            foreach (Control ctrl in panel_basicInformation.Controls)
             {
                 //基本信息的 TextBox初始化
                 if (ctrl is TextBox)
@@ -179,17 +179,11 @@ namespace ScanUploader.View
             comboBox_shift.Items.AddRange(shifts);
             comboBox_shift.SelectedIndex = 0;
 
-            //WMS 校验信息
-            textBox_orgnizationId.Text = textBox_site.Text;
-            textBox_upperMaterialCode.Text = BasicInfo_WMS.Instance.upperMaterialCode;
-            textBox_standardTextCode.Text = BasicInfo_WMS.Instance.standardTextCode;
+            
 
             //初始化日志文件对象
             LogFile.nextSerialNumer = Properties.LogFileName.Default.nextSerialNumber;
             LogFile.logFile = new LogFile();
-            //- 化抛项目有两路日志文件
-            if (Properties.Settings.Default.is_chemicalScan)
-                LogFile.debugFile = new LogFile();
         }
 
         /// <summary>
@@ -292,10 +286,9 @@ namespace ScanUploader.View
             form.ShowDialog(this);
         }
 
-        private void menuStrip_top_log_openCurrent_Click(object sender, EventArgs e)
+        private void button_openLogFile_Click(object sender, EventArgs e)
         {
             openLogFile(LogFile.logFile);
-            openLogFile(LogFile.debugFile);
         }
 
         private void openLogFile(LogFile logFile)
@@ -310,47 +303,19 @@ namespace ScanUploader.View
             }
         }
 
-
-        private void menuStrip_top_log_openFolder_Click(object sender, EventArgs e)
+        private void button_openLogDir_Click(object sender, EventArgs e)
         {
-            if(LogFile.logFile != null)
+            if (LogFile.logFile != null)
                 System.Diagnostics.Process.Start("explorer.exe", LogFile.logFile.logPath);
-        }
-
-        private void textBox_standardTextCode_TextChanged(object sender, EventArgs e)
-        {
-            BasicInfo_WMS.Instance.standardTextCode = textBox_standardTextCode.Text;
-        }
-
-        private void textBox_upperMaterialCode_TextChanged(object sender, EventArgs e)
-        {
-            BasicInfo_WMS.Instance.upperMaterialCode = textBox_upperMaterialCode.Text;
         }
 
         private void textBox_mo_TextChanged(object sender, EventArgs e)
         {
-#if KIBBLESCAN
-            BasicInfo_WMS.Instance.workOrder = textBox_mo.Text;
-#endif
 #if BDSSCAN
             basicInfo.order = textBox_mo.Text;
 #endif
         }
 
-        private void textBox_wareHouseCode_TextChanged(object sender, EventArgs e)
-        {
-            Query_WMS.Instance.wareHouseCode = textBox_wareHouseCode.Text;
-        }
-
-        private void textBox_orgnizationId_TextChanged(object sender, EventArgs e)
-        {
-            Query_WMS.Instance.orgnizationId = textBox_orgnizationId.Text;
-        }
-
-        private void textBox_cargoNumber_TextChanged(object sender, EventArgs e)
-        {
-            BasicInfo_WMS.Instance.cargoNumber = Query_WMS.Instance.cargoNumber = textBox_cargoNumber.Text;
-        }
 
         private void button_empty_Click(object sender, EventArgs e)
         {
@@ -375,5 +340,7 @@ namespace ScanUploader.View
                 FileUtil.ExportExcel("NG信息统计", listView_NG_info);
             }
         }
+
+
     }
 }

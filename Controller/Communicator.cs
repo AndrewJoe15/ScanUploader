@@ -302,7 +302,7 @@ namespace ScanUploader.Controller
                 submitStatus = "【提交成功】";
             else
                 submitStatus = "【提交失败】";
-            LogUtil.WriteLog(submitStatus + "共" + submitData.qty + "片：\r\n" + submitData.supplementList);
+            LogUtil.WriteLog(submitStatus + "共" + submitData.qty + "片：\r\n" + submitJson["supplementList"]);
 
             return dataToMachine;
         }
