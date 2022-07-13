@@ -19,7 +19,7 @@ namespace ScanUploader.View
         private static Properties.URL url = Properties.URL.Default;
         private static Properties.Settings settings = Properties.Settings.Default;
         private static Properties.Socket socket = Properties.Socket.Default;
-        private static Properties.UserData userData = Properties.UserData.Default;
+        private static Properties.User_Http userHttp = Properties.User_Http.Default;
         private static Properties.LogFileName log = Properties.LogFileName.Default;
 
         public ConfigureForm()
@@ -111,15 +111,15 @@ namespace ScanUploader.View
         private void InitUser()
         {
             //MES
-            textBox_httpUserName_MES.Text = userData.userName_http_MES;
-            textBox_httpPassword_MES.Text = userData.password_http_MES;
-            textBox_httpSite_MES.Text = userData.site_http_MES;
+            textBox_httpUserName_MES.Text = userHttp.userName_http_MES;
+            textBox_httpPassword_MES.Text = userHttp.password_http_MES;
+            textBox_httpSite_MES.Text = userHttp.site_http_MES;
 
             textBox_url_login_MES.Text = url.httpLogin_MES;
 
             //WMS
-            textBox_httpUserName_WMS.Text = userData.userName_http_WMS;
-            textBox_httpPassword_WMS.Text = userData.password_http_WMS;
+            textBox_httpUserName_WMS.Text = userHttp.userName_http_WMS;
+            textBox_httpPassword_WMS.Text = userHttp.password_http_WMS;
 
             textBox_url_login_WMS.Text = url.httpLogin_WMS;
 
@@ -195,18 +195,18 @@ namespace ScanUploader.View
 
         private void SaveUserData()
         {
-            userData.userName_http_MES = textBox_httpUserName_MES.Text;
-            userData.password_http_MES = textBox_httpPassword_MES.Text;
-            userData.site_http_MES = textBox_httpSite_MES.Text;
+            userHttp.userName_http_MES = textBox_httpUserName_MES.Text;
+            userHttp.password_http_MES = textBox_httpPassword_MES.Text;
+            userHttp.site_http_MES = textBox_httpSite_MES.Text;
 
             url.httpLogin_MES = textBox_url_login_MES.Text;
 
-            userData.userName_http_WMS = textBox_httpUserName_WMS.Text;
-            userData.password_http_WMS = textBox_httpPassword_WMS.Text;
+            userHttp.userName_http_WMS = textBox_httpUserName_WMS.Text;
+            userHttp.password_http_WMS = textBox_httpPassword_WMS.Text;
 
             url.httpLogin_WMS = textBox_url_login_WMS.Text;
 
-            userData.Save();
+            userHttp.Save();
         }
 
         private void SaveLogFileNameConfig()

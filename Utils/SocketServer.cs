@@ -155,7 +155,6 @@ namespace ScanUploader.Utils
                             MainForm.thisForm.AddErrorInfo(dataToMachine.code, dataToMachine.msg);
                             continue;
                         }
-                        
                     }
                 }
                 catch (Exception ex)

@@ -22,7 +22,7 @@ namespace ScanUploader.View
         //BasicInfo单例
         private BasicInfo basicInfo = BasicInfo.Instance;
 
-        private static readonly int textBox_text_maxLength = 1024 * 128;
+        private static readonly int textBox_text_maxLength = 1024 * 1024;
 
         public MainForm()
         {
@@ -34,7 +34,7 @@ namespace ScanUploader.View
         {
             timer_main.Start();
 
-            UIInfoManager.AppendLogInfo("上位机启动。");
+            LogUtil.WriteLog("上位机启动。");
         }
 
         private void timer_main_Tick(object sender, EventArgs e)
@@ -288,7 +288,7 @@ namespace ScanUploader.View
 
         private void menuStrip_top_Config_Click(object sender, EventArgs e)
         {
-            AdminLoginForm form = new AdminLoginForm();
+            LoginForm_Admin form = new LoginForm_Admin();
             form.ShowDialog(this);
         }
 
@@ -354,7 +354,7 @@ namespace ScanUploader.View
 
         private void button_empty_Click(object sender, EventArgs e)
         {
-            if (tabControl_error_info.SelectedTab == tabPage_errorInfo)
+            if (tabControl_error_info.SelectedTab == tabPage_error_info)
             {
                 listView_errorInfo.Items.Clear(); //清空error表格所有数据项
             }
@@ -366,7 +366,7 @@ namespace ScanUploader.View
 
         private void button_export_excel_Click(object sender, EventArgs e)
         {
-            if (tabControl_error_info.SelectedTab == tabPage_errorInfo)
+            if (tabControl_error_info.SelectedTab == tabPage_error_info)
             {
                 FileUtil.ExportExcel("Error信息统计", listView_errorInfo);
             }

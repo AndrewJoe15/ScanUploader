@@ -35,7 +35,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_ChemicalScan|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug_ChemicalScan\</OutputPath>
-    <DefineConstants>TRACE;CHEMICALSCAN</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;CHEMICALSCAN</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>7.3</LangVersion>
@@ -138,12 +138,17 @@
     <Compile Include="Model\GlobalValue.cs" />
     <Compile Include="Model\SingleTon.cs" />
     <Compile Include="Model\SubmitData.cs" />
-    <Compile Include="Properties\UserData.Designer.cs">
+    <Compile Include="Properties\User_Http.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>UserData.settings</DependentUpon>
+      <DependentUpon>User_Http.settings</DependentUpon>
     </Compile>
     <Compile Include="Properties\Settings.cs" />
+    <Compile Include="Properties\User_Operator.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>User_Operator.settings</DependentUpon>
+    </Compile>
     <Compile Include="Utils\FileUtil.cs" />
     <Compile Include="Utils\GuiUtil.cs" />
     <Compile Include="Utils\JsonUtil.cs" />
@@ -157,17 +162,23 @@
     <Compile Include="View\ConfigureForm.Designer.cs">
       <DependentUpon>ConfigureForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\LoginForm_Operator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\LoginForm_Operator.Designer.cs">
+      <DependentUpon>LoginForm_Operator.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\AdminLoginForm.cs">
+    <Compile Include="View\LoginForm_Admin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\AdminLoginForm.Designer.cs">
-      <DependentUpon>AdminLoginForm.cs</DependentUpon>
+    <Compile Include="View\LoginForm_Admin.Designer.cs">
+      <DependentUpon>LoginForm_Admin.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\BasicInfo.cs" />
     <Compile Include="Model\ReturnData.cs" />
@@ -181,11 +192,14 @@
     <EmbeddedResource Include="View\ConfigureForm.resx">
       <DependentUpon>ConfigureForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\LoginForm_Operator.resx">
+      <DependentUpon>LoginForm_Operator.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\AdminLoginForm.resx">
-      <DependentUpon>AdminLoginForm.cs</DependentUpon>
+    <EmbeddedResource Include="View\LoginForm_Admin.resx">
+      <DependentUpon>LoginForm_Admin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -218,9 +232,13 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="Properties\UserData.settings">
+    <None Include="Properties\User_Http.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>UserData.Designer.cs</LastGenOutput>
+      <LastGenOutput>User_Http.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Properties\User_Operator.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>User_Operator.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

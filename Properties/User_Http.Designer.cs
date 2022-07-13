@@ -13,11 +13,11 @@ namespace ScanUploader.Properties {
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
-    internal sealed partial class UserData : global::System.Configuration.ApplicationSettingsBase {
+    internal sealed partial class User_Http : global::System.Configuration.ApplicationSettingsBase {
         
-        private static UserData defaultInstance = ((UserData)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new UserData())));
+        private static User_Http defaultInstance = ((User_Http)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new User_Http())));
         
-        public static UserData Default {
+        public static User_Http Default {
             get {
                 return defaultInstance;
             }

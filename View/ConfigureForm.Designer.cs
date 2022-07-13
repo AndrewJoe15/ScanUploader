@@ -28,25 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel_url = new System.Windows.Forms.Panel();
-            this.textBox_validate_WMS = new System.Windows.Forms.TextBox();
-            this.label_validate_WMS = new System.Windows.Forms.Label();
-            this.textBox_stockQuery_WMS = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBox_url_subPrefix_MES = new System.Windows.Forms.TextBox();
-            this.label_url_subPrefix = new System.Windows.Forms.Label();
-            this.textBox_url_prefix = new System.Windows.Forms.TextBox();
-            this.label_url_prefix = new System.Windows.Forms.Label();
-            this.textBox_url_postfix_submit = new System.Windows.Forms.TextBox();
-            this.label_url_submit = new System.Windows.Forms.Label();
-            this.textBox_url_postfix_scanContainerIn = new System.Windows.Forms.TextBox();
-            this.textBox_url_postfix_scanContainerOut = new System.Windows.Forms.TextBox();
-            this.textBox_url_postfix_scanSn = new System.Windows.Forms.TextBox();
-            this.textBox_url_postfix_scanContainerUnbind = new System.Windows.Forms.TextBox();
-            this.label_url_scanContainerIn = new System.Windows.Forms.Label();
-            this.label_url_scanVehicleOut = new System.Windows.Forms.Label();
-            this.label_url_scanVehicleUnbind = new System.Windows.Forms.Label();
-            this.label_url_scanSn = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.panel_port = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -101,7 +82,25 @@
             this.textBox_url_login_MES = new System.Windows.Forms.TextBox();
             this.tabPage_logFileName = new System.Windows.Forms.TabPage();
             this.button_restoreConfig = new System.Windows.Forms.Button();
-            this.panel_url.SuspendLayout();
+            this.label_url_scanSn = new System.Windows.Forms.Label();
+            this.label_url_scanVehicleUnbind = new System.Windows.Forms.Label();
+            this.label_url_scanVehicleOut = new System.Windows.Forms.Label();
+            this.label_url_scanContainerIn = new System.Windows.Forms.Label();
+            this.textBox_url_postfix_scanContainerUnbind = new System.Windows.Forms.TextBox();
+            this.textBox_url_postfix_scanSn = new System.Windows.Forms.TextBox();
+            this.textBox_url_postfix_scanContainerOut = new System.Windows.Forms.TextBox();
+            this.textBox_url_postfix_scanContainerIn = new System.Windows.Forms.TextBox();
+            this.label_url_submit = new System.Windows.Forms.Label();
+            this.textBox_url_postfix_submit = new System.Windows.Forms.TextBox();
+            this.label_url_prefix = new System.Windows.Forms.Label();
+            this.textBox_url_prefix = new System.Windows.Forms.TextBox();
+            this.label_url_subPrefix = new System.Windows.Forms.Label();
+            this.textBox_url_subPrefix_MES = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBox_stockQuery_WMS = new System.Windows.Forms.TextBox();
+            this.label_validate_WMS = new System.Windows.Forms.Label();
+            this.textBox_validate_WMS = new System.Windows.Forms.TextBox();
+            this.panel_url = new System.Windows.Forms.Panel();
             this.panel_port.SuspendLayout();
             this.panel_logFormat.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -112,205 +111,8 @@
             this.tabPage_httpUser.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tabPage_logFileName.SuspendLayout();
+            this.panel_url.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // panel_url
-            // 
-            this.panel_url.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel_url.Controls.Add(this.textBox_validate_WMS);
-            this.panel_url.Controls.Add(this.label_validate_WMS);
-            this.panel_url.Controls.Add(this.textBox_stockQuery_WMS);
-            this.panel_url.Controls.Add(this.label5);
-            this.panel_url.Controls.Add(this.textBox_url_subPrefix_MES);
-            this.panel_url.Controls.Add(this.label_url_subPrefix);
-            this.panel_url.Controls.Add(this.textBox_url_prefix);
-            this.panel_url.Controls.Add(this.label_url_prefix);
-            this.panel_url.Controls.Add(this.textBox_url_postfix_submit);
-            this.panel_url.Controls.Add(this.label_url_submit);
-            this.panel_url.Controls.Add(this.textBox_url_postfix_scanContainerIn);
-            this.panel_url.Controls.Add(this.textBox_url_postfix_scanContainerOut);
-            this.panel_url.Controls.Add(this.textBox_url_postfix_scanSn);
-            this.panel_url.Controls.Add(this.textBox_url_postfix_scanContainerUnbind);
-            this.panel_url.Controls.Add(this.label_url_scanContainerIn);
-            this.panel_url.Controls.Add(this.label_url_scanVehicleOut);
-            this.panel_url.Controls.Add(this.label_url_scanVehicleUnbind);
-            this.panel_url.Controls.Add(this.label_url_scanSn);
-            this.panel_url.Location = new System.Drawing.Point(26, 7);
-            this.panel_url.Margin = new System.Windows.Forms.Padding(4);
-            this.panel_url.Name = "panel_url";
-            this.panel_url.Size = new System.Drawing.Size(683, 464);
-            this.panel_url.TabIndex = 19;
-            // 
-            // textBox_validate_WMS
-            // 
-            this.textBox_validate_WMS.Location = new System.Drawing.Point(142, 414);
-            this.textBox_validate_WMS.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox_validate_WMS.Name = "textBox_validate_WMS";
-            this.textBox_validate_WMS.Size = new System.Drawing.Size(515, 28);
-            this.textBox_validate_WMS.TabIndex = 26;
-            this.textBox_validate_WMS.TextChanged += new System.EventHandler(this.textBox_validate_WMS_TextChanged);
-            // 
-            // label_validate_WMS
-            // 
-            this.label_validate_WMS.AutoSize = true;
-            this.label_validate_WMS.Location = new System.Drawing.Point(37, 421);
-            this.label_validate_WMS.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label_validate_WMS.Name = "label_validate_WMS";
-            this.label_validate_WMS.Size = new System.Drawing.Size(62, 18);
-            this.label_validate_WMS.TabIndex = 25;
-            this.label_validate_WMS.Text = "验证：";
-            // 
-            // textBox_stockQuery_WMS
-            // 
-            this.textBox_stockQuery_WMS.Location = new System.Drawing.Point(142, 367);
-            this.textBox_stockQuery_WMS.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox_stockQuery_WMS.Name = "textBox_stockQuery_WMS";
-            this.textBox_stockQuery_WMS.Size = new System.Drawing.Size(515, 28);
-            this.textBox_stockQuery_WMS.TabIndex = 24;
-            this.textBox_stockQuery_WMS.TextChanged += new System.EventHandler(this.textBox_stockQuery_TextChanged);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(37, 374);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(98, 18);
-            this.label5.TabIndex = 23;
-            this.label5.Text = "库存查询：";
-            // 
-            // textBox_url_subPrefix_MES
-            // 
-            this.textBox_url_subPrefix_MES.Location = new System.Drawing.Point(216, 62);
-            this.textBox_url_subPrefix_MES.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox_url_subPrefix_MES.Name = "textBox_url_subPrefix_MES";
-            this.textBox_url_subPrefix_MES.Size = new System.Drawing.Size(294, 28);
-            this.textBox_url_subPrefix_MES.TabIndex = 22;
-            this.textBox_url_subPrefix_MES.TextChanged += new System.EventHandler(this.textBox_url_subPrefix_MES_TextChanged);
-            // 
-            // label_url_subPrefix
-            // 
-            this.label_url_subPrefix.AutoSize = true;
-            this.label_url_subPrefix.Location = new System.Drawing.Point(111, 69);
-            this.label_url_subPrefix.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label_url_subPrefix.Name = "label_url_subPrefix";
-            this.label_url_subPrefix.Size = new System.Drawing.Size(107, 18);
-            this.label_url_subPrefix.TabIndex = 21;
-            this.label_url_subPrefix.Text = "MES子前缀：";
-            // 
-            // textBox_url_prefix
-            // 
-            this.textBox_url_prefix.Location = new System.Drawing.Point(142, 14);
-            this.textBox_url_prefix.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox_url_prefix.Name = "textBox_url_prefix";
-            this.textBox_url_prefix.Size = new System.Drawing.Size(314, 28);
-            this.textBox_url_prefix.TabIndex = 20;
-            this.textBox_url_prefix.TextChanged += new System.EventHandler(this.textBox_url_prefix_TextChanged);
-            // 
-            // label_url_prefix
-            // 
-            this.label_url_prefix.AutoSize = true;
-            this.label_url_prefix.Location = new System.Drawing.Point(37, 21);
-            this.label_url_prefix.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label_url_prefix.Name = "label_url_prefix";
-            this.label_url_prefix.Size = new System.Drawing.Size(89, 18);
-            this.label_url_prefix.TabIndex = 19;
-            this.label_url_prefix.Text = "URL前缀：";
-            // 
-            // textBox_url_postfix_submit
-            // 
-            this.textBox_url_postfix_submit.Location = new System.Drawing.Point(339, 311);
-            this.textBox_url_postfix_submit.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox_url_postfix_submit.Name = "textBox_url_postfix_submit";
-            this.textBox_url_postfix_submit.Size = new System.Drawing.Size(318, 28);
-            this.textBox_url_postfix_submit.TabIndex = 18;
-            this.textBox_url_postfix_submit.TextChanged += new System.EventHandler(this.textBox_url_postfix_submit_TextChanged);
-            // 
-            // label_url_submit
-            // 
-            this.label_url_submit.AutoSize = true;
-            this.label_url_submit.Location = new System.Drawing.Point(234, 318);
-            this.label_url_submit.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label_url_submit.Name = "label_url_submit";
-            this.label_url_submit.Size = new System.Drawing.Size(62, 18);
-            this.label_url_submit.TabIndex = 17;
-            this.label_url_submit.Text = "提交：";
-            // 
-            // textBox_url_postfix_scanContainerIn
-            // 
-            this.textBox_url_postfix_scanContainerIn.Location = new System.Drawing.Point(339, 210);
-            this.textBox_url_postfix_scanContainerIn.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox_url_postfix_scanContainerIn.Name = "textBox_url_postfix_scanContainerIn";
-            this.textBox_url_postfix_scanContainerIn.Size = new System.Drawing.Size(318, 28);
-            this.textBox_url_postfix_scanContainerIn.TabIndex = 3;
-            this.textBox_url_postfix_scanContainerIn.TextChanged += new System.EventHandler(this.textBox_url_postfix_scanContainerIn_TextChanged);
-            // 
-            // textBox_url_postfix_scanContainerOut
-            // 
-            this.textBox_url_postfix_scanContainerOut.Location = new System.Drawing.Point(339, 110);
-            this.textBox_url_postfix_scanContainerOut.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox_url_postfix_scanContainerOut.Name = "textBox_url_postfix_scanContainerOut";
-            this.textBox_url_postfix_scanContainerOut.Size = new System.Drawing.Size(318, 28);
-            this.textBox_url_postfix_scanContainerOut.TabIndex = 5;
-            this.textBox_url_postfix_scanContainerOut.TextChanged += new System.EventHandler(this.textBox_url_postfix_scanContainerOut_TextChanged);
-            // 
-            // textBox_url_postfix_scanSn
-            // 
-            this.textBox_url_postfix_scanSn.Location = new System.Drawing.Point(339, 162);
-            this.textBox_url_postfix_scanSn.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox_url_postfix_scanSn.Name = "textBox_url_postfix_scanSn";
-            this.textBox_url_postfix_scanSn.Size = new System.Drawing.Size(318, 28);
-            this.textBox_url_postfix_scanSn.TabIndex = 9;
-            this.textBox_url_postfix_scanSn.TextChanged += new System.EventHandler(this.textBox_url_postfix_scanSn_TextChanged);
-            // 
-            // textBox_url_postfix_scanContainerUnbind
-            // 
-            this.textBox_url_postfix_scanContainerUnbind.Location = new System.Drawing.Point(339, 259);
-            this.textBox_url_postfix_scanContainerUnbind.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox_url_postfix_scanContainerUnbind.Name = "textBox_url_postfix_scanContainerUnbind";
-            this.textBox_url_postfix_scanContainerUnbind.Size = new System.Drawing.Size(318, 28);
-            this.textBox_url_postfix_scanContainerUnbind.TabIndex = 7;
-            this.textBox_url_postfix_scanContainerUnbind.TextChanged += new System.EventHandler(this.textBox_url_postfix_scanContainerUnbind_TextChanged);
-            // 
-            // label_url_scanContainerIn
-            // 
-            this.label_url_scanContainerIn.AutoSize = true;
-            this.label_url_scanContainerIn.Location = new System.Drawing.Point(234, 216);
-            this.label_url_scanContainerIn.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label_url_scanContainerIn.Name = "label_url_scanContainerIn";
-            this.label_url_scanContainerIn.Size = new System.Drawing.Size(98, 18);
-            this.label_url_scanContainerIn.TabIndex = 2;
-            this.label_url_scanContainerIn.Text = "扫入载具：";
-            // 
-            // label_url_scanVehicleOut
-            // 
-            this.label_url_scanVehicleOut.AutoSize = true;
-            this.label_url_scanVehicleOut.Location = new System.Drawing.Point(234, 117);
-            this.label_url_scanVehicleOut.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label_url_scanVehicleOut.Name = "label_url_scanVehicleOut";
-            this.label_url_scanVehicleOut.Size = new System.Drawing.Size(98, 18);
-            this.label_url_scanVehicleOut.TabIndex = 4;
-            this.label_url_scanVehicleOut.Text = "扫出载具：";
-            // 
-            // label_url_scanVehicleUnbind
-            // 
-            this.label_url_scanVehicleUnbind.AutoSize = true;
-            this.label_url_scanVehicleUnbind.Location = new System.Drawing.Point(234, 266);
-            this.label_url_scanVehicleUnbind.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label_url_scanVehicleUnbind.Name = "label_url_scanVehicleUnbind";
-            this.label_url_scanVehicleUnbind.Size = new System.Drawing.Size(98, 18);
-            this.label_url_scanVehicleUnbind.TabIndex = 6;
-            this.label_url_scanVehicleUnbind.Text = "载具解绑：";
-            // 
-            // label_url_scanSn
-            // 
-            this.label_url_scanSn.AutoSize = true;
-            this.label_url_scanSn.Location = new System.Drawing.Point(234, 169);
-            this.label_url_scanSn.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label_url_scanSn.Name = "label_url_scanSn";
-            this.label_url_scanSn.Size = new System.Drawing.Size(80, 18);
-            this.label_url_scanSn.TabIndex = 8;
-            this.label_url_scanSn.Text = "SN校验：";
             // 
             // button1
             // 
@@ -353,7 +155,7 @@
             this.label2.Location = new System.Drawing.Point(33, 91);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 18);
+            this.label2.Size = new System.Drawing.Size(69, 19);
             this.label2.TabIndex = 16;
             this.label2.Text = "端口：";
             // 
@@ -374,7 +176,7 @@
             this.label_socket_IP.Location = new System.Drawing.Point(33, 39);
             this.label_socket_IP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_socket_IP.Name = "label_socket_IP";
-            this.label_socket_IP.Size = new System.Drawing.Size(47, 18);
+            this.label_socket_IP.Size = new System.Drawing.Size(51, 19);
             this.label_socket_IP.TabIndex = 14;
             this.label_socket_IP.Text = "IP：";
             // 
@@ -464,7 +266,7 @@
             this.label_port_up.Location = new System.Drawing.Point(90, 91);
             this.label_port_up.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_port_up.Name = "label_port_up";
-            this.label_port_up.Size = new System.Drawing.Size(44, 18);
+            this.label_port_up.Size = new System.Drawing.Size(47, 19);
             this.label_port_up.TabIndex = 0;
             this.label_port_up.Text = "上料";
             // 
@@ -474,7 +276,7 @@
             this.label_port_submit.Location = new System.Drawing.Point(90, 238);
             this.label_port_submit.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_port_submit.Name = "label_port_submit";
-            this.label_port_submit.Size = new System.Drawing.Size(44, 18);
+            this.label_port_submit.Size = new System.Drawing.Size(47, 19);
             this.label_port_submit.TabIndex = 2;
             this.label_port_submit.Text = "提交";
             // 
@@ -484,7 +286,7 @@
             this.label_port_main.Location = new System.Drawing.Point(90, 139);
             this.label_port_main.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_port_main.Name = "label_port_main";
-            this.label_port_main.Size = new System.Drawing.Size(44, 18);
+            this.label_port_main.Size = new System.Drawing.Size(47, 19);
             this.label_port_main.TabIndex = 4;
             this.label_port_main.Text = "主体";
             // 
@@ -494,7 +296,7 @@
             this.label_port_down.Location = new System.Drawing.Point(90, 191);
             this.label_port_down.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_port_down.Name = "label_port_down";
-            this.label_port_down.Size = new System.Drawing.Size(44, 18);
+            this.label_port_down.Size = new System.Drawing.Size(47, 19);
             this.label_port_down.TabIndex = 8;
             this.label_port_down.Text = "下料";
             // 
@@ -549,7 +351,7 @@
             this.label4.Location = new System.Drawing.Point(35, 37);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(62, 18);
+            this.label4.Size = new System.Drawing.Size(66, 19);
             this.label4.TabIndex = 0;
             this.label4.Text = "前缀：";
             // 
@@ -559,7 +361,7 @@
             this.label6.Location = new System.Drawing.Point(35, 85);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(98, 18);
+            this.label6.Size = new System.Drawing.Size(104, 19);
             this.label6.TabIndex = 4;
             this.label6.Text = "日期格式：";
             // 
@@ -569,7 +371,7 @@
             this.label7.Location = new System.Drawing.Point(35, 137);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(116, 18);
+            this.label7.Size = new System.Drawing.Size(123, 19);
             this.label7.TabIndex = 8;
             this.label7.Text = "流水号位数：";
             // 
@@ -579,7 +381,7 @@
             this.label_logFormat.Location = new System.Drawing.Point(371, 449);
             this.label_logFormat.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_logFormat.Name = "label_logFormat";
-            this.label_logFormat.Size = new System.Drawing.Size(0, 18);
+            this.label_logFormat.Size = new System.Drawing.Size(0, 19);
             this.label_logFormat.TabIndex = 16;
             // 
             // button_saveConfig
@@ -614,7 +416,7 @@
             this.label1.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.Location = new System.Drawing.Point(4, -1);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 18);
+            this.label1.Size = new System.Drawing.Size(42, 19);
             this.label1.TabIndex = 8;
             this.label1.Text = "MES";
             // 
@@ -634,7 +436,7 @@
             this.label_httpSite.Location = new System.Drawing.Point(35, 131);
             this.label_httpSite.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_httpSite.Name = "label_httpSite";
-            this.label_httpSite.Size = new System.Drawing.Size(62, 18);
+            this.label_httpSite.Size = new System.Drawing.Size(66, 19);
             this.label_httpSite.TabIndex = 6;
             this.label_httpSite.Text = "站点：";
             // 
@@ -664,7 +466,7 @@
             this.label_httpUserName.Location = new System.Drawing.Point(35, 37);
             this.label_httpUserName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_httpUserName.Name = "label_httpUserName";
-            this.label_httpUserName.Size = new System.Drawing.Size(80, 18);
+            this.label_httpUserName.Size = new System.Drawing.Size(85, 19);
             this.label_httpUserName.TabIndex = 0;
             this.label_httpUserName.Text = "用户名：";
             // 
@@ -674,7 +476,7 @@
             this.label_httpPassword.Location = new System.Drawing.Point(35, 85);
             this.label_httpPassword.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_httpPassword.Name = "label_httpPassword";
-            this.label_httpPassword.Size = new System.Drawing.Size(62, 18);
+            this.label_httpPassword.Size = new System.Drawing.Size(66, 19);
             this.label_httpPassword.TabIndex = 4;
             this.label_httpPassword.Text = "密码：";
             // 
@@ -718,7 +520,7 @@
             this.radioButton_BDS.Location = new System.Drawing.Point(26, 207);
             this.radioButton_BDS.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radioButton_BDS.Name = "radioButton_BDS";
-            this.radioButton_BDS.Size = new System.Drawing.Size(110, 22);
+            this.radioButton_BDS.Size = new System.Drawing.Size(117, 23);
             this.radioButton_BDS.TabIndex = 5;
             this.radioButton_BDS.TabStop = true;
             this.radioButton_BDS.Text = "丝印前BDS";
@@ -732,7 +534,7 @@
             this.radioButton_Chemical.Location = new System.Drawing.Point(26, 59);
             this.radioButton_Chemical.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radioButton_Chemical.Name = "radioButton_Chemical";
-            this.radioButton_Chemical.Size = new System.Drawing.Size(65, 22);
+            this.radioButton_Chemical.Size = new System.Drawing.Size(68, 23);
             this.radioButton_Chemical.TabIndex = 3;
             this.radioButton_Chemical.TabStop = true;
             this.radioButton_Chemical.Text = "化抛";
@@ -745,7 +547,7 @@
             this.radioButton_Kibble.Location = new System.Drawing.Point(26, 134);
             this.radioButton_Kibble.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radioButton_Kibble.Name = "radioButton_Kibble";
-            this.radioButton_Kibble.Size = new System.Drawing.Size(65, 22);
+            this.radioButton_Kibble.Size = new System.Drawing.Size(68, 23);
             this.radioButton_Kibble.TabIndex = 4;
             this.radioButton_Kibble.TabStop = true;
             this.radioButton_Kibble.Text = "粗磨";
@@ -785,7 +587,7 @@
             this.label_url_login_WMS.Location = new System.Drawing.Point(395, 368);
             this.label_url_login_WMS.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_url_login_WMS.Name = "label_url_login_WMS";
-            this.label_url_login_WMS.Size = new System.Drawing.Size(89, 18);
+            this.label_url_login_WMS.Size = new System.Drawing.Size(96, 19);
             this.label_url_login_WMS.TabIndex = 27;
             this.label_url_login_WMS.Text = "登录url：";
             // 
@@ -818,7 +620,7 @@
             this.label3.Font = new System.Drawing.Font("宋体", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label3.Location = new System.Drawing.Point(4, -1);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(38, 18);
+            this.label3.Size = new System.Drawing.Size(42, 19);
             this.label3.TabIndex = 8;
             this.label3.Text = "WMS";
             // 
@@ -848,7 +650,7 @@
             this.label8.Location = new System.Drawing.Point(35, 37);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(80, 18);
+            this.label8.Size = new System.Drawing.Size(85, 19);
             this.label8.TabIndex = 0;
             this.label8.Text = "用户名：";
             // 
@@ -858,7 +660,7 @@
             this.label9.Location = new System.Drawing.Point(35, 85);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(62, 18);
+            this.label9.Size = new System.Drawing.Size(66, 19);
             this.label9.TabIndex = 4;
             this.label9.Text = "密码：";
             // 
@@ -868,7 +670,7 @@
             this.label_url_login_MES.Location = new System.Drawing.Point(395, 167);
             this.label_url_login_MES.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_url_login_MES.Name = "label_url_login_MES";
-            this.label_url_login_MES.Size = new System.Drawing.Size(89, 18);
+            this.label_url_login_MES.Size = new System.Drawing.Size(96, 19);
             this.label_url_login_MES.TabIndex = 0;
             this.label_url_login_MES.Text = "登录url：";
             // 
@@ -901,6 +703,204 @@
             this.button_restoreConfig.Text = "还 原";
             this.button_restoreConfig.UseVisualStyleBackColor = true;
             // 
+            // label_url_scanSn
+            // 
+            this.label_url_scanSn.AutoSize = true;
+            this.label_url_scanSn.Location = new System.Drawing.Point(234, 169);
+            this.label_url_scanSn.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_url_scanSn.Name = "label_url_scanSn";
+            this.label_url_scanSn.Size = new System.Drawing.Size(86, 19);
+            this.label_url_scanSn.TabIndex = 8;
+            this.label_url_scanSn.Text = "SN校验：";
+            // 
+            // label_url_scanVehicleUnbind
+            // 
+            this.label_url_scanVehicleUnbind.AutoSize = true;
+            this.label_url_scanVehicleUnbind.Location = new System.Drawing.Point(234, 266);
+            this.label_url_scanVehicleUnbind.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_url_scanVehicleUnbind.Name = "label_url_scanVehicleUnbind";
+            this.label_url_scanVehicleUnbind.Size = new System.Drawing.Size(104, 19);
+            this.label_url_scanVehicleUnbind.TabIndex = 6;
+            this.label_url_scanVehicleUnbind.Text = "载具解绑：";
+            // 
+            // label_url_scanVehicleOut
+            // 
+            this.label_url_scanVehicleOut.AutoSize = true;
+            this.label_url_scanVehicleOut.Location = new System.Drawing.Point(234, 117);
+            this.label_url_scanVehicleOut.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_url_scanVehicleOut.Name = "label_url_scanVehicleOut";
+            this.label_url_scanVehicleOut.Size = new System.Drawing.Size(104, 19);
+            this.label_url_scanVehicleOut.TabIndex = 4;
+            this.label_url_scanVehicleOut.Text = "扫出载具：";
+            // 
+            // label_url_scanContainerIn
+            // 
+            this.label_url_scanContainerIn.AutoSize = true;
+            this.label_url_scanContainerIn.Location = new System.Drawing.Point(234, 216);
+            this.label_url_scanContainerIn.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_url_scanContainerIn.Name = "label_url_scanContainerIn";
+            this.label_url_scanContainerIn.Size = new System.Drawing.Size(104, 19);
+            this.label_url_scanContainerIn.TabIndex = 2;
+            this.label_url_scanContainerIn.Text = "扫入载具：";
+            // 
+            // textBox_url_postfix_scanContainerUnbind
+            // 
+            this.textBox_url_postfix_scanContainerUnbind.Location = new System.Drawing.Point(339, 259);
+            this.textBox_url_postfix_scanContainerUnbind.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox_url_postfix_scanContainerUnbind.Name = "textBox_url_postfix_scanContainerUnbind";
+            this.textBox_url_postfix_scanContainerUnbind.Size = new System.Drawing.Size(318, 28);
+            this.textBox_url_postfix_scanContainerUnbind.TabIndex = 7;
+            this.textBox_url_postfix_scanContainerUnbind.TextChanged += new System.EventHandler(this.textBox_url_postfix_scanContainerUnbind_TextChanged);
+            // 
+            // textBox_url_postfix_scanSn
+            // 
+            this.textBox_url_postfix_scanSn.Location = new System.Drawing.Point(339, 162);
+            this.textBox_url_postfix_scanSn.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox_url_postfix_scanSn.Name = "textBox_url_postfix_scanSn";
+            this.textBox_url_postfix_scanSn.Size = new System.Drawing.Size(318, 28);
+            this.textBox_url_postfix_scanSn.TabIndex = 9;
+            this.textBox_url_postfix_scanSn.TextChanged += new System.EventHandler(this.textBox_url_postfix_scanSn_TextChanged);
+            // 
+            // textBox_url_postfix_scanContainerOut
+            // 
+            this.textBox_url_postfix_scanContainerOut.Location = new System.Drawing.Point(339, 110);
+            this.textBox_url_postfix_scanContainerOut.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox_url_postfix_scanContainerOut.Name = "textBox_url_postfix_scanContainerOut";
+            this.textBox_url_postfix_scanContainerOut.Size = new System.Drawing.Size(318, 28);
+            this.textBox_url_postfix_scanContainerOut.TabIndex = 5;
+            this.textBox_url_postfix_scanContainerOut.TextChanged += new System.EventHandler(this.textBox_url_postfix_scanContainerOut_TextChanged);
+            // 
+            // textBox_url_postfix_scanContainerIn
+            // 
+            this.textBox_url_postfix_scanContainerIn.Location = new System.Drawing.Point(339, 210);
+            this.textBox_url_postfix_scanContainerIn.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox_url_postfix_scanContainerIn.Name = "textBox_url_postfix_scanContainerIn";
+            this.textBox_url_postfix_scanContainerIn.Size = new System.Drawing.Size(318, 28);
+            this.textBox_url_postfix_scanContainerIn.TabIndex = 3;
+            this.textBox_url_postfix_scanContainerIn.TextChanged += new System.EventHandler(this.textBox_url_postfix_scanContainerIn_TextChanged);
+            // 
+            // label_url_submit
+            // 
+            this.label_url_submit.AutoSize = true;
+            this.label_url_submit.Location = new System.Drawing.Point(234, 318);
+            this.label_url_submit.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_url_submit.Name = "label_url_submit";
+            this.label_url_submit.Size = new System.Drawing.Size(66, 19);
+            this.label_url_submit.TabIndex = 17;
+            this.label_url_submit.Text = "提交：";
+            // 
+            // textBox_url_postfix_submit
+            // 
+            this.textBox_url_postfix_submit.Location = new System.Drawing.Point(339, 311);
+            this.textBox_url_postfix_submit.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox_url_postfix_submit.Name = "textBox_url_postfix_submit";
+            this.textBox_url_postfix_submit.Size = new System.Drawing.Size(318, 28);
+            this.textBox_url_postfix_submit.TabIndex = 18;
+            this.textBox_url_postfix_submit.TextChanged += new System.EventHandler(this.textBox_url_postfix_submit_TextChanged);
+            // 
+            // label_url_prefix
+            // 
+            this.label_url_prefix.AutoSize = true;
+            this.label_url_prefix.Location = new System.Drawing.Point(37, 21);
+            this.label_url_prefix.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_url_prefix.Name = "label_url_prefix";
+            this.label_url_prefix.Size = new System.Drawing.Size(96, 19);
+            this.label_url_prefix.TabIndex = 19;
+            this.label_url_prefix.Text = "URL前缀：";
+            // 
+            // textBox_url_prefix
+            // 
+            this.textBox_url_prefix.Location = new System.Drawing.Point(142, 14);
+            this.textBox_url_prefix.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox_url_prefix.Name = "textBox_url_prefix";
+            this.textBox_url_prefix.Size = new System.Drawing.Size(314, 28);
+            this.textBox_url_prefix.TabIndex = 20;
+            this.textBox_url_prefix.TextChanged += new System.EventHandler(this.textBox_url_prefix_TextChanged);
+            // 
+            // label_url_subPrefix
+            // 
+            this.label_url_subPrefix.AutoSize = true;
+            this.label_url_subPrefix.Location = new System.Drawing.Point(111, 69);
+            this.label_url_subPrefix.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_url_subPrefix.Name = "label_url_subPrefix";
+            this.label_url_subPrefix.Size = new System.Drawing.Size(115, 19);
+            this.label_url_subPrefix.TabIndex = 21;
+            this.label_url_subPrefix.Text = "MES子前缀：";
+            // 
+            // textBox_url_subPrefix_MES
+            // 
+            this.textBox_url_subPrefix_MES.Location = new System.Drawing.Point(216, 62);
+            this.textBox_url_subPrefix_MES.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox_url_subPrefix_MES.Name = "textBox_url_subPrefix_MES";
+            this.textBox_url_subPrefix_MES.Size = new System.Drawing.Size(294, 28);
+            this.textBox_url_subPrefix_MES.TabIndex = 22;
+            this.textBox_url_subPrefix_MES.TextChanged += new System.EventHandler(this.textBox_url_subPrefix_MES_TextChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(37, 374);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(104, 19);
+            this.label5.TabIndex = 23;
+            this.label5.Text = "库存查询：";
+            // 
+            // textBox_stockQuery_WMS
+            // 
+            this.textBox_stockQuery_WMS.Location = new System.Drawing.Point(142, 367);
+            this.textBox_stockQuery_WMS.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox_stockQuery_WMS.Name = "textBox_stockQuery_WMS";
+            this.textBox_stockQuery_WMS.Size = new System.Drawing.Size(515, 28);
+            this.textBox_stockQuery_WMS.TabIndex = 24;
+            this.textBox_stockQuery_WMS.TextChanged += new System.EventHandler(this.textBox_stockQuery_TextChanged);
+            // 
+            // label_validate_WMS
+            // 
+            this.label_validate_WMS.AutoSize = true;
+            this.label_validate_WMS.Location = new System.Drawing.Point(37, 421);
+            this.label_validate_WMS.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_validate_WMS.Name = "label_validate_WMS";
+            this.label_validate_WMS.Size = new System.Drawing.Size(66, 19);
+            this.label_validate_WMS.TabIndex = 25;
+            this.label_validate_WMS.Text = "验证：";
+            // 
+            // textBox_validate_WMS
+            // 
+            this.textBox_validate_WMS.Location = new System.Drawing.Point(142, 414);
+            this.textBox_validate_WMS.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox_validate_WMS.Name = "textBox_validate_WMS";
+            this.textBox_validate_WMS.Size = new System.Drawing.Size(515, 28);
+            this.textBox_validate_WMS.TabIndex = 26;
+            this.textBox_validate_WMS.TextChanged += new System.EventHandler(this.textBox_validate_WMS_TextChanged);
+            // 
+            // panel_url
+            // 
+            this.panel_url.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel_url.Controls.Add(this.textBox_validate_WMS);
+            this.panel_url.Controls.Add(this.label_validate_WMS);
+            this.panel_url.Controls.Add(this.textBox_stockQuery_WMS);
+            this.panel_url.Controls.Add(this.label5);
+            this.panel_url.Controls.Add(this.textBox_url_subPrefix_MES);
+            this.panel_url.Controls.Add(this.label_url_subPrefix);
+            this.panel_url.Controls.Add(this.textBox_url_prefix);
+            this.panel_url.Controls.Add(this.label_url_prefix);
+            this.panel_url.Controls.Add(this.textBox_url_postfix_submit);
+            this.panel_url.Controls.Add(this.label_url_submit);
+            this.panel_url.Controls.Add(this.textBox_url_postfix_scanContainerIn);
+            this.panel_url.Controls.Add(this.textBox_url_postfix_scanContainerOut);
+            this.panel_url.Controls.Add(this.textBox_url_postfix_scanSn);
+            this.panel_url.Controls.Add(this.textBox_url_postfix_scanContainerUnbind);
+            this.panel_url.Controls.Add(this.label_url_scanContainerIn);
+            this.panel_url.Controls.Add(this.label_url_scanVehicleOut);
+            this.panel_url.Controls.Add(this.label_url_scanVehicleUnbind);
+            this.panel_url.Controls.Add(this.label_url_scanSn);
+            this.panel_url.Location = new System.Drawing.Point(26, 7);
+            this.panel_url.Margin = new System.Windows.Forms.Padding(4);
+            this.panel_url.Name = "panel_url";
+            this.panel_url.Size = new System.Drawing.Size(683, 464);
+            this.panel_url.TabIndex = 19;
+            // 
             // ConfigureForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -915,8 +915,6 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ConfigureForm";
             this.Text = "配置";
-            this.panel_url.ResumeLayout(false);
-            this.panel_url.PerformLayout();
             this.panel_port.ResumeLayout(false);
             this.panel_port.PerformLayout();
             this.panel_logFormat.ResumeLayout(false);
@@ -933,25 +931,15 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.tabPage_logFileName.ResumeLayout(false);
+            this.panel_url.ResumeLayout(false);
+            this.panel_url.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panel_url;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label_url_scanContainerIn;
-        private System.Windows.Forms.TextBox textBox_url_postfix_scanContainerIn;
-        private System.Windows.Forms.Label label_url_scanVehicleOut;
-        private System.Windows.Forms.TextBox textBox_url_postfix_scanContainerOut;
-        private System.Windows.Forms.TextBox textBox_url_postfix_scanSn;
-        private System.Windows.Forms.Label label_url_scanVehicleUnbind;
-        private System.Windows.Forms.Label label_url_scanSn;
-        private System.Windows.Forms.TextBox textBox_url_postfix_scanContainerUnbind;
-        private System.Windows.Forms.TextBox textBox_url_postfix_submit;
-        private System.Windows.Forms.Label label_url_submit;
         private System.Windows.Forms.Panel panel_port;
         private System.Windows.Forms.TextBox textBox_port_up;
         private System.Windows.Forms.TextBox textBox_port_submit;
@@ -969,8 +957,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox_url_prefix;
-        private System.Windows.Forms.Label label_url_prefix;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox textBox_httpUserName_MES;
         private System.Windows.Forms.TextBox textBox_httpPassword_MES;
@@ -978,8 +964,6 @@
         private System.Windows.Forms.Label label_httpPassword;
         private System.Windows.Forms.TextBox textBox_httpSite_MES;
         private System.Windows.Forms.Label label_httpSite;
-        private System.Windows.Forms.TextBox textBox_url_subPrefix_MES;
-        private System.Windows.Forms.Label label_url_subPrefix;
         private System.Windows.Forms.TabControl tabControl_config;
         private System.Windows.Forms.TabPage tabPage_url;
         private System.Windows.Forms.TabPage tabPage_socketPort;
@@ -1004,14 +988,29 @@
         private System.Windows.Forms.TextBox textBox_url_login_MES;
         private System.Windows.Forms.Label label_url_login_WMS;
         private System.Windows.Forms.TextBox textBox_url_login_WMS;
-        private System.Windows.Forms.TextBox textBox_stockQuery_WMS;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox_validate_WMS;
-        private System.Windows.Forms.Label label_validate_WMS;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.RadioButton radioButton_BDS;
         private System.Windows.Forms.RadioButton radioButton_Chemical;
         private System.Windows.Forms.RadioButton radioButton_Kibble;
         public System.Windows.Forms.Button button_restoreConfig;
+        private System.Windows.Forms.Panel panel_url;
+        private System.Windows.Forms.TextBox textBox_validate_WMS;
+        private System.Windows.Forms.Label label_validate_WMS;
+        private System.Windows.Forms.TextBox textBox_stockQuery_WMS;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBox_url_subPrefix_MES;
+        private System.Windows.Forms.Label label_url_subPrefix;
+        private System.Windows.Forms.TextBox textBox_url_prefix;
+        private System.Windows.Forms.Label label_url_prefix;
+        private System.Windows.Forms.TextBox textBox_url_postfix_submit;
+        private System.Windows.Forms.Label label_url_submit;
+        private System.Windows.Forms.TextBox textBox_url_postfix_scanContainerIn;
+        private System.Windows.Forms.TextBox textBox_url_postfix_scanContainerOut;
+        private System.Windows.Forms.TextBox textBox_url_postfix_scanSn;
+        private System.Windows.Forms.TextBox textBox_url_postfix_scanContainerUnbind;
+        private System.Windows.Forms.Label label_url_scanContainerIn;
+        private System.Windows.Forms.Label label_url_scanVehicleOut;
+        private System.Windows.Forms.Label label_url_scanVehicleUnbind;
+        private System.Windows.Forms.Label label_url_scanSn;
     }
 }

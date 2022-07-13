@@ -18,9 +18,9 @@ namespace ScanUploader.Controller
         /// </summary>
         public static void HttpLogin()
         {
-            User httpUser_MES = new User(Properties.UserData.Default.userName_http_MES,
-                                     Properties.UserData.Default.password_http_MES,
-                                     Properties.UserData.Default.site_http_MES);
+            User httpUser_MES = new User(Properties.User_Http.Default.userName_http_MES,
+                                     Properties.User_Http.Default.password_http_MES,
+                                     Properties.User_Http.Default.site_http_MES);
             
             //发送登录post请求
             JObject result = HttpUtil.PostResponse(URL.httpLogin, JsonConvert.SerializeObject(httpUser_MES));
@@ -53,8 +53,8 @@ namespace ScanUploader.Controller
         /// </summary>
         public static void HttpLogin_WMS()
         {
-            User httpUser_WMS = new User(Properties.UserData.Default.userName_http_WMS,
-                                     Properties.UserData.Default.password_http_WMS,
+            User httpUser_WMS = new User(Properties.User_Http.Default.userName_http_WMS,
+                                     Properties.User_Http.Default.password_http_WMS,
                                      "");
 
             //发送登录post请求

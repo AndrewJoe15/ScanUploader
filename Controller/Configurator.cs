@@ -20,7 +20,7 @@ namespace ScanUploader.Controller
         private static Properties.URL url = Properties.URL.Default;
         private static Properties.Settings settings = Properties.Settings.Default;
         private static Properties.Socket socket = Properties.Socket.Default;
-        private static Properties.UserData userData = Properties.UserData.Default;
+        private static Properties.User_Http user_http = Properties.User_Http.Default;
         private static Properties.LogFileName logFileSetting = Properties.LogFileName.Default;
 
 

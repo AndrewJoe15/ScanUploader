@@ -12,12 +12,12 @@ using ScanUploader.Utils;
 
 namespace ScanUploader.View
 {
-    public partial class AdminLoginForm : Form
+    public partial class LoginForm_Admin : Form
     {
         private string userName = "RP";
         private string password = "120626";
 
-        public AdminLoginForm()
+        public LoginForm_Admin()
         {
             InitializeComponent();
             textBox_userName.Text = userName;
