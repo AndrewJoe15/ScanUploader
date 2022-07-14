@@ -72,6 +72,9 @@ namespace ScanUploader.View
                 textBox_debug.AppendText(debugInfo);
                 textBox_debug.AppendText(Environment.NewLine);
                 textBox_debug.ScrollToCaret();
+
+                //写入日志
+                LogUtil.WriteLog(debugInfo, LogFile.debugFile, false);
             });
             Invoke(_sdi);
         }
@@ -179,11 +182,13 @@ namespace ScanUploader.View
             comboBox_shift.Items.AddRange(shifts);
             comboBox_shift.SelectedIndex = 0;
 
-            
+
 
             //初始化日志文件对象
             LogFile.nextSerialNumer = Properties.LogFileName.Default.nextSerialNumber;
             LogFile.logFile = new LogFile();
+            //Debug 通讯数据日志
+            LogFile.debugFile = new LogFile("Data", Environment.CurrentDirectory + "//Log//Data//");
         }
 
         /// <summary>

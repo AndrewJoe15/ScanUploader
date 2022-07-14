@@ -432,9 +432,9 @@
             this.label17.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label17.Location = new System.Drawing.Point(11, 60);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(35, 12);
+            this.label17.Size = new System.Drawing.Size(41, 12);
             this.label17.TabIndex = 50;
-            this.label17.Text = "扫码2";
+            this.label17.Text = "右通道";
             this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label18
@@ -444,9 +444,9 @@
             this.label18.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label18.Location = new System.Drawing.Point(11, 35);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(35, 12);
+            this.label18.Size = new System.Drawing.Size(41, 12);
             this.label18.TabIndex = 49;
-            this.label18.Text = "扫码1";
+            this.label18.Text = "左通道";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label15
@@ -488,7 +488,7 @@
             this.label_text_statistics_NG_total.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_text_statistics_NG_total.AutoSize = true;
             this.label_text_statistics_NG_total.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_text_statistics_NG_total.Location = new System.Drawing.Point(102, 86);
+            this.label_text_statistics_NG_total.Location = new System.Drawing.Point(103, 86);
             this.label_text_statistics_NG_total.Name = "label_text_statistics_NG_total";
             this.label_text_statistics_NG_total.Size = new System.Drawing.Size(17, 12);
             this.label_text_statistics_NG_total.TabIndex = 45;
@@ -500,7 +500,7 @@
             this.label_text_statistics_OK_total.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_text_statistics_OK_total.AutoSize = true;
             this.label_text_statistics_OK_total.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_text_statistics_OK_total.Location = new System.Drawing.Point(63, 86);
+            this.label_text_statistics_OK_total.Location = new System.Drawing.Point(65, 86);
             this.label_text_statistics_OK_total.Name = "label_text_statistics_OK_total";
             this.label_text_statistics_OK_total.Size = new System.Drawing.Size(17, 12);
             this.label_text_statistics_OK_total.TabIndex = 44;
@@ -546,7 +546,7 @@
             this.label_text_statistics_NG2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_text_statistics_NG2.AutoSize = true;
             this.label_text_statistics_NG2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_text_statistics_NG2.Location = new System.Drawing.Point(102, 63);
+            this.label_text_statistics_NG2.Location = new System.Drawing.Point(103, 63);
             this.label_text_statistics_NG2.Name = "label_text_statistics_NG2";
             this.label_text_statistics_NG2.Size = new System.Drawing.Size(17, 12);
             this.label_text_statistics_NG2.TabIndex = 40;
@@ -558,7 +558,7 @@
             this.label_text_statistics_OK2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_text_statistics_OK2.AutoSize = true;
             this.label_text_statistics_OK2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_text_statistics_OK2.Location = new System.Drawing.Point(63, 63);
+            this.label_text_statistics_OK2.Location = new System.Drawing.Point(65, 63);
             this.label_text_statistics_OK2.Name = "label_text_statistics_OK2";
             this.label_text_statistics_OK2.Size = new System.Drawing.Size(17, 12);
             this.label_text_statistics_OK2.TabIndex = 39;
@@ -593,7 +593,7 @@
             this.label_text_statistics_NG1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_text_statistics_NG1.AutoSize = true;
             this.label_text_statistics_NG1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_text_statistics_NG1.Location = new System.Drawing.Point(102, 37);
+            this.label_text_statistics_NG1.Location = new System.Drawing.Point(103, 37);
             this.label_text_statistics_NG1.Name = "label_text_statistics_NG1";
             this.label_text_statistics_NG1.Size = new System.Drawing.Size(17, 12);
             this.label_text_statistics_NG1.TabIndex = 36;
@@ -616,7 +616,7 @@
             this.label_text_statistics_OK1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_text_statistics_OK1.AutoSize = true;
             this.label_text_statistics_OK1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_text_statistics_OK1.Location = new System.Drawing.Point(63, 37);
+            this.label_text_statistics_OK1.Location = new System.Drawing.Point(65, 37);
             this.label_text_statistics_OK1.Name = "label_text_statistics_OK1";
             this.label_text_statistics_OK1.Size = new System.Drawing.Size(17, 12);
             this.label_text_statistics_OK1.TabIndex = 34;

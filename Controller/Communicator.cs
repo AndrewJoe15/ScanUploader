@@ -297,12 +297,10 @@ namespace ScanUploader.Controller
             dataToMachine = SubmitToMES(submitJson.ToString(), URL.scanSubmit);
 
             //Log记录
-            string submitStatus;
             if (dataToMachine.code == ReturnData.code_success)
-                submitStatus = "【提交成功】";
+                LogUtil.WriteLog("【清洗架提交】，成功，" + dataToMachine.msg + "共" + submitData.qty + "片：\r\n" + submitJson["supplementList"]);
             else
-                submitStatus = "【提交失败】";
-            LogUtil.WriteLog(submitStatus + "共" + submitData.qty + "片：\r\n" + submitJson["supplementList"]);
+                LogUtil.WriteLog("【清洗架提交】，失败，" + dataToMachine.msg);
 
             return dataToMachine;
         }
@@ -608,31 +606,27 @@ namespace ScanUploader.Controller
             if (port == ConnectManager.port_submit)
             {
                 //提交
-                //OK1FINISH
-                //NG1FINISH
+                //OK1FINISH,
+                //OK2FINISH,
                 if (operationID.ToUpper().Contains(submit_Finish_ID))
                 {
                     //批量提交
                     //- OK
                     if (operationID.ToUpper() == submit_OK_Left_Finish)
                     {
-                        LogUtil.WriteLog("【清洗架提交】左OK载具，" + dataToMachine.msg);
                         dataToMachine = SubmitToMES(ref GlobalValue.GlassList_OK_Left, LogFile.logFile.logNumber);
                     }
                     if (operationID.ToUpper() == submit_OK_Right_Finish)
                     {
-                        LogUtil.WriteLog("【清洗架提交】右OK载具，" + dataToMachine.msg);
                         dataToMachine = SubmitToMES(ref GlobalValue.GlassList_OK_Right, LogFile.debugFile.logNumber);
                     }
                     //- NG  预留提交功能
                     if (operationID.ToUpper() == submit_NG_Left_Finish)
                     {
-                        LogUtil.WriteLog("【清洗架提交】左NG载具，" + dataToMachine.msg);
                         dataToMachine = SubmitToMES(ref GlobalValue.GlassList_NG_Left, LogFile.logFile.logNumber);
                     }
                     if (operationID.ToUpper() == submit_NG_Right_Finish)
                     {
-                        LogUtil.WriteLog("【清洗架提交】右NG载具，" + dataToMachine.msg);
                         dataToMachine = SubmitToMES(ref GlobalValue.GlassList_NG_Right, LogFile.debugFile.logNumber);
                     }
 

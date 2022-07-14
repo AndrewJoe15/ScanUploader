@@ -56,5 +56,17 @@ namespace ScanUploader.Model
             //每新建一个logFile后，更新流水号
             setNextSerialNumber();
         }
+
+        public LogFile(string prefix, string relativePath)
+        {
+            //将流水号转为指定位数编号，位数不足以0填充 ({0:D4},3)  ->  0003
+            string fmt = "{0:D" + logFileNameSetting.serialFigureCount.ToString() + "}";
+            string serialNumString = string.Format(fmt, nextSerialNumer);
+
+            logNumber = prefix + DateTime.Now.ToString(logFileNameSetting.dateFormat) + serialNumString;
+            logFileName = logNumber + logFileNameSetting.fileFormat;
+
+            logPath = relativePath;
+        }
     }
 }
