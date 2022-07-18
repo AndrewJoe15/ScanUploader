@@ -66,7 +66,7 @@ namespace ScanUploader.Model
             logNumber = prefix + DateTime.Now.ToString(logFileNameSetting.dateFormat) + serialNumString;
             logFileName = logNumber + logFileNameSetting.fileFormat;
 
-            logPath = relativePath;
+            logPath = Environment.CurrentDirectory + relativePath;
         }
     }
 }

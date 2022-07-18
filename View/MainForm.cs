@@ -251,7 +251,7 @@ namespace ScanUploader.View
             LogFile.nextSerialNumer = Properties.LogFileName.Default.nextSerialNumber;
             LogFile.logFile = new LogFile();
             //Debug 通讯数据日志
-            LogFile.debugFile = new LogFile("Data", Environment.CurrentDirectory + "//Log//Data//");
+            LogFile.debugFile = new LogFile("Data", "\\Log\\Data\\");
         }
 
         /// <summary>
@@ -333,7 +333,10 @@ namespace ScanUploader.View
 
         private void button_openLogFile_Click(object sender, EventArgs e)
         {
-            openLogFile(LogFile.logFile);
+            if (tabControl_log.SelectedTab == tabPage_logInfo)
+                openLogFile(LogFile.logFile);
+            else if (tabControl_log.SelectedTab == tabPage_debugInfo)
+                openLogFile(LogFile.debugFile);
         }
 
         private void openLogFile(LogFile logFile)
@@ -350,8 +353,12 @@ namespace ScanUploader.View
 
         private void button_openLogDir_Click(object sender, EventArgs e)
         {
-            if (LogFile.logFile != null)
+            if (LogFile.logFile == null)
+                return;
+            if (tabControl_log.SelectedTab == tabPage_logInfo)
                 System.Diagnostics.Process.Start("explorer.exe", LogFile.logFile.logPath);
+            else if (tabControl_log.SelectedTab == tabPage_debugInfo)
+                System.Diagnostics.Process.Start("explorer.exe", LogFile.debugFile.logPath);
         }
 
         private void textBox_mo_TextChanged(object sender, EventArgs e)
