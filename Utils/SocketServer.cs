@@ -104,6 +104,10 @@ namespace ScanUploader.Utils
         private void ReceiveMessage(object socket)
         {
             Socket clientSocket = (Socket)socket;
+
+            //Socket连接状态
+            MainForm.thisForm.UpdateSocketStatus(clientSocket.LocalEndPoint.ToString(), clientSocket.Connected);
+
             while (true)
             {
                 try

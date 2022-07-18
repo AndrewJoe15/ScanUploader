@@ -9,7 +9,7 @@ namespace ScanUploader.Utils
     public class TimeUtil
     {
         public static string currentTimeString { get => DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"); set { } }
-        public static string currentTimeString_log { get => "[" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:fff") + "] "; set { } }
+        public static string currentTimeString_log { get => "[" + DateTime.Now.ToString("MM-dd HH:mm:ss") + "] "; set { } }
 
         static TimeUtil()
         {

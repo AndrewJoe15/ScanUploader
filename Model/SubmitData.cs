@@ -8,6 +8,7 @@ namespace ScanUploader.Model
 {
     public class SubmitData
     {
+        public static string order = "";
 
         public string logNumber = "";
 

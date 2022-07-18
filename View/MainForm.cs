@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,6 +22,7 @@ namespace ScanUploader.View
 
         //BasicInfo单例
         private BasicInfo basicInfo = BasicInfo.Instance;
+        private Properties.BasicInfo basicInfSetting = Properties.BasicInfo.Default;
 
         private static readonly int textBox_text_maxLength = 1024 * 1024;
 
@@ -39,7 +41,8 @@ namespace ScanUploader.View
 
         private void timer_main_Tick(object sender, EventArgs e)
         {
-            label_timer_main.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            //底部时钟
+            label_timer_main.Text = TimeUtil.currentTimeString;
         }
 
         //线程安全调用
@@ -77,6 +80,56 @@ namespace ScanUploader.View
                 LogUtil.WriteLog(debugInfo, LogFile.debugFile, false);
             });
             Invoke(_sdi);
+        }
+
+
+        private delegate void _UpdateSocketStatus();
+        //更新Socket连接状态信息
+        public void UpdateSocketStatus(string endPoint, bool connected)
+        {
+            _UpdateSocketStatus _uss = new _UpdateSocketStatus(delegate ()
+            {
+                if (endPoint.Contains(ConnectManager.port_up.ToString()))
+                {
+                    if(connected)
+                        label_socketStatus_up.BackColor = Color.Green;
+                    else
+                        label_socketStatus_up.BackColor = Color.Red;
+                }
+
+                if (endPoint.Contains(ConnectManager.port_main.ToString()))
+                {
+                    if (connected)
+                        label_socketStatus_main.BackColor = Color.Green;
+                    else
+                        label_socketStatus_main.BackColor = Color.Red;
+                }
+
+                if (endPoint.Contains(ConnectManager.port_down.ToString()))
+                {
+                    if (connected)
+                        label_socketStatus_down.BackColor = Color.Green;
+                    else
+                        label_socketStatus_down.BackColor = Color.Red;
+                }
+
+                if (endPoint.Contains(ConnectManager.port_insert.ToString()))
+                {
+                    if (connected)
+                        label_socketStatus_insert.BackColor = Color.Green;
+                    else
+                        label_socketStatus_insert.BackColor = Color.Red;
+                }
+
+                if (endPoint.Contains(ConnectManager.port_submit.ToString()))
+                {
+                    if (connected)
+                        label_socketStatus_submit.BackColor = Color.Green;
+                    else
+                        label_socketStatus_submit.BackColor = Color.Red;
+                }
+            });
+            Invoke(_uss);
         }
 
         //更新良率统计信息
@@ -163,26 +216,36 @@ namespace ScanUploader.View
             //遍历基本信息面板的子控件，填充信息
             foreach (Control ctrl in panel_basicInformation.Controls)
             {
-                //基本信息的 TextBox初始化
-                if (ctrl is TextBox)
+                //基本信息的 ComboBox 初始化
+                if (ctrl is ComboBox)
                 {
-                    foreach (PropertyInfo p in basicInfo.GetType().GetProperties())
+                    //遍历基本信息设置中的每一个属性
+                    foreach (PropertyInfo p in Properties.BasicInfo.Default.GetType().GetProperties())
                     {
                         if (ctrl.Name.EndsWith(p.Name))
                         {
-                            ctrl.Text = p.GetValue(basicInfo).ToString();
+                            //字符串集合的枚举器
+                            StringEnumerator se = ((StringCollection)p.GetValue(Properties.BasicInfo.Default)).GetEnumerator();
+                            //下拉列表加载数据
+                            while (se.MoveNext())
+                            {
+                                ((ComboBox)ctrl).Items.Add(se.Current);
+                            }
+                            //显示最后一个字符串
+                            ((ComboBox)ctrl).SelectedIndex = ((ComboBox)ctrl).Items.Count-1;
                         }
                     }
-                }
+                }              
+
             }
 
-            //初始化班次下拉列表
-            ///显示枚举的Name
-            string[] shifts = typeof(SHIFT).GetEnumNames();//获取班次类型数组
-            comboBox_shift.Items.AddRange(shifts);
-            comboBox_shift.SelectedIndex = 0;
-
-
+            //工单号
+            foreach (string s in Properties.BasicInfo.Default.order)
+            {
+                comboBox_mo.Items.Add(s);
+                comboBox_mo.SelectedIndex = comboBox_mo.Items.Count - 1;
+            }
+            SubmitData.order = comboBox_mo.Text;
 
             //初始化日志文件对象
             LogFile.nextSerialNumer = Properties.LogFileName.Default.nextSerialNumber;
@@ -228,27 +291,27 @@ namespace ScanUploader.View
 
         private void textBox_site_TextChanged(object sender, EventArgs e)
         {
-            basicInfo.site = textBox_site.Text;
+            basicInfo.site = comboBox_site.Text;
         }
 
         private void textBox_operation_TextChanged(object sender, EventArgs e)
         {
-            basicInfo.operation = textBox_operation.Text;
+            basicInfo.operation = comboBox_operation.Text;
         }
 
         private void textBox_resource_TextChanged(object sender, EventArgs e)
         {
-            basicInfo.resource = textBox_resource.Text;
+            basicInfo.resource = comboBox_resource.Text;
         }
 
         private void textBox_productModel_TextChanged(object sender, EventArgs e)
         {
-            basicInfo.productModel = textBox_productModel.Text;
+            basicInfo.productModel = comboBox_productModel.Text;
         }
 
         private void textBox_productModelVersion_TextChanged(object sender, EventArgs e)
         {
-            basicInfo.productModelVersion = textBox_productModelVersion.Text;
+            basicInfo.productModelVersion = comboBox_productModelVersion.Text;
         }
 
         private void comboBox_shift_SelectedIndexChanged(object sender, EventArgs e)
@@ -258,32 +321,9 @@ namespace ScanUploader.View
 
         private void textBox_createBy_TextChanged(object sender, EventArgs e)
         {
-            basicInfo.createBy = textBox_createBy.Text;
+            basicInfo.createBy = comboBox_createBy.Text;
         }
 
-        private void button_start_Click(object sender, EventArgs e)
-        {
-            bool done = true;
-            foreach(Control ctrl in panel_basicInformation.Controls)
-            {
-                if (!(ctrl is Label) && ctrl.Text.Trim() == "")
-                {
-                    done = false;
-                    //反射得到文本控件对应的标签
-                    //分割TextBox控件变量名
-                    string ctrlNamePostfix = ctrl.Name.Remove(0, ctrl.Name.IndexOf("_"));
-                    string name = "label" + ctrlNamePostfix;
-                    FieldInfo fieldInfo = (new Label()).GetType().GetField(name);
-                    //ShowUtil.ShowTips("请输入" + fieldInfo.GetValue("Text") + "信息。");
-                    ShowUtil.ShowTips("请将信息填写完整。");
-                    break;//找到一个为空就行了 避免多次弹窗
-                }                    
-            }
-            if (done)
-            {
-                ShowUtil.ShowTips("信息录入成功！");
-            }
-        }
 
         private void menuStrip_top_Config_Click(object sender, EventArgs e)
         {
@@ -317,8 +357,9 @@ namespace ScanUploader.View
         private void textBox_mo_TextChanged(object sender, EventArgs e)
         {
 #if BDSSCAN
-            basicInfo.order = textBox_mo.Text;
+            basicInfo.order = comboBox_mo.Text;
 #endif
+            SubmitData.order = comboBox_mo.Text;
         }
 
 
@@ -346,6 +387,75 @@ namespace ScanUploader.View
             }
         }
 
+        /// <summary>
+        /// 文本框有降入操作时执行
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void OnComboBoxTextIn(object sender, KeyEventArgs e)
+        {
+            button_save_basicInfo.Enabled = true;
+        }
 
+        private void Button_save_basicInfo_Click(object sender, EventArgs e)
+        {
+            //保存BasicInfo到设置文件
+            SaveBasicInfoSetting(comboBox_site, basicInfSetting.site);
+            SaveBasicInfoSetting(comboBox_operation, basicInfSetting.operation);
+            SaveBasicInfoSetting(comboBox_productModel, basicInfSetting.productModel);
+            SaveBasicInfoSetting(comboBox_productModelVersion, basicInfSetting.productModelVersion);
+            SaveBasicInfoSetting(comboBox_resource, basicInfSetting.resource);
+            SaveBasicInfoSetting(comboBox_shift, basicInfSetting.shift);
+            SaveBasicInfoSetting(comboBox_createBy, basicInfSetting.createBy);
+            SaveBasicInfoSetting(comboBox_mo, basicInfSetting.order);
+            //保存
+            basicInfSetting.Save();
+
+            //保存按钮禁用
+            button_save_basicInfo.Enabled = false;
+        }
+
+
+        /// <summary>
+        /// 保存一项基本信息到设置文件
+        /// </summary>
+        /// <param name="sc">设置文件的StringCollection属性</param>
+        /// <param name="comboBox">界面中文本框</param>
+        private void SaveBasicInfoSetting(ComboBox comboBox, StringCollection sc)
+        {
+            //表单验证
+            if (CheckEmpty(panel_basicInformation))
+            {
+                ShowUtil.ShowTips("录入信息不能为空！");
+                return;
+            }
+            string text = comboBox.Text.Trim();
+            if (!sc.Contains(text))
+            {
+                sc.Add(text);
+                comboBox.Items.Add(text);
+            }
+        }
+
+        /// <summary>
+        /// 判断面板表单信息是否为空
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckEmpty(Panel panel)
+        {
+            bool done = false;
+            foreach (Control ctrl in panel.Controls)
+            {
+                if (ctrl is TextBox || ctrl is ComboBox)
+                {
+                    if (ctrl.Text.Trim() == "")
+                    {
+                        done = true;
+                        break;//找到一个为空即返回
+                    }
+                }                
+            }
+            return done;
+        }
     }
 }

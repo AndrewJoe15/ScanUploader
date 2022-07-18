@@ -43,7 +43,7 @@ namespace ScanUploader
             /*if(Properties.Settings.Default.is_kibbleScan)
                 UserManager.HttpLogin_WMS();*/
             //启动连接计时器，每11小时重新登录一次
-            ConnectManager.Instance.StartTimer();
+            ConnectManager.Instance.StartTimer_Http();
 #endif
 
             //启动Socket服务器

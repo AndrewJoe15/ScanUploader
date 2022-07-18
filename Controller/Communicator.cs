@@ -19,7 +19,9 @@ namespace ScanUploader.Controller
         //PLC发来字符串数据分割符号
         private const char splitChar = ',';
 
-        private const string submit_Finish_ID = "FINISH";//插满提交后缀
+        private const string scan_noRead = "NOREAD";
+
+        private const string submit_finish_ID = "FINISH";//插满提交后缀
 
         //*****PLC发过来字符串的标识符
 #if CHEMICALSCAN
@@ -44,10 +46,10 @@ namespace ScanUploader.Controller
         private const string submit_NG_Left         = "NG2"; 
         private const string submit_NG_Right        = "NG1"; 
         //-提交
-        private const string submit_OK_Left_Finish  = "OK2" + submit_Finish_ID;
-        private const string submit_OK_Right_Finish = "OK1" + submit_Finish_ID; 
-        private const string submit_NG_Left_Finish  = "NG2" + submit_Finish_ID; 
-        private const string submit_NG_Right_Finish = "NG1" + submit_Finish_ID; 
+        private const string submit_OK_Left_Finish  = "OK2" + submit_finish_ID;
+        private const string submit_OK_Right_Finish = "OK1" + submit_finish_ID; 
+        private const string submit_NG_Left_Finish  = "NG2" + submit_finish_ID; 
+        private const string submit_NG_Right_Finish = "NG1" + submit_finish_ID; 
 
 #elif KIBBLESCAN
         //上料
@@ -280,9 +282,7 @@ namespace ScanUploader.Controller
             SubmitData submitData = new SubmitData();
 
             submitData.logNumber = logNumber;
-
-            submitData.mo = MainForm.thisForm.textBox_mo.Text;//工单号
-
+            submitData.mo = SubmitData.order;//工单号
             submitData.qty = glasses.Count.ToString();//qty 载具内玻璃数量
             submitData.supplementList = glasses;
 
@@ -342,17 +342,26 @@ namespace ScanUploader.Controller
             //涂油扫码端口
             if (port == ConnectManager.port_main)
             {
-                //上传玻璃码
-                if (operationID == SN_ID_1 || operationID == SN_ID_2)
+                //如果没有扫到码
+                if (deviceCode.ToUpper() == scan_noRead)
                 {
-                    dataToMachine = GetReturnFromMES("snNumber", deviceCode, URL.scanSn);
-
-                    LogUtil.WriteLog("单片扫码，" + dataToMachine.msg);
-
-                    //更新用户界面显示的数据
-                    UpdateUIInfo(operationID, deviceCode, dataToMachine);
-                    return;
+                    dataToMachine.code = ReturnData.code_error;
+                    dataToMachine.msg = "单片SN号 NoRead, 读码失败";
                 }
+                else
+                {               
+                    //上传玻璃码
+                    dataToMachine = GetReturnFromMES("snNumber", deviceCode, URL.scanSn);
+                }
+
+                if (operationID == SN_ID_1)
+                    LogUtil.WriteLog("【单片扫码】左通道，" + "返回码：" + dataToMachine.code + "，" + dataToMachine.msg);
+                if (operationID == SN_ID_2)
+                    LogUtil.WriteLog("【单片扫码】右通道，" + "返回码：" + dataToMachine.code + "，" + dataToMachine.msg);
+
+                //更新用户界面扫码统计信息 包括良率和NG列表
+                UpdateScanInfo(operationID, deviceCode, dataToMachine);
+                return;
             }
 
             return;
@@ -518,23 +527,32 @@ namespace ScanUploader.Controller
                         LogUtil.WriteLog("【化抛架解绑】右通道，" + dataToMachine.msg);
 
 
-                    //拿空了一个化抛架，解绑时更新日志文件对象，新建一个日志文件
+                    //拿空了一个化抛架，新建一个日志文件
                     LogFile.logFile = new LogFile();
 
                     return;
                 }
             }
 
-            //主体端口
+            //主体单片扫码端口
             if (port == ConnectManager.port_main)
             {
                 //玻璃
                 if (operationID == SN_ID_1 || operationID == SN_ID_2)
                 {
-                    dataToMachine = GetReturnFromMES("snNumber", deviceCode, URL.scanSn);
+                    //如果没有扫到码
+                    if (deviceCode.ToUpper() == scan_noRead)
+                    {
+                        dataToMachine.code = ReturnData.code_error;
+                        dataToMachine.msg = "化抛扫描,单片SN号 NoRead,读码失败";
+                    }
+                    else
+                    {
+                        dataToMachine = GetReturnFromMES("snNumber", deviceCode, URL.scanSn);
+                    }
 
                     //更新用户界面显示的数据
-                    UpdateUIInfo(operationID, deviceCode, dataToMachine);
+                    UpdateScanInfo(operationID, deviceCode, dataToMachine);
 
                     //写入日志
                     if (operationID == SN_ID_1)
@@ -608,7 +626,7 @@ namespace ScanUploader.Controller
                 //提交
                 //OK1FINISH,
                 //OK2FINISH,
-                if (operationID.ToUpper().Contains(submit_Finish_ID))
+                if (operationID.ToUpper().Contains(submit_finish_ID))
                 {
                     //批量提交
                     //- OK
@@ -642,7 +660,7 @@ namespace ScanUploader.Controller
         /// <param name="operationID"></param>
         /// <param name="deviceCode"></param>
         /// <param name="dataToMachine"></param>
-        private static void UpdateUIInfo(string operationID, string deviceCode, ReturnData dataToMachine)
+        private static void UpdateScanInfo(string operationID, string deviceCode, ReturnData dataToMachine)
         {
             //NG信息表
             //- 若玻璃NG，信息显示到窗体表格中

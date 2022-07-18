@@ -19,7 +19,7 @@ namespace ScanUploader.Controller
     {
         public static void AppendDebugInfo(string debugInfo)
         {
-            MainForm.thisForm.ShowDebugInfo("【通信数据】" + TimeUtil.currentTimeString_log + debugInfo);
+            MainForm.thisForm.ShowDebugInfo(TimeUtil.currentTimeString_log + "【通信数据】"+ debugInfo);
         }
 
         public static void AppendLogInfo(string logInfo)

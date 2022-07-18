@@ -32,22 +32,23 @@
             this.menuStrip_top = new System.Windows.Forms.MenuStrip();
             this.menuStrip_top_config = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip_top_restart = new System.Windows.Forms.ToolStripMenuItem();
-            this.textBox_productModel = new System.Windows.Forms.TextBox();
+            this.comboBox_productModel = new System.Windows.Forms.ComboBox();
             this.label_productModelVersion = new System.Windows.Forms.Label();
             this.label_productModel = new System.Windows.Forms.Label();
-            this.textBox_productModelVersion = new System.Windows.Forms.TextBox();
-            this.textBox_resource = new System.Windows.Forms.TextBox();
+            this.comboBox_productModelVersion = new System.Windows.Forms.ComboBox();
+            this.comboBox_resource = new System.Windows.Forms.ComboBox();
             this.label_shift = new System.Windows.Forms.Label();
             this.label_resource = new System.Windows.Forms.Label();
-            this.textBox_operation = new System.Windows.Forms.TextBox();
+            this.comboBox_operation = new System.Windows.Forms.ComboBox();
             this.label_createBy = new System.Windows.Forms.Label();
             this.label_operation = new System.Windows.Forms.Label();
-            this.textBox_createBy = new System.Windows.Forms.TextBox();
-            this.textBox_site = new System.Windows.Forms.TextBox();
+            this.comboBox_createBy = new System.Windows.Forms.ComboBox();
+            this.comboBox_site = new System.Windows.Forms.ComboBox();
             this.label_site = new System.Windows.Forms.Label();
             this.comboBox_shift = new System.Windows.Forms.ComboBox();
             this.panel_basicInformation = new System.Windows.Forms.Panel();
-            this.textBox_mo = new System.Windows.Forms.TextBox();
+            this.button_save_basicInfo = new System.Windows.Forms.Button();
+            this.comboBox_mo = new System.Windows.Forms.ComboBox();
             this.label_mo = new System.Windows.Forms.Label();
             this.textBox_log = new System.Windows.Forms.TextBox();
             this.panel_log = new System.Windows.Forms.Panel();
@@ -94,6 +95,20 @@
             this.columnHeader_errorTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader_errorCode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader_errorMsg = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.panel_socket = new System.Windows.Forms.Panel();
+            this.label_socket_port = new System.Windows.Forms.Label();
+            this.label_socket_status = new System.Windows.Forms.Label();
+            this.label_socketPort_up = new System.Windows.Forms.Label();
+            this.label_socketStatus_up = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label_socketStatus_main = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label_socketStatus_down = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label_socketStatus_insert = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label_socketStatus_submit = new System.Windows.Forms.Label();
+            this.basicInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip_top.SuspendLayout();
             this.panel_basicInformation.SuspendLayout();
             this.panel_log.SuspendLayout();
@@ -105,6 +120,8 @@
             this.tabControl_error_info.SuspendLayout();
             this.tabPage_NG_info.SuspendLayout();
             this.tabPage_error_info.SuspendLayout();
+            this.panel_socket.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.basicInfoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip_top
@@ -134,13 +151,14 @@
             this.menuStrip_top_restart.Size = new System.Drawing.Size(44, 21);
             this.menuStrip_top_restart.Text = "重启";
             // 
-            // textBox_productModel
+            // comboBox_productModel
             // 
-            this.textBox_productModel.Location = new System.Drawing.Point(94, 101);
-            this.textBox_productModel.Name = "textBox_productModel";
-            this.textBox_productModel.Size = new System.Drawing.Size(90, 21);
-            this.textBox_productModel.TabIndex = 7;
-            this.textBox_productModel.TextChanged += new System.EventHandler(this.textBox_productModel_TextChanged);
+            this.comboBox_productModel.Location = new System.Drawing.Point(94, 101);
+            this.comboBox_productModel.Name = "comboBox_productModel";
+            this.comboBox_productModel.Size = new System.Drawing.Size(101, 20);
+            this.comboBox_productModel.TabIndex = 7;
+            this.comboBox_productModel.TextChanged += new System.EventHandler(this.textBox_productModel_TextChanged);
+            this.comboBox_productModel.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnComboBoxTextIn);
             // 
             // label_productModelVersion
             // 
@@ -160,21 +178,23 @@
             this.label_productModel.TabIndex = 6;
             this.label_productModel.Text = "产品型号：";
             // 
-            // textBox_productModelVersion
+            // comboBox_productModelVersion
             // 
-            this.textBox_productModelVersion.Location = new System.Drawing.Point(94, 131);
-            this.textBox_productModelVersion.Name = "textBox_productModelVersion";
-            this.textBox_productModelVersion.Size = new System.Drawing.Size(90, 21);
-            this.textBox_productModelVersion.TabIndex = 9;
-            this.textBox_productModelVersion.TextChanged += new System.EventHandler(this.textBox_productModelVersion_TextChanged);
+            this.comboBox_productModelVersion.Location = new System.Drawing.Point(94, 131);
+            this.comboBox_productModelVersion.Name = "comboBox_productModelVersion";
+            this.comboBox_productModelVersion.Size = new System.Drawing.Size(101, 20);
+            this.comboBox_productModelVersion.TabIndex = 9;
+            this.comboBox_productModelVersion.TextChanged += new System.EventHandler(this.textBox_productModelVersion_TextChanged);
+            this.comboBox_productModelVersion.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnComboBoxTextIn);
             // 
-            // textBox_resource
+            // comboBox_resource
             // 
-            this.textBox_resource.Location = new System.Drawing.Point(94, 71);
-            this.textBox_resource.Name = "textBox_resource";
-            this.textBox_resource.Size = new System.Drawing.Size(90, 21);
-            this.textBox_resource.TabIndex = 5;
-            this.textBox_resource.TextChanged += new System.EventHandler(this.textBox_resource_TextChanged);
+            this.comboBox_resource.Location = new System.Drawing.Point(94, 71);
+            this.comboBox_resource.Name = "comboBox_resource";
+            this.comboBox_resource.Size = new System.Drawing.Size(101, 20);
+            this.comboBox_resource.TabIndex = 5;
+            this.comboBox_resource.TextChanged += new System.EventHandler(this.textBox_resource_TextChanged);
+            this.comboBox_resource.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnComboBoxTextIn);
             // 
             // label_shift
             // 
@@ -194,13 +214,14 @@
             this.label_resource.TabIndex = 4;
             this.label_resource.Text = "设备号：";
             // 
-            // textBox_operation
+            // comboBox_operation
             // 
-            this.textBox_operation.Location = new System.Drawing.Point(94, 41);
-            this.textBox_operation.Name = "textBox_operation";
-            this.textBox_operation.Size = new System.Drawing.Size(90, 21);
-            this.textBox_operation.TabIndex = 3;
-            this.textBox_operation.TextChanged += new System.EventHandler(this.textBox_operation_TextChanged);
+            this.comboBox_operation.Location = new System.Drawing.Point(94, 41);
+            this.comboBox_operation.Name = "comboBox_operation";
+            this.comboBox_operation.Size = new System.Drawing.Size(101, 20);
+            this.comboBox_operation.TabIndex = 3;
+            this.comboBox_operation.TextChanged += new System.EventHandler(this.textBox_operation_TextChanged);
+            this.comboBox_operation.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnComboBoxTextIn);
             // 
             // label_createBy
             // 
@@ -220,21 +241,24 @@
             this.label_operation.TabIndex = 2;
             this.label_operation.Text = "工序：";
             // 
-            // textBox_createBy
+            // comboBox_createBy
             // 
-            this.textBox_createBy.Location = new System.Drawing.Point(94, 189);
-            this.textBox_createBy.Name = "textBox_createBy";
-            this.textBox_createBy.Size = new System.Drawing.Size(90, 21);
-            this.textBox_createBy.TabIndex = 13;
-            this.textBox_createBy.TextChanged += new System.EventHandler(this.textBox_createBy_TextChanged);
+            this.comboBox_createBy.Location = new System.Drawing.Point(94, 189);
+            this.comboBox_createBy.Name = "comboBox_createBy";
+            this.comboBox_createBy.Size = new System.Drawing.Size(101, 20);
+            this.comboBox_createBy.TabIndex = 13;
+            this.comboBox_createBy.TextChanged += new System.EventHandler(this.textBox_createBy_TextChanged);
+            this.comboBox_createBy.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnComboBoxTextIn);
             // 
-            // textBox_site
+            // comboBox_site
             // 
-            this.textBox_site.Location = new System.Drawing.Point(94, 11);
-            this.textBox_site.Name = "textBox_site";
-            this.textBox_site.Size = new System.Drawing.Size(90, 21);
-            this.textBox_site.TabIndex = 1;
-            this.textBox_site.TextChanged += new System.EventHandler(this.textBox_site_TextChanged);
+            this.comboBox_site.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.basicInfoBindingSource, "site", true));
+            this.comboBox_site.Location = new System.Drawing.Point(94, 11);
+            this.comboBox_site.Name = "comboBox_site";
+            this.comboBox_site.Size = new System.Drawing.Size(101, 20);
+            this.comboBox_site.TabIndex = 1;
+            this.comboBox_site.TextChanged += new System.EventHandler(this.textBox_site_TextChanged);
+            this.comboBox_site.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnComboBoxTextIn);
             // 
             // label_site
             // 
@@ -250,43 +274,56 @@
             this.comboBox_shift.FormattingEnabled = true;
             this.comboBox_shift.Location = new System.Drawing.Point(94, 161);
             this.comboBox_shift.Name = "comboBox_shift";
-            this.comboBox_shift.Size = new System.Drawing.Size(90, 20);
+            this.comboBox_shift.Size = new System.Drawing.Size(101, 20);
             this.comboBox_shift.TabIndex = 19;
             this.comboBox_shift.SelectedIndexChanged += new System.EventHandler(this.comboBox_shift_SelectedIndexChanged);
+            this.comboBox_shift.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnComboBoxTextIn);
             // 
             // panel_basicInformation
             // 
             this.panel_basicInformation.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel_basicInformation.Controls.Add(this.button_save_basicInfo);
             this.panel_basicInformation.Controls.Add(this.label_site);
             this.panel_basicInformation.Controls.Add(this.comboBox_shift);
-            this.panel_basicInformation.Controls.Add(this.textBox_productModel);
-            this.panel_basicInformation.Controls.Add(this.textBox_mo);
+            this.panel_basicInformation.Controls.Add(this.comboBox_productModel);
+            this.panel_basicInformation.Controls.Add(this.comboBox_mo);
             this.panel_basicInformation.Controls.Add(this.label_productModel);
             this.panel_basicInformation.Controls.Add(this.label_mo);
-            this.panel_basicInformation.Controls.Add(this.textBox_resource);
-            this.panel_basicInformation.Controls.Add(this.textBox_productModelVersion);
+            this.panel_basicInformation.Controls.Add(this.comboBox_resource);
+            this.panel_basicInformation.Controls.Add(this.comboBox_productModelVersion);
             this.panel_basicInformation.Controls.Add(this.label_createBy);
-            this.panel_basicInformation.Controls.Add(this.textBox_site);
-            this.panel_basicInformation.Controls.Add(this.textBox_createBy);
+            this.panel_basicInformation.Controls.Add(this.comboBox_site);
+            this.panel_basicInformation.Controls.Add(this.comboBox_createBy);
             this.panel_basicInformation.Controls.Add(this.label_shift);
-            this.panel_basicInformation.Controls.Add(this.textBox_operation);
+            this.panel_basicInformation.Controls.Add(this.comboBox_operation);
             this.panel_basicInformation.Controls.Add(this.label_productModelVersion);
             this.panel_basicInformation.Controls.Add(this.label_operation);
             this.panel_basicInformation.Controls.Add(this.label_resource);
             this.panel_basicInformation.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.panel_basicInformation.Location = new System.Drawing.Point(9, 31);
             this.panel_basicInformation.Name = "panel_basicInformation";
-            this.panel_basicInformation.Size = new System.Drawing.Size(209, 267);
+            this.panel_basicInformation.Size = new System.Drawing.Size(209, 291);
             this.panel_basicInformation.TabIndex = 16;
             // 
-            // textBox_mo
+            // button_save_basicInfo
             // 
-            this.textBox_mo.Location = new System.Drawing.Point(94, 223);
-            this.textBox_mo.Name = "textBox_mo";
-            this.textBox_mo.Size = new System.Drawing.Size(90, 21);
-            this.textBox_mo.TabIndex = 22;
-            this.textBox_mo.Text = "000603873750";
-            this.textBox_mo.TextChanged += new System.EventHandler(this.textBox_mo_TextChanged);
+            this.button_save_basicInfo.Enabled = false;
+            this.button_save_basicInfo.Location = new System.Drawing.Point(73, 253);
+            this.button_save_basicInfo.Name = "button_save_basicInfo";
+            this.button_save_basicInfo.Size = new System.Drawing.Size(56, 26);
+            this.button_save_basicInfo.TabIndex = 36;
+            this.button_save_basicInfo.Text = "保存";
+            this.button_save_basicInfo.UseVisualStyleBackColor = true;
+            this.button_save_basicInfo.Click += new System.EventHandler(this.Button_save_basicInfo_Click);
+            // 
+            // comboBox_mo
+            // 
+            this.comboBox_mo.Location = new System.Drawing.Point(94, 223);
+            this.comboBox_mo.Name = "comboBox_mo";
+            this.comboBox_mo.Size = new System.Drawing.Size(101, 20);
+            this.comboBox_mo.TabIndex = 22;
+            this.comboBox_mo.TextChanged += new System.EventHandler(this.textBox_mo_TextChanged);
+            this.comboBox_mo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnComboBoxTextIn);
             // 
             // label_mo
             // 
@@ -639,7 +676,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(800, 671);
+            this.label3.Location = new System.Drawing.Point(397, 671);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 12);
             this.label3.TabIndex = 28;
@@ -655,7 +692,7 @@
             this.label_timer_main.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_timer_main.AutoSize = true;
             this.label_timer_main.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_timer_main.Location = new System.Drawing.Point(877, 671);
+            this.label_timer_main.Location = new System.Drawing.Point(474, 671);
             this.label_timer_main.Name = "label_timer_main";
             this.label_timer_main.Size = new System.Drawing.Size(119, 12);
             this.label_timer_main.TabIndex = 32;
@@ -789,11 +826,173 @@
             this.columnHeader_errorMsg.Text = "错误信息";
             this.columnHeader_errorMsg.Width = 384;
             // 
+            // panel_socket
+            // 
+            this.panel_socket.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel_socket.Controls.Add(this.label12);
+            this.panel_socket.Controls.Add(this.label_socketStatus_submit);
+            this.panel_socket.Controls.Add(this.label7);
+            this.panel_socket.Controls.Add(this.label_socketStatus_insert);
+            this.panel_socket.Controls.Add(this.label5);
+            this.panel_socket.Controls.Add(this.label_socketStatus_down);
+            this.panel_socket.Controls.Add(this.label1);
+            this.panel_socket.Controls.Add(this.label_socketStatus_main);
+            this.panel_socket.Controls.Add(this.label_socketPort_up);
+            this.panel_socket.Controls.Add(this.label_socketStatus_up);
+            this.panel_socket.Controls.Add(this.label_socket_port);
+            this.panel_socket.Controls.Add(this.label_socket_status);
+            this.panel_socket.Location = new System.Drawing.Point(9, 329);
+            this.panel_socket.Name = "panel_socket";
+            this.panel_socket.Size = new System.Drawing.Size(209, 210);
+            this.panel_socket.TabIndex = 33;
+            // 
+            // label_socket_port
+            // 
+            this.label_socket_port.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_socket_port.AutoSize = true;
+            this.label_socket_port.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label_socket_port.Location = new System.Drawing.Point(23, 19);
+            this.label_socket_port.Name = "label_socket_port";
+            this.label_socket_port.Size = new System.Drawing.Size(73, 12);
+            this.label_socket_port.TabIndex = 53;
+            this.label_socket_port.Text = "Socket端口";
+            // 
+            // label_socket_status
+            // 
+            this.label_socket_status.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_socket_status.AutoSize = true;
+            this.label_socket_status.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label_socket_status.Location = new System.Drawing.Point(136, 19);
+            this.label_socket_status.Name = "label_socket_status";
+            this.label_socket_status.Size = new System.Drawing.Size(31, 12);
+            this.label_socket_status.TabIndex = 52;
+            this.label_socket_status.Text = "状态";
+            // 
+            // label_socketPort_up
+            // 
+            this.label_socketPort_up.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_socketPort_up.AutoSize = true;
+            this.label_socketPort_up.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label_socketPort_up.Location = new System.Drawing.Point(23, 51);
+            this.label_socketPort_up.Name = "label_socketPort_up";
+            this.label_socketPort_up.Size = new System.Drawing.Size(65, 12);
+            this.label_socketPort_up.TabIndex = 55;
+            this.label_socketPort_up.Text = "化抛架扫码";
+            // 
+            // label_socketStatus_up
+            // 
+            this.label_socketStatus_up.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_socketStatus_up.AutoSize = true;
+            this.label_socketStatus_up.BackColor = System.Drawing.Color.Red;
+            this.label_socketStatus_up.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label_socketStatus_up.Location = new System.Drawing.Point(139, 51);
+            this.label_socketStatus_up.Name = "label_socketStatus_up";
+            this.label_socketStatus_up.Size = new System.Drawing.Size(23, 12);
+            this.label_socketStatus_up.TabIndex = 54;
+            this.label_socketStatus_up.Text = "   ";
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label1.Location = new System.Drawing.Point(23, 83);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.TabIndex = 57;
+            this.label1.Text = "玻璃扫码";
+            // 
+            // label_socketStatus_main
+            // 
+            this.label_socketStatus_main.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_socketStatus_main.AutoSize = true;
+            this.label_socketStatus_main.BackColor = System.Drawing.Color.Red;
+            this.label_socketStatus_main.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label_socketStatus_main.Location = new System.Drawing.Point(139, 83);
+            this.label_socketStatus_main.Name = "label_socketStatus_main";
+            this.label_socketStatus_main.Size = new System.Drawing.Size(23, 12);
+            this.label_socketStatus_main.TabIndex = 56;
+            this.label_socketStatus_main.Text = "   ";
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label5.Location = new System.Drawing.Point(23, 111);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(65, 12);
+            this.label5.TabIndex = 59;
+            this.label5.Text = "清洗架扫码";
+            // 
+            // label_socketStatus_down
+            // 
+            this.label_socketStatus_down.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_socketStatus_down.AutoSize = true;
+            this.label_socketStatus_down.BackColor = System.Drawing.Color.Red;
+            this.label_socketStatus_down.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label_socketStatus_down.Location = new System.Drawing.Point(139, 111);
+            this.label_socketStatus_down.Name = "label_socketStatus_down";
+            this.label_socketStatus_down.Size = new System.Drawing.Size(23, 12);
+            this.label_socketStatus_down.TabIndex = 58;
+            this.label_socketStatus_down.Text = "   ";
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label7.Location = new System.Drawing.Point(23, 142);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(53, 12);
+            this.label7.TabIndex = 61;
+            this.label7.Text = "玻璃插架";
+            // 
+            // label_socketStatus_insert
+            // 
+            this.label_socketStatus_insert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_socketStatus_insert.AutoSize = true;
+            this.label_socketStatus_insert.BackColor = System.Drawing.Color.Red;
+            this.label_socketStatus_insert.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label_socketStatus_insert.Location = new System.Drawing.Point(139, 142);
+            this.label_socketStatus_insert.Name = "label_socketStatus_insert";
+            this.label_socketStatus_insert.Size = new System.Drawing.Size(23, 12);
+            this.label_socketStatus_insert.TabIndex = 60;
+            this.label_socketStatus_insert.Text = "   ";
+            // 
+            // label12
+            // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label12.Location = new System.Drawing.Point(23, 172);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(29, 12);
+            this.label12.TabIndex = 63;
+            this.label12.Text = "提交";
+            // 
+            // label_socketStatus_submit
+            // 
+            this.label_socketStatus_submit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_socketStatus_submit.AutoSize = true;
+            this.label_socketStatus_submit.BackColor = System.Drawing.Color.Red;
+            this.label_socketStatus_submit.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label_socketStatus_submit.Location = new System.Drawing.Point(139, 172);
+            this.label_socketStatus_submit.Name = "label_socketStatus_submit";
+            this.label_socketStatus_submit.Size = new System.Drawing.Size(23, 12);
+            this.label_socketStatus_submit.TabIndex = 62;
+            this.label_socketStatus_submit.Text = "   ";
+            // 
+            // basicInfoBindingSource
+            // 
+            this.basicInfoBindingSource.DataSource = typeof(ScanUploader.Model.BasicInfo);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 689);
+            this.Controls.Add(this.panel_socket);
             this.Controls.Add(this.panel_NG_info);
             this.Controls.Add(this.label_timer_main);
             this.Controls.Add(this.label3);
@@ -825,6 +1024,9 @@
             this.tabControl_error_info.ResumeLayout(false);
             this.tabPage_NG_info.ResumeLayout(false);
             this.tabPage_error_info.ResumeLayout(false);
+            this.panel_socket.ResumeLayout(false);
+            this.panel_socket.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.basicInfoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -832,18 +1034,18 @@
 
         #endregion
         private System.Windows.Forms.MenuStrip menuStrip_top;
-        private System.Windows.Forms.TextBox textBox_productModel;
+        private System.Windows.Forms.ComboBox comboBox_productModel;
         private System.Windows.Forms.Label label_productModelVersion;
         private System.Windows.Forms.Label label_productModel;
-        private System.Windows.Forms.TextBox textBox_productModelVersion;
-        private System.Windows.Forms.TextBox textBox_resource;
+        private System.Windows.Forms.ComboBox comboBox_productModelVersion;
+        private System.Windows.Forms.ComboBox comboBox_resource;
         private System.Windows.Forms.Label label_shift;
         private System.Windows.Forms.Label label_resource;
-        private System.Windows.Forms.TextBox textBox_operation;
+        private System.Windows.Forms.ComboBox comboBox_operation;
         private System.Windows.Forms.Label label_createBy;
         private System.Windows.Forms.Label label_operation;
-        private System.Windows.Forms.TextBox textBox_createBy;
-        private System.Windows.Forms.TextBox textBox_site;
+        private System.Windows.Forms.ComboBox comboBox_createBy;
+        private System.Windows.Forms.ComboBox comboBox_site;
         private System.Windows.Forms.Label label_site;
         private System.Windows.Forms.ComboBox comboBox_shift;
         private System.Windows.Forms.Panel panel_basicInformation;
@@ -851,7 +1053,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuStrip_top_config;
         private System.Windows.Forms.Label label_mo;
         private System.Windows.Forms.Panel panel_log;
-        public System.Windows.Forms.TextBox textBox_mo;
+        public System.Windows.Forms.ComboBox comboBox_mo;
         private System.Windows.Forms.Panel panel_connectStatus;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label_text_statistics_OK1;
@@ -896,6 +1098,21 @@
         private System.Windows.Forms.ColumnHeader columnHeader_NG_Info;
         private System.Windows.Forms.Button button_openLogDir;
         private System.Windows.Forms.Button button_openLogFile;
+        private System.Windows.Forms.BindingSource basicInfoBindingSource;
+        private System.Windows.Forms.Button button_save_basicInfo;
+        private System.Windows.Forms.Panel panel_socket;
+        private System.Windows.Forms.Label label_socket_port;
+        private System.Windows.Forms.Label label_socket_status;
+        private System.Windows.Forms.Label label_socketPort_up;
+        private System.Windows.Forms.Label label_socketStatus_up;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label_socketStatus_submit;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label_socketStatus_insert;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label_socketStatus_down;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label_socketStatus_main;
     }
 }
 

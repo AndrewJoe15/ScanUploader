@@ -110,6 +110,12 @@
     <Compile Include="Model\LogFile.cs" />
     <Compile Include="Model\Query_WMS.cs" />
     <Compile Include="Model\Statistics.cs" />
+    <Compile Include="Properties\BasicInfo.cs" />
+    <Compile Include="Properties\BasicInfo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>BasicInfo.settings</DependentUpon>
+    </Compile>
     <Compile Include="Properties\LogFileName.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -211,6 +217,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Properties\BasicInfo.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>BasicInfo.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Properties\DataSources\ScanUploader.Model.BasicInfo.datasource" />
+    <None Include="Properties\DataSources\ScanUploader.Properties.BasicInfo.datasource" />
     <None Include="Properties\LogFileName.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>LogFileName.Designer.cs</LastGenOutput>
@@ -244,6 +256,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
