@@ -594,25 +594,21 @@ namespace ScanUploader.Controller
                     //OK1,cOut,cIn,SN,
                     //NG1,...
 
-                    if (operationID == submit_OK_Left && !GlobalValue.GlassList_OK_Left.Contains(glass))
+                    if (operationID == submit_OK_Left)
                     {
-                        GlobalValue.GlassList_OK_Left.Add(glass);
-                        LogUtil.WriteLog("【单片插架】左OK载具，玻璃 " + glass.snNumber + " 放入清洗架 " + glass.targetVehicle + " 中。");
+                        InsertGlass(glass, "左OK", ref GlobalValue.GlassList_OK_Left);
                     }
-                    if (operationID == submit_OK_Right && !GlobalValue.GlassList_OK_Right.Contains(glass))
+                    else if (operationID == submit_OK_Right)
                     {
-                        GlobalValue.GlassList_OK_Right.Add(glass);
-                        LogUtil.WriteLog("【单片插架】右OK载具，玻璃 " + glass.snNumber + " 放入清洗架 " + glass.targetVehicle + " 中。");
+                        InsertGlass(glass, "右OK", ref GlobalValue.GlassList_OK_Right);
                     }
-                    if (operationID == submit_NG_Left && !GlobalValue.GlassList_NG_Left.Contains(glass))
+                    else if (operationID == submit_NG_Left)
                     {
-                        GlobalValue.GlassList_NG_Left.Add(glass);
-                        LogUtil.WriteLog("【单片插架】左NG载具，玻璃 " + glass.snNumber + " 放入清洗架 " + glass.targetVehicle + " 中。");
+                        InsertGlass(glass, "左NG", ref GlobalValue.GlassList_NG_Left);
                     }
-                    if (operationID == submit_NG_Right && !GlobalValue.GlassList_NG_Right.Contains(glass))
+                    else if (operationID == submit_NG_Right)
                     {
-                        GlobalValue.GlassList_NG_Right.Add(glass);
-                        LogUtil.WriteLog("【单片插架】右NG载具，玻璃 " + glass.snNumber + " 放入清洗架 " + glass.targetVehicle + " 中。");
+                        InsertGlass(glass, "右NG", ref GlobalValue.GlassList_NG_Right);
                     }
 
                     dataToMachine.code = ReturnData.code_success;
@@ -650,6 +646,19 @@ namespace ScanUploader.Controller
 
                     return;
                 }
+            }
+        }
+
+        private static void InsertGlass(Glass glass, string position, ref List<Glass> glasses)
+        {
+            if (!glasses.Contains(glass))
+            {
+                glasses.Add(glass);
+                LogUtil.WriteLog("【单片插架】" + position + "载具，玻璃 " + glass.snNumber + " 放入清洗架 " + glass.targetVehicle + " 中。");
+            }
+            else
+            {
+                LogUtil.WriteLog("【单片插架】" + position + "载具，玻璃 " + glass.snNumber + " 已存在。\r\n");
             }
         }
 #endif

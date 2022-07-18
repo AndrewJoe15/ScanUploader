@@ -17,5 +17,29 @@ namespace ScanUploader.Model
         public string targetVehicle { get; set; }
         //玻璃码
         public string snNumber { get; set; }
+
+        //重写Equals方法
+        // override object.Equals
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+            else
+                return Equals(obj as Glass);
+        }
+
+        // override object.GetHashCode
+        public override int GetHashCode()
+        {
+            return snNumber.GetHashCode();
+        }
+
+        public bool Equals(Glass anotherGlass)
+        {
+            if (anotherGlass == null)
+                return false;
+
+            return snNumber.Equals(anotherGlass.snNumber);
+        }
     }
 }

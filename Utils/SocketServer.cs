@@ -57,7 +57,7 @@ namespace ScanUploader.Utils
                 endPoint = new IPEndPoint(address, _port);
                 
                 //端口可复用
-                //_socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 2);
+                _socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 2);
                 //socket对象绑定端口
                 _socket.Bind(endPoint);
                 //将 Socket 置于侦听状态
