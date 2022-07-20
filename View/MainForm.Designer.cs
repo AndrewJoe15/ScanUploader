@@ -53,12 +53,12 @@
             this.label_mo = new System.Windows.Forms.Label();
             this.textBox_log = new System.Windows.Forms.TextBox();
             this.panel_log = new System.Windows.Forms.Panel();
+            this.button_openLogDir = new System.Windows.Forms.Button();
             this.tabControl_log = new System.Windows.Forms.TabControl();
             this.tabPage_logInfo = new System.Windows.Forms.TabPage();
-            this.button_openLogDir = new System.Windows.Forms.Button();
-            this.button_openLogFile = new System.Windows.Forms.Button();
             this.tabPage_debugInfo = new System.Windows.Forms.TabPage();
             this.textBox_debug = new System.Windows.Forms.TextBox();
+            this.button_openLogFile = new System.Windows.Forms.Button();
             this.panel_connectStatus = new System.Windows.Forms.Panel();
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
@@ -342,12 +342,12 @@
             // 
             this.textBox_log.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_log.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox_log.Location = new System.Drawing.Point(-78, 3);
+            this.textBox_log.Location = new System.Drawing.Point(0, 3);
             this.textBox_log.Multiline = true;
             this.textBox_log.Name = "textBox_log";
             this.textBox_log.ReadOnly = true;
             this.textBox_log.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox_log.Size = new System.Drawing.Size(753, 308);
+            this.textBox_log.Size = new System.Drawing.Size(675, 308);
             this.textBox_log.TabIndex = 19;
             // 
             // panel_log
@@ -360,6 +360,17 @@
             this.panel_log.Name = "panel_log";
             this.panel_log.Size = new System.Drawing.Size(772, 338);
             this.panel_log.TabIndex = 27;
+            // 
+            // button_openLogDir
+            // 
+            this.button_openLogDir.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button_openLogDir.Location = new System.Drawing.Point(694, 196);
+            this.button_openLogDir.Name = "button_openLogDir";
+            this.button_openLogDir.Size = new System.Drawing.Size(59, 32);
+            this.button_openLogDir.TabIndex = 35;
+            this.button_openLogDir.Text = "目录";
+            this.button_openLogDir.UseVisualStyleBackColor = true;
+            this.button_openLogDir.Click += new System.EventHandler(this.button_openLogDir_Click);
             // 
             // tabControl_log
             // 
@@ -383,28 +394,6 @@
             this.tabPage_logInfo.Text = "日志";
             this.tabPage_logInfo.UseVisualStyleBackColor = true;
             // 
-            // button_openLogDir
-            // 
-            this.button_openLogDir.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button_openLogDir.Location = new System.Drawing.Point(694, 196);
-            this.button_openLogDir.Name = "button_openLogDir";
-            this.button_openLogDir.Size = new System.Drawing.Size(59, 32);
-            this.button_openLogDir.TabIndex = 35;
-            this.button_openLogDir.Text = "目录";
-            this.button_openLogDir.UseVisualStyleBackColor = true;
-            this.button_openLogDir.Click += new System.EventHandler(this.button_openLogDir_Click);
-            // 
-            // button_openLogFile
-            // 
-            this.button_openLogFile.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button_openLogFile.Location = new System.Drawing.Point(694, 107);
-            this.button_openLogFile.Name = "button_openLogFile";
-            this.button_openLogFile.Size = new System.Drawing.Size(59, 32);
-            this.button_openLogFile.TabIndex = 34;
-            this.button_openLogFile.Text = "打开";
-            this.button_openLogFile.UseVisualStyleBackColor = true;
-            this.button_openLogFile.Click += new System.EventHandler(this.button_openLogFile_Click);
-            // 
             // tabPage_debugInfo
             // 
             this.tabPage_debugInfo.Controls.Add(this.textBox_debug);
@@ -420,13 +409,24 @@
             // 
             this.textBox_debug.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_debug.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox_debug.Location = new System.Drawing.Point(-80, 3);
+            this.textBox_debug.Location = new System.Drawing.Point(1, 3);
             this.textBox_debug.Multiline = true;
             this.textBox_debug.Name = "textBox_debug";
             this.textBox_debug.ReadOnly = true;
             this.textBox_debug.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox_debug.Size = new System.Drawing.Size(755, 306);
+            this.textBox_debug.Size = new System.Drawing.Size(674, 306);
             this.textBox_debug.TabIndex = 33;
+            // 
+            // button_openLogFile
+            // 
+            this.button_openLogFile.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button_openLogFile.Location = new System.Drawing.Point(694, 107);
+            this.button_openLogFile.Name = "button_openLogFile";
+            this.button_openLogFile.Size = new System.Drawing.Size(59, 32);
+            this.button_openLogFile.TabIndex = 34;
+            this.button_openLogFile.Text = "打开";
+            this.button_openLogFile.UseVisualStyleBackColor = true;
+            this.button_openLogFile.Click += new System.EventHandler(this.button_openLogFile_Click);
             // 
             // panel_connectStatus
             // 

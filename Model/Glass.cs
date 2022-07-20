@@ -31,12 +31,13 @@ namespace ScanUploader.Model
         // override object.GetHashCode
         public override int GetHashCode()
         {
-            return snNumber.GetHashCode();
+            //避免snNumber为null的情况
+            return snNumber == null ? 0: snNumber.GetHashCode();
         }
 
         public bool Equals(Glass anotherGlass)
         {
-            if (anotherGlass == null)
+            if (anotherGlass == null || anotherGlass.snNumber == null)//避免snNumber为null的情况
                 return false;
 
             return snNumber.Equals(anotherGlass.snNumber);

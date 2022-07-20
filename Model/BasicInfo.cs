@@ -79,7 +79,7 @@ namespace ScanUploader.Model
 
     public enum SHIFT
     {
-        白班,
-        晚班
+        晚班,
+        白班
     }
 }
