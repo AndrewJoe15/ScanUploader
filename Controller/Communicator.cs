@@ -314,12 +314,13 @@ namespace ScanUploader.Controller
         /// <param name="str">Machine 发来的字符串</param>
         public static ReturnData GetDataFromMES(string str, int port)
         {
+            ReturnData dataToMachine = new ReturnData();
+            
             //设备编号,设备码  L1,220421XSH01 
             string[] subs = str.Split(splitChar);
             string operationID = subs[0].ToUpper();
             string deviceCode = subs[1].ToUpper();
-            //string dataToMachine = deviceID;//字符串最开始为 "L1..." "L2..."
-            ReturnData dataToMachine = new ReturnData();
+            
 
             //条件编译
 #if CHEMICALSCAN

@@ -44,7 +44,6 @@
             this.label_operation = new System.Windows.Forms.Label();
             this.comboBox_createBy = new System.Windows.Forms.ComboBox();
             this.comboBox_site = new System.Windows.Forms.ComboBox();
-            this.basicInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label_site = new System.Windows.Forms.Label();
             this.comboBox_shift = new System.Windows.Forms.ComboBox();
             this.panel_basicInformation = new System.Windows.Forms.Panel();
@@ -109,8 +108,8 @@
             this.label_socketStatus_up = new System.Windows.Forms.Label();
             this.label_socket_port = new System.Windows.Forms.Label();
             this.label_socket_status = new System.Windows.Forms.Label();
+            this.basicInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip_top.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.basicInfoBindingSource)).BeginInit();
             this.panel_basicInformation.SuspendLayout();
             this.panel_log.SuspendLayout();
             this.tabControl_log.SuspendLayout();
@@ -122,6 +121,7 @@
             this.tabPage_NG_info.SuspendLayout();
             this.tabPage_error_info.SuspendLayout();
             this.panel_socket.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.basicInfoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip_top
@@ -157,8 +157,7 @@
             this.comboBox_productModel.Name = "comboBox_productModel";
             this.comboBox_productModel.Size = new System.Drawing.Size(101, 23);
             this.comboBox_productModel.TabIndex = 7;
-            this.comboBox_productModel.TextChanged += new System.EventHandler(this.textBox_productModel_TextChanged);
-            this.comboBox_productModel.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnComboBoxTextIn);
+            this.comboBox_productModel.TextChanged += new System.EventHandler(this.OnComboBoxTextUpdate);
             // 
             // label_productModelVersion
             // 
@@ -184,8 +183,7 @@
             this.comboBox_productModelVersion.Name = "comboBox_productModelVersion";
             this.comboBox_productModelVersion.Size = new System.Drawing.Size(101, 23);
             this.comboBox_productModelVersion.TabIndex = 9;
-            this.comboBox_productModelVersion.TextChanged += new System.EventHandler(this.textBox_productModelVersion_TextChanged);
-            this.comboBox_productModelVersion.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnComboBoxTextIn);
+            this.comboBox_productModelVersion.TextChanged += new System.EventHandler(this.OnComboBoxTextUpdate);
             // 
             // comboBox_resource
             // 
@@ -193,8 +191,7 @@
             this.comboBox_resource.Name = "comboBox_resource";
             this.comboBox_resource.Size = new System.Drawing.Size(101, 23);
             this.comboBox_resource.TabIndex = 5;
-            this.comboBox_resource.TextChanged += new System.EventHandler(this.textBox_resource_TextChanged);
-            this.comboBox_resource.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnComboBoxTextIn);
+            this.comboBox_resource.TextChanged += new System.EventHandler(this.OnComboBoxTextUpdate);
             // 
             // label_shift
             // 
@@ -220,8 +217,7 @@
             this.comboBox_operation.Name = "comboBox_operation";
             this.comboBox_operation.Size = new System.Drawing.Size(101, 23);
             this.comboBox_operation.TabIndex = 3;
-            this.comboBox_operation.TextChanged += new System.EventHandler(this.textBox_operation_TextChanged);
-            this.comboBox_operation.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnComboBoxTextIn);
+            this.comboBox_operation.TextChanged += new System.EventHandler(this.OnComboBoxTextUpdate);
             // 
             // label_createBy
             // 
@@ -247,8 +243,7 @@
             this.comboBox_createBy.Name = "comboBox_createBy";
             this.comboBox_createBy.Size = new System.Drawing.Size(101, 23);
             this.comboBox_createBy.TabIndex = 13;
-            this.comboBox_createBy.TextChanged += new System.EventHandler(this.textBox_createBy_TextChanged);
-            this.comboBox_createBy.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnComboBoxTextIn);
+            this.comboBox_createBy.TextChanged += new System.EventHandler(this.OnComboBoxTextUpdate);
             // 
             // comboBox_site
             // 
@@ -257,12 +252,7 @@
             this.comboBox_site.Name = "comboBox_site";
             this.comboBox_site.Size = new System.Drawing.Size(101, 23);
             this.comboBox_site.TabIndex = 1;
-            this.comboBox_site.TextChanged += new System.EventHandler(this.textBox_site_TextChanged);
-            this.comboBox_site.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnComboBoxTextIn);
-            // 
-            // basicInfoBindingSource
-            // 
-            this.basicInfoBindingSource.DataSource = typeof(ScanUploader.Model.BasicInfo);
+            this.comboBox_site.TextChanged += new System.EventHandler(this.OnComboBoxTextUpdate);
             // 
             // label_site
             // 
@@ -280,8 +270,7 @@
             this.comboBox_shift.Name = "comboBox_shift";
             this.comboBox_shift.Size = new System.Drawing.Size(101, 23);
             this.comboBox_shift.TabIndex = 19;
-            this.comboBox_shift.SelectedIndexChanged += new System.EventHandler(this.comboBox_shift_SelectedIndexChanged);
-            this.comboBox_shift.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnComboBoxTextIn);
+            this.comboBox_shift.TextChanged += new System.EventHandler(this.OnComboBoxTextUpdate);
             // 
             // panel_basicInformation
             // 
@@ -326,8 +315,7 @@
             this.comboBox_mo.Name = "comboBox_mo";
             this.comboBox_mo.Size = new System.Drawing.Size(101, 23);
             this.comboBox_mo.TabIndex = 22;
-            this.comboBox_mo.TextChanged += new System.EventHandler(this.textBox_mo_TextChanged);
-            this.comboBox_mo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnComboBoxTextIn);
+            this.comboBox_mo.TextChanged += new System.EventHandler(this.OnComboBoxTextUpdate);
             // 
             // label_mo
             // 
@@ -989,6 +977,10 @@
             this.label_socket_status.TabIndex = 52;
             this.label_socket_status.Text = "状态";
             // 
+            // basicInfoBindingSource
+            // 
+            this.basicInfoBindingSource.DataSource = typeof(ScanUploader.Model.BasicInfo);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 17F);
@@ -1012,7 +1004,6 @@
             this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.menuStrip_top.ResumeLayout(false);
             this.menuStrip_top.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.basicInfoBindingSource)).EndInit();
             this.panel_basicInformation.ResumeLayout(false);
             this.panel_basicInformation.PerformLayout();
             this.panel_log.ResumeLayout(false);
@@ -1029,6 +1020,7 @@
             this.tabPage_error_info.ResumeLayout(false);
             this.panel_socket.ResumeLayout(false);
             this.panel_socket.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.basicInfoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -145,8 +145,8 @@ namespace ScanUploader.Utils
                             dataToMachine.code = ReturnData.code_error;
                             dataToMachine.msg = "与MES通信失败，返回数据为空。";
                         }
-                        if (dataToMachine.data == null)
-                            dataToMachine.data = dataToMachine.code;
+                        //if (dataToMachine.data == null)
+                            //dataToMachine.data = dataToMachine.code;
                         //扫入化抛架时，data存的是绑定单片数量的值
                         //其他情况data存的code值，将code发给machine
                         clientSocket.Send(Encoding.UTF8.GetBytes(dataToMachine.code));

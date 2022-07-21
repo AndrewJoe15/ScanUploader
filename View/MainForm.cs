@@ -29,15 +29,21 @@ namespace ScanUploader.View
         public MainForm()
         {
             InitializeComponent();
+
+            BindData();
+
             Init();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            //时钟开始运行
             timer_main.Start();
 
             LogUtil.WriteLog("上位机启动。");
         }
+
+
 
         private void timer_main_Tick(object sender, EventArgs e)
         {
@@ -205,6 +211,29 @@ namespace ScanUploader.View
             Invoke(_uni);
         }
 
+        private void DataBindText(Control control, object dataSource, string dataMember)
+        {
+            if (dataSource != null)
+            {
+                control.DataBindings.Add("Text", dataSource, dataMember);
+            }
+        }
+
+        /// <summary>
+        /// 将控件与数据绑定
+        /// </summary>
+        private void BindData()
+        {
+            //控件 数据绑定
+            DataBindText(comboBox_site, basicInfo, nameof(basicInfo.site));
+            DataBindText(comboBox_operation, basicInfo, nameof(basicInfo.operation));
+            DataBindText(comboBox_resource, basicInfo, nameof(basicInfo.resource));
+            DataBindText(comboBox_productModel, basicInfo, nameof(basicInfo.productModel));
+            DataBindText(comboBox_productModelVersion, basicInfo, nameof(basicInfo.productModelVersion));
+            DataBindText(comboBox_shift, basicInfo, nameof(basicInfo.shift));
+            DataBindText(comboBox_createBy, basicInfo, nameof(basicInfo.createBy));
+            DataBindText(comboBox_mo, basicInfo, nameof(basicInfo.order));
+        }
 
         /// <summary>
         /// 对控件进行初始化
@@ -213,7 +242,8 @@ namespace ScanUploader.View
         {
             thisForm = this;
 
-            //遍历基本信息面板的子控件，填充信息
+
+            //遍历基本信息面板的组合框控件，填充信息
             foreach (Control ctrl in panel_basicInformation.Controls)
             {
                 //基本信息的 ComboBox 初始化
@@ -232,20 +262,28 @@ namespace ScanUploader.View
                                 ((ComboBox)ctrl).Items.Add(se.Current);
                             }
                             //显示最后一个字符串
-                            ((ComboBox)ctrl).SelectedIndex = ((ComboBox)ctrl).Items.Count-1;
+                            ((ComboBox)ctrl).SelectedIndex = ((ComboBox)ctrl).Items.Count - 1;
+                            //给basicInfo的属性赋值 这样界面才会显示，否则又跟着basicInfo的属性为""了
+                            PropertyInfo propertyInfo = basicInfo.GetType().GetProperty(p.Name);
+                            if(propertyInfo != null)
+                                propertyInfo.SetValue(basicInfo, ((ComboBox)ctrl).Text, null);
+
+                            break; 
                         }
                     }
-                }              
-
+                }
             }
-
             //工单号
             foreach (string s in Properties.BasicInfo.Default.order)
             {
                 comboBox_mo.Items.Add(s);
                 comboBox_mo.SelectedIndex = comboBox_mo.Items.Count - 1;
             }
+            basicInfo.order = comboBox_mo.Text;
             SubmitData.order = comboBox_mo.Text;
+
+            //保存按钮禁用
+            button_save_basicInfo.Enabled = false;
 
             //初始化日志文件对象
             LogFile.nextSerialNumer = Properties.LogFileName.Default.nextSerialNumber;
@@ -288,7 +326,7 @@ namespace ScanUploader.View
             //最大化窗口
             WindowState = FormWindowState.Maximized;
         }
-
+        /*
         private void textBox_site_TextChanged(object sender, EventArgs e)
         {
             basicInfo.site = comboBox_site.Text;
@@ -323,7 +361,15 @@ namespace ScanUploader.View
         {
             basicInfo.createBy = comboBox_createBy.Text;
         }
-
+        
+        private void textBox_mo_TextChanged(object sender, EventArgs e)
+        {
+#if BDSSCAN
+            basicInfo.order = comboBox_mo.Text;
+#endif
+            SubmitData.order = comboBox_mo.Text;
+        }
+        */
 
         private void menuStrip_top_Config_Click(object sender, EventArgs e)
         {
@@ -361,13 +407,6 @@ namespace ScanUploader.View
                 System.Diagnostics.Process.Start("explorer.exe", LogFile.debugFile.logPath);
         }
 
-        private void textBox_mo_TextChanged(object sender, EventArgs e)
-        {
-#if BDSSCAN
-            basicInfo.order = comboBox_mo.Text;
-#endif
-            SubmitData.order = comboBox_mo.Text;
-        }
 
 
         private void button_empty_Click(object sender, EventArgs e)
@@ -395,11 +434,11 @@ namespace ScanUploader.View
         }
 
         /// <summary>
-        /// 文本框有降入操作时执行
+        /// 组合文本框中文字被更改时执行
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnComboBoxTextIn(object sender, KeyEventArgs e)
+        private void OnComboBoxTextUpdate(object sender, EventArgs e)
         {
             button_save_basicInfo.Enabled = true;
         }

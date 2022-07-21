@@ -52,20 +52,6 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_KibbleScan|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug_KibbleScan\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;KIBBLESCAN</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>7.3</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release_KibbleScan|AnyCPU'">
-    <OutputPath>bin\Release_KibbleScan\</OutputPath>
-    <DefineConstants>KIBBLESCAN</DefineConstants>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug_BDS|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug_BDS\</OutputPath>
@@ -107,6 +93,7 @@
   <ItemGroup>
     <Compile Include="Controller\Optimizer.cs" />
     <Compile Include="Model\BasicInfo_WMS.cs" />
+    <Compile Include="Model\DataBase.cs" />
     <Compile Include="Model\LogFile.cs" />
     <Compile Include="Model\Query_WMS.cs" />
     <Compile Include="Model\Statistics.cs" />
