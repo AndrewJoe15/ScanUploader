@@ -48,7 +48,7 @@
             this.comboBox_shift = new System.Windows.Forms.ComboBox();
             this.panel_basicInformation = new System.Windows.Forms.Panel();
             this.button_save_basicInfo = new System.Windows.Forms.Button();
-            this.comboBox_mo = new System.Windows.Forms.ComboBox();
+            this.comboBox_order = new System.Windows.Forms.ComboBox();
             this.label_mo = new System.Windows.Forms.Label();
             this.textBox_log = new System.Windows.Forms.TextBox();
             this.panel_log = new System.Windows.Forms.Panel();
@@ -279,7 +279,7 @@
             this.panel_basicInformation.Controls.Add(this.label_site);
             this.panel_basicInformation.Controls.Add(this.comboBox_shift);
             this.panel_basicInformation.Controls.Add(this.comboBox_productModel);
-            this.panel_basicInformation.Controls.Add(this.comboBox_mo);
+            this.panel_basicInformation.Controls.Add(this.comboBox_order);
             this.panel_basicInformation.Controls.Add(this.label_productModel);
             this.panel_basicInformation.Controls.Add(this.label_mo);
             this.panel_basicInformation.Controls.Add(this.comboBox_resource);
@@ -309,13 +309,13 @@
             this.button_save_basicInfo.UseVisualStyleBackColor = true;
             this.button_save_basicInfo.Click += new System.EventHandler(this.Button_save_basicInfo_Click);
             // 
-            // comboBox_mo
+            // comboBox_order
             // 
-            this.comboBox_mo.Location = new System.Drawing.Point(94, 223);
-            this.comboBox_mo.Name = "comboBox_mo";
-            this.comboBox_mo.Size = new System.Drawing.Size(101, 23);
-            this.comboBox_mo.TabIndex = 22;
-            this.comboBox_mo.TextChanged += new System.EventHandler(this.OnComboBoxTextUpdate);
+            this.comboBox_order.Location = new System.Drawing.Point(94, 223);
+            this.comboBox_order.Name = "comboBox_order";
+            this.comboBox_order.Size = new System.Drawing.Size(101, 23);
+            this.comboBox_order.TabIndex = 22;
+            this.comboBox_order.TextChanged += new System.EventHandler(this.OnComboBoxTextUpdate);
             // 
             // label_mo
             // 
@@ -1047,7 +1047,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuStrip_top_config;
         private System.Windows.Forms.Label label_mo;
         private System.Windows.Forms.Panel panel_log;
-        public System.Windows.Forms.ComboBox comboBox_mo;
+        public System.Windows.Forms.ComboBox comboBox_order;
         private System.Windows.Forms.Panel panel_connectStatus;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label_text_statistics_OK1;

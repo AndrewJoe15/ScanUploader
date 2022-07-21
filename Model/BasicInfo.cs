@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
+﻿using System.Runtime.Serialization;
 
 using ScanUploader.Utils;
 
@@ -14,9 +9,12 @@ namespace ScanUploader.Model
     /// 放置一些交互界面录入的常量
     /// 由于该类需要序列化生成Json数据，所以谨慎改动，原则上不允许增删变量
     /// </summary>
+    [DataContract]
     public class BasicInfo : DataBase
     {
         //工厂代码
+
+        [DataMember]
         public string site
         {
             get { return _site; }
@@ -27,6 +25,7 @@ namespace ScanUploader.Model
             }
         }
         //工序
+        [DataMember]
         public string operation
         {
             get { return _operation; }
@@ -37,6 +36,7 @@ namespace ScanUploader.Model
             }
         }
         //资源编码/设备号 
+        [DataMember]
         public string resource
         {
             get { return _resource; }
@@ -47,6 +47,7 @@ namespace ScanUploader.Model
             }
         }
         //产品型号
+        [DataMember]
         public string productModel
         {
             get { return _productModel; }
@@ -57,6 +58,7 @@ namespace ScanUploader.Model
             }
         }
         //型号版本 
+        [DataMember]
         public string productModelVersion
         {
             get { return _productModelVersion; }
@@ -67,6 +69,7 @@ namespace ScanUploader.Model
             }
         }
         //班次
+        [DataMember]
         public string shift
         {
             get { return _shift; }
@@ -77,6 +80,7 @@ namespace ScanUploader.Model
             }
         }
         //操作人
+        [DataMember]
         public string createBy
         {
             get { return _createBy; }
@@ -89,8 +93,11 @@ namespace ScanUploader.Model
         //操作时间
         public string createTime { get => TimeUtil.currentTimeString; }
 
-#if !BDSSCAN
         //工单号
+#if CHEMICALSCAN
+        [DataMember(Name = "mo")] //序列化后的字段名
+#else
+        [DataMember]
 #endif
         public string order
         {
@@ -110,11 +117,5 @@ namespace ScanUploader.Model
         private string _shift = "";
         private string _createBy = "";
         private string _order = "";
-    }
-
-    public enum SHIFT
-    {
-        晚班,
-        白班
     }
 }

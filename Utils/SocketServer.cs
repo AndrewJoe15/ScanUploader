@@ -122,7 +122,7 @@ namespace ScanUploader.Utils
                         //去掉前后空格
                         str = str.Trim();
 
-                        UIInfoManager.AppendDebugInfo("上位机收到Machine端的消息: " + str);
+                        UIInfoManager.AppendDebugInfo("上位机收到PLC端的消息: " + str);
 
                         if (str == ConnectManager.stopID)
                         {
@@ -141,18 +141,27 @@ namespace ScanUploader.Utils
 
                         if (dataToMachine.code == ReturnData.code_default)
                         {
+                            //未找到符合命令的操作，PLC发来的命令没法识别
                             dataToMachine.msg = "PLC发给上位机的命令有误，端口" + endPort.Port + "下不存在命令：" + str;
-                            UIInfoManager.AppendDebugInfo(dataToMachine.msg);
+                        }
+                        else if(dataToMachine.code == ReturnData.code_wrongData_PLC)
+                        {
+                            //PLC数据有误
+                        }
+                        else if(dataToMachine.code == ReturnData.code_wrongData_MES)
+                        {
+                            //MES数据有误
                         }
                         else
                         {
                             clientSocket.Send(Encoding.UTF8.GetBytes(dataToMachine.code));
-                            UIInfoManager.AppendDebugInfo("发给Machine端的消息: " + dataToMachine.code);
+                            UIInfoManager.AppendDebugInfo("发给PLC端的消息: " + dataToMachine.code + "," + dataToMachine.msg);
                         }
 
                         //如果返回状态码不是成功码，将出错信息展示给操作员
                         if (dataToMachine.code != ReturnData.code_success)
                         {
+                            UIInfoManager.AppendDebugInfo(dataToMachine.code + "，" + dataToMachine.msg);
                             MainForm.thisForm.AddErrorInfo(dataToMachine.code, dataToMachine.msg);
                             continue;
                         }

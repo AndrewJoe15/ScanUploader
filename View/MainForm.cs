@@ -232,7 +232,7 @@ namespace ScanUploader.View
             DataBindText(comboBox_productModelVersion, basicInfo, nameof(basicInfo.productModelVersion));
             DataBindText(comboBox_shift, basicInfo, nameof(basicInfo.shift));
             DataBindText(comboBox_createBy, basicInfo, nameof(basicInfo.createBy));
-            DataBindText(comboBox_mo, basicInfo, nameof(basicInfo.order));
+            DataBindText(comboBox_order, basicInfo, nameof(basicInfo.order));
         }
 
         /// <summary>
@@ -273,14 +273,6 @@ namespace ScanUploader.View
                     }
                 }
             }
-            //工单号
-            foreach (string s in Properties.BasicInfo.Default.order)
-            {
-                comboBox_mo.Items.Add(s);
-                comboBox_mo.SelectedIndex = comboBox_mo.Items.Count - 1;
-            }
-            basicInfo.order = comboBox_mo.Text;
-            SubmitData.order = comboBox_mo.Text;
 
             //保存按钮禁用
             button_save_basicInfo.Enabled = false;
@@ -325,51 +317,7 @@ namespace ScanUploader.View
         {
             //最大化窗口
             WindowState = FormWindowState.Maximized;
-        }
-        /*
-        private void textBox_site_TextChanged(object sender, EventArgs e)
-        {
-            basicInfo.site = comboBox_site.Text;
-        }
-
-        private void textBox_operation_TextChanged(object sender, EventArgs e)
-        {
-            basicInfo.operation = comboBox_operation.Text;
-        }
-
-        private void textBox_resource_TextChanged(object sender, EventArgs e)
-        {
-            basicInfo.resource = comboBox_resource.Text;
-        }
-
-        private void textBox_productModel_TextChanged(object sender, EventArgs e)
-        {
-            basicInfo.productModel = comboBox_productModel.Text;
-        }
-
-        private void textBox_productModelVersion_TextChanged(object sender, EventArgs e)
-        {
-            basicInfo.productModelVersion = comboBox_productModelVersion.Text;
-        }
-
-        private void comboBox_shift_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            basicInfo.shift = ((SHIFT)comboBox_shift.SelectedIndex).ToString();
-        }
-
-        private void textBox_createBy_TextChanged(object sender, EventArgs e)
-        {
-            basicInfo.createBy = comboBox_createBy.Text;
-        }
-        
-        private void textBox_mo_TextChanged(object sender, EventArgs e)
-        {
-#if BDSSCAN
-            basicInfo.order = comboBox_mo.Text;
-#endif
-            SubmitData.order = comboBox_mo.Text;
-        }
-        */
+        }        
 
         private void menuStrip_top_Config_Click(object sender, EventArgs e)
         {
@@ -453,7 +401,7 @@ namespace ScanUploader.View
             SaveBasicInfoSetting(comboBox_resource, basicInfSetting.resource);
             SaveBasicInfoSetting(comboBox_shift, basicInfSetting.shift);
             SaveBasicInfoSetting(comboBox_createBy, basicInfSetting.createBy);
-            SaveBasicInfoSetting(comboBox_mo, basicInfSetting.order);
+            SaveBasicInfoSetting(comboBox_order, basicInfSetting.order);
             //保存
             basicInfSetting.Save();
 

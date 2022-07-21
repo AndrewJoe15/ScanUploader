@@ -316,8 +316,15 @@ namespace ScanUploader.Controller
 
                 if (operationID == SN_ID_1)
                     LogUtil.WriteLog("【单片扫码】左通道，" + "返回码：" + dataToMachine.code + "，" + dataToMachine.msg);
-                if (operationID == SN_ID_2)
+                else if (operationID == SN_ID_2)
                     LogUtil.WriteLog("【单片扫码】右通道，" + "返回码：" + dataToMachine.code + "，" + dataToMachine.msg);
+                else
+                {
+                    dataToMachine.code = ReturnData.code_wrongData_PLC;
+                    dataToMachine.msg = "PLC发给上位机命令有误。";
+                    LogUtil.WriteLog("【单片扫码】" + dataToMachine.msg);
+                    return;
+                }
 
                 //更新用户界面扫码统计信息 包括良率和NG列表
                 UpdateScanInfo(operationID, deviceCode, dataToMachine);
@@ -446,23 +453,33 @@ namespace ScanUploader.Controller
         /// <returns></returns>
         private static ReturnData SubmitToMES(ref List<Glass> glasses, string logNumber)
         {
-            ReturnData dataToMachine;
+            ReturnData dataToMachine = new ReturnData();
             SubmitData submitData = new SubmitData();
-
-            submitData.logNumber = logNumber;
-            submitData.mo = SubmitData.order;//工单号
-            submitData.qty = glasses.Count.ToString();//qty 载具内玻璃数量
-            submitData.supplementList = glasses;
+            JObject submitJson = new JObject();
 
 
-            //拼接Json数据
-            JObject submitJson = JsonUtil.ToJObject(BasicInfo.Instance);
-            JObject tmp = JsonUtil.ToJObject(submitData);
-            submitJson.Merge(tmp);
+            if (glasses.Count > 0)
+            {
 
-            glasses.Clear();//最后提交前清空list
+                submitData.logNumber = logNumber;
+                submitData.qty = glasses.Count.ToString();//qty 载具内玻璃数量
+                submitData.supplementList = glasses;
 
-            dataToMachine = GetReturnMES(submitJson.ToString(), URL.scanSubmit);
+                //拼接Json数据
+                submitJson = JsonUtil.ToJObject(BasicInfo.Instance);
+                JObject tmp = JsonUtil.ToJObject(submitData);
+                submitJson.Merge(tmp);
+
+                glasses.Clear();//最后提交前清空list
+
+                dataToMachine = GetReturnMES(submitJson.ToString(), URL.scanSubmit);
+            }
+            else
+            {
+                dataToMachine.code = ReturnData.code_wrongData_PLC;
+                dataToMachine.msg = "提交列表中没有玻璃数据。";
+            }
+
 
             //Log记录
             if (dataToMachine.code == ReturnData.code_success)
