@@ -78,7 +78,7 @@ namespace ScanUploader.View
                 if (textBox_debug.Text.Length > textBox_text_maxLength)
                     textBox_debug.Clear();
 
-                textBox_debug.AppendText(debugInfo);
+                textBox_debug.AppendText(TimeUtil.currentTimeString_log + debugInfo);
                 textBox_debug.AppendText(Environment.NewLine);
                 textBox_debug.ScrollToCaret();
 
@@ -180,7 +180,7 @@ namespace ScanUploader.View
         {
             //一行数据
             ListViewItem item = new ListViewItem();
-            item.SubItems[0].Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");//.Add() 从1开始添加，所以第0个以[0]方式访问
+            item.SubItems[0].Text = DateTime.Now.ToString("MM-dd HH:mm:ss");//.Add() 从1开始添加，所以第0个以[0]方式访问
             item.SubItems.Add(subItem_1);
             item.SubItems.Add(subItem_2);
 

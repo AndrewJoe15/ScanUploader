@@ -139,19 +139,16 @@ namespace ScanUploader.Utils
                         IPEndPoint endPort = (IPEndPoint)clientSocket.LocalEndPoint;
                         ReturnData dataToMachine = Communicator.GetDataFromMES(str,endPort.Port);
 
-                        if (dataToMachine == null)
+                        if (dataToMachine.code == ReturnData.code_default)
                         {
-                            dataToMachine = new ReturnData();
-                            dataToMachine.code = ReturnData.code_error;
-                            dataToMachine.msg = "与MES通信失败，返回数据为空。";
+                            dataToMachine.msg = "PLC发给上位机的命令有误，端口" + endPort.Port + "下不存在命令：" + str;
+                            UIInfoManager.AppendDebugInfo(dataToMachine.msg);
                         }
-                        //if (dataToMachine.data == null)
-                            //dataToMachine.data = dataToMachine.code;
-                        //扫入化抛架时，data存的是绑定单片数量的值
-                        //其他情况data存的code值，将code发给machine
-                        clientSocket.Send(Encoding.UTF8.GetBytes(dataToMachine.code));
-
-                        UIInfoManager.AppendDebugInfo("发给Machine端的消息: " + dataToMachine.code);
+                        else
+                        {
+                            clientSocket.Send(Encoding.UTF8.GetBytes(dataToMachine.code));
+                            UIInfoManager.AppendDebugInfo("发给Machine端的消息: " + dataToMachine.code);
+                        }
 
                         //如果返回状态码不是成功码，将出错信息展示给操作员
                         if (dataToMachine.code != ReturnData.code_success)
