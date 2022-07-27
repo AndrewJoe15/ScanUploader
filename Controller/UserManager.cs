@@ -8,22 +8,26 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ScanUploader.Model;
 using ScanUploader.Utils;
+using ScanUploader.View;
 
 namespace ScanUploader.Controller
 {
     internal static class UserManager
     {
+        public static HttpUser httpUser_MES = new HttpUser(Properties.User_Http.Default.username_MES,
+                                     Properties.User_Http.Default.password_MES,
+                                     Properties.User_Http.Default.site_MES);
         /// <summary>
-        /// 登录MES接口
+        /// 登录MES 获取token
         /// </summary>
-        public static void HttpLogin()
+        public static bool HttpLogin(HttpUser httpUser)
         {
-            User httpUser_MES = new User(Properties.User_Http.Default.userName_http_MES,
-                                     Properties.User_Http.Default.password_http_MES,
-                                     Properties.User_Http.Default.site_http_MES);
-            
+            string pData = JsonConvert.SerializeObject(httpUser);
+
+            LogUtil.WriteLog("尝试登录MES。");
+            UIInfoManager.AppendDebugInfo("上位机->MES，\r\n" + pData);
             //发送登录post请求
-            JObject result = HttpUtil.PostResponse(URL.httpLogin, JsonConvert.SerializeObject(httpUser_MES));
+            JObject result = HttpUtil.PostResponse(URL.httpLogin, pData);            
 
             if(result.Count > 0)
             {
@@ -34,26 +38,41 @@ namespace ScanUploader.Controller
                     //登陆成功，更新Authorization
                     //提取token
                     string token = result["data"]["access_token"].ToObject<string>();
-                    UpdateAuthorization(token);                           
-                }else if(code == ReturnData.code_error)
+                    UpdateAuthorization(token);
+                    //更新界面Http登录状态
+                    MainForm.thisForm.UpdateHttpStatus(true);
+                    LogUtil.WriteLog("MES登录成功。");
+                    UIInfoManager.AppendDebugInfo("MES->上位机，\r\n" + result);
+
+                    return true;
+                }
+                else
                 {
+                    //更新界面Http登录状态
+                    MainForm.thisForm.UpdateHttpStatus(false);
                     //登录失败，显示失败信息
-                    ShowUtil.ShowWarning(result["msg"].ToObject<string>());
+                    ShowUtil.ShowWarning(result?["msg"].ToObject<string>());
+
+                    return false;
                 }
             }
             else
             {
-                ShowUtil.ShowWarning("MES登录失败，网络异常...");
+                //更新界面Http登录状态
+                MainForm.thisForm.UpdateHttpStatus(false);
+                ShowUtil.ShowWarning("MES登录失败。");
+
+                return false;
             }
             
         }
 
         /// <summary>
-        /// 登录MES接口
+        /// 登录WMS接口
         /// </summary>
         public static void HttpLogin_WMS()
         {
-            User httpUser_WMS = new User(Properties.User_Http.Default.userName_http_WMS,
+            HttpUser httpUser_WMS = new HttpUser(Properties.User_Http.Default.userName_http_WMS,
                                      Properties.User_Http.Default.password_http_WMS,
                                      "");
 

@@ -12,7 +12,7 @@ namespace ScanUploader.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.1.0.0")]
     internal sealed partial class User_Http : global::System.Configuration.ApplicationSettingsBase {
         
         private static User_Http defaultInstance = ((User_Http)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new User_Http())));
@@ -26,36 +26,36 @@ namespace ScanUploader.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("yfhp")]
-        public string userName_http_MES {
+        public string username_MES {
             get {
-                return ((string)(this["userName_http_MES"]));
+                return ((string)(this["username_MES"]));
             }
             set {
-                this["userName_http_MES"] = value;
+                this["username_MES"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("123456")]
-        public string password_http_MES {
+        public string password_MES {
             get {
-                return ((string)(this["password_http_MES"]));
+                return ((string)(this["password_MES"]));
             }
             set {
-                this["password_http_MES"] = value;
+                this["password_MES"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("2018")]
-        public string site_http_MES {
+        public string site_MES {
             get {
-                return ((string)(this["site_http_MES"]));
+                return ((string)(this["site_MES"]));
             }
             set {
-                this["site_http_MES"] = value;
+                this["site_MES"] = value;
             }
         }
         

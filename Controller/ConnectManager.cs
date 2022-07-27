@@ -24,6 +24,7 @@ namespace ScanUploader.Controller
 
         public const string stopID = "STOP";
 
+        //private const double httpConnectTimeout = 5 * 1000; //5秒
         private const double httpConnectTimeout = 11 * 60 * 60 * 1000; //11小时
         private const double socketConnectCheckSpan = 1000; //1秒
 
@@ -33,6 +34,7 @@ namespace ScanUploader.Controller
         private SocketServer socket_OKNG;
         private SocketServer socket_Finish;
 
+        private Timer _timer_http;
         public void StartSocketServer()
         {
 
@@ -73,21 +75,22 @@ namespace ScanUploader.Controller
         /// </summary>
         public void StartTimer_Http()
         {
-            Timer aTimer = new Timer();
-            aTimer.Elapsed += new ElapsedEventHandler(TimeEvent_Http);
-            aTimer.Interval = httpConnectTimeout; // 设置触发的时间间隔 此处设置为11小时
-            aTimer.AutoReset = true;//自动重置，每11小时执行一次TimeEvent()
-            aTimer.Enabled = true;
+            _timer_http = new Timer();
+            _timer_http.Elapsed += new ElapsedEventHandler(TimeEvent_Http);
+            _timer_http.Interval = httpConnectTimeout; // 设置触发的时间间隔 此处设置为11小时
+            _timer_http.Enabled = true;
         }
 
         private void TimeEvent_Http(object source, ElapsedEventArgs e)
         {
-            UIInfoManager.AppendDebugInfo("Token即将过期，重新登录MES端...");
+            //停止原有计时
+            _timer_http?.Stop();
+
+            UIInfoManager.AppendDebugInfo("Token即将过期，重新登录MES...");
             //MES
-            UserManager.HttpLogin();
-            //粗磨项目还要登陆 WMS 获取token
-            /*if (Properties.Settings.Default.is_kibbleScan)
-                UserManager.HttpLogin_WMS();*/
+            if(UserManager.HttpLogin(UserManager.httpUser_MES))            
+                //开始重新计时
+                _timer_http?.Start();
         }
 
         /// <summary>

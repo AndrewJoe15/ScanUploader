@@ -20,6 +20,8 @@ namespace ScanUploader.View
 
         public static MainForm thisForm;
 
+        private HttpUser httpUser = UserManager.httpUser_MES; 
+
         //BasicInfo单例
         private BasicInfo basicInfo = BasicInfo.Instance;
         private Properties.BasicInfo basicInfSetting = Properties.BasicInfo.Default;
@@ -37,10 +39,21 @@ namespace ScanUploader.View
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            LogUtil.WriteLog("上位机启动。");
+
             //时钟开始运行
             timer_main.Start();
 
-            LogUtil.WriteLog("上位机启动。");
+#if !DEBUGx
+            //http用户登录以更新Token
+            if(UserManager.HttpLogin(httpUser))
+                //启动连接计时器，每11小时重新登录一次
+                ConnectManager.Instance.StartTimer_Http();
+#endif
+
+            //启动Socket服务器
+            ConnectManager.Instance.StartSocketServer();
+
         }
 
 
@@ -88,6 +101,21 @@ namespace ScanUploader.View
             Invoke(_sdi);
         }
 
+        /// <summary>
+        /// 更新Http的登录状态
+        /// </summary>
+        private delegate void _UpdateHttpStatus();
+        public void UpdateHttpStatus(bool LoggedIn)
+        {
+            _UpdateHttpStatus _uhs = new _UpdateHttpStatus(delegate ()
+            {
+                if (LoggedIn)
+                    label_http_status_color.BackColor = Color.Green;
+                else
+                    label_http_status_color.BackColor = Color.Red;
+            });
+            Invoke(_uhs);
+        }
 
         private delegate void _UpdateSocketStatus();
         //更新Socket连接状态信息
@@ -224,7 +252,7 @@ namespace ScanUploader.View
         /// </summary>
         private void BindData()
         {
-            //控件 数据绑定
+            //基本信息 数据绑定
             DataBindText(comboBox_site, basicInfo, nameof(basicInfo.site));
             DataBindText(comboBox_operation, basicInfo, nameof(basicInfo.operation));
             DataBindText(comboBox_resource, basicInfo, nameof(basicInfo.resource));
@@ -233,6 +261,11 @@ namespace ScanUploader.View
             DataBindText(comboBox_shift, basicInfo, nameof(basicInfo.shift));
             DataBindText(comboBox_createBy, basicInfo, nameof(basicInfo.createBy));
             DataBindText(comboBox_order, basicInfo, nameof(basicInfo.order));
+
+            //http user
+            DataBindText(textBox_http_username, httpUser, nameof(httpUser.username));
+            DataBindText(textBox_http_password, httpUser, nameof(httpUser.password));
+            DataBindText(textBox_http_site, httpUser, nameof(httpUser.site));
         }
 
         /// <summary>
@@ -450,6 +483,32 @@ namespace ScanUploader.View
                 }                
             }
             return done;
+        }
+
+        private void textBox_httpUserName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox_httpPassword_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button_http_login_Click(object sender, EventArgs e)
+        {
+            //登录MES
+            if (UserManager.HttpLogin(httpUser))
+            {
+                //登录成功 保存用户名密码
+                Properties.User_Http user_http = Properties.User_Http.Default;
+                user_http.username_MES = textBox_http_username.Text;
+                user_http.password_MES = textBox_http_password.Text;
+                user_http.site_MES = textBox_http_site.Text;
+                
+                user_http.Save();
+            }
+
         }
     }
 }

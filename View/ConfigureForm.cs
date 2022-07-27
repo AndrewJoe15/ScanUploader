@@ -111,9 +111,9 @@ namespace ScanUploader.View
         private void InitUser()
         {
             //MES
-            textBox_httpUserName_MES.Text = userHttp.userName_http_MES;
-            textBox_httpPassword_MES.Text = userHttp.password_http_MES;
-            textBox_httpSite_MES.Text = userHttp.site_http_MES;
+            textBox_httpUserName_MES.Text = userHttp.username_MES;
+            textBox_httpPassword_MES.Text = userHttp.password_MES;
+            textBox_httpSite_MES.Text = userHttp.site_MES;
 
             textBox_url_login_MES.Text = url.httpLogin_MES;
 
@@ -195,9 +195,9 @@ namespace ScanUploader.View
 
         private void SaveUserData()
         {
-            userHttp.userName_http_MES = textBox_httpUserName_MES.Text;
-            userHttp.password_http_MES = textBox_httpPassword_MES.Text;
-            userHttp.site_http_MES = textBox_httpSite_MES.Text;
+            userHttp.username_MES = textBox_httpUserName_MES.Text;
+            userHttp.password_MES = textBox_httpPassword_MES.Text;
+            userHttp.site_MES = textBox_httpSite_MES.Text;
 
             url.httpLogin_MES = textBox_url_login_MES.Text;
 

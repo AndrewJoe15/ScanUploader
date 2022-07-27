@@ -132,6 +132,7 @@
     <Compile Include="Model\GlobalValue.cs" />
     <Compile Include="Model\SingleTon.cs" />
     <Compile Include="Model\SubmitData.cs" />
+    <Compile Include="Properties\User_Http.cs" />
     <Compile Include="Properties\User_Http.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -177,7 +178,7 @@
     <Compile Include="Model\BasicInfo.cs" />
     <Compile Include="Model\ReturnData.cs" />
     <Compile Include="Model\URL.cs" />
-    <Compile Include="Model\User.cs" />
+    <Compile Include="Model\HttpUser.cs" />
     <Compile Include="Utils\ExceptionUtil.cs" />
     <Compile Include="Utils\HttpUtil.cs" />
     <Compile Include="Program.cs" />

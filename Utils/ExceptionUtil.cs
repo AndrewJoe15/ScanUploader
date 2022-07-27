@@ -16,7 +16,7 @@ namespace ScanUploader.Utils
         public static Dictionary<int, string> error2Message = new Dictionary<int, string>()
         {
             { errorCode_PortIsUsed,"端口被占用，Socket服务启动失败。" },
-            { errorCode_ConnectionReset,"无法连接远程主机。" }
+            { errorCode_ConnectionReset,"无法连接到MES。" }
         };
 /*
         private string message;
@@ -39,13 +39,21 @@ namespace ScanUploader.Utils
             //获取错误码
             int errorCode = getErrorCode(e);
             
-            //显示对应的错误信息
-            if (error2Message.ContainsKey(errorCode))
-                ShowUtil.ShowError(error2Message[errorCode]);
-
-            if (errorCode == -1 || !error2Message.ContainsKey(errorCode))
+            if(!ProcessError(errorCode))
                 ShowUtil.ShowError("未知错误。\n" + "错误码：" + errorCode + "\n 错误信息：" + e.Message);
             
+        }
+
+        public static bool ProcessError(int errorCode)
+        {
+            //显示对应的错误信息
+            if (error2Message.ContainsKey(errorCode))
+            {
+                ShowUtil.ShowError(error2Message[errorCode]);
+                return true;
+            }
+            else
+                return false;
         }
 
         /// <summary>

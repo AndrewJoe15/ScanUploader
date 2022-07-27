@@ -8,14 +8,38 @@ using System.Windows.Forms;
 
 namespace ScanUploader.Utils
 {
-    class FileUtil
+    public class FileUtil
     {
+        /// <summary>
+        /// 检测文件是否被占用（是否可写入）
+        /// </summary>
+        /// <param name="filePath">文件路径</param>
+        /// <returns></returns>
+        public static bool IsOccupied(string filePath)
+        {
+            FileStream fs = null;
+            try
+            {
+                fs = new FileStream(filePath, FileMode.Open, FileAccess.Write, FileShare.None);
+                return false;
+            }
+            catch
+            {
+                return true;
+            }
+            finally
+            {
+                if (fs != null)
+                    fs.Close();
+            }
+        }
+
         /// <summary>
         /// 导出ListView数据生成CSV文件
         /// </summary>
         /// <param name="fileName">文件名</param>
         /// <param name="listView">ListView 数据</param>
-        static public void ExportExcel(string fileName, ListView listView)
+        public static void ExportExcel(string fileName, ListView listView)
         {
             //判断ListView 是否存在数据
             if (listView.Items.Count == 0)

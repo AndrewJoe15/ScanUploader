@@ -353,7 +353,7 @@ namespace ScanUploader.Controller
             if (dataToMES != null && dataToMES.Trim() != "")
             {
                 UIInfoManager.AppendDebugInfo("发给MES端口的消息: \r\n" + dataToMES);
-#if DEBUG //厂外Debug时不进行Http通信
+#if DEBUGx //厂外Debug时不进行Http通信
                 
 #else
                 dataFromMes = HttpUtil.PostResponse(url, dataToMES);
@@ -381,7 +381,7 @@ namespace ScanUploader.Controller
                 else
                 {
                     rdata.code = ReturnData.code_wrongData_MES;
-                    rdata.msg = "MES返回数据有误。\r\n" + dataFromMes.ToString();
+                    rdata.msg = "MES连接异常。\r\n" + dataFromMes.ToString();
                 }
             }
             else
@@ -389,7 +389,7 @@ namespace ScanUploader.Controller
                 rdata.code = ReturnData.code_wrongData_MES;
                 rdata.msg = "MES返回数据为空。\r\n";
             }
-#if DEBUG
+#if DEBUGx
             //随机成功失败
             Random random = new Random();
             if (random.Next(0, 99) < 80)

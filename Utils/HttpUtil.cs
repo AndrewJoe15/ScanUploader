@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
 
-using ScanUploader.Model;
+using ScanUploader.View;
 
 namespace ScanUploader.Utils
 {
@@ -44,8 +44,6 @@ namespace ScanUploader.Utils
             {
                 //发送get请求
                 HttpResponseMessage response = httpClient.GetAsync(url).Result;
-                //根据状态码做处理
-                StatusCodeHandler(response);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -59,8 +57,8 @@ namespace ScanUploader.Utils
                 string msg = e.InnerException.InnerException.Message;
                 if (msg == "无法连接到远程服务器...")
                 {
-                    ShowUtil.ShowWarning("服务器无响应，请重新配置环境...");
-                    ExceptionUtil.ExceptionHandler("连接失败。");
+                    ShowUtil.ShowWarning("服务器无响应。");
+                    //ExceptionUtil.ExceptionHandler(e);
                 }
             }
             return result;
@@ -79,7 +77,7 @@ namespace ScanUploader.Utils
                 throw new ArgumentNullException("url");
             }
             if (url.StartsWith("https"))
-                System.Net.ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
 
             HttpContent httpContent = new StringContent(postData);
             httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
@@ -91,12 +89,21 @@ namespace ScanUploader.Utils
             try
             {
                 HttpResponseMessage response = httpClient.PostAsync(url, httpContent).Result;
-                StatusCodeHandler(response);
 
                 if (response.IsSuccessStatusCode)
                 {
                     string result = response.Content.ReadAsStringAsync().Result;
                     JObject jo = (JObject)JsonConvert.DeserializeObject(result);
+
+                    return jo;
+                }
+                else if(response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    //处理令牌为空的报错                    
+                    MainForm.thisForm.UpdateHttpStatus(false);
+                    JObject jo = new JObject();
+                    jo.Add("code", (int)HttpStatusCode.Unauthorized);
+                    jo.Add("msg", "MES登录失效，请重新登录。");
                     return jo;
                 }
             }
@@ -126,7 +133,6 @@ namespace ScanUploader.Utils
             try
             {
                 HttpResponseMessage response = httpClient.PostAsync(url, httpContent).Result;
-                StatusCodeHandler(response);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -177,7 +183,6 @@ namespace ScanUploader.Utils
             try
             {
                 HttpResponseMessage response = httpClient.PostAsync(url, httpContent).Result;
-                StatusCodeHandler(response);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -226,7 +231,6 @@ namespace ScanUploader.Utils
             try
             {
                 HttpResponseMessage response = httpClient.PutAsync(url, httpContent).Result;
-                StatusCodeHandler(response);
                 if (response.IsSuccessStatusCode)
                 {
                     string result = response.Content.ReadAsStringAsync().Result;
@@ -270,8 +274,6 @@ namespace ScanUploader.Utils
             try
             {
                 HttpResponseMessage response = httpClient.DeleteAsync(url).Result;
-                StatusCodeHandler(response);
-                string statusCode = response.StatusCode.ToString();
                 if (response.IsSuccessStatusCode)
                 {
                     string result = response.Content.ReadAsStringAsync().Result;
@@ -292,40 +294,5 @@ namespace ScanUploader.Utils
             return new JObject();
         }
 
-        #region Handles
-
-        /// <summary>
-        /// 根据状态码弹出提示框
-        /// </summary>
-        /// <param name="response">http的返回</param>
-        /// <returns></returns>
-        private static Boolean StatusCodeHandler(HttpResponseMessage response)
-        {
-            Boolean ct = true;
-            String statusCode = response.StatusCode.ToString();
-            string result = response.Content.ReadAsStringAsync().Result;
-            JObject jo = (JObject)JsonConvert.DeserializeObject(result);
-
-            if (statusCode == HttpStatusCode.Unauthorized.ToString())
-            {
-                ShowUtil.ShowWarning("Token过期，重新登录...");
-            }
-            else if (statusCode == HttpStatusCode.Forbidden.ToString())
-            {
-                ShowUtil.ShowWarning("禁止访问" + jo["data"]["msg"]);
-            }
-            else if (statusCode == HttpStatusCode.NotFound.ToString())
-            {
-                ShowUtil.ShowWarning("404，请求失败。");
-            }
-            else if (statusCode == HttpStatusCode.BadRequest.ToString())
-            {
-                ShowUtil.ShowWarning("400");
-            }
-
-            return ct;
-        }
-
-        #endregion
     }
 }

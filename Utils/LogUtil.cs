@@ -37,7 +37,7 @@ namespace ScanUploader.Utils
                 Directory.CreateDirectory(logFile.logPath);
             
             //打开一个文件流，文件尾追加模式
-            FileStream fileStream = new FileStream(logFile.logPath + logFile.logFileName, FileMode.Append);
+            FileStream fileStream = new FileStream(logFile.logPath + logFile.logFileName, FileMode.Append, FileAccess.Write, FileShare.Write);
             StreamWriter streamWriter = new StreamWriter(fileStream, Encoding.Default);
 
             //前部加上时间戳
