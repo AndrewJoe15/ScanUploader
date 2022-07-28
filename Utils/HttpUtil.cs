@@ -9,6 +9,7 @@ using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
 
 using ScanUploader.View;
+using ScanUploader.Controller;
 
 namespace ScanUploader.Utils
 {
@@ -74,8 +75,11 @@ namespace ScanUploader.Utils
         {
             if (string.IsNullOrEmpty(url))
             {
-                throw new ArgumentNullException("url");
+                return new JObject();
             }
+
+            UIInfoManager.AppendDebugInfo("上位机->MES，" + postData);
+
             if (url.StartsWith("https"))
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
 
@@ -95,6 +99,8 @@ namespace ScanUploader.Utils
                     string result = response.Content.ReadAsStringAsync().Result;
                     JObject jo = (JObject)JsonConvert.DeserializeObject(result);
 
+                    UIInfoManager.AppendDebugInfo("MES->上位机，" + jo.ToString());
+                    
                     return jo;
                 }
                 else if(response.StatusCode == HttpStatusCode.Unauthorized)
@@ -104,6 +110,9 @@ namespace ScanUploader.Utils
                     JObject jo = new JObject();
                     jo.Add("code", (int)HttpStatusCode.Unauthorized);
                     jo.Add("msg", "MES登录失效，请重新登录。");
+
+                    UIInfoManager.AppendDebugInfo("MES->上位机，" + jo.ToString());
+
                     return jo;
                 }
             }

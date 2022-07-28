@@ -352,7 +352,6 @@ namespace ScanUploader.Controller
 
             if (dataToMES != null && dataToMES.Trim() != "")
             {
-                UIInfoManager.AppendDebugInfo("发给MES端口的消息: \r\n" + dataToMES);
 #if DEBUGx //厂外Debug时不进行Http通信
                 
 #else
@@ -362,7 +361,6 @@ namespace ScanUploader.Controller
 
             if (dataFromMes != null)
             {
-                UIInfoManager.AppendDebugInfo("收到MES端口的消息: \r\n" + dataFromMes.ToString());
                 
                 //确保发回来的body有内容才赋值
                 if (dataFromMes["code"] != null)
@@ -415,16 +413,14 @@ namespace ScanUploader.Controller
         /// <returns></returns>
         public static ReturnData GetReturnMES(String submitData, string url)
         {
-            ReturnData rdata = null;
+            ReturnData rdata = new ReturnData();
 
-            UIInfoManager.AppendDebugInfo("数据提交，发给MES端口的消息: \n" + submitData);
-#if !DEBUG
+#if !DEBUGx
             JObject dataFromMes = HttpUtil.PostResponse(url, submitData);
 
             if (dataFromMes["code"] != null)
             {
                 //确保发回来的body有内容才赋值
-                rdata = new ReturnData();
                 rdata.code = dataFromMes["code"].ToString();
                 rdata.msg = dataFromMes["msg"].ToString();
                 if (dataFromMes["data"] != null)
@@ -432,7 +428,11 @@ namespace ScanUploader.Controller
                 else
                     rdata.data = rdata.code;
 
-                UIInfoManager.AppendDebugInfo("收到MES端口的消息: \n" + dataFromMes.ToString());
+            }
+            else
+            {
+                rdata.code = ReturnData.code_wrongData_MES;
+                rdata.msg = "MES返回数据为空，请检查与MES的网络连接。";
             }
 #else
             rdata = new ReturnData();
@@ -482,10 +482,10 @@ namespace ScanUploader.Controller
 
 
             //Log记录
-            if (dataToMachine.code == ReturnData.code_success)
-                LogUtil.WriteLog("【清洗架提交】，成功，" + dataToMachine.msg + "共" + submitData.qty + "片：\r\n" + submitJson["supplementList"]);
+            if (dataToMachine?.code == ReturnData.code_success)
+                LogUtil.WriteLog("【清洗架提交】成功，" + dataToMachine?.msg + "共" + submitData.qty + "片：\r\n" + submitJson["supplementList"]);
             else
-                LogUtil.WriteLog("【清洗架提交】，失败，" + dataToMachine.msg);
+                LogUtil.WriteLog("【清洗架提交】失败，" + dataToMachine?.msg);
 
             return dataToMachine;
         }
@@ -543,13 +543,11 @@ namespace ScanUploader.Controller
             string dataToMES = JsonUtil.ToJson(BasicInfo.Instance, deviceCodeKey, deviceCodeValue);
 
 
-            UIInfoManager.AppendDebugInfo("发给MES端口的消息: \n" + dataToMES);
 
             JObject dataFromMes = HttpUtil.PostResponse(url, dataToMES);
             if (dataFromMes["code"] != null)
             {
                 code = dataFromMes["code"].ToString();
-                UIInfoManager.AppendDebugInfo("收到MES端口的消息: \n" + dataFromMes);
             }
 
             return code;
@@ -636,11 +634,9 @@ namespace ScanUploader.Controller
         {
             string dataToMES = JsonUtil.ToJson(BasicInfo.Instance, deviceCodeKey, deviceCodeValue);
 
-            UIInfoManager.AppendDebugInfo("发给MES端口的消息: \r\n" + dataToMES);
 
             JObject dataFromMes = HttpUtil.PostResponse(url, dataToMES);
 
-            UIInfoManager.AppendDebugInfo("收到MES端口的消息: \r\n" + dataFromMes);
 
             ConcatData(ref dataToMachine, deviceCodeKey, deviceCodeValue);
             ConcatData(ref dataToMachine, "code", dataFromMes["code"].ToString());

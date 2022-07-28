@@ -25,7 +25,6 @@ namespace ScanUploader.Controller
             string pData = JsonConvert.SerializeObject(httpUser);
 
             LogUtil.WriteLog("尝试登录MES。");
-            UIInfoManager.AppendDebugInfo("上位机->MES，\r\n" + pData);
             //发送登录post请求
             JObject result = HttpUtil.PostResponse(URL.httpLogin, pData);            
 
@@ -42,7 +41,6 @@ namespace ScanUploader.Controller
                     //更新界面Http登录状态
                     MainForm.thisForm.UpdateHttpStatus(true);
                     LogUtil.WriteLog("MES登录成功。");
-                    UIInfoManager.AppendDebugInfo("MES->上位机，\r\n" + result);
 
                     return true;
                 }

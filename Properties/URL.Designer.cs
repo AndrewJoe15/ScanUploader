@@ -12,7 +12,7 @@ namespace ScanUploader.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.1.0.0")]
     internal sealed partial class URL : global::System.Configuration.ApplicationSettingsBase {
         
         private static URL defaultInstance = ((URL)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new URL())));
@@ -153,6 +153,18 @@ namespace ScanUploader.Properties {
             }
             set {
                 this["validate_WMS"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("getMesMoListByProductModelAndOperation")]
+        public string getMesMoList {
+            get {
+                return ((string)(this["getMesMoList"]));
+            }
+            set {
+                this["getMesMoList"] = value;
             }
         }
     }

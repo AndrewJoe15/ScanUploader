@@ -12,6 +12,7 @@ using ScanUploader.Model;
 using ScanUploader.Utils;
 using ScanUploader.Controller;
 using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace ScanUploader.View
 {
@@ -458,10 +459,9 @@ namespace ScanUploader.View
             }
             string text = comboBox.Text.Trim();
             if (!sc.Contains(text))
-            {
                 sc.Add(text);
+            if(!comboBox.Items.Contains(text))
                 comboBox.Items.Add(text);
-            }
         }
 
         /// <summary>
@@ -509,6 +509,76 @@ namespace ScanUploader.View
                 user_http.Save();
             }
 
+        }
+
+        private void Combobox_Oder_DropDown(object sender, EventArgs e)
+        {
+            GetMesMoList();
+        }
+
+        private void GetMesMoList()
+        {
+            //将鼠标指针设置为等待状态
+            Cursor = Cursors.WaitCursor;
+
+            //构建请求数据
+            JObject postData = new JObject();
+            postData.Add("site", basicInfo.site);
+            postData.Add("operation", basicInfo.operation);
+            postData.Add("productModel", basicInfo.productModel);
+            postData.Add("moDate", DateTime.Now.ToString("yyyy-MM-dd"));
+
+            //发送Http请求获取数据
+            JObject result = HttpUtil.PostResponse(URL.getMesMoList, postData.ToString());
+
+            //获取工单列表成功
+            if (result?["code"]?.ToString() == ReturnData.code_success)
+            {
+                //获取JSon数据中的mo列表
+                var jMos = result["data"]?["moList"].Values("mo");
+
+                //与当前列表比较
+                if (!CompareComboBoxItems(jMos, comboBox_order.Items))
+                {
+                    //工单列表存入下拉列表中
+                    comboBox_order.Items.Clear();
+                    foreach (var item in jMos)
+                    {
+                        comboBox_order.Items.Add(item.ToString());
+                    }
+                    comboBox_order.SelectedIndex = 0;
+                }
+
+            }
+            else
+            {
+                //获取工单失败
+                ShowUtil.ShowError("获取工单失败，" + result?["msg"]);
+            }
+
+            Cursor = Cursors.Default;
+
+        }
+
+        /// <summary>
+        /// 比较当前下拉列表和MES端获取的列表
+        /// </summary>
+        /// <param name="jMos">MES端获取的列表</param>
+        /// <param name="items">当前下拉列表</param>
+        /// <returns>true：相同 false：不同</returns>
+        private bool CompareComboBoxItems(IJEnumerable<JToken> jMos, ComboBox.ObjectCollection items)
+        {
+            if (comboBox_order.Items.Count != jMos.Count())
+            {
+                return false;
+            }
+            foreach (var item in jMos)
+            {
+                if (!comboBox_order.Items.Contains(item.ToString()))
+                    return false;
+            }
+
+            return true;
         }
     }
 }

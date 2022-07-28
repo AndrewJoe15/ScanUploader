@@ -111,15 +111,15 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label_socketStatus_up = new System.Windows.Forms.Label();
             this.tabPage_http = new System.Windows.Forms.TabPage();
+            this.textBox_http_site = new System.Windows.Forms.TextBox();
+            this.label_http_site = new System.Windows.Forms.Label();
+            this.textBox_http_password = new System.Windows.Forms.TextBox();
+            this.textBox_http_username = new System.Windows.Forms.TextBox();
+            this.label_http_username = new System.Windows.Forms.Label();
+            this.label_http_password = new System.Windows.Forms.Label();
             this.button_http_login = new System.Windows.Forms.Button();
             this.label_http_status = new System.Windows.Forms.Label();
             this.label_http_status_color = new System.Windows.Forms.Label();
-            this.label_http_password = new System.Windows.Forms.Label();
-            this.label_http_username = new System.Windows.Forms.Label();
-            this.textBox_http_username = new System.Windows.Forms.TextBox();
-            this.textBox_http_password = new System.Windows.Forms.TextBox();
-            this.textBox_http_site = new System.Windows.Forms.TextBox();
-            this.label_http_site = new System.Windows.Forms.Label();
             this.basicInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.menuStrip_top.SuspendLayout();
             this.panel_basicInformation.SuspendLayout();
@@ -326,10 +326,12 @@
             // 
             // comboBox_order
             // 
+            this.comboBox_order.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_order.Location = new System.Drawing.Point(94, 223);
             this.comboBox_order.Name = "comboBox_order";
             this.comboBox_order.Size = new System.Drawing.Size(101, 23);
             this.comboBox_order.TabIndex = 22;
+            this.comboBox_order.DropDown += new System.EventHandler(this.Combobox_Oder_DropDown);
             this.comboBox_order.TextChanged += new System.EventHandler(this.OnComboBoxTextUpdate);
             // 
             // label_mo
@@ -881,7 +883,7 @@
             this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label12.Location = new System.Drawing.Point(16, 153);
+            this.label12.Location = new System.Drawing.Point(16, 150);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(37, 15);
             this.label12.TabIndex = 63;
@@ -892,7 +894,7 @@
             this.label_socket_port.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_socket_port.AutoSize = true;
             this.label_socket_port.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socket_port.Location = new System.Drawing.Point(24, 6);
+            this.label_socket_port.Location = new System.Drawing.Point(24, 3);
             this.label_socket_port.Name = "label_socket_port";
             this.label_socket_port.Size = new System.Drawing.Size(39, 15);
             this.label_socket_port.TabIndex = 53;
@@ -904,7 +906,7 @@
             this.label_socketStatus_submit.AutoSize = true;
             this.label_socketStatus_submit.BackColor = System.Drawing.Color.Red;
             this.label_socketStatus_submit.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socketStatus_submit.Location = new System.Drawing.Point(132, 153);
+            this.label_socketStatus_submit.Location = new System.Drawing.Point(132, 150);
             this.label_socketStatus_submit.Name = "label_socketStatus_submit";
             this.label_socketStatus_submit.Size = new System.Drawing.Size(31, 15);
             this.label_socketStatus_submit.TabIndex = 62;
@@ -915,7 +917,7 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(16, 64);
+            this.label1.Location = new System.Drawing.Point(16, 61);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(67, 15);
             this.label1.TabIndex = 57;
@@ -927,7 +929,7 @@
             this.label_socketStatus_main.AutoSize = true;
             this.label_socketStatus_main.BackColor = System.Drawing.Color.Red;
             this.label_socketStatus_main.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socketStatus_main.Location = new System.Drawing.Point(132, 64);
+            this.label_socketStatus_main.Location = new System.Drawing.Point(132, 61);
             this.label_socketStatus_main.Name = "label_socketStatus_main";
             this.label_socketStatus_main.Size = new System.Drawing.Size(31, 15);
             this.label_socketStatus_main.TabIndex = 56;
@@ -938,7 +940,7 @@
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label7.Location = new System.Drawing.Point(16, 123);
+            this.label7.Location = new System.Drawing.Point(16, 120);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(67, 15);
             this.label7.TabIndex = 61;
@@ -950,7 +952,7 @@
             this.label_socketStatus_down.AutoSize = true;
             this.label_socketStatus_down.BackColor = System.Drawing.Color.Red;
             this.label_socketStatus_down.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socketStatus_down.Location = new System.Drawing.Point(132, 92);
+            this.label_socketStatus_down.Location = new System.Drawing.Point(132, 89);
             this.label_socketStatus_down.Name = "label_socketStatus_down";
             this.label_socketStatus_down.Size = new System.Drawing.Size(31, 15);
             this.label_socketStatus_down.TabIndex = 58;
@@ -961,7 +963,7 @@
             this.label_socket_status.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_socket_status.AutoSize = true;
             this.label_socket_status.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socket_status.Location = new System.Drawing.Point(126, 6);
+            this.label_socket_status.Location = new System.Drawing.Point(126, 3);
             this.label_socket_status.Name = "label_socket_status";
             this.label_socket_status.Size = new System.Drawing.Size(39, 15);
             this.label_socket_status.TabIndex = 52;
@@ -972,7 +974,7 @@
             this.label_socketPort_up.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_socketPort_up.AutoSize = true;
             this.label_socketPort_up.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socketPort_up.Location = new System.Drawing.Point(16, 32);
+            this.label_socketPort_up.Location = new System.Drawing.Point(16, 29);
             this.label_socketPort_up.Name = "label_socketPort_up";
             this.label_socketPort_up.Size = new System.Drawing.Size(82, 15);
             this.label_socketPort_up.TabIndex = 55;
@@ -984,7 +986,7 @@
             this.label_socketStatus_insert.AutoSize = true;
             this.label_socketStatus_insert.BackColor = System.Drawing.Color.Red;
             this.label_socketStatus_insert.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socketStatus_insert.Location = new System.Drawing.Point(132, 123);
+            this.label_socketStatus_insert.Location = new System.Drawing.Point(132, 120);
             this.label_socketStatus_insert.Name = "label_socketStatus_insert";
             this.label_socketStatus_insert.Size = new System.Drawing.Size(31, 15);
             this.label_socketStatus_insert.TabIndex = 60;
@@ -995,7 +997,7 @@
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label5.Location = new System.Drawing.Point(16, 92);
+            this.label5.Location = new System.Drawing.Point(16, 89);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(82, 15);
             this.label5.TabIndex = 59;
@@ -1007,7 +1009,7 @@
             this.label_socketStatus_up.AutoSize = true;
             this.label_socketStatus_up.BackColor = System.Drawing.Color.Red;
             this.label_socketStatus_up.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socketStatus_up.Location = new System.Drawing.Point(132, 32);
+            this.label_socketStatus_up.Location = new System.Drawing.Point(132, 29);
             this.label_socketStatus_up.Name = "label_socketStatus_up";
             this.label_socketStatus_up.Size = new System.Drawing.Size(31, 15);
             this.label_socketStatus_up.TabIndex = 54;
@@ -1031,6 +1033,63 @@
             this.tabPage_http.TabIndex = 1;
             this.tabPage_http.Text = "MES通信";
             this.tabPage_http.UseVisualStyleBackColor = true;
+            // 
+            // textBox_http_site
+            // 
+            this.textBox_http_site.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox_http_site.Location = new System.Drawing.Point(76, 81);
+            this.textBox_http_site.Name = "textBox_http_site";
+            this.textBox_http_site.Size = new System.Drawing.Size(100, 25);
+            this.textBox_http_site.TabIndex = 66;
+            // 
+            // label_http_site
+            // 
+            this.label_http_site.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_http_site.AutoSize = true;
+            this.label_http_site.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label_http_site.Location = new System.Drawing.Point(23, 84);
+            this.label_http_site.Name = "label_http_site";
+            this.label_http_site.Size = new System.Drawing.Size(39, 15);
+            this.label_http_site.TabIndex = 65;
+            this.label_http_site.Text = "站点";
+            // 
+            // textBox_http_password
+            // 
+            this.textBox_http_password.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox_http_password.Location = new System.Drawing.Point(77, 45);
+            this.textBox_http_password.Name = "textBox_http_password";
+            this.textBox_http_password.Size = new System.Drawing.Size(100, 25);
+            this.textBox_http_password.TabIndex = 64;
+            // 
+            // textBox_http_username
+            // 
+            this.textBox_http_username.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox_http_username.Location = new System.Drawing.Point(77, 9);
+            this.textBox_http_username.Name = "textBox_http_username";
+            this.textBox_http_username.Size = new System.Drawing.Size(100, 25);
+            this.textBox_http_username.TabIndex = 63;
+            // 
+            // label_http_username
+            // 
+            this.label_http_username.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_http_username.AutoSize = true;
+            this.label_http_username.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label_http_username.Location = new System.Drawing.Point(24, 13);
+            this.label_http_username.Name = "label_http_username";
+            this.label_http_username.Size = new System.Drawing.Size(39, 15);
+            this.label_http_username.TabIndex = 62;
+            this.label_http_username.Text = "账号";
+            // 
+            // label_http_password
+            // 
+            this.label_http_password.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label_http_password.AutoSize = true;
+            this.label_http_password.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label_http_password.Location = new System.Drawing.Point(24, 48);
+            this.label_http_password.Name = "label_http_password";
+            this.label_http_password.Size = new System.Drawing.Size(39, 15);
+            this.label_http_password.TabIndex = 61;
+            this.label_http_password.Text = "密码";
             // 
             // button_http_login
             // 
@@ -1065,63 +1124,6 @@
             this.label_http_status_color.Size = new System.Drawing.Size(31, 15);
             this.label_http_status_color.TabIndex = 58;
             this.label_http_status_color.Text = "   ";
-            // 
-            // label_http_password
-            // 
-            this.label_http_password.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label_http_password.AutoSize = true;
-            this.label_http_password.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_http_password.Location = new System.Drawing.Point(24, 48);
-            this.label_http_password.Name = "label_http_password";
-            this.label_http_password.Size = new System.Drawing.Size(39, 15);
-            this.label_http_password.TabIndex = 61;
-            this.label_http_password.Text = "密码";
-            // 
-            // label_http_username
-            // 
-            this.label_http_username.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label_http_username.AutoSize = true;
-            this.label_http_username.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_http_username.Location = new System.Drawing.Point(24, 13);
-            this.label_http_username.Name = "label_http_username";
-            this.label_http_username.Size = new System.Drawing.Size(39, 15);
-            this.label_http_username.TabIndex = 62;
-            this.label_http_username.Text = "账号";
-            // 
-            // textBox_http_username
-            // 
-            this.textBox_http_username.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_http_username.Location = new System.Drawing.Point(77, 9);
-            this.textBox_http_username.Name = "textBox_http_username";
-            this.textBox_http_username.Size = new System.Drawing.Size(100, 25);
-            this.textBox_http_username.TabIndex = 63;
-            // 
-            // textBox_http_password
-            // 
-            this.textBox_http_password.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_http_password.Location = new System.Drawing.Point(77, 45);
-            this.textBox_http_password.Name = "textBox_http_password";
-            this.textBox_http_password.Size = new System.Drawing.Size(100, 25);
-            this.textBox_http_password.TabIndex = 64;
-            // 
-            // textBox_http_site
-            // 
-            this.textBox_http_site.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_http_site.Location = new System.Drawing.Point(76, 81);
-            this.textBox_http_site.Name = "textBox_http_site";
-            this.textBox_http_site.Size = new System.Drawing.Size(100, 25);
-            this.textBox_http_site.TabIndex = 66;
-            // 
-            // label_http_site
-            // 
-            this.label_http_site.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label_http_site.AutoSize = true;
-            this.label_http_site.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_http_site.Location = new System.Drawing.Point(23, 84);
-            this.label_http_site.Name = "label_http_site";
-            this.label_http_site.Size = new System.Drawing.Size(39, 15);
-            this.label_http_site.TabIndex = 65;
-            this.label_http_site.Text = "站点";
             // 
             // basicInfoBindingSource
             // 
@@ -1197,7 +1199,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuStrip_top_config;
         private System.Windows.Forms.Label label_mo;
         private System.Windows.Forms.Panel panel_log;
-        public System.Windows.Forms.ComboBox comboBox_order;
         private System.Windows.Forms.Panel panel_connectStatus;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label_text_statistics_OK1;
@@ -1269,6 +1270,7 @@
         private System.Windows.Forms.Label label_http_password;
         private System.Windows.Forms.TextBox textBox_http_site;
         private System.Windows.Forms.Label label_http_site;
+        private System.Windows.Forms.ComboBox comboBox_order;
     }
 }
 

@@ -26,6 +26,8 @@ namespace ScanUploader.Model
         public static string scanContainerUnbind = pre + "scanContainerUnbind";
         //-提交
         public static string scanSubmit = pre + "submit";
+        //-工单号获取
+        public static string getMesMoList = pre + "getMesMoListByProductModelAndOperation";
 #else
         //获取url配置 静态对象
         static readonly Properties.URL url = Properties.URL.Default;
@@ -42,7 +44,10 @@ namespace ScanUploader.Model
         //-载具解绑
         public static string scanContainerUnbind = url.prefix + url.subPrefix_MES + url.postfix_scanContainerUnbind;
         //-提交
-        public static string scanSubmit = url.prefix + url.subPrefix_MES + url.postfix_submit; 
+        public static string scanSubmit = url.prefix + url.subPrefix_MES + url.postfix_submit;
+
+        //-工单号获取
+        public static string getMesMoList = url.prefix + url.subPrefix_MES + url.getMesMoList;
 #endif
     }
 }

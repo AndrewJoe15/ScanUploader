@@ -122,12 +122,12 @@ namespace ScanUploader.Utils
                         //去掉前后空格
                         str = str.Trim();
 
-                        UIInfoManager.AppendDebugInfo("上位机收到PLC端的消息: " + str);
+                        UIInfoManager.AppendDebugInfo("机器->上位机: " + str);
 
                         if (str == ConnectManager.stopID)
                         {
                             string rep = clientSocket.RemoteEndPoint.ToString();
-                            UIInfoManager.AppendDebugInfo("与客户端" + rep + "的Socket连接关闭.");
+                            UIInfoManager.AppendDebugInfo("与机器端口 " + rep + " 的连接关闭.");
 
                             //断开连接
                             clientSocket.Shutdown(SocketShutdown.Both);
@@ -155,7 +155,7 @@ namespace ScanUploader.Utils
                         else
                         {
                             clientSocket.Send(Encoding.UTF8.GetBytes(dataToMachine.code));
-                            UIInfoManager.AppendDebugInfo("发给PLC端的消息: " + dataToMachine.code + "," + dataToMachine.msg);
+                            UIInfoManager.AppendDebugInfo("上位机->机器: " + dataToMachine.code + "," + dataToMachine.msg);
                         }
 
                         //如果返回状态码不是成功码，将出错信息展示给操作员

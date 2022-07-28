@@ -35,5 +35,8 @@
     <Setting Name="validate_WMS" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://10.210.192.31/stage-api/process/mesUpperMaterialRecord/public/mes/validate</Value>
     </Setting>
+    <Setting Name="getMesMoList" Type="System.String" Scope="User">
+      <Value Profile="(Default)">getMesMoListByProductModelAndOperation</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
