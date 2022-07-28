@@ -13,7 +13,6 @@ namespace ScanUploader.Model
     public class BasicInfo : DataBase
     {
         //工厂代码
-
         [DataMember]
         public string site
         {

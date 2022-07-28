@@ -142,7 +142,7 @@ namespace ScanUploader.Utils
                         if (dataToMachine.code == ReturnData.code_default)
                         {
                             //未找到符合命令的操作，PLC发来的命令没法识别
-                            dataToMachine.msg = "PLC发给上位机的命令有误，端口" + endPort.Port + "下不存在命令：" + str;
+                            dataToMachine.msg = "命令有误，端口" + endPort.Port + "下不存在命令：" + str;
                         }
                         else if(dataToMachine.code == ReturnData.code_wrongData_PLC)
                         {
@@ -166,12 +166,16 @@ namespace ScanUploader.Utils
                             continue;
                         }
                     }
+                    else
+                    {
+                        break;
+                    }
                 }
                 catch (Exception ex)
                 {
                     UIInfoManager.AppendDebugInfo(ex.Message);
                     //ExceptionUtil.ExceptionHandler(ex.Message);
-                    //break;
+                    break;
                 }
             }
         }

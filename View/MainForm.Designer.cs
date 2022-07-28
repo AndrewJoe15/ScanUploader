@@ -318,7 +318,7 @@
             this.button_save_basicInfo.Enabled = false;
             this.button_save_basicInfo.Location = new System.Drawing.Point(73, 253);
             this.button_save_basicInfo.Name = "button_save_basicInfo";
-            this.button_save_basicInfo.Size = new System.Drawing.Size(56, 26);
+            this.button_save_basicInfo.Size = new System.Drawing.Size(56, 32);
             this.button_save_basicInfo.TabIndex = 36;
             this.button_save_basicInfo.Text = "保存";
             this.button_save_basicInfo.UseVisualStyleBackColor = true;
@@ -332,6 +332,7 @@
             this.comboBox_order.Size = new System.Drawing.Size(101, 23);
             this.comboBox_order.TabIndex = 22;
             this.comboBox_order.DropDown += new System.EventHandler(this.Combobox_Oder_DropDown);
+            this.comboBox_order.SelectedIndexChanged += new System.EventHandler(this.comboBox_order_SelectedIndexChanged);
             this.comboBox_order.TextChanged += new System.EventHandler(this.OnComboBoxTextUpdate);
             // 
             // label_mo
@@ -883,7 +884,7 @@
             this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label12.Location = new System.Drawing.Point(16, 150);
+            this.label12.Location = new System.Drawing.Point(16, 139);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(37, 15);
             this.label12.TabIndex = 63;
@@ -894,7 +895,7 @@
             this.label_socket_port.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_socket_port.AutoSize = true;
             this.label_socket_port.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socket_port.Location = new System.Drawing.Point(24, 3);
+            this.label_socket_port.Location = new System.Drawing.Point(24, -8);
             this.label_socket_port.Name = "label_socket_port";
             this.label_socket_port.Size = new System.Drawing.Size(39, 15);
             this.label_socket_port.TabIndex = 53;
@@ -906,7 +907,7 @@
             this.label_socketStatus_submit.AutoSize = true;
             this.label_socketStatus_submit.BackColor = System.Drawing.Color.Red;
             this.label_socketStatus_submit.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socketStatus_submit.Location = new System.Drawing.Point(132, 150);
+            this.label_socketStatus_submit.Location = new System.Drawing.Point(132, 139);
             this.label_socketStatus_submit.Name = "label_socketStatus_submit";
             this.label_socketStatus_submit.Size = new System.Drawing.Size(31, 15);
             this.label_socketStatus_submit.TabIndex = 62;
@@ -917,7 +918,7 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label1.Location = new System.Drawing.Point(16, 61);
+            this.label1.Location = new System.Drawing.Point(16, 50);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(67, 15);
             this.label1.TabIndex = 57;
@@ -929,7 +930,7 @@
             this.label_socketStatus_main.AutoSize = true;
             this.label_socketStatus_main.BackColor = System.Drawing.Color.Red;
             this.label_socketStatus_main.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socketStatus_main.Location = new System.Drawing.Point(132, 61);
+            this.label_socketStatus_main.Location = new System.Drawing.Point(132, 50);
             this.label_socketStatus_main.Name = "label_socketStatus_main";
             this.label_socketStatus_main.Size = new System.Drawing.Size(31, 15);
             this.label_socketStatus_main.TabIndex = 56;
@@ -940,7 +941,7 @@
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label7.Location = new System.Drawing.Point(16, 120);
+            this.label7.Location = new System.Drawing.Point(16, 109);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(67, 15);
             this.label7.TabIndex = 61;
@@ -952,7 +953,7 @@
             this.label_socketStatus_down.AutoSize = true;
             this.label_socketStatus_down.BackColor = System.Drawing.Color.Red;
             this.label_socketStatus_down.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socketStatus_down.Location = new System.Drawing.Point(132, 89);
+            this.label_socketStatus_down.Location = new System.Drawing.Point(132, 78);
             this.label_socketStatus_down.Name = "label_socketStatus_down";
             this.label_socketStatus_down.Size = new System.Drawing.Size(31, 15);
             this.label_socketStatus_down.TabIndex = 58;
@@ -963,7 +964,7 @@
             this.label_socket_status.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_socket_status.AutoSize = true;
             this.label_socket_status.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socket_status.Location = new System.Drawing.Point(126, 3);
+            this.label_socket_status.Location = new System.Drawing.Point(126, -8);
             this.label_socket_status.Name = "label_socket_status";
             this.label_socket_status.Size = new System.Drawing.Size(39, 15);
             this.label_socket_status.TabIndex = 52;
@@ -974,7 +975,7 @@
             this.label_socketPort_up.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_socketPort_up.AutoSize = true;
             this.label_socketPort_up.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socketPort_up.Location = new System.Drawing.Point(16, 29);
+            this.label_socketPort_up.Location = new System.Drawing.Point(16, 18);
             this.label_socketPort_up.Name = "label_socketPort_up";
             this.label_socketPort_up.Size = new System.Drawing.Size(82, 15);
             this.label_socketPort_up.TabIndex = 55;
@@ -986,7 +987,7 @@
             this.label_socketStatus_insert.AutoSize = true;
             this.label_socketStatus_insert.BackColor = System.Drawing.Color.Red;
             this.label_socketStatus_insert.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socketStatus_insert.Location = new System.Drawing.Point(132, 120);
+            this.label_socketStatus_insert.Location = new System.Drawing.Point(132, 109);
             this.label_socketStatus_insert.Name = "label_socketStatus_insert";
             this.label_socketStatus_insert.Size = new System.Drawing.Size(31, 15);
             this.label_socketStatus_insert.TabIndex = 60;
@@ -997,7 +998,7 @@
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label5.Location = new System.Drawing.Point(16, 89);
+            this.label5.Location = new System.Drawing.Point(16, 78);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(82, 15);
             this.label5.TabIndex = 59;
@@ -1009,7 +1010,7 @@
             this.label_socketStatus_up.AutoSize = true;
             this.label_socketStatus_up.BackColor = System.Drawing.Color.Red;
             this.label_socketStatus_up.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socketStatus_up.Location = new System.Drawing.Point(132, 29);
+            this.label_socketStatus_up.Location = new System.Drawing.Point(132, 18);
             this.label_socketStatus_up.Name = "label_socketStatus_up";
             this.label_socketStatus_up.Size = new System.Drawing.Size(31, 15);
             this.label_socketStatus_up.TabIndex = 54;

@@ -242,6 +242,12 @@ namespace ScanUploader.Controller
                     {
                         InsertGlass(glass, "右NG", ref GlobalValue.GlassList_NG_Right);
                     }
+                    else
+                    {
+                        dataToMachine.code = ReturnData.code_wrongData_PLC; 
+                        dataToMachine.msg = "机器->上位机命令有误。";
+                        return;
+                    }
 
                     dataToMachine.code = ReturnData.code_success;
                 }

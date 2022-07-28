@@ -240,11 +240,19 @@ namespace ScanUploader.View
             Invoke(_uni);
         }
 
-        private void DataBindText(Control control, object dataSource, string dataMember)
+        private void DataBind_Text(Control control, object dataSource, string dataMember)
         {
             if (dataSource != null)
             {
                 control.DataBindings.Add("Text", dataSource, dataMember);
+            }
+        }
+
+        private void DataBind_Item(ComboBox combo, object dataSource, string dataMember)
+        {
+            if (dataSource != null)
+            {
+                combo.DataBindings.Add("SelectedItem", dataSource, dataMember);
             }
         }
 
@@ -254,19 +262,19 @@ namespace ScanUploader.View
         private void BindData()
         {
             //基本信息 数据绑定
-            DataBindText(comboBox_site, basicInfo, nameof(basicInfo.site));
-            DataBindText(comboBox_operation, basicInfo, nameof(basicInfo.operation));
-            DataBindText(comboBox_resource, basicInfo, nameof(basicInfo.resource));
-            DataBindText(comboBox_productModel, basicInfo, nameof(basicInfo.productModel));
-            DataBindText(comboBox_productModelVersion, basicInfo, nameof(basicInfo.productModelVersion));
-            DataBindText(comboBox_shift, basicInfo, nameof(basicInfo.shift));
-            DataBindText(comboBox_createBy, basicInfo, nameof(basicInfo.createBy));
-            DataBindText(comboBox_order, basicInfo, nameof(basicInfo.order));
+            DataBind_Text(comboBox_site, basicInfo, nameof(basicInfo.site));
+            DataBind_Text(comboBox_operation, basicInfo, nameof(basicInfo.operation));
+            DataBind_Text(comboBox_resource, basicInfo, nameof(basicInfo.resource));
+            DataBind_Text(comboBox_productModel, basicInfo, nameof(basicInfo.productModel));
+            DataBind_Text(comboBox_productModelVersion, basicInfo, nameof(basicInfo.productModelVersion));
+            DataBind_Text(comboBox_shift, basicInfo, nameof(basicInfo.shift));
+            DataBind_Text(comboBox_createBy, basicInfo, nameof(basicInfo.createBy));
+            DataBind_Item(comboBox_order, basicInfo, nameof(basicInfo.order));
 
             //http user
-            DataBindText(textBox_http_username, httpUser, nameof(httpUser.username));
-            DataBindText(textBox_http_password, httpUser, nameof(httpUser.password));
-            DataBindText(textBox_http_site, httpUser, nameof(httpUser.site));
+            DataBind_Text(textBox_http_username, httpUser, nameof(httpUser.username));
+            DataBind_Text(textBox_http_password, httpUser, nameof(httpUser.password));
+            DataBind_Text(textBox_http_site, httpUser, nameof(httpUser.site));
         }
 
         /// <summary>
@@ -275,7 +283,6 @@ namespace ScanUploader.View
         private void Init()
         {
             thisForm = this;
-
 
             //遍历基本信息面板的组合框控件，填充信息
             foreach (Control ctrl in panel_basicInformation.Controls)
@@ -290,13 +297,17 @@ namespace ScanUploader.View
                         {
                             //字符串集合的枚举器
                             StringEnumerator se = ((StringCollection)p.GetValue(Properties.BasicInfo.Default)).GetEnumerator();
-                            //下拉列表加载数据
+                            
+                            //向下拉列表加载数据
                             while (se.MoveNext())
                             {
                                 ((ComboBox)ctrl).Items.Add(se.Current);
                             }
-                            //显示最后一个字符串
+                            
+                            //设置文本框显示的项
+                            //目前是将新的项添加到末尾，所以设置显示最后一项字符串
                             ((ComboBox)ctrl).SelectedIndex = ((ComboBox)ctrl).Items.Count - 1;
+
                             //给basicInfo的属性赋值 这样界面才会显示，否则又跟着basicInfo的属性为""了
                             PropertyInfo propertyInfo = basicInfo.GetType().GetProperty(p.Name);
                             if(propertyInfo != null)
@@ -308,13 +319,16 @@ namespace ScanUploader.View
                 }
             }
 
+            //设置工单号为上次保存的项，超过范围则显示最后一项
+            //comboBox_order.SelectedIndex = Math.Min(Properties.SelectedIndex.Default.order, comboBox_order.Items.Count - 1);
+            
             //保存按钮禁用
             button_save_basicInfo.Enabled = false;
 
-            //初始化日志文件对象
+            //Log 新建日志文件
             LogFile.nextSerialNumer = Properties.LogFileName.Default.nextSerialNumber;
             LogFile.logFile = new LogFile();
-            //Debug 通讯数据日志
+            //Debug 新建通讯数据日志文件
             LogFile.debugFile = new LogFile("Data", "\\Log\\Data\\");
         }
 
@@ -459,7 +473,7 @@ namespace ScanUploader.View
             }
             string text = comboBox.Text.Trim();
             if (!sc.Contains(text))
-                sc.Add(text);
+                sc[0] = text;
             if(!comboBox.Items.Contains(text))
                 comboBox.Items.Add(text);
         }
@@ -535,7 +549,7 @@ namespace ScanUploader.View
             if (result?["code"]?.ToString() == ReturnData.code_success)
             {
                 //获取JSon数据中的mo列表
-                var jMos = result["data"]?["moList"].Values("mo");
+                var jMos = result?["data"]?["moList"]?.Values("mo");
 
                 //与当前列表比较
                 if (!CompareComboBoxItems(jMos, comboBox_order.Items))
@@ -566,19 +580,24 @@ namespace ScanUploader.View
         /// <param name="jMos">MES端获取的列表</param>
         /// <param name="items">当前下拉列表</param>
         /// <returns>true：相同 false：不同</returns>
-        private bool CompareComboBoxItems(IJEnumerable<JToken> jMos, ComboBox.ObjectCollection items)
+        private bool CompareComboBoxItems(IJEnumerable<JToken> jList, ComboBox.ObjectCollection items)
         {
-            if (comboBox_order.Items.Count != jMos.Count())
+            if (items.Count != jList.Count())
             {
                 return false;
             }
-            foreach (var item in jMos)
+            foreach (var item in jList)
             {
-                if (!comboBox_order.Items.Contains(item.ToString()))
+                if (!items.Contains(item.ToString()))
                     return false;
             }
 
             return true;
+        }
+
+        private void comboBox_order_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            button_save_basicInfo.Enabled = true;
         }
     }
 }
