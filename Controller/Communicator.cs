@@ -327,15 +327,17 @@ namespace ScanUploader.Controller
                     dataToMachine = GetReturnFromMES("snNumber", deviceCode, URL.scanSn);
                 }
 
+                string snResult = dataToMachine.code == ReturnData.code_success ? "OK" : "NG";
+
                 if (operationID == SN_ID_1)
-                    LogUtil.WriteLog("【单片扫码】左通道，" + "返回码：" + dataToMachine.code + "，" + dataToMachine.msg);
+                    LogUtil.WriteLog("【单片扫码】左通道，" + snResult + "，" + dataToMachine.msg);
                 else if (operationID == SN_ID_2)
-                    LogUtil.WriteLog("【单片扫码】右通道，" + "返回码：" + dataToMachine.code + "，" + dataToMachine.msg);
+                    LogUtil.WriteLog("【单片扫码】右通道，" + snResult + "，" + dataToMachine.msg);
                 else
                 {
                     dataToMachine.code = ReturnData.code_wrongData_PLC;
                     dataToMachine.msg = "PLC发给上位机命令有误。";
-                    LogUtil.WriteLog("【单片扫码】" + dataToMachine.msg);
+                    LogUtil.WriteLog("【单片扫码】失败，" + dataToMachine.msg);
                     return;
                 }
 
@@ -395,13 +397,13 @@ namespace ScanUploader.Controller
                 else
                 {
                     rdata.code = ReturnData.code_wrongData_MES;
-                    rdata.msg = "MES连接异常。\r\n" + dataFromMes.ToString();
+                    rdata.msg = "MES返回数据为空，连接异常。" + dataFromMes.ToString();
                 }
             }
             else
             {
                 rdata.code = ReturnData.code_wrongData_MES;
-                rdata.msg = "MES返回数据为空。\r\n";
+                rdata.msg = "MES返回数据为空。";
             }
 #if DEBUGx
             //随机成功失败

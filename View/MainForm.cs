@@ -249,7 +249,7 @@ namespace ScanUploader.View
         {
             _AddNGInfo _uni = new _AddNGInfo(delegate ()
             {
-                AddItem(snNumber, msg, listView_NG);
+                AddItem(snNumber, msg, listView_NG_BDS);
             });
             Invoke(_uni);
         }
@@ -355,6 +355,16 @@ namespace ScanUploader.View
             LogFile.logFile = new LogFile();
             //Debug 新建通讯数据日志文件
             LogFile.debugFile = new LogFile("Data", "\\Log\\Data\\");
+
+            //选项卡隐藏
+#if !BDSSCAN
+            tabPage_NG_info_BDS.Parent = null;
+#endif
+
+#if !CHEMICALSCAN
+            tabPage_NG_info.Parent = null;
+            tabPage_OK_info.Parent = null;
+#endif
         }
 
         /// <summary>
@@ -452,6 +462,10 @@ namespace ScanUploader.View
             {
                 FileUtil.ExportExcel("NG信息统计", listView_NG);
             }
+            else if (tabControl_error_info.SelectedTab == tabPage_NG_info_BDS)
+            {
+                FileUtil.ExportExcel("NG信息统计", listView_NG_BDS);
+            }
             else if (tabControl_error_info.SelectedTab == tabPage_OK_info)
             {
                 FileUtil.ExportExcel("OK信息统计", listView_OK);
@@ -501,8 +515,12 @@ namespace ScanUploader.View
                 return;
             }
             string text = comboBox.Text.Trim();
-            if (!sc.Contains(text))
+            
+            if(sc.Count == 0)
+                sc.Add(text);
+            else if (!sc.Contains(text))
                 sc[0] = text;
+            
             if(!comboBox.Items.Contains(text))
                 comboBox.Items.Add(text);
         }
