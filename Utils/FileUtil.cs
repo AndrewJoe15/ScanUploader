@@ -34,6 +34,50 @@ namespace ScanUploader.Utils
             }
         }
 
+        public static void AppendItemToExcel( ListView listView, string filePath, string fileName)
+        {
+            if (listView == null || listView.Items.Count == 0)
+                return;
+            
+            if (!File.Exists(filePath))
+                Directory.CreateDirectory(filePath);
+
+            FileStream fileStream = new FileStream(filePath + fileName, FileMode.Append, FileAccess.Write, FileShare.Write);
+            StreamWriter sw = new StreamWriter(fileStream, Encoding.Default);
+
+            try
+            {
+                //第一次写入时先写入标题行
+                if(listView.Items.Count == 1)
+                {
+                    //获取listView标题行
+                    for (int t = 0; t < listView.Columns.Count; t++)
+                    {
+                        sw.Write(listView.Columns[t].Text + ",");
+                    }
+                    sw.WriteLine();
+                }                
+
+                //listView数据最后一行
+                string tmp = null;
+                for (int k = 0; k < listView.Columns.Count; k++)
+                {
+                    string tmpStr = listView.Items[listView.Items.Count-1].SubItems[k].Text;
+                    tmp += tmpStr;
+                    tmp += ",";
+                }
+                sw.WriteLine(tmp);
+                    
+                sw.Flush();
+                sw.Close();
+                
+            }
+            catch (Exception ex)
+            {
+                ExceptionUtil.ExceptionHandler(ex);
+            }
+        }
+
         /// <summary>
         /// 导出ListView数据生成CSV文件
         /// </summary>

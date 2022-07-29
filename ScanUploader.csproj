@@ -92,6 +92,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\MaterialListManager.cs" />
     <Compile Include="Controller\Optimizer.cs" />
     <Compile Include="Model\BasicInfo_WMS.cs" />
     <Compile Include="Model\DataBase.cs" />

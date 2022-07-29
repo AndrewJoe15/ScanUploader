@@ -28,6 +28,13 @@ namespace ScanUploader.View
         private Properties.BasicInfo basicInfSetting = Properties.BasicInfo.Default;
 
         private static readonly int textBox_text_maxLength = 1024 * 1024;
+        private static readonly int listView_maxLines = 5;
+
+        //列表文件目录
+        private string _OK_list_file_path = Environment.CurrentDirectory + "\\CSV\\OK\\";
+        private string _NG_list_file_path = Environment.CurrentDirectory + "\\CSV\\NG\\";
+        private string _OK_list_file_name = "OK_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv";
+        private string _NG_list_file_name = "NG_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv";
 
         public MainForm()
         {
@@ -220,6 +227,14 @@ namespace ScanUploader.View
 
         private static void AddItem_Glass(Glass glass, ListView listView)
         {
+            //列表超出范围则清空 只留最后一个
+            if(listView.Items.Count >= listView_maxLines)
+            {
+                ListViewItem tmp_last = listView.Items[listView.Items.Count-1];
+                listView.Items.Clear();
+                listView.Items.Add(tmp_last);
+            }
+
             //一行数据
             ListViewItem item = new ListViewItem();
             item.SubItems[0].Text = DateTime.Now.ToString("MM-dd HH:mm:ss");//.Add() 从1开始添加，所以第0个以[0]方式访问
@@ -250,6 +265,7 @@ namespace ScanUploader.View
             _AddNGInfo _uni = new _AddNGInfo(delegate ()
             {
                 AddItem(snNumber, msg, listView_NG_BDS);
+                MaterialListManager.Instance.AppendItemToFile(listView_NG_BDS, _NG_list_file_path, _NG_list_file_name);
             });
             Invoke(_uni);
         }
@@ -258,9 +274,17 @@ namespace ScanUploader.View
             _AddNGInfo _uni = new _AddNGInfo(delegate ()
             {
                 if (isOK)
+                {
+                    //界面ListView添加一项
                     AddItem_Glass(glass, listView_OK);
+                    //文件写入一项
+                    MaterialListManager.Instance.AppendItemToFile(listView_OK, _OK_list_file_path, _OK_list_file_name);
+                }
                 else
+                {
                     AddItem_Glass(glass, listView_NG);
+                    MaterialListManager.Instance.AppendItemToFile(listView_NG, _NG_list_file_path, _NG_list_file_name);
+                }
             });
             Invoke(_uni);
         }
@@ -365,6 +389,7 @@ namespace ScanUploader.View
             tabPage_NG_info.Parent = null;
             tabPage_OK_info.Parent = null;
 #endif
+
         }
 
         /// <summary>
@@ -411,42 +436,48 @@ namespace ScanUploader.View
         private void button_openLogFile_Click(object sender, EventArgs e)
         {
             if (tabControl_log.SelectedTab == tabPage_logInfo)
-                openLogFile(LogFile.logFile);
+                openFile(LogFile.logFile.filePath + LogFile.logFile.fileName);
             else if (tabControl_log.SelectedTab == tabPage_debugInfo)
-                openLogFile(LogFile.debugFile);
+                openFile(LogFile.debugFile.filePath + LogFile.debugFile.fileName);
         }
 
-        private void openLogFile(LogFile logFile)
+        private void openFile(string file)
         {
-            if (logFile != null)
+            if (file != null)
             {
-                string fullPath = logFile.logPath + logFile.logFileName;
-                if (!File.Exists(fullPath))
-                    ShowUtil.ShowTips("当前日志无内容。");
+                if (!File.Exists(file))
+                    ShowUtil.ShowTips("当前文件无内容。");
                 else
-                    System.Diagnostics.Process.Start("notepad.exe", fullPath);
+                {
+                    try
+                    {
+                        System.Diagnostics.Process.Start(file);
+                    }
+                    catch(Exception ex)
+                    {
+                        ShowUtil.ShowTips("打开文件失败。" + ex?.Message);
+                    }
+                }
             }
         }
 
         private void button_openLogDir_Click(object sender, EventArgs e)
         {
-            if (LogFile.logFile == null)
-                return;
             if (tabControl_log.SelectedTab == tabPage_logInfo)
-                System.Diagnostics.Process.Start("explorer.exe", LogFile.logFile.logPath);
+                System.Diagnostics.Process.Start("explorer.exe", LogFile.logFile.filePath);
             else if (tabControl_log.SelectedTab == tabPage_debugInfo)
-                System.Diagnostics.Process.Start("explorer.exe", LogFile.debugFile.logPath);
+                System.Diagnostics.Process.Start("explorer.exe", LogFile.debugFile.filePath);
         }
 
 
 
         private void button_empty_Click(object sender, EventArgs e)
         {
-            if (tabControl_error_info.SelectedTab == tabPage_error_info)
+            if (tabControl_list.SelectedTab == tabPage_error_info)
             {
                 listView_errorInfo.Items.Clear(); //清空error表格所有数据项
             }
-            else if (tabControl_error_info.SelectedTab == tabPage_NG_info)
+            else if (tabControl_list.SelectedTab == tabPage_NG_info)
             {
                 listView_NG.Items.Clear(); //清空NG表格所有数据项
             }
@@ -454,19 +485,19 @@ namespace ScanUploader.View
 
         private void button_export_excel_Click(object sender, EventArgs e)
         {
-            if (tabControl_error_info.SelectedTab == tabPage_error_info)
+            if (tabControl_list.SelectedTab == tabPage_error_info)
             {
                 FileUtil.ExportExcel("Error信息统计", listView_errorInfo);
             }
-            else if (tabControl_error_info.SelectedTab == tabPage_NG_info)
+            else if (tabControl_list.SelectedTab == tabPage_NG_info)
             {
                 FileUtil.ExportExcel("NG信息统计", listView_NG);
             }
-            else if (tabControl_error_info.SelectedTab == tabPage_NG_info_BDS)
+            else if (tabControl_list.SelectedTab == tabPage_NG_info_BDS)
             {
                 FileUtil.ExportExcel("NG信息统计", listView_NG_BDS);
             }
-            else if (tabControl_error_info.SelectedTab == tabPage_OK_info)
+            else if (tabControl_list.SelectedTab == tabPage_OK_info)
             {
                 FileUtil.ExportExcel("OK信息统计", listView_OK);
             }
@@ -544,16 +575,6 @@ namespace ScanUploader.View
                 }                
             }
             return done;
-        }
-
-        private void textBox_httpUserName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox_httpPassword_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void button_http_login_Click(object sender, EventArgs e)
@@ -645,6 +666,28 @@ namespace ScanUploader.View
         private void comboBox_order_SelectedIndexChanged(object sender, EventArgs e)
         {
             button_save_basicInfo.Enabled = true;
+        }
+
+        private void button_openCsvFile_Click(object sender, EventArgs e)
+        {
+            {
+                if (tabControl_list.SelectedTab == tabPage_OK_info)
+                    openFile(_OK_list_file_path + _OK_list_file_name);
+                else if (tabControl_list.SelectedTab == tabPage_NG_info)
+                    openFile(_NG_list_file_path + _NG_list_file_name);
+                else if (tabControl_list.SelectedTab == tabPage_NG_info_BDS)
+                    openFile(_NG_list_file_path + _NG_list_file_name);
+            }
+        }
+
+        private void button_openCsvDir_Click(object sender, EventArgs e)
+        {
+            if (tabControl_list.SelectedTab == tabPage_OK_info)
+                System.Diagnostics.Process.Start("explorer.exe", _OK_list_file_path);
+            else if (tabControl_list.SelectedTab == tabPage_NG_info)
+                System.Diagnostics.Process.Start("explorer.exe", _NG_list_file_path);
+            else if (tabControl_list.SelectedTab == tabPage_NG_info_BDS)
+                System.Diagnostics.Process.Start("explorer.exe", _NG_list_file_path);
         }
     }
 }

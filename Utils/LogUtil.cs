@@ -33,11 +33,11 @@ namespace ScanUploader.Utils
         /// <param name="logFile"></param>
         public static void WriteLog(string logContent, LogFile logFile)
         {
-            if (!File.Exists(logFile.logPath))
-                Directory.CreateDirectory(logFile.logPath);
+            if (!File.Exists(logFile.filePath))
+                Directory.CreateDirectory(logFile.filePath);
             
             //打开一个文件流，文件尾追加模式
-            FileStream fileStream = new FileStream(logFile.logPath + logFile.logFileName, FileMode.Append, FileAccess.Write, FileShare.Write);
+            FileStream fileStream = new FileStream(logFile.filePath + logFile.fileName, FileMode.Append, FileAccess.Write, FileShare.Write);
             StreamWriter streamWriter = new StreamWriter(fileStream, Encoding.Default);
 
             //前部加上时间戳
@@ -70,11 +70,11 @@ namespace ScanUploader.Utils
         /// <param name="logFile"></param>
         public static void WriteLog(string logContent, LogFile logFile, bool showLog)
         {
-            if (!File.Exists(logFile.logPath))
-                Directory.CreateDirectory(logFile.logPath);
+            if (!File.Exists(logFile.filePath))
+                Directory.CreateDirectory(logFile.filePath);
 
             //打开一个文件流，文件尾追加模式
-            FileStream fileStream = new FileStream(logFile.logPath + logFile.logFileName, FileMode.Append);
+            FileStream fileStream = new FileStream(logFile.filePath + logFile.fileName, FileMode.Append);
             StreamWriter streamWriter = new StreamWriter(fileStream, Encoding.Default);
 
             //前部加上时间戳

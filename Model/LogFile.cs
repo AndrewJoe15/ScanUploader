@@ -13,7 +13,7 @@ namespace ScanUploader.Model
         public static LogFile debugFile = null;
 
         //log文件路径（相对地址）
-        public string logPath = Environment.CurrentDirectory + "\\Log\\";
+        public string filePath = Environment.CurrentDirectory + "\\Log\\";
 
         private static Properties.LogFileName logFileNameSetting = Properties.LogFileName.Default;
 
@@ -22,7 +22,7 @@ namespace ScanUploader.Model
 
         public string logNumber;
 
-        public string logFileName;
+        public string fileName;
 
         /// <summary>
         /// 下一个流水号，超出范围从最小编号重新开始
@@ -51,7 +51,7 @@ namespace ScanUploader.Model
             //*********logFileName = prefix + yyyyMMdd + serialNumber +  fileFormat
             //**********             HP        20220601     1234       .txt
             logNumber = logFileNameSetting.prefix + DateTime.Now.ToString(logFileNameSetting.dateFormat) + serialNumString;
-            logFileName = logNumber + logFileNameSetting.fileFormat;
+            fileName = logNumber + logFileNameSetting.fileFormat;
 
             //每新建一个logFile后，更新流水号
             setNextSerialNumber();
@@ -64,9 +64,9 @@ namespace ScanUploader.Model
             string serialNumString = string.Format(fmt, nextSerialNumer);
 
             logNumber = prefix + DateTime.Now.ToString(logFileNameSetting.dateFormat) + serialNumString;
-            logFileName = logNumber + logFileNameSetting.fileFormat;
+            fileName = logNumber + logFileNameSetting.fileFormat;
 
-            logPath = Environment.CurrentDirectory + relativePath;
+            filePath = Environment.CurrentDirectory + relativePath;
         }
     }
 }

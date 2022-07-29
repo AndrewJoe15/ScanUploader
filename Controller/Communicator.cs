@@ -341,7 +341,7 @@ namespace ScanUploader.Controller
                     return;
                 }
 
-                //更新OK NG列表
+                //更新NG列表
                 AppendMaterialListView(deviceCode, dataToMachine);
                 //更新良率统计
                 UpdateMaterialStatistics(operationID, dataToMachine);
@@ -544,6 +544,9 @@ namespace ScanUploader.Controller
 
         private static void AppendMaterialListView(Glass glass, bool isOK)
         {
+            if (glass == null)
+                return;
+
             if (isOK)
                 MainForm.thisForm.AddGlassInfo(glass, true);
             else
