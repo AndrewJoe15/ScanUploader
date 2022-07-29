@@ -218,6 +218,20 @@ namespace ScanUploader.View
             listView.Items[listView.Items.Count - 1].EnsureVisible();//最后一行可见
         }
 
+        private static void AddItem_Glass(Glass glass, ListView listView)
+        {
+            //一行数据
+            ListViewItem item = new ListViewItem();
+            item.SubItems[0].Text = DateTime.Now.ToString("MM-dd HH:mm:ss");//.Add() 从1开始添加，所以第0个以[0]方式访问
+            item.SubItems.Add(glass.snNumber);
+            item.SubItems.Add(glass.targetVehicle);
+            item.SubItems.Add(glass.sourceVehicle);
+
+            //添加listView项
+            listView.Items.Add(item);
+            listView.Items[listView.Items.Count - 1].EnsureVisible();//最后一行可见
+        }
+
         //添加Error信息统计数据
         private delegate void _AddErrorInfo();
         public void AddErrorInfo(string errorCode, string msg)
@@ -235,7 +249,18 @@ namespace ScanUploader.View
         {
             _AddNGInfo _uni = new _AddNGInfo(delegate ()
             {
-                AddItem(snNumber, msg, listView_NG_info);
+                AddItem(snNumber, msg, listView_NG);
+            });
+            Invoke(_uni);
+        }
+        public void AddGlassInfo(Glass glass, bool isOK)
+        {
+            _AddNGInfo _uni = new _AddNGInfo(delegate ()
+            {
+                if (isOK)
+                    AddItem_Glass(glass, listView_OK);
+                else
+                    AddItem_Glass(glass, listView_NG);
             });
             Invoke(_uni);
         }
@@ -413,7 +438,7 @@ namespace ScanUploader.View
             }
             else if (tabControl_error_info.SelectedTab == tabPage_NG_info)
             {
-                listView_NG_info.Items.Clear(); //清空NG表格所有数据项
+                listView_NG.Items.Clear(); //清空NG表格所有数据项
             }
         }
 
@@ -425,7 +450,11 @@ namespace ScanUploader.View
             }
             else if (tabControl_error_info.SelectedTab == tabPage_NG_info)
             {
-                FileUtil.ExportExcel("NG信息统计", listView_NG_info);
+                FileUtil.ExportExcel("NG信息统计", listView_NG);
+            }
+            else if (tabControl_error_info.SelectedTab == tabPage_OK_info)
+            {
+                FileUtil.ExportExcel("OK信息统计", listView_OK);
             }
         }
 

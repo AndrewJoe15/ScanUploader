@@ -183,9 +183,6 @@ namespace ScanUploader.Controller
                         dataToMachine = GetReturnFromMES("snNumber", deviceCode, URL.scanSn);
                     }
 
-                    //更新用户界面显示的数据
-                    UpdateScanInfo(operationID, deviceCode, dataToMachine);
-
                     //写入日志
                     if (operationID == SN_ID_1)
                         LogUtil.WriteLog("【单片扫码】左通道，" + dataToMachine.msg);
@@ -228,19 +225,19 @@ namespace ScanUploader.Controller
 
                     if (operationID == submit_OK_Left)
                     {
-                        InsertGlass(glass, "左OK", ref GlobalValue.GlassList_OK_Left);
+                        InsertGlass(glass, true, ref GlobalValue.GlassList_OK_Left);
                     }
                     else if (operationID == submit_OK_Right)
                     {
-                        InsertGlass(glass, "右OK", ref GlobalValue.GlassList_OK_Right);
+                        InsertGlass(glass, true, ref GlobalValue.GlassList_OK_Right);
                     }
                     else if (operationID == submit_NG_Left)
                     {
-                        InsertGlass(glass, "左NG", ref GlobalValue.GlassList_NG_Left);
+                        InsertGlass(glass, false, ref GlobalValue.GlassList_NG_Left);
                     }
                     else if (operationID == submit_NG_Right)
                     {
-                        InsertGlass(glass, "右NG", ref GlobalValue.GlassList_NG_Right);
+                        InsertGlass(glass, false, ref GlobalValue.GlassList_NG_Right);
                     }
                     else
                     {
@@ -287,16 +284,26 @@ namespace ScanUploader.Controller
             }
         }
 
-        private static void InsertGlass(Glass glass, string position, ref List<Glass> glasses)
+        private static void InsertGlass(Glass glass, bool isOK, ref List<Glass> glasses)
         {
+            string position = isOK ? "OK" : "NG";
+
             if (!glasses.Contains(glass))
             {
+                //玻璃数据列表
                 glasses.Add(glass);
-                LogUtil.WriteLog("【单片插架】" + position + "载具，玻璃 " + glass.snNumber + " 放入清洗架 " + glass.targetVehicle + " 中。");
+                
+                //界面列表
+                if(isOK)
+                    AppendMaterialListView(glass, true);
+                else
+                    AppendMaterialListView(glass, false);
+
+                LogUtil.WriteLog("【单片插架】" + position + "，玻璃 " + glass.snNumber + " 放入清洗架 " + glass.targetVehicle + " 中。");
             }
             else
             {
-                LogUtil.WriteLog("【单片插架】" + position + "载具，玻璃 " + glass.snNumber + " 已存在。\r\n");
+                LogUtil.WriteLog("【单片插架】" + position + "，玻璃 " + glass.snNumber + " 已存在。\r\n");
             }
         }
 #endif
@@ -332,8 +339,11 @@ namespace ScanUploader.Controller
                     return;
                 }
 
-                //更新用户界面扫码统计信息 包括良率和NG列表
-                UpdateScanInfo(operationID, deviceCode, dataToMachine);
+                //更新OK NG列表
+                AppendMaterialListView(deviceCode, dataToMachine);
+                //更新良率统计
+                UpdateMaterialStatistics(operationID, dataToMachine);
+                
                 return;
             }
 
@@ -497,20 +507,8 @@ namespace ScanUploader.Controller
         }
 #endif
 
-
-        /// <summary>
-        /// 更新用户界面数据，如NG统计信息，NG表格等
-        /// </summary>
-        /// <param name="operationID"></param>
-        /// <param name="deviceCode"></param>
-        /// <param name="dataToMachine"></param>
-        private static void UpdateScanInfo(string operationID, string deviceCode, ReturnData dataToMachine)
+        private static void UpdateMaterialStatistics(string operationID, ReturnData dataToMachine)
         {
-            //NG信息表
-            //- 若玻璃NG，信息显示到窗体表格中
-            if (dataToMachine.code != ReturnData.code_success)
-                MainForm.thisForm.AddNGInfo(deviceCode, dataToMachine.msg);
-
             //良率统计
             if (operationID == SN_ID_1)
             {
@@ -532,6 +530,22 @@ namespace ScanUploader.Controller
                 //-更新界面良率
                 MainForm.thisForm.UpdateStatistics(2);
             }
+        }
+
+        private static void AppendMaterialListView(string deviceCode, ReturnData dataToMachine)
+        {
+            //NG信息表
+            if (dataToMachine.code != ReturnData.code_success)
+                //- 若玻璃NG，信息显示到窗体表格中
+                MainForm.thisForm.AddNGInfo(deviceCode, dataToMachine.msg);
+        }
+
+        private static void AppendMaterialListView(Glass glass, bool isOK)
+        {
+            if (isOK)
+                MainForm.thisForm.AddGlassInfo(glass, true);
+            else
+                MainForm.thisForm.AddGlassInfo(glass, false);            
         }
 
 
