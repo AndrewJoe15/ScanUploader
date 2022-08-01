@@ -68,8 +68,15 @@ namespace ScanUploader.Utils
             while (ex.InnerException != null)
             {
                 ex = ex.InnerException;
-            }            
-            return ((Win32Exception)ex).ErrorCode;
+            }
+            try
+            {
+                return ((Win32Exception)ex).ErrorCode;
+            }
+            catch
+            {
+                return -1;
+            }
         }
     }
 }

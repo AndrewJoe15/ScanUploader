@@ -173,7 +173,7 @@ namespace ScanUploader.Utils
                 }
                 catch (Exception ex)
                 {
-                    UIInfoManager.AppendDebugInfo(ex.Message);
+                    UIInfoManager.AppendDebugInfo(ex?.Message);
                     //ExceptionUtil.ExceptionHandler(ex.Message);
                     break;
                 }

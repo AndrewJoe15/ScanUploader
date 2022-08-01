@@ -170,27 +170,7 @@ namespace ScanUploader.Controller
             else if (port == ConnectManager.port_main)
             {
                 //玻璃
-                if (operationID == SN_ID_1 || operationID == SN_ID_2)
-                {
-                    //如果没有扫到码
-                    if (deviceCode.ToUpper() == scan_noRead)
-                    {
-                        dataToMachine.code = ReturnData.code_error;
-                        dataToMachine.msg = "化抛扫描,单片SN号 NoRead,读码失败";
-                    }
-                    else
-                    {
-                        dataToMachine = GetReturnFromMES("snNumber", deviceCode, URL.scanSn);
-                    }
-
-                    //写入日志
-                    if (operationID == SN_ID_1)
-                        LogUtil.WriteLog("【单片扫码】左通道，" + dataToMachine.msg);
-                    else
-                        LogUtil.WriteLog("【单片扫码】右通道，" + dataToMachine.msg);
-
-                    return;
-                }
+                CheckSnNumber(operationID, deviceCode, ref dataToMachine);
             }
 
             //下料端口
@@ -226,18 +206,22 @@ namespace ScanUploader.Controller
                     if (operationID == submit_OK_Left)
                     {
                         InsertGlass(glass, true, ref GlobalValue.GlassList_OK_Left);
+                        UpdateMaterialStatistics(true, true);
                     }
                     else if (operationID == submit_OK_Right)
                     {
                         InsertGlass(glass, true, ref GlobalValue.GlassList_OK_Right);
+                        UpdateMaterialStatistics(false, true);
                     }
                     else if (operationID == submit_NG_Left)
                     {
                         InsertGlass(glass, false, ref GlobalValue.GlassList_NG_Left);
+                        UpdateMaterialStatistics(true, false);
                     }
                     else if (operationID == submit_NG_Right)
                     {
                         InsertGlass(glass, false, ref GlobalValue.GlassList_NG_Right);
+                        UpdateMaterialStatistics(false, false);
                     }
                     else
                     {
@@ -288,22 +272,43 @@ namespace ScanUploader.Controller
         {
             string position = isOK ? "OK" : "NG";
 
-            if (!glasses.Contains(glass))
+            //如果没有读到码，插架不判重
+            if (glass.snNumber.ToUpper() == scan_noRead)
             {
-                //玻璃数据列表
+                //-玻璃数据列表
                 glasses.Add(glass);
-                
-                //界面列表
-                if(isOK)
+
+                //换成中文
+                glass.snNumber = "未读到码";
+
+                //-界面列表
+                if (isOK)
                     AppendMaterialListView(glass, true);
                 else
                     AppendMaterialListView(glass, false);
 
                 LogUtil.WriteLog("【单片插架】" + position + "，玻璃 " + glass.snNumber + " 放入清洗架 " + glass.targetVehicle + " 中。");
             }
+            //读到码了，插架要判重
             else
             {
-                LogUtil.WriteLog("【单片插架】" + position + "，玻璃 " + glass.snNumber + " 已存在。\r\n");
+                if (!glasses.Contains(glass))
+                {
+                    //玻璃数据列表
+                    glasses.Add(glass);
+
+                    //界面列表
+                    if (isOK)
+                        AppendMaterialListView(glass, true);
+                    else
+                        AppendMaterialListView(glass, false);
+
+                    LogUtil.WriteLog("【单片插架】" + position + "，玻璃 " + glass.snNumber + " 放入清洗架 " + glass.targetVehicle + " 中。");
+                }
+                else
+                {
+                    LogUtil.WriteLog("【单片插架】" + position + "，玻璃 " + glass.snNumber + " 已存在。\r\n");
+                }
             }
         }
 #endif
@@ -315,43 +320,53 @@ namespace ScanUploader.Controller
             //涂油扫码端口
             if (port == ConnectManager.port_main)
             {
-                //如果没有扫到码
-                if (deviceCode.ToUpper() == scan_noRead)
-                {
-                    dataToMachine.code = ReturnData.code_error;
-                    dataToMachine.msg = "单片SN号 NoRead, 读码失败";
-                }
-                else
-                {               
-                    //上传玻璃码
-                    dataToMachine = GetReturnFromMES("snNumber", deviceCode, URL.scanSn);
-                }
-
-                string snResult = dataToMachine.code == ReturnData.code_success ? "OK" : "NG";
-
-                if (operationID == SN_ID_1)
-                    LogUtil.WriteLog("【单片扫码】左通道，" + snResult + "，" + dataToMachine.msg);
-                else if (operationID == SN_ID_2)
-                    LogUtil.WriteLog("【单片扫码】右通道，" + snResult + "，" + dataToMachine.msg);
-                else
-                {
-                    dataToMachine.code = ReturnData.code_wrongData_PLC;
-                    dataToMachine.msg = "PLC发给上位机命令有误。";
-                    LogUtil.WriteLog("【单片扫码】失败，" + dataToMachine.msg);
-                    return;
-                }
-
-                //更新NG列表
-                AppendMaterialListView(deviceCode, dataToMachine);
-                //更新良率统计
-                UpdateMaterialStatistics(operationID, dataToMachine);
-                
-                return;
+                CheckSnNumber(operationID, deviceCode, ref dataToMachine);
             }
 
             return;
         }
+
 #endif
+
+
+        private static void CheckSnNumber(string operationID, string deviceCode, ref ReturnData dataToMachine)
+        {
+            string snCode = deviceCode;
+            //如果没有扫到码
+            if (deviceCode.ToUpper() == scan_noRead)
+            {
+                dataToMachine.code = ReturnData.code_error;
+                dataToMachine.msg = "读码失败。";
+                snCode = "未读到码";
+            }
+            else
+            {
+                //上传玻璃码
+                dataToMachine = GetReturnFromMES("snNumber", deviceCode, URL.scanSn);
+            }
+
+            string snResult = dataToMachine.code == ReturnData.code_success ? "OK" : "NG";
+
+            if (operationID == SN_ID_1)
+                LogUtil.WriteLog("【单片扫码】左通道，" + snCode + "，" + snResult + "，" + dataToMachine.msg);
+            else if (operationID == SN_ID_2)
+                LogUtil.WriteLog("【单片扫码】右通道，" + snCode + "，" + snResult + "，" + dataToMachine.msg);
+            else
+            {
+                dataToMachine.code = ReturnData.code_wrongData_PLC;
+                dataToMachine.msg = "设备发给上位机命令有误。";
+                LogUtil.WriteLog("【单片扫码】失败，" + dataToMachine.msg);
+                return;
+            }
+#if BDSSCAN
+            //更新NG列表
+            AppendMaterialListView(snCode, dataToMachine);
+            //更新良率统计
+            UpdateMaterialStatistics(operationID, dataToMachine);
+#endif
+
+            return;
+        }
 
         /// <summary>
         /// 向MES发送数据，并接收回传数据
@@ -509,6 +524,11 @@ namespace ScanUploader.Controller
         }
 #endif
 
+        /// <summary>
+        /// BDS项目 良率统计 在单片扫码时调用
+        /// </summary>
+        /// <param name="operationID"></param>
+        /// <param name="dataToMachine"></param>
         private static void UpdateMaterialStatistics(string operationID, ReturnData dataToMachine)
         {
             //良率统计
@@ -522,9 +542,39 @@ namespace ScanUploader.Controller
                 //-更新界面良率
                 MainForm.thisForm.UpdateStatistics(1);
             }
-            if (operationID == SN_ID_2)
+            else if (operationID == SN_ID_2)
             {
                 if (dataToMachine.code == ReturnData.code_success)
+                    Statistics.OK_2++;
+                else
+                    Statistics.NG_2++;
+
+                //-更新界面良率
+                MainForm.thisForm.UpdateStatistics(2);
+            }
+        }
+
+        /// <summary>
+        /// 化抛项目 物料良率统计 插架的时候调用
+        /// </summary>
+        /// <param name="isLeft">左通道</param>
+        /// <param name="isOK">OK</param>
+        private static void UpdateMaterialStatistics(bool isLeft, bool isOK)
+        {
+            //良率统计
+            if (isLeft)
+            {
+                if (isOK)
+                    Statistics.OK_1++;
+                else
+                    Statistics.NG_1++;
+
+                //-更新界面良率
+                MainForm.thisForm.UpdateStatistics(1);
+            }
+            else
+            {
+                if (isOK)
                     Statistics.OK_2++;
                 else
                     Statistics.NG_2++;

@@ -90,6 +90,7 @@ namespace ScanUploader.Model
             }
         }
         //操作时间
+        [DataMember]
         public string createTime { get => TimeUtil.currentTimeString; }
 
         //工单号
