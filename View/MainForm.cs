@@ -28,7 +28,7 @@ namespace ScanUploader.View
         private Properties.BasicInfo basicInfSetting = Properties.BasicInfo.Default;
 
         private static readonly int textBox_text_maxLength = 1024 * 1024;
-        private static readonly int listView_maxLines = 5;
+        private static readonly int listView_maxLines = 1024;
 
         //列表文件目录
         private string _OK_list_file_path = Environment.CurrentDirectory + "\\CSV\\OK\\";

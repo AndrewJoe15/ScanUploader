@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
 namespace ScanUploader.Model
 {
     /// <summary>
-    /// 单例类，用来方便地让一个类实现单例模式
+    /// 单例类
+    /// 用来方便地让一个类实现单例模式
     /// </summary>
     public class SingleTon<T> where T : class, new()
     {
@@ -19,6 +21,8 @@ namespace ScanUploader.Model
         //对外提供一个静态方法获取该类的实例
         public static T Instance
         {
+            //同步调用 防止多线程同时调用时产生冲突
+            [MethodImpl(MethodImplOptions.Synchronized)]
             get
             {
                 if (instance == null)
