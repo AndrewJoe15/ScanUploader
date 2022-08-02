@@ -149,7 +149,7 @@
     <Compile Include="Utils\GuiUtil.cs" />
     <Compile Include="Utils\JsonUtil.cs" />
     <Compile Include="Utils\LogUtil.cs" />
-    <Compile Include="Utils\SocketServer.cs" />
+    <Compile Include="Controller\SocketServer.cs" />
     <Compile Include="Utils\TimeUtil.cs" />
     <Compile Include="Utils\Tool.cs" />
     <Compile Include="View\ConfigureForm.cs">

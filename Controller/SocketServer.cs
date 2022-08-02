@@ -6,11 +6,11 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Diagnostics;
-using ScanUploader.Controller;
 using ScanUploader.View;
 using ScanUploader.Model;
+using ScanUploader.Utils;
 
-namespace ScanUploader.Utils
+namespace ScanUploader.Controller
 {
     /// <summary>
     /// Socket 工具类
@@ -106,10 +106,18 @@ namespace ScanUploader.Utils
             Socket clientSocket = (Socket)socket;
 
             //Socket连接状态
-            MainForm.thisForm.UpdateSocketStatus(clientSocket.LocalEndPoint.ToString(), clientSocket.Connected);
+            MainForm.thisForm.UpdateSocketStatus(clientSocket.LocalEndPoint.ToString(), true);
 
             while (true)
             {
+                //检查socket连接状态
+                if (clientSocket.Poll(1000, SelectMode.SelectRead))
+                {
+                    //已挂起、关闭、重置或终止
+                    CloseSocket(clientSocket);
+                    break;
+                }
+
                 try
                 {
                     byte[] buffer = new byte[1024 * 3];
@@ -126,15 +134,10 @@ namespace ScanUploader.Utils
 
                         if (str == ConnectManager.stopID)
                         {
-                            string rep = clientSocket.RemoteEndPoint.ToString();
-                            UIInfoManager.AppendDebugInfo("与机器端口 " + rep + " 的连接关闭.");
-
-                            //断开连接
-                            clientSocket.Shutdown(SocketShutdown.Both);
-                            clientSocket.Close();
+                            CloseSocket(clientSocket);
                             break;
                         }
-                        
+
                         //解析消息传给MES，并将回传数据转发给Machine
                         IPEndPoint endPort = (IPEndPoint)clientSocket.LocalEndPoint;
                         ReturnData dataToMachine = Communicator.GetDataFromMES(str,endPort.Port);
@@ -168,7 +171,7 @@ namespace ScanUploader.Utils
                     }
                     else
                     {
-                        break;
+                        Thread.Sleep(500);
                     }
                 }
                 catch (Exception ex)
@@ -178,6 +181,20 @@ namespace ScanUploader.Utils
                     break;
                 }
             }
+        }
+
+        private static void CloseSocket(Socket clientSocket)
+        {
+            string rep = clientSocket.LocalEndPoint.ToString();
+            UIInfoManager.AppendDebugInfo("与机器端口 " + rep + " 的连接关闭.");
+
+            //Socket连接状态
+            MainForm.thisForm.UpdateSocketStatus(rep, false);
+
+            //断开连接
+            clientSocket.Shutdown(SocketShutdown.Both);
+            clientSocket.Close();
+
         }
     }
 
