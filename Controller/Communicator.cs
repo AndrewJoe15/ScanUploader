@@ -96,8 +96,12 @@ namespace ScanUploader.Controller
         {
             ReturnData dataToMachine = new ReturnData();
 
-            //设备编号,设备码  L1,220421XSH01 
+            //设备编号,设备码  L1,220421XSH01,
             string[] subs = str.Split(splitChar);
+
+            if (subs.Length < 2)
+                return dataToMachine;
+
             string operationID = subs[0].ToUpper();
             string deviceCode = subs[1].ToUpper();
 
@@ -358,10 +362,10 @@ namespace ScanUploader.Controller
                 LogUtil.WriteLog("【单片扫码】失败，" + dataToMachine.msg);
                 return;
             }
-#if BDSSCAN
             //更新NG列表
             AppendMaterialListView(snCode, dataToMachine);
-            //更新良率统计
+#if BDSSCAN
+            //BDS项目在次进行良率统计
             UpdateMaterialStatistics(operationID, dataToMachine);
 #endif
 
@@ -402,17 +406,16 @@ namespace ScanUploader.Controller
                     rdata.msg = dataFromMes["msg"].ToString();
                     //data默认值为code的值
                     rdata.data = rdata.code;
-                    if (dataFromMes["data"] != null)
+                    if (dataFromMes["data"] != null && (bool)dataFromMes["data"]?["isBand"] == true)
                     {
                         //化抛架扫码，返回化抛架绑定的玻璃数量
-                        if(dataFromMes["data"]["bandQty"] != null)
-                            rdata.data = dataFromMes["data"]["bandQty"].ToString();
+                        rdata.data = dataFromMes["data"]?["bandQty"].ToString();
                     }
                 }
                 else
                 {
                     rdata.code = ReturnData.code_wrongData_MES;
-                    rdata.msg = "MES返回数据为空，连接异常。" + dataFromMes.ToString();
+                    rdata.msg = "MES连接异常，返回数据为空。" + dataFromMes.ToString();
                 }
             }
             else
@@ -503,8 +506,6 @@ namespace ScanUploader.Controller
                 JObject tmp = JsonUtil.ToJObject(submitData);
                 submitJson.Merge(tmp);
 
-                glasses.Clear();//最后提交前清空list
-
                 dataToMachine = GetReturnMES(submitJson.ToString(), URL.scanSubmit);
             }
             else
@@ -516,9 +517,20 @@ namespace ScanUploader.Controller
 
             //Log记录
             if (dataToMachine?.code == ReturnData.code_success)
-                LogUtil.WriteLog("【清洗架提交】成功，" + dataToMachine?.msg + "共" + submitData.qty + "片：\r\n" + submitJson["supplementList"]);
+            {
+                //LogUtil.WriteLog("【清洗架提交】成功，" + dataToMachine?.msg + "共" + submitData.qty + "片：\r\n" + submitJson["supplementList"]);
+                string logStr = "【清洗架提交】成功，" + dataToMachine?.msg + "，共" + submitData.qty + "片。\r\n";
+                foreach (var item in submitData.supplementList)
+                {
+                    logStr += "\t\t玻璃码：" + item.snNumber + " 化抛架码：" + item.sourceVehicle + " 清洗架码：" + item.targetVehicle + "\r\n";
+                }
+                LogUtil.WriteLog(logStr);
+            }
             else
                 LogUtil.WriteLog("【清洗架提交】失败，" + dataToMachine?.msg);
+
+
+            glasses.Clear();//最后清空list
 
             return dataToMachine;
         }

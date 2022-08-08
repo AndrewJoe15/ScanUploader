@@ -18,8 +18,13 @@ namespace ScanUploader.Model
         public static string httpLogin = pre + "login"; //postfix_httpLogin 暂时用完整的url
                                                                                                             //-载具扫出
         public static string scanContainerOut = pre + "scanContainerOut";
+#if CHEMICALSCAN
         //-单片玻璃
         public static string scanSn = pre + "scanSn";
+#endif
+#if BDSSCAN
+        public static string scanSn = pre + "insertByScaning";
+#endif
         //-载具扫入
         public static string scanContainerIn = pre + "scanContainerIn";
         //-载具解绑

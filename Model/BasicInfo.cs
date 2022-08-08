@@ -90,7 +90,11 @@ namespace ScanUploader.Model
             }
         }
         //操作时间
+# if BDSSCAN
+        [DataMember(Name ="submitTime")]
+#else
         [DataMember]
+#endif 
         public string createTime { get => TimeUtil.currentTimeString; }
 
         //工单号

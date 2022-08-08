@@ -33,6 +33,7 @@ namespace ScanUploader.View
         //列表文件目录
         private string _OK_list_file_path = Environment.CurrentDirectory + "\\CSV\\OK\\";
         private string _NG_list_file_path = Environment.CurrentDirectory + "\\CSV\\NG\\";
+        private string _NG_list_file_path_threeCode = Environment.CurrentDirectory + "\\CSV\\NG_三码\\";
         private string _OK_list_file_name = "OK_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv";
         private string _NG_list_file_name = "NG_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv";
 
@@ -264,8 +265,8 @@ namespace ScanUploader.View
         {
             _AddNGInfo _uni = new _AddNGInfo(delegate ()
             {
-                AddItem(snNumber, msg, listView_NG_BDS);
-                MaterialListManager.Instance.AppendItemToFile(listView_NG_BDS, _NG_list_file_path, _NG_list_file_name);
+                AddItem(snNumber, msg, listView_NG_msg);
+                MaterialListManager.Instance.AppendItemToFile(listView_NG_msg, _NG_list_file_path, _NG_list_file_name);
             });
             Invoke(_uni);
         }
@@ -283,7 +284,7 @@ namespace ScanUploader.View
                 else
                 {
                     AddItem_Glass(glass, listView_NG);
-                    MaterialListManager.Instance.AppendItemToFile(listView_NG, _NG_list_file_path, _NG_list_file_name);
+                    MaterialListManager.Instance.AppendItemToFile(listView_NG, _NG_list_file_path_threeCode, _NG_list_file_name);
                 }
             });
             Invoke(_uni);
@@ -381,10 +382,6 @@ namespace ScanUploader.View
             LogFile.debugFile = new LogFile("Data", "\\Log\\Data\\");
 
             //选项卡隐藏
-#if !BDSSCAN
-            tabPage_NG_info_BDS.Parent = null;
-#endif
-
 #if !CHEMICALSCAN
             tabPage_NG_info.Parent = null;
             tabPage_OK_info.Parent = null;
@@ -495,7 +492,7 @@ namespace ScanUploader.View
             }
             else if (tabControl_list.SelectedTab == tabPage_NG_info_BDS)
             {
-                FileUtil.ExportExcel("NG信息统计", listView_NG_BDS);
+                FileUtil.ExportExcel("NG信息统计", listView_NG_msg);
             }
             else if (tabControl_list.SelectedTab == tabPage_OK_info)
             {
@@ -674,7 +671,7 @@ namespace ScanUploader.View
                 if (tabControl_list.SelectedTab == tabPage_OK_info)
                     openFile(_OK_list_file_path + _OK_list_file_name);
                 else if (tabControl_list.SelectedTab == tabPage_NG_info)
-                    openFile(_NG_list_file_path + _NG_list_file_name);
+                    openFile(_NG_list_file_path_threeCode + _NG_list_file_name);
                 else if (tabControl_list.SelectedTab == tabPage_NG_info_BDS)
                     openFile(_NG_list_file_path + _NG_list_file_name);
             }
@@ -685,7 +682,7 @@ namespace ScanUploader.View
             if (tabControl_list.SelectedTab == tabPage_OK_info)
                 System.Diagnostics.Process.Start("explorer.exe", _OK_list_file_path);
             else if (tabControl_list.SelectedTab == tabPage_NG_info)
-                System.Diagnostics.Process.Start("explorer.exe", _NG_list_file_path);
+                System.Diagnostics.Process.Start("explorer.exe", _NG_list_file_path_threeCode);
             else if (tabControl_list.SelectedTab == tabPage_NG_info_BDS)
                 System.Diagnostics.Process.Start("explorer.exe", _NG_list_file_path);
         }

@@ -57,7 +57,7 @@ namespace ScanUploader.Controller
                 endPoint = new IPEndPoint(address, _port);
                 
                 //端口可复用
-                _socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 2);
+                //_socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 2);
                 //socket对象绑定端口
                 _socket.Bind(endPoint);
                 //将 Socket 置于侦听状态
@@ -104,26 +104,18 @@ namespace ScanUploader.Controller
         private void ReceiveMessage(object socket)
         {
             Socket clientSocket = (Socket)socket;
+            byte[] buffer = new byte[1024 * 3];
 
             //Socket连接状态
             MainForm.thisForm.UpdateSocketStatus(clientSocket.LocalEndPoint.ToString(), true);
 
             while (true)
             {
-                //检查socket连接状态
-                if (clientSocket.Poll(1000, SelectMode.SelectRead))
-                {
-                    //已挂起、关闭、重置或终止
-                    CloseSocket(clientSocket);
-                    break;
-                }
-
                 try
                 {
-                    byte[] buffer = new byte[1024 * 3];
                     //获取从客户端发来的数据
                     int length = clientSocket.Receive(buffer);
-                    if(length > 0)
+                    if (length > 0)
                     {
                         string str = Encoding.Default.GetString(buffer, 0, length);
 
@@ -140,25 +132,31 @@ namespace ScanUploader.Controller
 
                         //解析消息传给MES，并将回传数据转发给Machine
                         IPEndPoint endPort = (IPEndPoint)clientSocket.LocalEndPoint;
-                        ReturnData dataToMachine = Communicator.GetDataFromMES(str,endPort.Port);
+                        ReturnData dataToMachine = Communicator.GetDataFromMES(str, endPort.Port);
 
                         if (dataToMachine.code == ReturnData.code_default)
                         {
                             //未找到符合命令的操作，PLC发来的命令没法识别
                             dataToMachine.msg = "命令有误，端口" + endPort.Port + "下不存在命令：" + str;
                         }
-                        else if(dataToMachine.code == ReturnData.code_wrongData_PLC)
+                        else if (dataToMachine.code == ReturnData.code_wrongData_PLC)
                         {
                             //PLC数据有误
                         }
-                        else if(dataToMachine.code == ReturnData.code_wrongData_MES)
+                        else if (dataToMachine.code == ReturnData.code_wrongData_MES)
                         {
                             //MES数据有误
                         }
                         else
                         {
-                            clientSocket.Send(Encoding.UTF8.GetBytes(dataToMachine.code));
-                            UIInfoManager.AppendDebugInfo("上位机->机器: " + dataToMachine.code + "," + dataToMachine.msg);
+                            string returnCode;
+                            if(dataToMachine.data != "")//化抛架扫码，data为架中绑定玻璃数
+                                returnCode = dataToMachine.data;
+                            else
+                                returnCode = dataToMachine.code;
+
+                            clientSocket.Send(Encoding.UTF8.GetBytes(returnCode));
+                            UIInfoManager.AppendDebugInfo("上位机->机器: " + returnCode + "," + dataToMachine.msg);
                         }
 
                         //如果返回状态码不是成功码，将出错信息展示给操作员
@@ -171,7 +169,9 @@ namespace ScanUploader.Controller
                     }
                     else
                     {
-                        Thread.Sleep(500);
+                        UIInfoManager.AppendDebugInfo("设备连接已断开....\r\n");
+                        CloseSocket(clientSocket);
+                        break;
                     }
                 }
                 catch (Exception ex)
@@ -181,6 +181,37 @@ namespace ScanUploader.Controller
                     break;
                 }
             }
+        }
+
+        private static bool IsConnecting(Socket clientSocket)
+        {
+            bool result = false;
+            // This is how you can determine whether a socket is still connected.
+            bool blockingState = clientSocket.Blocking;
+            try
+            {
+                byte[] tmp = new byte[1];
+
+                clientSocket.Blocking = false;
+                clientSocket.Send(tmp, 0, 0);
+                result = true;
+            }
+            catch (SocketException e)
+            {
+                // 10035 == WSAEWOULDBLOCK
+                if (e.NativeErrorCode.Equals(10035))
+                {
+                    //Still Connected, but the Send would block
+                    result = true;
+                }
+                else
+                {
+                    //Disconnected
+                    result = false;
+                }
+            }
+
+            return result;
         }
 
         private static void CloseSocket(Socket clientSocket)

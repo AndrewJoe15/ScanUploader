@@ -39,8 +39,10 @@ namespace ScanUploader
             //启动定时垃圾回收 以解决内存占用越来越大的问题
             Optimizer.StartPeriodGarbageCollection();
 
+#if !DEBUG
             //初始化配置
-            //Configurator.Init();
+            Configurator.Init();
+#endif
         }
     }
 }
