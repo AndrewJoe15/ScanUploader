@@ -13,6 +13,7 @@ namespace ScanUploader.Model
         public static string code_wrongData_MES = "-3";
 
         public static string code_success = "200";
+        public static string code_repeat = "3";//重复扫码
         public static string  code_error = "500";
 
         public string code { get; set; } = code_default;

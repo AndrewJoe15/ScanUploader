@@ -183,37 +183,6 @@ namespace ScanUploader.Controller
             }
         }
 
-        private static bool IsConnecting(Socket clientSocket)
-        {
-            bool result = false;
-            // This is how you can determine whether a socket is still connected.
-            bool blockingState = clientSocket.Blocking;
-            try
-            {
-                byte[] tmp = new byte[1];
-
-                clientSocket.Blocking = false;
-                clientSocket.Send(tmp, 0, 0);
-                result = true;
-            }
-            catch (SocketException e)
-            {
-                // 10035 == WSAEWOULDBLOCK
-                if (e.NativeErrorCode.Equals(10035))
-                {
-                    //Still Connected, but the Send would block
-                    result = true;
-                }
-                else
-                {
-                    //Disconnected
-                    result = false;
-                }
-            }
-
-            return result;
-        }
-
         private static void CloseSocket(Socket clientSocket)
         {
             string rep = clientSocket.LocalEndPoint.ToString();
