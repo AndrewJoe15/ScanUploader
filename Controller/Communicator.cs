@@ -211,25 +211,28 @@ namespace ScanUploader.Controller
                     glass.sourceVehicle = subs[1];
                     glass.targetVehicle = subs[2];
                     glass.snNumber = subs[3];
+
+                    bool inserted = false;
+
                     //插架
                     //OK1,cOut,cIn,SN,
                     //NG1,...
 
                     if (operationID == submit_OK_Left)
                     {
-                        InsertGlass(glass, true, true, ref GlobalValue.GlassList_OK_Left);
+                        inserted = InsertGlass(glass, true, true, ref GlobalValue.GlassList_OK_Left);
                     }
                     else if (operationID == submit_OK_Right)
                     {
-                        InsertGlass(glass, false, true, ref GlobalValue.GlassList_OK_Right);
+                        inserted = InsertGlass(glass, false, true, ref GlobalValue.GlassList_OK_Right);
                     }
                     else if (operationID == submit_NG_Left)
                     {
-                        InsertGlass(glass, true, false, ref GlobalValue.GlassList_NG_Left);
+                        inserted = InsertGlass(glass, true, false, ref GlobalValue.GlassList_NG_Left);
                     }
                     else if (operationID == submit_NG_Right)
                     {
-                        InsertGlass(glass, false, false, ref GlobalValue.GlassList_NG_Right);
+                        inserted = InsertGlass(glass, false, false, ref GlobalValue.GlassList_NG_Right);
                     }
                     else
                     {
@@ -238,7 +241,10 @@ namespace ScanUploader.Controller
                         return;
                     }
 
-                    dataToMachine.code = ReturnData.code_success;
+                    if(inserted)
+                        dataToMachine.code = ReturnData.code_success;
+                    else
+                        dataToMachine.code = ReturnData.code_error;
                 }
                 return;
             }
@@ -276,7 +282,7 @@ namespace ScanUploader.Controller
             }
         }
 
-        private static void InsertGlass(Glass glass, bool isLeft, bool isOK, ref List<Glass> glasses)
+        private static bool InsertGlass(Glass glass, bool isLeft, bool isOK, ref List<Glass> glasses)
         {
             string glassResult = isOK ? "OK" : "NG";
 
@@ -287,6 +293,7 @@ namespace ScanUploader.Controller
                 glass.snNumber = "未读到码";
 
                 AddGlass(glass,isLeft, isOK, ref glasses, glassResult);
+                return true;
             }
             //读到码了，插架要判重
             else
@@ -294,11 +301,12 @@ namespace ScanUploader.Controller
                 if (!glasses.Contains(glass))
                 {
                     AddGlass(glass, isLeft, isOK, ref glasses, glassResult);
+                    return true;
                 }
                 else
                 {
                     LogUtil.WriteLog("【单片插架】" + glassResult + "，玻璃 " + glass.snNumber + " 已存在。\r\n");
-                    return;
+                    return false;
                 }
             }
         }
