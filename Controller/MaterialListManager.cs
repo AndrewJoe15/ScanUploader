@@ -16,7 +16,7 @@ namespace ScanUploader.Controller
     {
         public void AppendItemToFile(ListView listView, String filePath, string fileName)
         {
-            FileUtil.AppendItemToExcel(listView, filePath, fileName);
+            FileUtil.AppendLastItemToExcel(listView, filePath, fileName);
         }
     }
 }

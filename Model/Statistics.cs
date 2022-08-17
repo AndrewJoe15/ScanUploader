@@ -11,6 +11,13 @@ namespace ScanUploader.Model
     /// </summary>
     public class Statistics
     {
+        public const string NoneData = "-";
+
+        public static bool hasData
+        {
+            get => yield_total == NoneData ? false : true;
+        }
+
         public static int OK_1 = 0;
         public static int OK_2 = 0;
         public static int OK_total => OK_1 + OK_2;
@@ -25,7 +32,7 @@ namespace ScanUploader.Model
             get
             {
                 if (OK_1 + NG_1 <= 0)
-                    return "-";
+                    return NoneData;
                 else
                     return (100.0 * OK_1 / (OK_1 + NG_1)).ToString("F2");//保留2位小数（百分数两位小数）
             }
@@ -35,7 +42,7 @@ namespace ScanUploader.Model
             get
             {
                 if (OK_2 + NG_2 <= 0)
-                    return "-";
+                    return NoneData;
                 else
                     return (100.0 * OK_2 / (OK_2 + NG_2)).ToString("F2");//保留2位小数（百分数两位小数）
             }
@@ -45,10 +52,18 @@ namespace ScanUploader.Model
             get
             {
                 if (OK_total + NG_total <= 0)
-                    return "-";
+                    return NoneData;
                 else
                     return (100.0 * OK_total / (OK_total + NG_total)).ToString("F2");//保留2位小数（百分数两位小数）
             }
+        }
+
+        public static void ClearData()
+        {
+            OK_1 = 0;
+            OK_2 = 0;
+            NG_1 = 0;
+            NG_2 = 0;
         }
     }
 }

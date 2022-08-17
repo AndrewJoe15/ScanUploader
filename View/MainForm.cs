@@ -40,6 +40,11 @@ namespace ScanUploader.View
 
         private static readonly string _error_list_file_path = Environment.CurrentDirectory + "\\表\\Error\\";
         private static readonly string _error_list_file_name = "Error_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv";
+        
+        private static readonly string _statistics_file_path = Environment.CurrentDirectory + "\\表\\良率\\";
+        private static readonly string _statistics_file_name = "良率统计_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv";
+
+        private ListView _listView_statistics = new ListView();
 
         public MainForm()
         {
@@ -189,12 +194,14 @@ namespace ScanUploader.View
         {
             _UpdateStatistics _us = new _UpdateStatistics(delegate ()
             {
+                ///通道1
                 if(index == 1)
                 {
                     label_text_statistics_OK1.Text = Statistics.OK_1.ToString();
                     label_text_statistics_NG1.Text = Statistics.NG_1.ToString();
                     label_text_statistics_yield1.Text = Statistics.yield1;
                 }
+                //通道2
                 if (index == 2)
                 {
                     label_text_statistics_OK2.Text = Statistics.OK_2.ToString();
@@ -204,6 +211,9 @@ namespace ScanUploader.View
                 //更新良率总计
                 UpdateStatisticsTotal();
 
+                //激活\失活按钮
+                button_stastiticsData_clear.Enabled = Statistics.hasData;
+                button_stastiticsData_save.Enabled = Statistics.hasData;
             });
             Invoke(_us);
         }
@@ -407,6 +417,18 @@ namespace ScanUploader.View
             LogFile.logFile = new LogFile();
             //Debug 新建通讯数据日志文件
             LogFile.debugFile = new LogFile("Data", "\\Log\\Data\\");
+
+            //良率统计 listview
+            ColumnHeader[] columnHeader = new ColumnHeader[] {
+                new ColumnHeader(), 
+                new ColumnHeader(), new ColumnHeader(), new ColumnHeader(),
+                new ColumnHeader(), new ColumnHeader(), new ColumnHeader(),
+                new ColumnHeader(), new ColumnHeader(), new ColumnHeader() };
+            columnHeader[0].Text = "时间";
+            columnHeader[1].Text = "左通道OK"; columnHeader[2].Text = "左通道NG"; columnHeader[3].Text = "左通道良率";
+            columnHeader[4].Text = "右通道OK"; columnHeader[5].Text = "右通道NG"; columnHeader[6].Text = "右通道良率";
+            columnHeader[7].Text = "OK总计"; columnHeader[8].Text = "NG总计"; columnHeader[9].Text = "良率总计";
+            _listView_statistics.Columns.AddRange(columnHeader);
 
             //非化抛项目
             //选项卡隐藏
@@ -734,6 +756,32 @@ namespace ScanUploader.View
                 System.Diagnostics.Process.Start("explorer.exe", _NG_list_file_path);
             else if (tabControl_list.SelectedTab == tabPage_error_info)
                 System.Diagnostics.Process.Start("explorer.exe", _error_list_file_path);
+        }
+
+        private void button_stastiticsData_clear_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("确定要清空良率统计数据吗？", "确认",MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
+                Statistics.ClearData();
+                UpdateStatistics(1);
+                UpdateStatistics(2);
+            }
+        }
+
+        private void button_stastiticsData_save_Click(object sender, EventArgs e)
+        {
+            //添加一条记录
+            ListViewItem item = new ListViewItem(new[] { 
+                TimeUtil.currentTimeString, 
+                Statistics.OK_1.ToString(), Statistics.NG_1.ToString(), Statistics.yield1, 
+                Statistics.OK_2.ToString(), Statistics.NG_2.ToString(), Statistics.yield2, 
+                Statistics.OK_total.ToString(), Statistics.NG_total.ToString(), Statistics.yield_total});
+            _listView_statistics.Items.Add(item);
+
+            //写入文件
+            FileUtil.AppendLastItemToExcel(_listView_statistics, _statistics_file_path, _statistics_file_name);
+
+            openFile(_statistics_file_path + _statistics_file_name);
         }
     }
 }

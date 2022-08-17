@@ -34,19 +34,20 @@ namespace ScanUploader.Utils
             }
         }
 
-        public static void AppendItemToExcel( ListView listView, string filePath, string fileName)
+        public static void AppendLastItemToExcel( ListView listView, string filePath, string fileName)
         {
             if (listView == null || listView.Items.Count == 0)
                 return;
             
             if (!File.Exists(filePath))
                 Directory.CreateDirectory(filePath);
+            try
+            {
 
             FileStream fileStream = new FileStream(filePath + fileName, FileMode.Append, FileAccess.Write, FileShare.Write);
             StreamWriter sw = new StreamWriter(fileStream, Encoding.Default);
 
-            try
-            {
+            
                 //第一次写入时先写入标题行
                 if(listView.Items.Count == 1)
                 {
