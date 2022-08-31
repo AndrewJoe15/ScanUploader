@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 
 namespace ScanUploader.Model
 {
@@ -12,10 +8,15 @@ namespace ScanUploader.Model
     public class Glass
     {
         //扫出载具码
+#if !CUMOSCAN //粗磨不需要sourceVehicle
+        [DataMember]
+#endif
         public string sourceVehicle { get; set; }
         //扫入载具码
+        [DataMember]
         public string targetVehicle { get; set; }
         //玻璃码
+        [DataMember]
         public string snNumber { get; set; }
 
         //重写Equals方法

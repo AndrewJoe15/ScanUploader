@@ -3,13 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="is_chemicalScan" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="is_kibbleScan" Type="System.Boolean" Scope="User">
+    <Setting Name="is_cumoScan" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="is_BDS" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

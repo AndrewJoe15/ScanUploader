@@ -28,7 +28,7 @@ namespace ScanUploader.Controller
         {
 #if CHEMICALSCAN
             InitChemical();
-#elif KIBBLESCAN
+#elif CUMOSCAN
             InitKibble();
 #elif BDSSCAN
             InitBDS();
@@ -54,7 +54,7 @@ namespace ScanUploader.Controller
 
             //setting
             settings.is_chemicalScan = true;
-            settings.is_kibbleScan = false;
+            settings.is_cumoScan = false;
             settings.is_BDS = false;
 
             //socket
@@ -71,14 +71,14 @@ namespace ScanUploader.Controller
         public static void InitKibble()
         {
             //粗磨的url 后缀
-            url.postfix_scanContainerOut = "kibbleScanSourceVehicle";
+            url.postfix_scanContainerOut = "";
             url.postfix_scanSn = "kibbleScanSn";
             url.postfix_scanContainerIn = "kibbleScanTargetVehicle";
-            url.postfix_submit = "kibbleScanSubmit";
+            url.postfix_submit = "cuMoScanSubmit";
             url.postfix_scanContainerUnbind = "";
 
             settings.is_chemicalScan = false;
-            settings.is_kibbleScan = true;
+            settings.is_cumoScan = true;
             settings.is_BDS = false;
 
             //socket
@@ -101,7 +101,7 @@ namespace ScanUploader.Controller
             url.postfix_scanContainerUnbind = "";
 
             settings.is_chemicalScan = false;
-            settings.is_kibbleScan = false;
+            settings.is_cumoScan = false;
             settings.is_BDS = true;
 
             //socket

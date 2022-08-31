@@ -51,32 +51,22 @@ namespace ScanUploader.Controller
         private const string submit_NG_Left_Finish  = "NG2" + submit_finish_ID; 
         private const string submit_NG_Right_Finish = "NG1" + submit_finish_ID;
 
-#elif KIBBLESCAN
-        //上料
-        //-扫出载具
-        private const string containerOut_ID_1 = "L1";
-        private const string containerOut_ID_2 = "L2";
-        private const string containerOut_ID_3 = "L3";
-        private const string containerOut_ID_4 = "L4";
-        //-解绑载具 用不到
-        private const string unbind_ID_1 = "L11";
-        private const string unbind_ID_2 = "L12";
-        private const string unbind_ID_3 = "L13";
-        private const string unbind_ID_4 = "L14";
+#elif CUMOSCAN
+
         //主体
         //-玻璃
-        private const string SN_ID_1 = "L5";
-        private const string SN_ID_2 = "L6";
+        private const string SN_ID_1 = "M1"; //Main
+        private const string SN_ID_2 = "M2";
         //下料
         //-扫入载具
-        private const string containerIn_NG_ID = "L7";
-        private const string containerIn_OK_ID = "L8";
+        private const string containerIn_NG_ID = "D1"; //Down
+        private const string containerIn_OK_ID = "D2";
         //-放入玻璃
         private const string submit_OK = "OK";
         private const string submit_NG = "NG";
         //-提交
-        private const string submit_OK_Finish = "OK" + submit_Finish_ID;
-        private const string submit_NG_Finish = "NG" + submit_Finish_ID;
+        private const string submit_OK_Finish = "OK" + submit_finish_ID;
+        private const string submit_NG_Finish = "NG" + submit_finish_ID;
 
 #elif BDSSCAN
         //主体
@@ -111,7 +101,7 @@ namespace ScanUploader.Controller
             //化抛
             ChemicalScanHandler(port, subs, operationID, deviceCode, ref dataToMachine);
 
-#elif KIBBLESCAN
+#elif CUMOSCAN
             KibbleScanHandler(port, subs, operationID, deviceCode, ref dataToMachine);
 
 #elif BDSSCAN
@@ -265,7 +255,7 @@ namespace ScanUploader.Controller
                     }
                     if (operationID.ToUpper() == submit_OK_Right_Finish)
                     {
-                        dataToMachine = SubmitToMES(ref GlobalValue.GlassList_OK_Right, LogFile.debugFile.logNumber);
+                        dataToMachine = SubmitToMES(ref GlobalValue.GlassList_OK_Right, LogFile.logFile.logNumber);
                     }
                     //- NG  预留提交功能
                     if (operationID.ToUpper() == submit_NG_Left_Finish)
@@ -274,13 +264,16 @@ namespace ScanUploader.Controller
                     }
                     if (operationID.ToUpper() == submit_NG_Right_Finish)
                     {
-                        dataToMachine = SubmitToMES(ref GlobalValue.GlassList_NG_Right, LogFile.debugFile.logNumber);
+                        dataToMachine = SubmitToMES(ref GlobalValue.GlassList_NG_Right, LogFile.logFile.logNumber);
                     }
 
                     return;
                 }
             }
         }
+
+#endif
+
 
         private static bool InsertGlass(Glass glass, bool isLeft, bool isOK, ref List<Glass> glasses)
         {
@@ -292,7 +285,7 @@ namespace ScanUploader.Controller
                 //换成中文
                 glass.snNumber = "未读到码";
 
-                AddGlass(glass,isLeft, isOK, ref glasses, glassResult);
+                AddGlass(glass, isLeft, isOK, ref glasses, glassResult);
                 return true;
             }
             //读到码了，插架要判重
@@ -320,10 +313,13 @@ namespace ScanUploader.Controller
             AppendMaterialListView(glass, isOK);
             //-良率统计
             UpdateMaterialStatistics(isLeft, isOK);
-
-            LogUtil.WriteLog("【单片插架】" + glassResult + "，玻璃 " + glass.snNumber + " 放入清洗架 " + glass.targetVehicle + " 中。");
-        }
+#if CUMOSCAN
+            LogUtil.WriteLog("【单片插架】" + glassResult + "，玻璃 " + glass.snNumber + " 放入载具 " + glass.targetVehicle + " 中。");
 #endif
+#if CHEMICALSCAN
+            LogUtil.WriteLog("【单片插架】" + glassResult + "，玻璃 " + glass.snNumber + " 放入清洗架 " + glass.targetVehicle + " 中。");
+#endif
+        }
 
 #if BDSSCAN
         private static void BDSScanHandler(int port, string operationID, string deviceCode, ref ReturnData dataToMachine)
@@ -515,7 +511,6 @@ namespace ScanUploader.Controller
 
             if (glasses.Count > 0)
             {
-
                 submitData.logNumber = logNumber;
                 submitData.qty = glasses.Count.ToString();//qty 载具内玻璃数量
                 submitData.supplementList = glasses;
@@ -537,16 +532,23 @@ namespace ScanUploader.Controller
             //Log记录
             if (dataToMachine?.code == ReturnData.code_success)
             {
-                //LogUtil.WriteLog("【清洗架提交】成功，" + dataToMachine?.msg + "共" + submitData.qty + "片：\r\n" + submitJson["supplementList"]);
+#if CUMOSCAN
+                string logStr = "【下料载具提交】成功，" + dataToMachine?.msg + "，共" + submitData.qty + "片。\r\n";
+#elif CHEMICALSCAN
                 string logStr = "【清洗架提交】成功，" + dataToMachine?.msg + "，共" + submitData.qty + "片。\r\n";
+#endif
                 foreach (var item in submitData.supplementList)
                 {
+#if CUMOSCAN
+                    logStr += "\t\t玻璃码：" + item.snNumber + " 下料载具码：" + item.targetVehicle + "\r\n";
+#elif CHEMICALSCAN
                     logStr += "\t\t玻璃码：" + item.snNumber + " 化抛架码：" + item.sourceVehicle + " 清洗架码：" + item.targetVehicle + "\r\n";
+#endif
                 }
                 LogUtil.WriteLog(logStr);
             }
             else
-                LogUtil.WriteLog("【清洗架提交】失败，" + dataToMachine?.msg);
+                LogUtil.WriteLog("【提交失败】，" + dataToMachine?.msg);
 
 
             glasses.Clear();//最后清空list
@@ -555,17 +557,17 @@ namespace ScanUploader.Controller
         }
 #endif
 
-        /// <summary>
-        /// BDS项目 良率统计 在单片扫码时调用
-        /// </summary>
-        /// <param name="operationID"></param>
-        /// <param name="dataToMachine"></param>
-        private static void UpdateMaterialStatistics(string operationID, ReturnData dataToMachine)
+                    /// <summary>
+                    /// BDS项目 良率统计 在单片扫码时调用
+                    /// </summary>
+                    /// <param name="operationID"></param>
+                    /// <param name="dataToMachine"></param>
+                    private static void UpdateMaterialStatistics(string operationID, ReturnData dataToMachine)
         {
             //良率统计
             if (operationID == SN_ID_1)
             {
-                if (dataToMachine.code == ReturnData.code_success)
+                if (dataToMachine.code == ReturnData.code_success || dataToMachine.code == ReturnData.code_repeat)
                     Statistics.OK_1++;
                 else
                     Statistics.NG_1++;
@@ -575,7 +577,7 @@ namespace ScanUploader.Controller
             }
             else if (operationID == SN_ID_2)
             {
-                if (dataToMachine.code == ReturnData.code_success)
+                if (dataToMachine.code == ReturnData.code_success || dataToMachine.code == ReturnData.code_repeat)
                     Statistics.OK_2++;
                 else
                     Statistics.NG_2++;
@@ -770,53 +772,57 @@ namespace ScanUploader.Controller
         }
 
         //粗磨项目扫码上传业务逻辑
-#if KIBBLESCAN
+#if CUMOSCAN
 
         private static void KibbleScanHandler(int port, string[] subs, string operationID, string deviceCode, ref ReturnData dataToMachine)
         {
-            //粗磨
-            //上料端口
-            if (port == ConnectManager.port_up)
-            {
-                //扫出载具
-                if (operationID == containerOut_ID_1 ||
-                    operationID == containerOut_ID_2 ||
-                    operationID == containerOut_ID_3 ||
-                    operationID == containerOut_ID_4)
-                {
-                    //WMS 查询、校验
-                    ReturnData dataFromWMS = GetReturnFromWMS(deviceCode);
-                    //MES
-                    ReturnData dataFromMES = GetReturnFromMES("containerCode", deviceCode, URL.scanContainerOut);
-                    //WMS 和 MES 均通过才算成功
-                    if (dataFromWMS.code == ReturnData.code_success && dataFromMES.code == ReturnData.code_success)
-                        dataToMachine.code = ReturnData.code_success;
-                    //否则校验失败 返回错误信息
-                    else
-                        dataToMachine.code = ReturnData.code_error;
-                     
-                    dataToMachine.msg = "WMS校验，" + dataFromWMS.msg + "；MES校验，" + dataFromMES.msg;
-
-                    LogUtil.WriteLog("上料扫出载具" + deviceCode + "," + dataToMachine.msg);
-
-                    return;
-                }
-            }
-
             //涂油扫码端口
             if (port == ConnectManager.port_main)
             {
                 //上传玻璃码
                 if (operationID == SN_ID_1 || operationID == SN_ID_2)
                 {
-                    dataToMachine = GetReturnFromMES("snNumber", deviceCode, URL.scanSn);
+                    CheckSnNumber(operationID, deviceCode, ref dataToMachine);
 
-                    LogUtil.WriteLog("单片玻璃扫码，" + dataToMachine.msg);
-
-                    //更新用户界面显示的数据
-                    UpdateUIInfo(operationID, deviceCode, dataToMachine);
                     return;
                 }
+            }
+
+            //放玻璃
+            if (port == ConnectManager.port_insert)
+            {
+                if (subs.Length >= 3)
+                {
+                    Glass glass = new Glass();
+                    glass.sourceVehicle = ""; //粗磨没有上料载具码
+                    glass.targetVehicle = subs[1];
+                    glass.snNumber = subs[2];
+
+                    bool inserted = false;
+
+                    //OK,cIn,SN,
+                    //NG,...
+                    if (operationID == submit_OK)
+                    {
+                        inserted = InsertGlass(glass, true, true, ref GlobalValue.GlassList_OK);
+                    }
+                    else if (operationID == submit_NG)
+                    {
+                        inserted = InsertGlass(glass, true, false, ref GlobalValue.GlassList_NG);
+                    }
+                    else
+                    {
+                        dataToMachine.code = ReturnData.code_wrongData_PLC;
+                        dataToMachine.msg = "机器->上位机命令有误。";
+                        return;
+                    }
+
+                    if (inserted)
+                        dataToMachine.code = ReturnData.code_success;
+                    else
+                        dataToMachine.code = ReturnData.code_error;
+                }
+                return;
             }
 
             //下料端口
@@ -827,7 +833,7 @@ namespace ScanUploader.Controller
                 {
                     dataToMachine = GetReturnFromMES("containerCode", deviceCode, URL.scanContainerIn);
 
-                    LogUtil.WriteLog("下料扫入载具，" + dataToMachine.msg);
+                    LogUtil.WriteLog("【下料载具扫码】，" + deviceCode + "，" + dataToMachine.msg);
 
                     return;
                 }
@@ -835,49 +841,23 @@ namespace ScanUploader.Controller
 
             //提交端口
             if (port == ConnectManager.port_submit)
-            {
+            {                
                 //提交
-                //OK1,cOut,cIn,SN,
-                //OK2,cOut,cIn,SN,
-                //NG1,...
-                //NG2
-                if (subs.Length >= 4 && (operationID.Contains("OK") || operationID.Contains("NG")))//要改
-                {
-                    Glass glass = new Glass();
-                    glass.sourceVehicle = subs[1];
-                    glass.targetVehicle = subs[2];
-                    glass.snNumber = subs[3];
-
-                    if (operationID == submit_OK)
-                        GlobalValue.GlassList_OK.Add(glass);
-                    if (operationID == submit_NG)
-                        GlobalValue.GlassList_NG.Add(glass);
-
-                    dataToMachine.code = ReturnData.code_success;
-                    LogUtil.WriteLog("玻璃 " + glass.snNumber + " 放入载具 " + glass.targetVehicle + " 中。");
-
-                    return;
-                }
-
-                //OKFINISH
-                //NGFINISH
-                if (operationID.ToUpper().Contains(submit_Finish_ID))
+                //OKFinish,
+                //NGFinish,
+                if (operationID.ToUpper().Contains(submit_finish_ID))
                 {
                     //批量提交
+                    //- OK
                     if (operationID.ToUpper() == submit_OK_Finish)
-                        dataToMachine = SubmitToMES(ref GlobalValue.GlassList_OK, LogFile.logFile_line1.logNumber);
-                    
-                    if (operationID.ToUpper() == submit_NG_Finish)
-                        dataToMachine = SubmitToMES(ref GlobalValue.GlassList_NG, LogFile.logFile_line1.logNumber);
-
-                    if (dataToMachine != null && dataToMachine.msg != "")
                     {
-                        LogUtil.WriteLog("提交，" + dataToMachine.msg);
-                        
-                        //新建日志文件对象
-                        LogFile.logFile_line1 = new LogFile();
+                        dataToMachine = SubmitToMES(ref GlobalValue.GlassList_OK, LogFile.logFile.logNumber);
                     }
-                    
+                    //- NG  预留提交功能
+                    else if (operationID.ToUpper() == submit_NG_Finish)
+                    {
+                        dataToMachine = SubmitToMES(ref GlobalValue.GlassList_NG, LogFile.logFile.logNumber);
+                    }
 
                     return;
                 }

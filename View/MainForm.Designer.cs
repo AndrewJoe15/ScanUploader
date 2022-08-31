@@ -41,6 +41,7 @@
             this.label_operation = new System.Windows.Forms.Label();
             this.comboBox_createBy = new System.Windows.Forms.ComboBox();
             this.comboBox_site = new System.Windows.Forms.ComboBox();
+            this.basicInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label_site = new System.Windows.Forms.Label();
             this.comboBox_shift = new System.Windows.Forms.ComboBox();
             this.panel_basicInformation = new System.Windows.Forms.Panel();
@@ -97,13 +98,13 @@
             this.columnHeader_returnCode_BDS = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader_NG_info_BDS = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage_OK_threeCode = new System.Windows.Forms.TabPage();
-            this.listView_OK = new System.Windows.Forms.ListView();
+            this.listView_OK_threeCodes = new System.Windows.Forms.ListView();
             this.columnHeader_time_OK = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader_snNumber_OK = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader_targetVehicle_OK = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader_sourceVehicle_OK = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage_NG_threeCode = new System.Windows.Forms.TabPage();
-            this.listView_NG_threeCode = new System.Windows.Forms.ListView();
+            this.listView_NG_threeCodes = new System.Windows.Forms.ListView();
             this.columnHeader_time_NG = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader_snNumber_NG = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader_targetVehicle_NG = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -138,7 +139,7 @@
             this.button_http_login = new System.Windows.Forms.Button();
             this.label_http_status = new System.Windows.Forms.Label();
             this.label_http_status_color = new System.Windows.Forms.Label();
-            this.basicInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.basicInfoBindingSource)).BeginInit();
             this.panel_basicInformation.SuspendLayout();
             this.panel_log.SuspendLayout();
             this.tabControl_log.SuspendLayout();
@@ -156,7 +157,6 @@
             this.tabControl1.SuspendLayout();
             this.tabPage_socket.SuspendLayout();
             this.tabPage_http.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.basicInfoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // comboBox_productModel
@@ -261,6 +261,10 @@
             this.comboBox_site.Size = new System.Drawing.Size(101, 23);
             this.comboBox_site.TabIndex = 1;
             this.comboBox_site.TextChanged += new System.EventHandler(this.OnComboBoxTextUpdate);
+            // 
+            // basicInfoBindingSource
+            // 
+            this.basicInfoBindingSource.DataSource = typeof(ScanUploader.Model.BasicInfo);
             // 
             // label_site
             // 
@@ -871,7 +875,7 @@
             // 
             // tabPage_OK_threeCode
             // 
-            this.tabPage_OK_threeCode.Controls.Add(this.listView_OK);
+            this.tabPage_OK_threeCode.Controls.Add(this.listView_OK_threeCodes);
             this.tabPage_OK_threeCode.Location = new System.Drawing.Point(4, 25);
             this.tabPage_OK_threeCode.Name = "tabPage_OK_threeCode";
             this.tabPage_OK_threeCode.Padding = new System.Windows.Forms.Padding(3);
@@ -880,23 +884,23 @@
             this.tabPage_OK_threeCode.Text = "OK插架";
             this.tabPage_OK_threeCode.UseVisualStyleBackColor = true;
             // 
-            // listView_OK
+            // listView_OK_threeCodes
             // 
-            this.listView_OK.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listView_OK_threeCodes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader_time_OK,
             this.columnHeader_snNumber_OK,
             this.columnHeader_targetVehicle_OK,
             this.columnHeader_sourceVehicle_OK});
-            this.listView_OK.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.listView_OK.GridLines = true;
-            this.listView_OK.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listView_OK.HideSelection = false;
-            this.listView_OK.Location = new System.Drawing.Point(0, 0);
-            this.listView_OK.Name = "listView_OK";
-            this.listView_OK.Size = new System.Drawing.Size(671, 284);
-            this.listView_OK.TabIndex = 1;
-            this.listView_OK.UseCompatibleStateImageBehavior = false;
-            this.listView_OK.View = System.Windows.Forms.View.Details;
+            this.listView_OK_threeCodes.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.listView_OK_threeCodes.GridLines = true;
+            this.listView_OK_threeCodes.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listView_OK_threeCodes.HideSelection = false;
+            this.listView_OK_threeCodes.Location = new System.Drawing.Point(0, 0);
+            this.listView_OK_threeCodes.Name = "listView_OK_threeCodes";
+            this.listView_OK_threeCodes.Size = new System.Drawing.Size(671, 284);
+            this.listView_OK_threeCodes.TabIndex = 1;
+            this.listView_OK_threeCodes.UseCompatibleStateImageBehavior = false;
+            this.listView_OK_threeCodes.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader_time_OK
             // 
@@ -910,17 +914,17 @@
             // 
             // columnHeader_targetVehicle_OK
             // 
-            this.columnHeader_targetVehicle_OK.Text = "清洗架码";
+            this.columnHeader_targetVehicle_OK.Text = "下料载具码";
             this.columnHeader_targetVehicle_OK.Width = 179;
             // 
             // columnHeader_sourceVehicle_OK
             // 
-            this.columnHeader_sourceVehicle_OK.Text = "化抛架码";
+            this.columnHeader_sourceVehicle_OK.Text = "上料载具码";
             this.columnHeader_sourceVehicle_OK.Width = 197;
             // 
             // tabPage_NG_threeCode
             // 
-            this.tabPage_NG_threeCode.Controls.Add(this.listView_NG_threeCode);
+            this.tabPage_NG_threeCode.Controls.Add(this.listView_NG_threeCodes);
             this.tabPage_NG_threeCode.Location = new System.Drawing.Point(4, 25);
             this.tabPage_NG_threeCode.Name = "tabPage_NG_threeCode";
             this.tabPage_NG_threeCode.Padding = new System.Windows.Forms.Padding(3);
@@ -929,23 +933,23 @@
             this.tabPage_NG_threeCode.Text = "NG插架";
             this.tabPage_NG_threeCode.UseVisualStyleBackColor = true;
             // 
-            // listView_NG_threeCode
+            // listView_NG_threeCodes
             // 
-            this.listView_NG_threeCode.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listView_NG_threeCodes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader_time_NG,
             this.columnHeader_snNumber_NG,
             this.columnHeader_targetVehicle_NG,
             this.columnHeader_sourceVehicle_NG});
-            this.listView_NG_threeCode.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.listView_NG_threeCode.GridLines = true;
-            this.listView_NG_threeCode.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listView_NG_threeCode.HideSelection = false;
-            this.listView_NG_threeCode.Location = new System.Drawing.Point(0, 0);
-            this.listView_NG_threeCode.Name = "listView_NG_threeCode";
-            this.listView_NG_threeCode.Size = new System.Drawing.Size(673, 284);
-            this.listView_NG_threeCode.TabIndex = 0;
-            this.listView_NG_threeCode.UseCompatibleStateImageBehavior = false;
-            this.listView_NG_threeCode.View = System.Windows.Forms.View.Details;
+            this.listView_NG_threeCodes.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.listView_NG_threeCodes.GridLines = true;
+            this.listView_NG_threeCodes.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listView_NG_threeCodes.HideSelection = false;
+            this.listView_NG_threeCodes.Location = new System.Drawing.Point(0, 0);
+            this.listView_NG_threeCodes.Name = "listView_NG_threeCodes";
+            this.listView_NG_threeCodes.Size = new System.Drawing.Size(673, 284);
+            this.listView_NG_threeCodes.TabIndex = 0;
+            this.listView_NG_threeCodes.UseCompatibleStateImageBehavior = false;
+            this.listView_NG_threeCodes.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader_time_NG
             // 
@@ -959,12 +963,12 @@
             // 
             // columnHeader_targetVehicle_NG
             // 
-            this.columnHeader_targetVehicle_NG.Text = "清洗架码";
+            this.columnHeader_targetVehicle_NG.Text = "下料载具码";
             this.columnHeader_targetVehicle_NG.Width = 174;
             // 
             // columnHeader_sourceVehicle_NG
             // 
-            this.columnHeader_sourceVehicle_NG.Text = "化抛架码";
+            this.columnHeader_sourceVehicle_NG.Text = "上料载具码";
             this.columnHeader_sourceVehicle_NG.Width = 224;
             // 
             // tabPage_error_info
@@ -1297,10 +1301,6 @@
             this.label_http_status_color.TabIndex = 58;
             this.label_http_status_color.Text = "   ";
             // 
-            // basicInfoBindingSource
-            // 
-            this.basicInfoBindingSource.DataSource = typeof(ScanUploader.Model.BasicInfo);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 17F);
@@ -1320,6 +1320,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
+            ((System.ComponentModel.ISupportInitialize)(this.basicInfoBindingSource)).EndInit();
             this.panel_basicInformation.ResumeLayout(false);
             this.panel_basicInformation.PerformLayout();
             this.panel_log.ResumeLayout(false);
@@ -1343,7 +1344,6 @@
             this.tabPage_socket.PerformLayout();
             this.tabPage_http.ResumeLayout(false);
             this.tabPage_http.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.basicInfoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1403,7 +1403,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader_errorCode;
         private System.Windows.Forms.ColumnHeader columnHeader_errorMsg;
         private System.Windows.Forms.TabPage tabPage_NG_threeCode;
-        private System.Windows.Forms.ListView listView_NG_threeCode;
+        private System.Windows.Forms.ListView listView_NG_threeCodes;
         private System.Windows.Forms.ColumnHeader columnHeader_time_NG;
         private System.Windows.Forms.ColumnHeader columnHeader_snNumber_NG;
         private System.Windows.Forms.Button button_openLogDir;
@@ -1439,7 +1439,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader_targetVehicle_NG;
         private System.Windows.Forms.ColumnHeader columnHeader_sourceVehicle_NG;
         private System.Windows.Forms.TabPage tabPage_OK_threeCode;
-        private System.Windows.Forms.ListView listView_OK;
+        private System.Windows.Forms.ListView listView_OK_threeCodes;
         private System.Windows.Forms.ColumnHeader columnHeader_time_OK;
         private System.Windows.Forms.ColumnHeader columnHeader_snNumber_OK;
         private System.Windows.Forms.ColumnHeader columnHeader_targetVehicle_OK;

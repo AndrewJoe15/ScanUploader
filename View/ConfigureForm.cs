@@ -65,7 +65,7 @@ namespace ScanUploader.View
             textBox_url_postfix_scanContainerUnbind.Text = url.postfix_scanContainerUnbind;
             textBox_url_postfix_submit.Text = url.postfix_submit;
             
-            if (settings.is_kibbleScan)
+            if (settings.is_cumoScan)
             {
                 textBox_stockQuery_WMS.Enabled = true;
                 textBox_validate_WMS.Enabled = true;
@@ -90,7 +90,7 @@ namespace ScanUploader.View
 
             //项目URL配置单选框
             radioButton_Chemical.Checked = settings.is_chemicalScan;
-            radioButton_Kibble.Checked = settings.is_kibbleScan;
+            radioButton_Kibble.Checked = settings.is_cumoScan;
             radioButton_BDS.Checked = settings.is_BDS;
         }
 
@@ -275,7 +275,7 @@ namespace ScanUploader.View
 
         private void radioButton_Kibble_CheckedChanged(object sender, EventArgs e)
         {
-            settings.is_kibbleScan = radioButton_Kibble.Checked;
+            settings.is_cumoScan = radioButton_Kibble.Checked;
             if (radioButton_Kibble.Checked)
             {
                 Configurator.InitKibble();

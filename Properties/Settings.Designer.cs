@@ -25,7 +25,7 @@ namespace ScanUploader.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool is_chemicalScan {
             get {
                 return ((bool)(this["is_chemicalScan"]));
@@ -38,18 +38,18 @@ namespace ScanUploader.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool is_kibbleScan {
+        public bool is_cumoScan {
             get {
-                return ((bool)(this["is_kibbleScan"]));
+                return ((bool)(this["is_cumoScan"]));
             }
             set {
-                this["is_kibbleScan"] = value;
+                this["is_cumoScan"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool is_BDS {
             get {
                 return ((bool)(this["is_BDS"]));

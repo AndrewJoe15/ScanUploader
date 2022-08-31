@@ -15,7 +15,7 @@ namespace ScanUploader.Model
         public static List<Glass> GlassList_NG_Left = new List<Glass>();
         public static List<Glass> GlassList_NG_Right = new List<Glass>();
 #endif
-#if KIBBLESCAN
+#if CUMOSCAN
         //粗磨
         public static List<Glass> GlassList_OK = new List<Glass>();
         public static List<Glass> GlassList_NG = new List<Glass>();

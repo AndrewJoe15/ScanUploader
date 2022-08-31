@@ -52,7 +52,7 @@ namespace ScanUploader.Model
             //**********             HP        20220601     1234       .txt
             logNumber = logFileNameSetting.prefix + DateTime.Now.ToString(logFileNameSetting.dateFormat) + serialNumString;
             fileName = logNumber + logFileNameSetting.fileFormat;
-
+            
             //每新建一个logFile后，更新流水号
             setNextSerialNumber();
         }
