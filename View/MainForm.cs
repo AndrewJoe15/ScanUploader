@@ -21,7 +21,9 @@ namespace ScanUploader.View
 
         public static MainForm thisForm;
 
-        private HttpUser httpUser = UserManager.httpUser_MES; 
+        public ConfigureForm configureForm = new ConfigureForm();
+
+        private HttpUser httpUser;
 
         //BasicInfo单例
         private BasicInfo basicInfo = BasicInfo.Instance;
@@ -40,7 +42,7 @@ namespace ScanUploader.View
 
         private static readonly string _error_list_file_path = Environment.CurrentDirectory + "\\表\\Error\\";
         private static readonly string _error_list_file_name = "Error_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv";
-        
+
         private static readonly string _statistics_file_path = Environment.CurrentDirectory + "\\表\\良率\\";
         private static readonly string _statistics_file_name = "良率统计_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv";
 
@@ -50,21 +52,19 @@ namespace ScanUploader.View
         {
             InitializeComponent();
 
+            Init();
+
             BindData();
 
-            Init();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             LogUtil.WriteLog("上位机启动。");
 
-            //时钟开始运行
-            timer_main.Start();
-
 #if !DEBUGx
             //http用户登录以更新Token
-            if(UserManager.HttpLogin(httpUser))
+            if (UserManager.HttpLogin(httpUser))
                 //启动连接计时器，每11小时重新登录一次
                 ConnectManager.Instance.StartTimer_Http();
 #endif
@@ -72,14 +72,6 @@ namespace ScanUploader.View
             //启动Socket服务器
             ConnectManager.Instance.StartSocketServer();
 
-        }
-
-
-
-        private void timer_main_Tick(object sender, EventArgs e)
-        {
-            //底部时钟
-            label_timer_main.Text = TimeUtil.currentTimeString;
         }
 
         //线程安全调用
@@ -143,7 +135,7 @@ namespace ScanUploader.View
             {
                 if (endPoint.Contains(ConnectManager.port_up.ToString()))
                 {
-                    if(connected)
+                    if (connected)
                         label_socketStatus_up.BackColor = Color.Green;
                     else
                         label_socketStatus_up.BackColor = Color.Red;
@@ -195,7 +187,7 @@ namespace ScanUploader.View
             _UpdateStatistics _us = new _UpdateStatistics(delegate ()
             {
                 ///通道1
-                if(index == 1)
+                if (index == 1)
                 {
                     label_text_statistics_OK1.Text = Statistics.OK_1.ToString();
                     label_text_statistics_NG1.Text = Statistics.NG_1.ToString();
@@ -257,9 +249,9 @@ namespace ScanUploader.View
         private static void AddItem_Glass(Glass glass, ListView listView)
         {
             //列表超出范围则清空 只留最后一个
-            if(listView.Items.Count >= listView_maxLines)
+            if (listView.Items.Count >= listView_maxLines)
             {
-                ListViewItem tmp_last = listView.Items[listView.Items.Count-1];
+                ListViewItem tmp_last = listView.Items[listView.Items.Count - 1];
                 listView.Items.Clear();
                 listView.Items.Add(tmp_last);
             }
@@ -296,12 +288,12 @@ namespace ScanUploader.View
             {
                 if (isOK)
                 {
-                    AddItem(snNumber,code, msg, listView_OK_info);
+                    AddItem(snNumber, code, msg, listView_OK_info);
                     MaterialListManager.Instance.AppendItemToFile(listView_OK_info, _OK_list_file_path, _OK_list_file_name);
                 }
                 else
                 {
-                    AddItem(snNumber,code, msg, listView_NG_info);
+                    AddItem(snNumber, code, msg, listView_NG_info);
                     MaterialListManager.Instance.AppendItemToFile(listView_NG_info, _NG_list_file_path, _NG_list_file_name);
                 }
             });
@@ -314,20 +306,20 @@ namespace ScanUploader.View
                 if (isOK)
                 {
                     //界面ListView添加一项
-                    AddItem_Glass(glass, listView_OK);
+                    AddItem_Glass(glass, listView_OK_threeCodes);
                     //文件写入一项
-                    MaterialListManager.Instance.AppendItemToFile(listView_OK, _OK_list_file_path_threeCode, _OK_list_file_name);
+                    MaterialListManager.Instance.AppendItemToFile(listView_OK_threeCodes, _OK_list_file_path_threeCode, _OK_list_file_name);
                 }
                 else
                 {
-                    AddItem_Glass(glass, listView_NG_threeCode);
-                    MaterialListManager.Instance.AppendItemToFile(listView_NG_threeCode, _NG_list_file_path_threeCode, _NG_list_file_name);
+                    AddItem_Glass(glass, listView_NG_threeCodes);
+                    MaterialListManager.Instance.AppendItemToFile(listView_NG_threeCodes, _NG_list_file_path_threeCode, _NG_list_file_name);
                 }
             });
             Invoke(_uni);
         }
 
-        private void DataBind_Text(Control control, object dataSource, string dataMember)
+        private void BindData_Text(Control control, object dataSource, string dataMember)
         {
             if (dataSource != null)
             {
@@ -349,19 +341,19 @@ namespace ScanUploader.View
         private void BindData()
         {
             //基本信息 数据绑定
-            DataBind_Text(comboBox_site, basicInfo, nameof(basicInfo.site));
-            DataBind_Text(comboBox_operation, basicInfo, nameof(basicInfo.operation));
-            DataBind_Text(comboBox_resource, basicInfo, nameof(basicInfo.resource));
-            DataBind_Text(comboBox_productModel, basicInfo, nameof(basicInfo.productModel));
-            DataBind_Text(comboBox_productModelVersion, basicInfo, nameof(basicInfo.productModelVersion));
-            DataBind_Text(comboBox_shift, basicInfo, nameof(basicInfo.shift));
-            DataBind_Text(comboBox_createBy, basicInfo, nameof(basicInfo.createBy));
+            BindData_Text(comboBox_site, basicInfo, nameof(basicInfo.site));
+            BindData_Text(comboBox_operation, basicInfo, nameof(basicInfo.operation));
+            BindData_Text(comboBox_resource, basicInfo, nameof(basicInfo.resource));
+            BindData_Text(comboBox_productModel, basicInfo, nameof(basicInfo.productModel));
+            BindData_Text(comboBox_productModelVersion, basicInfo, nameof(basicInfo.productModelVersion));
+            BindData_Text(comboBox_shift, basicInfo, nameof(basicInfo.shift));
+            BindData_Text(comboBox_createBy, basicInfo, nameof(basicInfo.createBy));
             DataBind_Item(comboBox_order, basicInfo, nameof(basicInfo.order));
 
             //http user
-            DataBind_Text(textBox_http_username, httpUser, nameof(httpUser.username));
-            DataBind_Text(textBox_http_password, httpUser, nameof(httpUser.password));
-            DataBind_Text(textBox_http_site, httpUser, nameof(httpUser.site));
+            BindData_Text(textBox_http_username, httpUser, nameof(httpUser.username));
+            BindData_Text(textBox_http_password, httpUser, nameof(httpUser.password));
+            BindData_Text(textBox_http_site, httpUser, nameof(httpUser.site));
         }
 
         /// <summary>
@@ -384,23 +376,23 @@ namespace ScanUploader.View
                         {
                             //字符串集合的枚举器
                             StringEnumerator se = ((StringCollection)p.GetValue(Properties.BasicInfo.Default)).GetEnumerator();
-                            
+
                             //向下拉列表加载数据
                             while (se.MoveNext())
                             {
                                 ((ComboBox)ctrl).Items.Add(se.Current);
                             }
-                            
+
                             //设置文本框显示的项
                             //目前是将新的项添加到末尾，所以设置显示最后一项字符串
                             ((ComboBox)ctrl).SelectedIndex = ((ComboBox)ctrl).Items.Count - 1;
 
                             //给basicInfo的属性赋值 这样界面才会显示，否则又跟着basicInfo的属性为""了
                             PropertyInfo propertyInfo = basicInfo.GetType().GetProperty(p.Name);
-                            if(propertyInfo != null)
+                            if (propertyInfo != null)
                                 propertyInfo.SetValue(basicInfo, ((ComboBox)ctrl).Text, null);
 
-                            break; 
+                            break;
                         }
                     }
                 }
@@ -408,7 +400,7 @@ namespace ScanUploader.View
 
             //设置工单号为上次保存的项，超过范围则显示最后一项
             //comboBox_order.SelectedIndex = Math.Min(Properties.SelectedIndex.Default.order, comboBox_order.Items.Count - 1);
-            
+
             //保存按钮禁用
             button_save_basicInfo.Enabled = false;
 
@@ -420,7 +412,7 @@ namespace ScanUploader.View
 
             //良率统计 listview
             ColumnHeader[] columnHeader = new ColumnHeader[] {
-                new ColumnHeader(), 
+                new ColumnHeader(),
                 new ColumnHeader(), new ColumnHeader(), new ColumnHeader(),
                 new ColumnHeader(), new ColumnHeader(), new ColumnHeader(),
                 new ColumnHeader(), new ColumnHeader(), new ColumnHeader() };
@@ -432,7 +424,7 @@ namespace ScanUploader.View
 
             //非化抛项目
             //选项卡隐藏
-#if !CHEMICALSCAN
+#if BDSSCAN
             tabPage_NG_threeCode.Parent = null;
             tabPage_OK_threeCode.Parent = null;
 
@@ -448,6 +440,7 @@ namespace ScanUploader.View
             label_socketStatus_submit.Visible = false;
 #endif
 
+            httpUser = UserManager.httpUser_MES;
         }
 
         /// <summary>
@@ -483,7 +476,7 @@ namespace ScanUploader.View
         {
             //最大化窗口
             WindowState = FormWindowState.Maximized;
-        }        
+        }
 
         private void menuStrip_top_Config_Click(object sender, EventArgs e)
         {
@@ -511,7 +504,7 @@ namespace ScanUploader.View
                     {
                         System.Diagnostics.Process.Start(file);
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         ShowUtil.ShowTips("打开文件失败。" + ex?.Message);
                     }
@@ -537,7 +530,7 @@ namespace ScanUploader.View
             }
             else if (tabControl_list.SelectedTab == tabPage_NG_threeCode)
             {
-                listView_NG_threeCode.Items.Clear(); //清空NG表格所有数据项
+                listView_NG_threeCodes.Items.Clear(); //清空NG表格所有数据项
             }
         }
 
@@ -549,11 +542,11 @@ namespace ScanUploader.View
             }
             else if (tabControl_list.SelectedTab == tabPage_NG_threeCode)
             {
-                FileUtil.ExportExcel("NG三码信息统计", listView_NG_threeCode);
+                FileUtil.ExportExcel("NG三码信息统计", listView_NG_threeCodes);
             }
             else if (tabControl_list.SelectedTab == tabPage_OK_threeCode)
             {
-                FileUtil.ExportExcel("OK三码信息统计", listView_OK);
+                FileUtil.ExportExcel("OK三码信息统计", listView_OK_threeCodes);
             }
             else if (tabControl_list.SelectedTab == tabPage_OK_info)
             {
@@ -608,13 +601,13 @@ namespace ScanUploader.View
                 return;
             }
             string text = comboBox.Text.Trim();
-            
-            if(sc.Count == 0)
+
+            if (sc.Count == 0)
                 sc.Add(text);
             else if (!sc.Contains(text))
                 sc[0] = text;
-            
-            if(!comboBox.Items.Contains(text))
+
+            if (!comboBox.Items.Contains(text))
                 comboBox.Items.Add(text);
         }
 
@@ -634,7 +627,7 @@ namespace ScanUploader.View
                         done = true;
                         break;//找到一个为空即返回
                     }
-                }                
+                }
             }
             return done;
         }
@@ -646,16 +639,16 @@ namespace ScanUploader.View
             {
                 //登录成功 保存用户名密码
                 Properties.User_Http user_http = Properties.User_Http.Default;
-                user_http.username_MES = textBox_http_username.Text;
-                user_http.password_MES = textBox_http_password.Text;
+                user_http.username_MES_hp = textBox_http_username.Text;
+                user_http.password_MES_hp = textBox_http_password.Text;
                 user_http.site_MES = textBox_http_site.Text;
-                
+
                 user_http.Save();
             }
 
         }
 
-        private void Combobox_Oder_DropDown(object sender, EventArgs e)
+        private void ComboBox_Order_DropDown(object sender, EventArgs e)
         {
             GetMesMoList();
         }
@@ -673,7 +666,7 @@ namespace ScanUploader.View
             postData.Add("moDate", DateTime.Now.ToString("yyyy-MM-dd"));
 
             //发送Http请求获取数据
-            JObject result = HttpUtil.PostResponse(URL.getMesMoList, postData.ToString());
+            JObject result = HttpUtil.PostResponse(URL.Instance.getMesMoList, postData.ToString());
 
             //获取工单列表成功
             if (result?["code"]?.ToString() == ReturnData.code_success)
@@ -725,7 +718,7 @@ namespace ScanUploader.View
             return true;
         }
 
-        private void comboBox_order_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBox_Order_SelectedIndexChanged(object sender, EventArgs e)
         {
             button_save_basicInfo.Enabled = true;
         }
@@ -760,7 +753,7 @@ namespace ScanUploader.View
 
         private void button_stastiticsData_clear_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("确定要清空良率统计数据吗？", "确认",MessageBoxButtons.OKCancel) == DialogResult.OK)
+            if (MessageBox.Show("确定要清空良率统计数据吗？", "确认", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 Statistics.ClearData();
                 UpdateStatistics(1);
@@ -771,10 +764,10 @@ namespace ScanUploader.View
         private void button_stastiticsData_save_Click(object sender, EventArgs e)
         {
             //添加一条记录
-            ListViewItem item = new ListViewItem(new[] { 
-                TimeUtil.currentTimeString, 
-                Statistics.OK_1.ToString(), Statistics.NG_1.ToString(), Statistics.yield1, 
-                Statistics.OK_2.ToString(), Statistics.NG_2.ToString(), Statistics.yield2, 
+            ListViewItem item = new ListViewItem(new[] {
+                TimeUtil.currentTimeString,
+                Statistics.OK_1.ToString(), Statistics.NG_1.ToString(), Statistics.yield1,
+                Statistics.OK_2.ToString(), Statistics.NG_2.ToString(), Statistics.yield2,
                 Statistics.OK_total.ToString(), Statistics.NG_total.ToString(), Statistics.yield_total});
             _listView_statistics.Items.Add(item);
 
@@ -782,6 +775,12 @@ namespace ScanUploader.View
             FileUtil.AppendLastItemToExcel(_listView_statistics, _statistics_file_path, _statistics_file_name);
 
             openFile(_statistics_file_path + _statistics_file_name);
+        }
+
+        private void ToolStripMenuItem_Config_Click(object sender, EventArgs e)
+        {
+            LoginForm_Admin loginForm = new LoginForm_Admin();
+            loginForm.ShowDialog();
         }
     }
 }

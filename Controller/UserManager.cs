@@ -14,9 +14,7 @@ namespace ScanUploader.Controller
 {
     internal static class UserManager
     {
-        public static HttpUser httpUser_MES = new HttpUser(Properties.User_Http.Default.username_MES,
-                                     Properties.User_Http.Default.password_MES,
-                                     Properties.User_Http.Default.site_MES);
+        public static HttpUser httpUser_MES;
         /// <summary>
         /// 登录MES 获取token
         /// </summary>
@@ -26,7 +24,7 @@ namespace ScanUploader.Controller
 
             LogUtil.WriteLog("尝试登录MES。");
             //发送登录post请求
-            JObject result = HttpUtil.PostResponse(URL.httpLogin, pData);            
+            JObject result = HttpUtil.PostResponse(URL.Instance.httpLogin, pData);            
 
             if(result.Count > 0)
             {
@@ -63,42 +61,6 @@ namespace ScanUploader.Controller
                 return false;
             }
             
-        }
-
-        /// <summary>
-        /// 登录WMS接口
-        /// </summary>
-        public static void HttpLogin_WMS()
-        {
-            HttpUser httpUser_WMS = new HttpUser(Properties.User_Http.Default.userName_http_WMS,
-                                     Properties.User_Http.Default.password_http_WMS,
-                                     "");
-
-            //发送登录post请求
-            JObject result = HttpUtil.PostResponse(Properties.URL.Default.httpLogin_WMS, JsonConvert.SerializeObject(httpUser_WMS));
-
-            if (result.Count > 0)
-            {
-                //提取返回的状态码
-                string code = result["code"].ToString();
-                if (code == ReturnData.code_success)
-                {
-                    //登陆成功，更新Authorization
-                    //提取token
-                    string token = result["data"]["access_token"].ToObject<string>();
-                    //更新WMS的token
-                    UpdateAuthorization(token, ref HttpUtil.authorization_WMS);
-                }
-                else if (code == ReturnData.code_error)
-                {
-                    //登录失败，显示失败信息
-                    ShowUtil.ShowWarning(result["msg"].ToObject<string>());
-                }
-            }
-            else
-            {
-                ShowUtil.ShowWarning("网络异常，WMS登录失败...");
-            }
         }
 
         /// <summary>

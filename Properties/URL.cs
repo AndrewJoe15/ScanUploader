@@ -13,7 +13,7 @@
             //
              //this.SettingChanging += this.SettingChangingEventHandler;
             //
-             this.SettingsSaving += this.SettingsSavingEventHandler;
+             //this.SettingsSaving += this.SettingsSavingEventHandler;
             //
         }
         
@@ -26,17 +26,6 @@
         /// </summary>
         private void SettingsSavingEventHandler(object sender, System.ComponentModel.CancelEventArgs e) {
             
-            //更新扫码上传URL
-            //-载具扫出
-            Model.URL.scanContainerOut = this.prefix + this.subPrefix_MES + this.postfix_scanContainerOut;
-            //-单片玻璃
-            Model.URL.scanSn = this.prefix + this.subPrefix_MES + this.postfix_scanSn;
-            //-载具扫入
-            Model.URL.scanContainerIn = this.prefix + this.subPrefix_MES + this.postfix_scanContainerIn;
-            //-载具解绑
-            Model.URL.scanContainerUnbind = this.prefix + this.subPrefix_MES + this.postfix_scanContainerUnbind;
-            //-提交
-            Model.URL.scanSubmit = this.prefix + this.subPrefix_MES + this.postfix_submit;
     }
     }
 }

@@ -77,9 +77,6 @@
             this.label_connectStatus_PLC = new System.Windows.Forms.Label();
             this.label_text_statistics_OK1 = new System.Windows.Forms.Label();
             this.label_connectStatus_MES = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.timer_main = new System.Windows.Forms.Timer(this.components);
-            this.label_timer_main = new System.Windows.Forms.Label();
             this.panel_NG_info = new System.Windows.Forms.Panel();
             this.button_openCsvDir = new System.Windows.Forms.Button();
             this.button_openCsvFile = new System.Windows.Forms.Button();
@@ -97,13 +94,13 @@
             this.columnHeader_returnCode_BDS = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader_NG_info_BDS = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage_OK_threeCode = new System.Windows.Forms.TabPage();
-            this.listView_OK = new System.Windows.Forms.ListView();
+            this.listView_OK_threeCodes = new System.Windows.Forms.ListView();
             this.columnHeader_time_OK = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader_snNumber_OK = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader_targetVehicle_OK = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader_sourceVehicle_OK = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage_NG_threeCode = new System.Windows.Forms.TabPage();
-            this.listView_NG_threeCode = new System.Windows.Forms.ListView();
+            this.listView_NG_threeCodes = new System.Windows.Forms.ListView();
             this.columnHeader_time_NG = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader_snNumber_NG = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader_targetVehicle_NG = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -138,6 +135,8 @@
             this.button_http_login = new System.Windows.Forms.Button();
             this.label_http_status = new System.Windows.Forms.Label();
             this.label_http_status_color = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.ToolStripMenuItem_config = new System.Windows.Forms.ToolStripMenuItem();
             this.basicInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panel_basicInformation.SuspendLayout();
             this.panel_log.SuspendLayout();
@@ -156,12 +155,13 @@
             this.tabControl1.SuspendLayout();
             this.tabPage_socket.SuspendLayout();
             this.tabPage_http.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.basicInfoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // comboBox_productModel
             // 
-            this.comboBox_productModel.Location = new System.Drawing.Point(94, 101);
+            this.comboBox_productModel.Location = new System.Drawing.Point(94, 106);
             this.comboBox_productModel.Name = "comboBox_productModel";
             this.comboBox_productModel.Size = new System.Drawing.Size(101, 23);
             this.comboBox_productModel.TabIndex = 7;
@@ -170,7 +170,7 @@
             // label_productModelVersion
             // 
             this.label_productModelVersion.AutoSize = true;
-            this.label_productModelVersion.Location = new System.Drawing.Point(15, 137);
+            this.label_productModelVersion.Location = new System.Drawing.Point(15, 142);
             this.label_productModelVersion.Name = "label_productModelVersion";
             this.label_productModelVersion.Size = new System.Drawing.Size(82, 15);
             this.label_productModelVersion.TabIndex = 8;
@@ -179,7 +179,7 @@
             // label_productModel
             // 
             this.label_productModel.AutoSize = true;
-            this.label_productModel.Location = new System.Drawing.Point(15, 107);
+            this.label_productModel.Location = new System.Drawing.Point(15, 112);
             this.label_productModel.Name = "label_productModel";
             this.label_productModel.Size = new System.Drawing.Size(82, 15);
             this.label_productModel.TabIndex = 6;
@@ -187,7 +187,7 @@
             // 
             // comboBox_productModelVersion
             // 
-            this.comboBox_productModelVersion.Location = new System.Drawing.Point(94, 131);
+            this.comboBox_productModelVersion.Location = new System.Drawing.Point(94, 136);
             this.comboBox_productModelVersion.Name = "comboBox_productModelVersion";
             this.comboBox_productModelVersion.Size = new System.Drawing.Size(101, 23);
             this.comboBox_productModelVersion.TabIndex = 9;
@@ -195,7 +195,7 @@
             // 
             // comboBox_resource
             // 
-            this.comboBox_resource.Location = new System.Drawing.Point(94, 71);
+            this.comboBox_resource.Location = new System.Drawing.Point(94, 76);
             this.comboBox_resource.Name = "comboBox_resource";
             this.comboBox_resource.Size = new System.Drawing.Size(101, 23);
             this.comboBox_resource.TabIndex = 5;
@@ -204,7 +204,7 @@
             // label_shift
             // 
             this.label_shift.AutoSize = true;
-            this.label_shift.Location = new System.Drawing.Point(15, 165);
+            this.label_shift.Location = new System.Drawing.Point(15, 170);
             this.label_shift.Name = "label_shift";
             this.label_shift.Size = new System.Drawing.Size(52, 15);
             this.label_shift.TabIndex = 10;
@@ -213,7 +213,7 @@
             // label_resource
             // 
             this.label_resource.AutoSize = true;
-            this.label_resource.Location = new System.Drawing.Point(15, 77);
+            this.label_resource.Location = new System.Drawing.Point(15, 82);
             this.label_resource.Name = "label_resource";
             this.label_resource.Size = new System.Drawing.Size(67, 15);
             this.label_resource.TabIndex = 4;
@@ -221,7 +221,7 @@
             // 
             // comboBox_operation
             // 
-            this.comboBox_operation.Location = new System.Drawing.Point(94, 41);
+            this.comboBox_operation.Location = new System.Drawing.Point(94, 46);
             this.comboBox_operation.Name = "comboBox_operation";
             this.comboBox_operation.Size = new System.Drawing.Size(101, 23);
             this.comboBox_operation.TabIndex = 3;
@@ -230,7 +230,7 @@
             // label_createBy
             // 
             this.label_createBy.AutoSize = true;
-            this.label_createBy.Location = new System.Drawing.Point(15, 196);
+            this.label_createBy.Location = new System.Drawing.Point(15, 201);
             this.label_createBy.Name = "label_createBy";
             this.label_createBy.Size = new System.Drawing.Size(67, 15);
             this.label_createBy.TabIndex = 12;
@@ -239,7 +239,7 @@
             // label_operation
             // 
             this.label_operation.AutoSize = true;
-            this.label_operation.Location = new System.Drawing.Point(15, 48);
+            this.label_operation.Location = new System.Drawing.Point(15, 53);
             this.label_operation.Name = "label_operation";
             this.label_operation.Size = new System.Drawing.Size(52, 15);
             this.label_operation.TabIndex = 2;
@@ -247,7 +247,7 @@
             // 
             // comboBox_createBy
             // 
-            this.comboBox_createBy.Location = new System.Drawing.Point(94, 189);
+            this.comboBox_createBy.Location = new System.Drawing.Point(94, 194);
             this.comboBox_createBy.Name = "comboBox_createBy";
             this.comboBox_createBy.Size = new System.Drawing.Size(101, 23);
             this.comboBox_createBy.TabIndex = 13;
@@ -256,7 +256,7 @@
             // comboBox_site
             // 
             this.comboBox_site.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.basicInfoBindingSource, "site", true));
-            this.comboBox_site.Location = new System.Drawing.Point(94, 11);
+            this.comboBox_site.Location = new System.Drawing.Point(94, 16);
             this.comboBox_site.Name = "comboBox_site";
             this.comboBox_site.Size = new System.Drawing.Size(101, 23);
             this.comboBox_site.TabIndex = 1;
@@ -265,7 +265,7 @@
             // label_site
             // 
             this.label_site.AutoSize = true;
-            this.label_site.Location = new System.Drawing.Point(15, 17);
+            this.label_site.Location = new System.Drawing.Point(15, 22);
             this.label_site.Name = "label_site";
             this.label_site.Size = new System.Drawing.Size(82, 15);
             this.label_site.TabIndex = 0;
@@ -274,7 +274,7 @@
             // comboBox_shift
             // 
             this.comboBox_shift.FormattingEnabled = true;
-            this.comboBox_shift.Location = new System.Drawing.Point(94, 161);
+            this.comboBox_shift.Location = new System.Drawing.Point(94, 166);
             this.comboBox_shift.Name = "comboBox_shift";
             this.comboBox_shift.Size = new System.Drawing.Size(101, 23);
             this.comboBox_shift.TabIndex = 19;
@@ -301,7 +301,7 @@
             this.panel_basicInformation.Controls.Add(this.label_operation);
             this.panel_basicInformation.Controls.Add(this.label_resource);
             this.panel_basicInformation.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.panel_basicInformation.Location = new System.Drawing.Point(9, 7);
+            this.panel_basicInformation.Location = new System.Drawing.Point(9, 26);
             this.panel_basicInformation.Name = "panel_basicInformation";
             this.panel_basicInformation.Size = new System.Drawing.Size(209, 292);
             this.panel_basicInformation.TabIndex = 16;
@@ -309,7 +309,7 @@
             // button_save_basicInfo
             // 
             this.button_save_basicInfo.Enabled = false;
-            this.button_save_basicInfo.Location = new System.Drawing.Point(73, 253);
+            this.button_save_basicInfo.Location = new System.Drawing.Point(73, 258);
             this.button_save_basicInfo.Name = "button_save_basicInfo";
             this.button_save_basicInfo.Size = new System.Drawing.Size(56, 31);
             this.button_save_basicInfo.TabIndex = 36;
@@ -319,19 +319,18 @@
             // 
             // comboBox_order
             // 
-            this.comboBox_order.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox_order.Location = new System.Drawing.Point(94, 223);
+            this.comboBox_order.Location = new System.Drawing.Point(94, 228);
             this.comboBox_order.Name = "comboBox_order";
             this.comboBox_order.Size = new System.Drawing.Size(101, 23);
             this.comboBox_order.TabIndex = 22;
-            this.comboBox_order.DropDown += new System.EventHandler(this.Combobox_Oder_DropDown);
-            this.comboBox_order.SelectedIndexChanged += new System.EventHandler(this.comboBox_order_SelectedIndexChanged);
+            this.comboBox_order.DropDown += new System.EventHandler(this.ComboBox_Order_DropDown);
+            this.comboBox_order.SelectedIndexChanged += new System.EventHandler(this.ComboBox_Order_SelectedIndexChanged);
             this.comboBox_order.TextChanged += new System.EventHandler(this.OnComboBoxTextUpdate);
             // 
             // label_mo
             // 
             this.label_mo.AutoSize = true;
-            this.label_mo.Location = new System.Drawing.Point(17, 229);
+            this.label_mo.Location = new System.Drawing.Point(17, 234);
             this.label_mo.Name = "label_mo";
             this.label_mo.Size = new System.Drawing.Size(67, 15);
             this.label_mo.TabIndex = 21;
@@ -339,14 +338,14 @@
             // 
             // textBox_log
             // 
-            this.textBox_log.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_log.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox_log.Location = new System.Drawing.Point(0, 3);
+            this.textBox_log.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_log.Location = new System.Drawing.Point(3, 3);
             this.textBox_log.Multiline = true;
             this.textBox_log.Name = "textBox_log";
             this.textBox_log.ReadOnly = true;
             this.textBox_log.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox_log.Size = new System.Drawing.Size(675, 308);
+            this.textBox_log.Size = new System.Drawing.Size(672, 299);
             this.textBox_log.TabIndex = 19;
             // 
             // panel_log
@@ -355,7 +354,7 @@
             this.panel_log.Controls.Add(this.button_openLogDir);
             this.panel_log.Controls.Add(this.tabControl_log);
             this.panel_log.Controls.Add(this.button_openLogFile);
-            this.panel_log.Location = new System.Drawing.Point(224, 7);
+            this.panel_log.Location = new System.Drawing.Point(224, 26);
             this.panel_log.Name = "panel_log";
             this.panel_log.Size = new System.Drawing.Size(772, 338);
             this.panel_log.TabIndex = 27;
@@ -363,7 +362,7 @@
             // button_openLogDir
             // 
             this.button_openLogDir.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button_openLogDir.Location = new System.Drawing.Point(694, 196);
+            this.button_openLogDir.Location = new System.Drawing.Point(694, 201);
             this.button_openLogDir.Name = "button_openLogDir";
             this.button_openLogDir.Size = new System.Drawing.Size(59, 32);
             this.button_openLogDir.TabIndex = 35;
@@ -375,11 +374,12 @@
             // 
             this.tabControl_log.Controls.Add(this.tabPage_logInfo);
             this.tabControl_log.Controls.Add(this.tabPage_debugInfo);
+            this.tabControl_log.Dock = System.Windows.Forms.DockStyle.Left;
             this.tabControl_log.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tabControl_log.Location = new System.Drawing.Point(-2, -2);
+            this.tabControl_log.Location = new System.Drawing.Point(0, 0);
             this.tabControl_log.Name = "tabControl_log";
             this.tabControl_log.SelectedIndex = 0;
-            this.tabControl_log.Size = new System.Drawing.Size(686, 338);
+            this.tabControl_log.Size = new System.Drawing.Size(686, 334);
             this.tabControl_log.TabIndex = 20;
             // 
             // tabPage_logInfo
@@ -388,7 +388,7 @@
             this.tabPage_logInfo.Location = new System.Drawing.Point(4, 25);
             this.tabPage_logInfo.Name = "tabPage_logInfo";
             this.tabPage_logInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_logInfo.Size = new System.Drawing.Size(678, 309);
+            this.tabPage_logInfo.Size = new System.Drawing.Size(678, 305);
             this.tabPage_logInfo.TabIndex = 0;
             this.tabPage_logInfo.Text = "日志";
             this.tabPage_logInfo.UseVisualStyleBackColor = true;
@@ -399,27 +399,27 @@
             this.tabPage_debugInfo.Location = new System.Drawing.Point(4, 25);
             this.tabPage_debugInfo.Name = "tabPage_debugInfo";
             this.tabPage_debugInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_debugInfo.Size = new System.Drawing.Size(678, 309);
+            this.tabPage_debugInfo.Size = new System.Drawing.Size(678, 305);
             this.tabPage_debugInfo.TabIndex = 1;
             this.tabPage_debugInfo.Text = "通信数据";
             this.tabPage_debugInfo.UseVisualStyleBackColor = true;
             // 
             // textBox_debug
             // 
-            this.textBox_debug.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.textBox_debug.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox_debug.Location = new System.Drawing.Point(1, 3);
+            this.textBox_debug.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_debug.Location = new System.Drawing.Point(3, 3);
             this.textBox_debug.Multiline = true;
             this.textBox_debug.Name = "textBox_debug";
             this.textBox_debug.ReadOnly = true;
             this.textBox_debug.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox_debug.Size = new System.Drawing.Size(674, 306);
+            this.textBox_debug.Size = new System.Drawing.Size(672, 299);
             this.textBox_debug.TabIndex = 33;
             // 
             // button_openLogFile
             // 
             this.button_openLogFile.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button_openLogFile.Location = new System.Drawing.Point(694, 107);
+            this.button_openLogFile.Location = new System.Drawing.Point(694, 112);
             this.button_openLogFile.Name = "button_openLogFile";
             this.button_openLogFile.Size = new System.Drawing.Size(59, 32);
             this.button_openLogFile.TabIndex = 34;
@@ -452,7 +452,7 @@
             this.panel_stastitics.Controls.Add(this.label_text_statistics_OK1);
             this.panel_stastitics.Controls.Add(this.label_connectStatus_MES);
             this.panel_stastitics.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.panel_stastitics.Location = new System.Drawing.Point(9, 520);
+            this.panel_stastitics.Location = new System.Drawing.Point(9, 533);
             this.panel_stastitics.Name = "panel_stastitics";
             this.panel_stastitics.Size = new System.Drawing.Size(209, 148);
             this.panel_stastitics.TabIndex = 29;
@@ -460,7 +460,7 @@
             // button_stastiticsData_save
             // 
             this.button_stastiticsData_save.Enabled = false;
-            this.button_stastiticsData_save.Location = new System.Drawing.Point(113, 109);
+            this.button_stastiticsData_save.Location = new System.Drawing.Point(113, 114);
             this.button_stastiticsData_save.Name = "button_stastiticsData_save";
             this.button_stastiticsData_save.Size = new System.Drawing.Size(56, 28);
             this.button_stastiticsData_save.TabIndex = 52;
@@ -471,7 +471,7 @@
             // button_stastiticsData_clear
             // 
             this.button_stastiticsData_clear.Enabled = false;
-            this.button_stastiticsData_clear.Location = new System.Drawing.Point(28, 109);
+            this.button_stastiticsData_clear.Location = new System.Drawing.Point(28, 114);
             this.button_stastiticsData_clear.Name = "button_stastiticsData_clear";
             this.button_stastiticsData_clear.Size = new System.Drawing.Size(56, 28);
             this.button_stastiticsData_clear.TabIndex = 37;
@@ -484,7 +484,7 @@
             this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label16.Location = new System.Drawing.Point(15, 82);
+            this.label16.Location = new System.Drawing.Point(15, 85);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(37, 15);
             this.label16.TabIndex = 51;
@@ -496,7 +496,7 @@
             this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label17.Location = new System.Drawing.Point(7, 58);
+            this.label17.Location = new System.Drawing.Point(7, 61);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(52, 15);
             this.label17.TabIndex = 50;
@@ -508,7 +508,7 @@
             this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label18.Location = new System.Drawing.Point(7, 33);
+            this.label18.Location = new System.Drawing.Point(7, 36);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(52, 15);
             this.label18.TabIndex = 49;
@@ -520,7 +520,7 @@
             this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label15.Location = new System.Drawing.Point(13, 11);
+            this.label15.Location = new System.Drawing.Point(13, 14);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(39, 15);
             this.label15.TabIndex = 48;
@@ -531,7 +531,7 @@
             this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label11.Location = new System.Drawing.Point(187, 84);
+            this.label11.Location = new System.Drawing.Point(187, 87);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(15, 15);
             this.label11.TabIndex = 47;
@@ -542,7 +542,7 @@
             this.label_text_statistics_yield_total.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_text_statistics_yield_total.AutoSize = true;
             this.label_text_statistics_yield_total.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_text_statistics_yield_total.Location = new System.Drawing.Point(145, 84);
+            this.label_text_statistics_yield_total.Location = new System.Drawing.Point(145, 87);
             this.label_text_statistics_yield_total.Name = "label_text_statistics_yield_total";
             this.label_text_statistics_yield_total.Size = new System.Drawing.Size(47, 15);
             this.label_text_statistics_yield_total.TabIndex = 46;
@@ -554,7 +554,7 @@
             this.label_text_statistics_NG_total.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_text_statistics_NG_total.AutoSize = true;
             this.label_text_statistics_NG_total.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_text_statistics_NG_total.Location = new System.Drawing.Point(103, 84);
+            this.label_text_statistics_NG_total.Location = new System.Drawing.Point(103, 87);
             this.label_text_statistics_NG_total.Name = "label_text_statistics_NG_total";
             this.label_text_statistics_NG_total.Size = new System.Drawing.Size(23, 15);
             this.label_text_statistics_NG_total.TabIndex = 45;
@@ -566,7 +566,7 @@
             this.label_text_statistics_OK_total.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_text_statistics_OK_total.AutoSize = true;
             this.label_text_statistics_OK_total.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_text_statistics_OK_total.Location = new System.Drawing.Point(65, 84);
+            this.label_text_statistics_OK_total.Location = new System.Drawing.Point(65, 87);
             this.label_text_statistics_OK_total.Name = "label_text_statistics_OK_total";
             this.label_text_statistics_OK_total.Size = new System.Drawing.Size(23, 15);
             this.label_text_statistics_OK_total.TabIndex = 44;
@@ -578,7 +578,7 @@
             this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label10.Location = new System.Drawing.Point(187, 61);
+            this.label10.Location = new System.Drawing.Point(187, 64);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(15, 15);
             this.label10.TabIndex = 43;
@@ -589,7 +589,7 @@
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label9.Location = new System.Drawing.Point(187, 35);
+            this.label9.Location = new System.Drawing.Point(187, 38);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(15, 15);
             this.label9.TabIndex = 42;
@@ -600,7 +600,7 @@
             this.label_text_statistics_yield2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_text_statistics_yield2.AutoSize = true;
             this.label_text_statistics_yield2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_text_statistics_yield2.Location = new System.Drawing.Point(145, 61);
+            this.label_text_statistics_yield2.Location = new System.Drawing.Point(145, 64);
             this.label_text_statistics_yield2.Name = "label_text_statistics_yield2";
             this.label_text_statistics_yield2.Size = new System.Drawing.Size(47, 15);
             this.label_text_statistics_yield2.TabIndex = 41;
@@ -612,7 +612,7 @@
             this.label_text_statistics_NG2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_text_statistics_NG2.AutoSize = true;
             this.label_text_statistics_NG2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_text_statistics_NG2.Location = new System.Drawing.Point(103, 61);
+            this.label_text_statistics_NG2.Location = new System.Drawing.Point(103, 64);
             this.label_text_statistics_NG2.Name = "label_text_statistics_NG2";
             this.label_text_statistics_NG2.Size = new System.Drawing.Size(23, 15);
             this.label_text_statistics_NG2.TabIndex = 40;
@@ -624,7 +624,7 @@
             this.label_text_statistics_OK2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_text_statistics_OK2.AutoSize = true;
             this.label_text_statistics_OK2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_text_statistics_OK2.Location = new System.Drawing.Point(65, 61);
+            this.label_text_statistics_OK2.Location = new System.Drawing.Point(65, 64);
             this.label_text_statistics_OK2.Name = "label_text_statistics_OK2";
             this.label_text_statistics_OK2.Size = new System.Drawing.Size(23, 15);
             this.label_text_statistics_OK2.TabIndex = 39;
@@ -636,7 +636,7 @@
             this.label_text_statistics_yield1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_text_statistics_yield1.AutoSize = true;
             this.label_text_statistics_yield1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_text_statistics_yield1.Location = new System.Drawing.Point(145, 35);
+            this.label_text_statistics_yield1.Location = new System.Drawing.Point(145, 38);
             this.label_text_statistics_yield1.Name = "label_text_statistics_yield1";
             this.label_text_statistics_yield1.Size = new System.Drawing.Size(47, 15);
             this.label_text_statistics_yield1.TabIndex = 38;
@@ -648,7 +648,7 @@
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label4.Location = new System.Drawing.Point(152, 11);
+            this.label4.Location = new System.Drawing.Point(152, 14);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(39, 15);
             this.label4.TabIndex = 37;
@@ -659,7 +659,7 @@
             this.label_text_statistics_NG1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_text_statistics_NG1.AutoSize = true;
             this.label_text_statistics_NG1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_text_statistics_NG1.Location = new System.Drawing.Point(103, 35);
+            this.label_text_statistics_NG1.Location = new System.Drawing.Point(103, 38);
             this.label_text_statistics_NG1.Name = "label_text_statistics_NG1";
             this.label_text_statistics_NG1.Size = new System.Drawing.Size(23, 15);
             this.label_text_statistics_NG1.TabIndex = 36;
@@ -671,7 +671,7 @@
             this.label_connectStatus_PLC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_connectStatus_PLC.AutoSize = true;
             this.label_connectStatus_PLC.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_connectStatus_PLC.Location = new System.Drawing.Point(102, 11);
+            this.label_connectStatus_PLC.Location = new System.Drawing.Point(102, 14);
             this.label_connectStatus_PLC.Name = "label_connectStatus_PLC";
             this.label_connectStatus_PLC.Size = new System.Drawing.Size(25, 15);
             this.label_connectStatus_PLC.TabIndex = 35;
@@ -682,7 +682,7 @@
             this.label_text_statistics_OK1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_text_statistics_OK1.AutoSize = true;
             this.label_text_statistics_OK1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_text_statistics_OK1.Location = new System.Drawing.Point(65, 35);
+            this.label_text_statistics_OK1.Location = new System.Drawing.Point(65, 38);
             this.label_text_statistics_OK1.Name = "label_text_statistics_OK1";
             this.label_text_statistics_OK1.Size = new System.Drawing.Size(23, 15);
             this.label_text_statistics_OK1.TabIndex = 34;
@@ -694,38 +694,11 @@
             this.label_connectStatus_MES.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_connectStatus_MES.AutoSize = true;
             this.label_connectStatus_MES.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_connectStatus_MES.Location = new System.Drawing.Point(64, 11);
+            this.label_connectStatus_MES.Location = new System.Drawing.Point(64, 14);
             this.label_connectStatus_MES.Name = "label_connectStatus_MES";
             this.label_connectStatus_MES.Size = new System.Drawing.Size(25, 15);
             this.label_connectStatus_MES.TabIndex = 33;
             this.label_connectStatus_MES.Text = "OK";
-            // 
-            // label3
-            // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label3.Location = new System.Drawing.Point(397, 671);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(82, 15);
-            this.label3.TabIndex = 28;
-            this.label3.Text = "当前时间：";
-            // 
-            // timer_main
-            // 
-            this.timer_main.Interval = 1000;
-            this.timer_main.Tick += new System.EventHandler(this.timer_main_Tick);
-            // 
-            // label_timer_main
-            // 
-            this.label_timer_main.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label_timer_main.AutoSize = true;
-            this.label_timer_main.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_timer_main.Location = new System.Drawing.Point(474, 671);
-            this.label_timer_main.Name = "label_timer_main";
-            this.label_timer_main.Size = new System.Drawing.Size(159, 15);
-            this.label_timer_main.TabIndex = 32;
-            this.label_timer_main.Text = "2012-06-26 00:00:00";
             // 
             // panel_NG_info
             // 
@@ -734,7 +707,7 @@
             this.panel_NG_info.Controls.Add(this.button_openCsvFile);
             this.panel_NG_info.Controls.Add(this.tabControl_list);
             this.panel_NG_info.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.panel_NG_info.Location = new System.Drawing.Point(224, 349);
+            this.panel_NG_info.Location = new System.Drawing.Point(224, 368);
             this.panel_NG_info.Name = "panel_NG_info";
             this.panel_NG_info.Size = new System.Drawing.Size(772, 319);
             this.panel_NG_info.TabIndex = 29;
@@ -742,7 +715,7 @@
             // button_openCsvDir
             // 
             this.button_openCsvDir.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button_openCsvDir.Location = new System.Drawing.Point(694, 190);
+            this.button_openCsvDir.Location = new System.Drawing.Point(694, 195);
             this.button_openCsvDir.Name = "button_openCsvDir";
             this.button_openCsvDir.Size = new System.Drawing.Size(59, 32);
             this.button_openCsvDir.TabIndex = 37;
@@ -753,7 +726,7 @@
             // button_openCsvFile
             // 
             this.button_openCsvFile.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button_openCsvFile.Location = new System.Drawing.Point(694, 101);
+            this.button_openCsvFile.Location = new System.Drawing.Point(694, 106);
             this.button_openCsvFile.Name = "button_openCsvFile";
             this.button_openCsvFile.Size = new System.Drawing.Size(59, 32);
             this.button_openCsvFile.TabIndex = 36;
@@ -768,11 +741,12 @@
             this.tabControl_list.Controls.Add(this.tabPage_OK_threeCode);
             this.tabControl_list.Controls.Add(this.tabPage_NG_threeCode);
             this.tabControl_list.Controls.Add(this.tabPage_error_info);
+            this.tabControl_list.Dock = System.Windows.Forms.DockStyle.Left;
             this.tabControl_list.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tabControl_list.Location = new System.Drawing.Point(3, -2);
+            this.tabControl_list.Location = new System.Drawing.Point(0, 0);
             this.tabControl_list.Name = "tabControl_list";
             this.tabControl_list.SelectedIndex = 0;
-            this.tabControl_list.Size = new System.Drawing.Size(681, 319);
+            this.tabControl_list.Size = new System.Drawing.Size(686, 315);
             this.tabControl_list.TabIndex = 33;
             // 
             // tabPage_OK_info
@@ -781,7 +755,7 @@
             this.tabPage_OK_info.Location = new System.Drawing.Point(4, 25);
             this.tabPage_OK_info.Name = "tabPage_OK_info";
             this.tabPage_OK_info.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_OK_info.Size = new System.Drawing.Size(673, 290);
+            this.tabPage_OK_info.Size = new System.Drawing.Size(678, 286);
             this.tabPage_OK_info.TabIndex = 4;
             this.tabPage_OK_info.Text = "扫码OK";
             this.tabPage_OK_info.UseVisualStyleBackColor = true;
@@ -793,12 +767,13 @@
             this.columnHeader_snNumber_BDS_OK,
             this.columnHeader_returnCode_BDS_OK,
             this.columnHeader_OK_info_BDS});
+            this.listView_OK_info.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView_OK_info.GridLines = true;
             this.listView_OK_info.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listView_OK_info.HideSelection = false;
-            this.listView_OK_info.Location = new System.Drawing.Point(0, -1);
+            this.listView_OK_info.Location = new System.Drawing.Point(3, 3);
             this.listView_OK_info.Name = "listView_OK_info";
-            this.listView_OK_info.Size = new System.Drawing.Size(673, 290);
+            this.listView_OK_info.Size = new System.Drawing.Size(672, 280);
             this.listView_OK_info.TabIndex = 35;
             this.listView_OK_info.UseCompatibleStateImageBehavior = false;
             this.listView_OK_info.View = System.Windows.Forms.View.Details;
@@ -828,7 +803,7 @@
             this.tabPage_NG_info.Location = new System.Drawing.Point(4, 25);
             this.tabPage_NG_info.Name = "tabPage_NG_info";
             this.tabPage_NG_info.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_NG_info.Size = new System.Drawing.Size(673, 290);
+            this.tabPage_NG_info.Size = new System.Drawing.Size(673, 286);
             this.tabPage_NG_info.TabIndex = 3;
             this.tabPage_NG_info.Text = "扫码NG";
             this.tabPage_NG_info.UseVisualStyleBackColor = true;
@@ -840,12 +815,13 @@
             this.columnHeader_snNumber_BDS_NG,
             this.columnHeader_returnCode_BDS,
             this.columnHeader_NG_info_BDS});
+            this.listView_NG_info.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView_NG_info.GridLines = true;
             this.listView_NG_info.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listView_NG_info.HideSelection = false;
-            this.listView_NG_info.Location = new System.Drawing.Point(0, 0);
+            this.listView_NG_info.Location = new System.Drawing.Point(3, 3);
             this.listView_NG_info.Name = "listView_NG_info";
-            this.listView_NG_info.Size = new System.Drawing.Size(673, 284);
+            this.listView_NG_info.Size = new System.Drawing.Size(667, 280);
             this.listView_NG_info.TabIndex = 34;
             this.listView_NG_info.UseCompatibleStateImageBehavior = false;
             this.listView_NG_info.View = System.Windows.Forms.View.Details;
@@ -871,32 +847,33 @@
             // 
             // tabPage_OK_threeCode
             // 
-            this.tabPage_OK_threeCode.Controls.Add(this.listView_OK);
+            this.tabPage_OK_threeCode.Controls.Add(this.listView_OK_threeCodes);
             this.tabPage_OK_threeCode.Location = new System.Drawing.Point(4, 25);
             this.tabPage_OK_threeCode.Name = "tabPage_OK_threeCode";
             this.tabPage_OK_threeCode.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_OK_threeCode.Size = new System.Drawing.Size(673, 290);
+            this.tabPage_OK_threeCode.Size = new System.Drawing.Size(673, 286);
             this.tabPage_OK_threeCode.TabIndex = 2;
             this.tabPage_OK_threeCode.Text = "OK插架";
             this.tabPage_OK_threeCode.UseVisualStyleBackColor = true;
             // 
-            // listView_OK
+            // listView_OK_threeCodes
             // 
-            this.listView_OK.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listView_OK_threeCodes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader_time_OK,
             this.columnHeader_snNumber_OK,
             this.columnHeader_targetVehicle_OK,
             this.columnHeader_sourceVehicle_OK});
-            this.listView_OK.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.listView_OK.GridLines = true;
-            this.listView_OK.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listView_OK.HideSelection = false;
-            this.listView_OK.Location = new System.Drawing.Point(0, 0);
-            this.listView_OK.Name = "listView_OK";
-            this.listView_OK.Size = new System.Drawing.Size(671, 284);
-            this.listView_OK.TabIndex = 1;
-            this.listView_OK.UseCompatibleStateImageBehavior = false;
-            this.listView_OK.View = System.Windows.Forms.View.Details;
+            this.listView_OK_threeCodes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView_OK_threeCodes.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.listView_OK_threeCodes.GridLines = true;
+            this.listView_OK_threeCodes.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listView_OK_threeCodes.HideSelection = false;
+            this.listView_OK_threeCodes.Location = new System.Drawing.Point(3, 3);
+            this.listView_OK_threeCodes.Name = "listView_OK_threeCodes";
+            this.listView_OK_threeCodes.Size = new System.Drawing.Size(667, 280);
+            this.listView_OK_threeCodes.TabIndex = 1;
+            this.listView_OK_threeCodes.UseCompatibleStateImageBehavior = false;
+            this.listView_OK_threeCodes.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader_time_OK
             // 
@@ -910,42 +887,43 @@
             // 
             // columnHeader_targetVehicle_OK
             // 
-            this.columnHeader_targetVehicle_OK.Text = "清洗架码";
+            this.columnHeader_targetVehicle_OK.Text = "下料载具码";
             this.columnHeader_targetVehicle_OK.Width = 179;
             // 
             // columnHeader_sourceVehicle_OK
             // 
-            this.columnHeader_sourceVehicle_OK.Text = "化抛架码";
+            this.columnHeader_sourceVehicle_OK.Text = "上料载具码";
             this.columnHeader_sourceVehicle_OK.Width = 197;
             // 
             // tabPage_NG_threeCode
             // 
-            this.tabPage_NG_threeCode.Controls.Add(this.listView_NG_threeCode);
+            this.tabPage_NG_threeCode.Controls.Add(this.listView_NG_threeCodes);
             this.tabPage_NG_threeCode.Location = new System.Drawing.Point(4, 25);
             this.tabPage_NG_threeCode.Name = "tabPage_NG_threeCode";
             this.tabPage_NG_threeCode.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_NG_threeCode.Size = new System.Drawing.Size(673, 290);
+            this.tabPage_NG_threeCode.Size = new System.Drawing.Size(673, 286);
             this.tabPage_NG_threeCode.TabIndex = 1;
             this.tabPage_NG_threeCode.Text = "NG插架";
             this.tabPage_NG_threeCode.UseVisualStyleBackColor = true;
             // 
-            // listView_NG_threeCode
+            // listView_NG_threeCodes
             // 
-            this.listView_NG_threeCode.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listView_NG_threeCodes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader_time_NG,
             this.columnHeader_snNumber_NG,
             this.columnHeader_targetVehicle_NG,
             this.columnHeader_sourceVehicle_NG});
-            this.listView_NG_threeCode.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.listView_NG_threeCode.GridLines = true;
-            this.listView_NG_threeCode.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listView_NG_threeCode.HideSelection = false;
-            this.listView_NG_threeCode.Location = new System.Drawing.Point(0, 0);
-            this.listView_NG_threeCode.Name = "listView_NG_threeCode";
-            this.listView_NG_threeCode.Size = new System.Drawing.Size(673, 284);
-            this.listView_NG_threeCode.TabIndex = 0;
-            this.listView_NG_threeCode.UseCompatibleStateImageBehavior = false;
-            this.listView_NG_threeCode.View = System.Windows.Forms.View.Details;
+            this.listView_NG_threeCodes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView_NG_threeCodes.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.listView_NG_threeCodes.GridLines = true;
+            this.listView_NG_threeCodes.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listView_NG_threeCodes.HideSelection = false;
+            this.listView_NG_threeCodes.Location = new System.Drawing.Point(3, 3);
+            this.listView_NG_threeCodes.Name = "listView_NG_threeCodes";
+            this.listView_NG_threeCodes.Size = new System.Drawing.Size(667, 280);
+            this.listView_NG_threeCodes.TabIndex = 0;
+            this.listView_NG_threeCodes.UseCompatibleStateImageBehavior = false;
+            this.listView_NG_threeCodes.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader_time_NG
             // 
@@ -959,12 +937,12 @@
             // 
             // columnHeader_targetVehicle_NG
             // 
-            this.columnHeader_targetVehicle_NG.Text = "清洗架码";
+            this.columnHeader_targetVehicle_NG.Text = "下料载具码";
             this.columnHeader_targetVehicle_NG.Width = 174;
             // 
             // columnHeader_sourceVehicle_NG
             // 
-            this.columnHeader_sourceVehicle_NG.Text = "化抛架码";
+            this.columnHeader_sourceVehicle_NG.Text = "上料载具码";
             this.columnHeader_sourceVehicle_NG.Width = 224;
             // 
             // tabPage_error_info
@@ -973,7 +951,7 @@
             this.tabPage_error_info.Location = new System.Drawing.Point(4, 25);
             this.tabPage_error_info.Name = "tabPage_error_info";
             this.tabPage_error_info.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_error_info.Size = new System.Drawing.Size(673, 290);
+            this.tabPage_error_info.Size = new System.Drawing.Size(673, 286);
             this.tabPage_error_info.TabIndex = 0;
             this.tabPage_error_info.Text = "错误信息";
             this.tabPage_error_info.UseVisualStyleBackColor = true;
@@ -984,12 +962,13 @@
             this.columnHeader_errorTime,
             this.columnHeader_errorCode,
             this.columnHeader_errorMsg});
+            this.listView_errorInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView_errorInfo.GridLines = true;
             this.listView_errorInfo.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listView_errorInfo.HideSelection = false;
-            this.listView_errorInfo.Location = new System.Drawing.Point(0, 0);
+            this.listView_errorInfo.Location = new System.Drawing.Point(3, 3);
             this.listView_errorInfo.Name = "listView_errorInfo";
-            this.listView_errorInfo.Size = new System.Drawing.Size(673, 284);
+            this.listView_errorInfo.Size = new System.Drawing.Size(667, 280);
             this.listView_errorInfo.TabIndex = 33;
             this.listView_errorInfo.UseCompatibleStateImageBehavior = false;
             this.listView_errorInfo.View = System.Windows.Forms.View.Details;
@@ -1013,7 +992,7 @@
             // 
             this.panel_socket.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel_socket.Controls.Add(this.tabControl1);
-            this.panel_socket.Location = new System.Drawing.Point(9, 303);
+            this.panel_socket.Location = new System.Drawing.Point(9, 322);
             this.panel_socket.Name = "panel_socket";
             this.panel_socket.Size = new System.Drawing.Size(209, 211);
             this.panel_socket.TabIndex = 33;
@@ -1022,10 +1001,12 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage_socket);
             this.tabControl1.Controls.Add(this.tabPage_http);
-            this.tabControl1.Location = new System.Drawing.Point(1, 1);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(203, 208);
+            this.tabControl1.Size = new System.Drawing.Size(205, 207);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage_socket
@@ -1042,20 +1023,19 @@
             this.tabPage_socket.Controls.Add(this.label_socketStatus_insert);
             this.tabPage_socket.Controls.Add(this.label_socketPort_down);
             this.tabPage_socket.Controls.Add(this.label_socketStatus_up);
-            this.tabPage_socket.Location = new System.Drawing.Point(4, 27);
+            this.tabPage_socket.Location = new System.Drawing.Point(4, 25);
             this.tabPage_socket.Name = "tabPage_socket";
             this.tabPage_socket.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_socket.Size = new System.Drawing.Size(195, 177);
+            this.tabPage_socket.Size = new System.Drawing.Size(197, 178);
             this.tabPage_socket.TabIndex = 0;
             this.tabPage_socket.Text = "设备通信";
             this.tabPage_socket.UseVisualStyleBackColor = true;
             // 
             // label_socketPort_submit
             // 
-            this.label_socketPort_submit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_socketPort_submit.AutoSize = true;
             this.label_socketPort_submit.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socketPort_submit.Location = new System.Drawing.Point(17, 155);
+            this.label_socketPort_submit.Location = new System.Drawing.Point(19, 140);
             this.label_socketPort_submit.Name = "label_socketPort_submit";
             this.label_socketPort_submit.Size = new System.Drawing.Size(37, 15);
             this.label_socketPort_submit.TabIndex = 63;
@@ -1066,7 +1046,7 @@
             this.label_socket_port.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_socket_port.AutoSize = true;
             this.label_socket_port.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socket_port.Location = new System.Drawing.Point(25, 8);
+            this.label_socket_port.Location = new System.Drawing.Point(27, -20);
             this.label_socket_port.Name = "label_socket_port";
             this.label_socket_port.Size = new System.Drawing.Size(39, 15);
             this.label_socket_port.TabIndex = 53;
@@ -1074,11 +1054,10 @@
             // 
             // label_socketStatus_submit
             // 
-            this.label_socketStatus_submit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_socketStatus_submit.AutoSize = true;
             this.label_socketStatus_submit.BackColor = System.Drawing.Color.Red;
             this.label_socketStatus_submit.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socketStatus_submit.Location = new System.Drawing.Point(133, 155);
+            this.label_socketStatus_submit.Location = new System.Drawing.Point(135, 140);
             this.label_socketStatus_submit.Name = "label_socketStatus_submit";
             this.label_socketStatus_submit.Size = new System.Drawing.Size(31, 15);
             this.label_socketStatus_submit.TabIndex = 62;
@@ -1086,10 +1065,9 @@
             // 
             // label_socketPort_main
             // 
-            this.label_socketPort_main.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_socketPort_main.AutoSize = true;
             this.label_socketPort_main.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socketPort_main.Location = new System.Drawing.Point(17, 66);
+            this.label_socketPort_main.Location = new System.Drawing.Point(19, 51);
             this.label_socketPort_main.Name = "label_socketPort_main";
             this.label_socketPort_main.Size = new System.Drawing.Size(67, 15);
             this.label_socketPort_main.TabIndex = 57;
@@ -1097,11 +1075,10 @@
             // 
             // label_socketStatus_main
             // 
-            this.label_socketStatus_main.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_socketStatus_main.AutoSize = true;
             this.label_socketStatus_main.BackColor = System.Drawing.Color.Red;
             this.label_socketStatus_main.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socketStatus_main.Location = new System.Drawing.Point(133, 66);
+            this.label_socketStatus_main.Location = new System.Drawing.Point(135, 51);
             this.label_socketStatus_main.Name = "label_socketStatus_main";
             this.label_socketStatus_main.Size = new System.Drawing.Size(31, 15);
             this.label_socketStatus_main.TabIndex = 56;
@@ -1109,10 +1086,9 @@
             // 
             // label_socketPort_insert
             // 
-            this.label_socketPort_insert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_socketPort_insert.AutoSize = true;
             this.label_socketPort_insert.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socketPort_insert.Location = new System.Drawing.Point(17, 125);
+            this.label_socketPort_insert.Location = new System.Drawing.Point(19, 110);
             this.label_socketPort_insert.Name = "label_socketPort_insert";
             this.label_socketPort_insert.Size = new System.Drawing.Size(67, 15);
             this.label_socketPort_insert.TabIndex = 61;
@@ -1120,11 +1096,10 @@
             // 
             // label_socketStatus_down
             // 
-            this.label_socketStatus_down.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_socketStatus_down.AutoSize = true;
             this.label_socketStatus_down.BackColor = System.Drawing.Color.Red;
             this.label_socketStatus_down.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socketStatus_down.Location = new System.Drawing.Point(133, 94);
+            this.label_socketStatus_down.Location = new System.Drawing.Point(135, 79);
             this.label_socketStatus_down.Name = "label_socketStatus_down";
             this.label_socketStatus_down.Size = new System.Drawing.Size(31, 15);
             this.label_socketStatus_down.TabIndex = 58;
@@ -1135,7 +1110,7 @@
             this.label_socket_status.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_socket_status.AutoSize = true;
             this.label_socket_status.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socket_status.Location = new System.Drawing.Point(127, 8);
+            this.label_socket_status.Location = new System.Drawing.Point(129, -20);
             this.label_socket_status.Name = "label_socket_status";
             this.label_socket_status.Size = new System.Drawing.Size(39, 15);
             this.label_socket_status.TabIndex = 52;
@@ -1143,10 +1118,9 @@
             // 
             // label_socketPort_up
             // 
-            this.label_socketPort_up.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_socketPort_up.AutoSize = true;
             this.label_socketPort_up.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socketPort_up.Location = new System.Drawing.Point(17, 34);
+            this.label_socketPort_up.Location = new System.Drawing.Point(19, 19);
             this.label_socketPort_up.Name = "label_socketPort_up";
             this.label_socketPort_up.Size = new System.Drawing.Size(82, 15);
             this.label_socketPort_up.TabIndex = 55;
@@ -1154,11 +1128,10 @@
             // 
             // label_socketStatus_insert
             // 
-            this.label_socketStatus_insert.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_socketStatus_insert.AutoSize = true;
             this.label_socketStatus_insert.BackColor = System.Drawing.Color.Red;
             this.label_socketStatus_insert.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socketStatus_insert.Location = new System.Drawing.Point(133, 125);
+            this.label_socketStatus_insert.Location = new System.Drawing.Point(135, 110);
             this.label_socketStatus_insert.Name = "label_socketStatus_insert";
             this.label_socketStatus_insert.Size = new System.Drawing.Size(31, 15);
             this.label_socketStatus_insert.TabIndex = 60;
@@ -1166,10 +1139,9 @@
             // 
             // label_socketPort_down
             // 
-            this.label_socketPort_down.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_socketPort_down.AutoSize = true;
             this.label_socketPort_down.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socketPort_down.Location = new System.Drawing.Point(17, 94);
+            this.label_socketPort_down.Location = new System.Drawing.Point(19, 79);
             this.label_socketPort_down.Name = "label_socketPort_down";
             this.label_socketPort_down.Size = new System.Drawing.Size(82, 15);
             this.label_socketPort_down.TabIndex = 59;
@@ -1177,11 +1149,10 @@
             // 
             // label_socketStatus_up
             // 
-            this.label_socketStatus_up.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_socketStatus_up.AutoSize = true;
             this.label_socketStatus_up.BackColor = System.Drawing.Color.Red;
             this.label_socketStatus_up.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socketStatus_up.Location = new System.Drawing.Point(133, 34);
+            this.label_socketStatus_up.Location = new System.Drawing.Point(135, 19);
             this.label_socketStatus_up.Name = "label_socketStatus_up";
             this.label_socketStatus_up.Size = new System.Drawing.Size(31, 15);
             this.label_socketStatus_up.TabIndex = 54;
@@ -1201,7 +1172,7 @@
             this.tabPage_http.Location = new System.Drawing.Point(4, 27);
             this.tabPage_http.Name = "tabPage_http";
             this.tabPage_http.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_http.Size = new System.Drawing.Size(195, 177);
+            this.tabPage_http.Size = new System.Drawing.Size(197, 176);
             this.tabPage_http.TabIndex = 1;
             this.tabPage_http.Text = "MES通信";
             this.tabPage_http.UseVisualStyleBackColor = true;
@@ -1209,7 +1180,7 @@
             // textBox_http_site
             // 
             this.textBox_http_site.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_http_site.Location = new System.Drawing.Point(76, 81);
+            this.textBox_http_site.Location = new System.Drawing.Point(76, 86);
             this.textBox_http_site.Name = "textBox_http_site";
             this.textBox_http_site.Size = new System.Drawing.Size(100, 25);
             this.textBox_http_site.TabIndex = 66;
@@ -1219,7 +1190,7 @@
             this.label_http_site.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_http_site.AutoSize = true;
             this.label_http_site.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_http_site.Location = new System.Drawing.Point(23, 84);
+            this.label_http_site.Location = new System.Drawing.Point(25, 88);
             this.label_http_site.Name = "label_http_site";
             this.label_http_site.Size = new System.Drawing.Size(39, 15);
             this.label_http_site.TabIndex = 65;
@@ -1228,7 +1199,7 @@
             // textBox_http_password
             // 
             this.textBox_http_password.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_http_password.Location = new System.Drawing.Point(77, 45);
+            this.textBox_http_password.Location = new System.Drawing.Point(77, 50);
             this.textBox_http_password.Name = "textBox_http_password";
             this.textBox_http_password.Size = new System.Drawing.Size(100, 25);
             this.textBox_http_password.TabIndex = 64;
@@ -1236,7 +1207,7 @@
             // textBox_http_username
             // 
             this.textBox_http_username.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox_http_username.Location = new System.Drawing.Point(77, 9);
+            this.textBox_http_username.Location = new System.Drawing.Point(77, 14);
             this.textBox_http_username.Name = "textBox_http_username";
             this.textBox_http_username.Size = new System.Drawing.Size(100, 25);
             this.textBox_http_username.TabIndex = 63;
@@ -1246,7 +1217,7 @@
             this.label_http_username.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_http_username.AutoSize = true;
             this.label_http_username.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_http_username.Location = new System.Drawing.Point(24, 13);
+            this.label_http_username.Location = new System.Drawing.Point(26, 17);
             this.label_http_username.Name = "label_http_username";
             this.label_http_username.Size = new System.Drawing.Size(39, 15);
             this.label_http_username.TabIndex = 62;
@@ -1257,7 +1228,7 @@
             this.label_http_password.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_http_password.AutoSize = true;
             this.label_http_password.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_http_password.Location = new System.Drawing.Point(24, 48);
+            this.label_http_password.Location = new System.Drawing.Point(26, 52);
             this.label_http_password.Name = "label_http_password";
             this.label_http_password.Size = new System.Drawing.Size(39, 15);
             this.label_http_password.TabIndex = 61;
@@ -1266,7 +1237,7 @@
             // button_http_login
             // 
             this.button_http_login.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button_http_login.Location = new System.Drawing.Point(63, 139);
+            this.button_http_login.Location = new System.Drawing.Point(63, 144);
             this.button_http_login.Name = "button_http_login";
             this.button_http_login.Size = new System.Drawing.Size(56, 28);
             this.button_http_login.TabIndex = 60;
@@ -1279,7 +1250,7 @@
             this.label_http_status.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label_http_status.AutoSize = true;
             this.label_http_status.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_http_status.Location = new System.Drawing.Point(24, 116);
+            this.label_http_status.Location = new System.Drawing.Point(26, 120);
             this.label_http_status.Name = "label_http_status";
             this.label_http_status.Size = new System.Drawing.Size(39, 15);
             this.label_http_status.TabIndex = 56;
@@ -1291,11 +1262,29 @@
             this.label_http_status_color.AutoSize = true;
             this.label_http_status_color.BackColor = System.Drawing.Color.Red;
             this.label_http_status_color.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_http_status_color.Location = new System.Drawing.Point(110, 116);
+            this.label_http_status_color.Location = new System.Drawing.Point(112, 120);
             this.label_http_status_color.Name = "label_http_status_color";
             this.label_http_status_color.Size = new System.Drawing.Size(31, 15);
             this.label_http_status_color.TabIndex = 58;
             this.label_http_status_color.Text = "   ";
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ToolStripMenuItem_config});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1008, 28);
+            this.menuStrip1.TabIndex = 34;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // ToolStripMenuItem_config
+            // 
+            this.ToolStripMenuItem_config.Name = "ToolStripMenuItem_config";
+            this.ToolStripMenuItem_config.Size = new System.Drawing.Size(53, 24);
+            this.ToolStripMenuItem_config.Text = "配置";
+            this.ToolStripMenuItem_config.Click += new System.EventHandler(this.ToolStripMenuItem_Config_Click);
             // 
             // basicInfoBindingSource
             // 
@@ -1308,13 +1297,13 @@
             this.ClientSize = new System.Drawing.Size(1008, 689);
             this.Controls.Add(this.panel_socket);
             this.Controls.Add(this.panel_NG_info);
-            this.Controls.Add(this.label_timer_main);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.panel_stastitics);
             this.Controls.Add(this.panel_basicInformation);
             this.Controls.Add(this.panel_log);
+            this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "扫码上传上位机";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -1343,6 +1332,8 @@
             this.tabPage_socket.PerformLayout();
             this.tabPage_http.ResumeLayout(false);
             this.tabPage_http.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.basicInfoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1369,13 +1360,10 @@
         private System.Windows.Forms.Label label_mo;
         private System.Windows.Forms.Panel panel_log;
         private System.Windows.Forms.Panel panel_stastitics;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label_text_statistics_OK1;
         private System.Windows.Forms.Label label_connectStatus_MES;
         private System.Windows.Forms.Label label_text_statistics_NG1;
         private System.Windows.Forms.Label label_connectStatus_PLC;
-        private System.Windows.Forms.Timer timer_main;
-        private System.Windows.Forms.Label label_timer_main;
         private System.Windows.Forms.Label label_text_statistics_yield2;
         private System.Windows.Forms.Label label_text_statistics_NG2;
         private System.Windows.Forms.Label label_text_statistics_OK2;
@@ -1403,7 +1391,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader_errorCode;
         private System.Windows.Forms.ColumnHeader columnHeader_errorMsg;
         private System.Windows.Forms.TabPage tabPage_NG_threeCode;
-        private System.Windows.Forms.ListView listView_NG_threeCode;
+        private System.Windows.Forms.ListView listView_NG_threeCodes;
         private System.Windows.Forms.ColumnHeader columnHeader_time_NG;
         private System.Windows.Forms.ColumnHeader columnHeader_snNumber_NG;
         private System.Windows.Forms.Button button_openLogDir;
@@ -1439,7 +1427,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader_targetVehicle_NG;
         private System.Windows.Forms.ColumnHeader columnHeader_sourceVehicle_NG;
         private System.Windows.Forms.TabPage tabPage_OK_threeCode;
-        private System.Windows.Forms.ListView listView_OK;
+        private System.Windows.Forms.ListView listView_OK_threeCodes;
         private System.Windows.Forms.ColumnHeader columnHeader_time_OK;
         private System.Windows.Forms.ColumnHeader columnHeader_snNumber_OK;
         private System.Windows.Forms.ColumnHeader columnHeader_targetVehicle_OK;
@@ -1460,6 +1448,8 @@
         private System.Windows.Forms.ColumnHeader columnHeader_returnCode_BDS;
         private System.Windows.Forms.Button button_stastiticsData_save;
         private System.Windows.Forms.Button button_stastiticsData_clear;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_config;
     }
 }
 

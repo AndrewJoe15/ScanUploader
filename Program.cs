@@ -24,12 +24,12 @@ namespace ScanUploader
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Form mainForm = new MainForm();
 
             //应用程序初始化
             Init();
 
             //打开主窗体
+            Form mainForm = new MainForm();
             Application.Run(mainForm);
 
         }
@@ -39,10 +39,8 @@ namespace ScanUploader
             //启动定时垃圾回收 以解决内存占用越来越大的问题
             Optimizer.StartPeriodGarbageCollection();
 
-#if !DEBUG
             //初始化配置
-            Configurator.Init();
-#endif
+            //Configurator.Init();
         }
     }
 }

@@ -2,41 +2,26 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ScanUploader.Properties" GeneratedClassName="URL">
   <Profiles />
   <Settings>
-    <Setting Name="prefix" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://10.219.95.85/prod-api/</Value>
-    </Setting>
-    <Setting Name="httpLogin_MES" Type="System.String" Scope="User">
+    <Setting Name="httpLogin" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://10.219.95.85/prod-api/auth/login</Value>
     </Setting>
-    <Setting Name="subPrefix_MES" Type="System.String" Scope="User">
-      <Value Profile="(Default)">mes/machine/api/machineToMes/</Value>
+    <Setting Name="scanContainerOut" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://10.219.95.85/prod-api/mes/machine/api/machineToMes/chemicalScanSourceVehicle</Value>
     </Setting>
-    <Setting Name="postfix_scanContainerOut" Type="System.String" Scope="User">
-      <Value Profile="(Default)">chemicalScanSourceVehicle</Value>
+    <Setting Name="scanSn" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://10.219.95.85/prod-api/mes/machine/api/machineToMes/chemicalScanSn</Value>
     </Setting>
-    <Setting Name="postfix_scanSn" Type="System.String" Scope="User">
-      <Value Profile="(Default)">chemicalScanSn</Value>
+    <Setting Name="scanContainerIn" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://10.219.95.85/prod-api/mes/machine/api/machineToMes/chemicalScanTargetVehicle</Value>
     </Setting>
-    <Setting Name="postfix_scanContainerIn" Type="System.String" Scope="User">
-      <Value Profile="(Default)">chemicalScanTargetVehicle</Value>
+    <Setting Name="scanContainerUnbind" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://10.219.95.85/prod-api/mes/machine/api/machineToMes/chemicalScanSourceVehicleUnBind</Value>
     </Setting>
-    <Setting Name="postfix_scanContainerUnbind" Type="System.String" Scope="User">
-      <Value Profile="(Default)">chemicalScanSourceVehicleUnBind</Value>
-    </Setting>
-    <Setting Name="postfix_submit" Type="System.String" Scope="User">
-      <Value Profile="(Default)">chemicalScanSubmit</Value>
-    </Setting>
-    <Setting Name="httpLogin_WMS" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://10.210.192.31/stage-api/auth/login</Value>
-    </Setting>
-    <Setting Name="stockQuery_WMS" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://10.210.192.31/stage-api/process/mes/stock/query</Value>
-    </Setting>
-    <Setting Name="validate_WMS" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://10.210.192.31/stage-api/process/mesUpperMaterialRecord/public/mes/validate</Value>
+    <Setting Name="submit" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://10.219.95.85/prod-api/mes/machine/api/machineToMes/chemicalScanSubmit</Value>
     </Setting>
     <Setting Name="getMesMoList" Type="System.String" Scope="User">
-      <Value Profile="(Default)">getMesMoListByProductModelAndOperation</Value>
+      <Value Profile="(Default)">http://10.219.95.85/prod-api/mes/machine/api/machineToMes/getMesMoListByProductModelAndOperation</Value>
     </Setting>
   </Settings>
 </SettingsFile>

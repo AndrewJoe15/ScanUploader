@@ -38,42 +38,47 @@
             // label_userName
             // 
             this.label_userName.AutoSize = true;
-            this.label_userName.Location = new System.Drawing.Point(50, 43);
+            this.label_userName.Location = new System.Drawing.Point(67, 54);
+            this.label_userName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_userName.Name = "label_userName";
-            this.label_userName.Size = new System.Drawing.Size(53, 12);
+            this.label_userName.Size = new System.Drawing.Size(67, 15);
             this.label_userName.TabIndex = 0;
             this.label_userName.Text = "用户名：";
             // 
             // textBox_userName
             // 
-            this.textBox_userName.Location = new System.Drawing.Point(115, 40);
+            this.textBox_userName.Location = new System.Drawing.Point(153, 50);
+            this.textBox_userName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox_userName.Name = "textBox_userName";
-            this.textBox_userName.Size = new System.Drawing.Size(107, 21);
+            this.textBox_userName.Size = new System.Drawing.Size(141, 25);
             this.textBox_userName.TabIndex = 1;
             this.textBox_userName.Text = "RP";
             // 
             // textBox_password
             // 
-            this.textBox_password.Location = new System.Drawing.Point(115, 85);
+            this.textBox_password.Location = new System.Drawing.Point(153, 106);
+            this.textBox_password.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox_password.Name = "textBox_password";
             this.textBox_password.PasswordChar = '*';
-            this.textBox_password.Size = new System.Drawing.Size(107, 21);
+            this.textBox_password.Size = new System.Drawing.Size(141, 25);
             this.textBox_password.TabIndex = 3;
             // 
             // label_password
             // 
             this.label_password.AutoSize = true;
-            this.label_password.Location = new System.Drawing.Point(50, 89);
+            this.label_password.Location = new System.Drawing.Point(67, 111);
+            this.label_password.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_password.Name = "label_password";
-            this.label_password.Size = new System.Drawing.Size(41, 12);
+            this.label_password.Size = new System.Drawing.Size(52, 15);
             this.label_password.TabIndex = 2;
             this.label_password.Text = "密码：";
             // 
             // button_login
             // 
-            this.button_login.Location = new System.Drawing.Point(104, 125);
+            this.button_login.Location = new System.Drawing.Point(139, 156);
+            this.button_login.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button_login.Name = "button_login";
-            this.button_login.Size = new System.Drawing.Size(73, 31);
+            this.button_login.Size = new System.Drawing.Size(97, 39);
             this.button_login.TabIndex = 4;
             this.button_login.Text = "登 录";
             this.button_login.UseVisualStyleBackColor = true;
@@ -82,17 +87,20 @@
             // LoginForm_Admin
             // 
             this.AcceptButton = this.button_login;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(273, 181);
+            this.ClientSize = new System.Drawing.Size(364, 226);
             this.Controls.Add(this.button_login);
             this.Controls.Add(this.textBox_password);
             this.Controls.Add(this.label_password);
             this.Controls.Add(this.textBox_userName);
             this.Controls.Add(this.label_userName);
             this.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "LoginForm_Admin";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "管理员登录";
+            this.Load += new System.EventHandler(this.LoginForm_Loaded);
             this.ResumeLayout(false);
             this.PerformLayout();
 

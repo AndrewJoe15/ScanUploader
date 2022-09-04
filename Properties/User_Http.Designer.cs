@@ -12,7 +12,7 @@ namespace ScanUploader.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.1.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     internal sealed partial class User_Http : global::System.Configuration.ApplicationSettingsBase {
         
         private static User_Http defaultInstance = ((User_Http)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new User_Http())));
@@ -26,24 +26,24 @@ namespace ScanUploader.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("yfhp")]
-        public string username_MES {
+        public string username_MES_hp {
             get {
-                return ((string)(this["username_MES"]));
+                return ((string)(this["username_MES_hp"]));
             }
             set {
-                this["username_MES"] = value;
+                this["username_MES_hp"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("123456")]
-        public string password_MES {
+        public string password_MES_hp {
             get {
-                return ((string)(this["password_MES"]));
+                return ((string)(this["password_MES_hp"]));
             }
             set {
-                this["password_MES"] = value;
+                this["password_MES_hp"] = value;
             }
         }
         
@@ -61,25 +61,25 @@ namespace ScanUploader.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("device")]
-        public string userName_http_WMS {
+        [global::System.Configuration.DefaultSettingValueAttribute("test")]
+        public string username_MES_cm {
             get {
-                return ((string)(this["userName_http_WMS"]));
+                return ((string)(this["username_MES_cm"]));
             }
             set {
-                this["userName_http_WMS"] = value;
+                this["username_MES_cm"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("123456")]
-        public string password_http_WMS {
+        public string password_MES_cm {
             get {
-                return ((string)(this["password_http_WMS"]));
+                return ((string)(this["password_MES_cm"]));
             }
             set {
-                this["password_http_WMS"] = value;
+                this["password_MES_cm"] = value;
             }
         }
     }

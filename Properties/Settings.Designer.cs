@@ -22,41 +22,5 @@ namespace ScanUploader.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool is_chemicalScan {
-            get {
-                return ((bool)(this["is_chemicalScan"]));
-            }
-            set {
-                this["is_chemicalScan"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool is_kibbleScan {
-            get {
-                return ((bool)(this["is_kibbleScan"]));
-            }
-            set {
-                this["is_kibbleScan"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool is_BDS {
-            get {
-                return ((bool)(this["is_BDS"]));
-            }
-            set {
-                this["is_BDS"] = value;
-            }
-        }
     }
 }

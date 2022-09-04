@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace ScanUploader.Model
 {
@@ -10,49 +11,107 @@ namespace ScanUploader.Model
     /// URL 静态类
     /// 用来存放一些URL
     /// </summary>
-    public class URL : SingleTon<URL>
+    public class URL : SingleTon<URL>, INotifyPropertyChanged
     {
-#if DEBUG
-        private static string pre = "http://a29bdf48-e376-4c0c-96bb-cb8e7f12897f.mock.pstmn.io/";
-
-        public static string httpLogin = pre + "login"; //postfix_httpLogin 暂时用完整的url
-                                                                                                            //-载具扫出
-        public static string scanContainerOut = pre + "scanContainerOut";
-#if CHEMICALSCAN
-        //-单片玻璃
-        public static string scanSn = pre + "scanSn";
+#if !DEBUG
+        public static string prefix = "http://a29bdf48-e376-4c0c-96bb-cb8e7f12897f.mock.pstmn.io/";
 #endif
-#if BDSSCAN
-        public static string scanSn = pre + "insertByScaning";
-#endif
-        //-载具扫入
-        public static string scanContainerIn = pre + "scanContainerIn";
-        //-载具解绑
-        public static string scanContainerUnbind = pre + "scanContainerUnbind";
-        //-提交
-        public static string scanSubmit = pre + "submit";
-        //-工单号获取
-        public static string getMesMoList = pre + "getMesMoListByProductModelAndOperation";
-#else
-        //获取url配置 静态对象
-        static readonly Properties.URL url = Properties.URL.Default;
-        //登录http的url
-        public static string httpLogin = url.httpLogin_MES; //postfix_httpLogin 用完整的url       
 
         //扫码上传url
         //-载具扫出
-        public static string scanContainerOut = url.prefix + url.subPrefix_MES + url.postfix_scanContainerOut; 
+        public string scanContainerOut {
+            get { return _scanContainerOut; }
+            set
+            {
+                _scanContainerOut = url.scanContainerOut = value;
+                SendChangedInfo(nameof(scanContainerOut));
+            }
+        }
+         
         //-单片玻璃
-        public static string scanSn = url.prefix + url.subPrefix_MES + url.postfix_scanSn; 
+        public string scanSn 
+        {
+            get => _scanSn;
+            set
+            {
+                _scanSn = url.scanSn = value;
+                SendChangedInfo(nameof(scanSn));
+            }
+        }
         //-载具扫入
-        public static string scanContainerIn = url.prefix + url.subPrefix_MES + url.postfix_scanContainerIn; 
+        public string scanContainerIn
+        {
+            get => _scanContainerIn;
+            set
+            {
+                _scanContainerIn = url.scanContainerIn = value;
+                SendChangedInfo(nameof(scanContainerIn));
+            }
+        }
         //-载具解绑
-        public static string scanContainerUnbind = url.prefix + url.subPrefix_MES + url.postfix_scanContainerUnbind;
+        public string scanContainerUnbind
+        {
+            get => _scanContainerUnbind;
+            set
+            {
+                _scanContainerUnbind = url.scanContainerUnbind = value;
+                SendChangedInfo(nameof(scanContainerUnbind));
+            }
+        }
         //-提交
-        public static string scanSubmit = url.prefix + url.subPrefix_MES + url.postfix_submit;
+        public string scanSubmit
+        {
+            get => _scanSubmit;
+            set
+            {
+                _scanSubmit = url.submit = value;
+                SendChangedInfo(nameof(scanSubmit));
+            }
+        }
+
+        //登录http的url
+        public string httpLogin
+        {
+            get => _httpLogin;
+            set
+            {
+                _httpLogin = url.httpLogin = value;
+                SendChangedInfo(nameof(httpLogin));
+            }
+        }
 
         //-工单号获取
-        public static string getMesMoList = url.prefix + url.subPrefix_MES + url.getMesMoList;
-#endif
+        public string getMesMoList
+        {
+            get => _getMesMoList;
+            set
+            {
+                _getMesMoList = url.getMesMoList = value;
+                SendChangedInfo(nameof(getMesMoList));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        //获取url配置对象
+        private static readonly Properties.URL url = Properties.URL.Default;
+
+        private string _scanContainerOut = url.scanContainerOut;
+        private string _scanSn = url.scanSn;
+        private string _scanContainerIn = url.scanContainerIn;
+        private string _scanSubmit = url.submit;
+        private string _scanContainerUnbind = url.scanContainerUnbind;
+
+        private string _httpLogin = url.httpLogin;
+
+        private string _getMesMoList = url.getMesMoList;
+
+        private void SendChangedInfo(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
     }
 }

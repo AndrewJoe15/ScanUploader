@@ -44,8 +44,8 @@ namespace ScanUploader.Utils
             try
             {
 
-            FileStream fileStream = new FileStream(filePath + fileName, FileMode.Append, FileAccess.Write, FileShare.Write);
-            StreamWriter sw = new StreamWriter(fileStream, Encoding.Default);
+                FileStream fileStream = new FileStream(filePath + fileName, FileMode.Append, FileAccess.Write, FileShare.Write);
+                StreamWriter sw = new StreamWriter(fileStream, Encoding.Default);
 
             
                 //第一次写入时先写入标题行

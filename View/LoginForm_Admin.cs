@@ -20,7 +20,13 @@ namespace ScanUploader.View
         public LoginForm_Admin()
         {
             InitializeComponent();
+            
+        }
+
+        private void LoginForm_Loaded(object sender, EventArgs e)
+        {
             textBox_userName.Text = userName;
+            textBox_password.Focus();
         }
 
         private void button_login_Click(object sender, EventArgs e)
@@ -29,9 +35,8 @@ namespace ScanUploader.View
             {
                 this.Hide();
                 
-                ConfigureForm form = new ConfigureForm();
                 //模式对话框，窗体始终在前，其他窗体无法操作
-                form.ShowDialog(MainForm.thisForm);
+                MainForm.thisForm.configureForm.ShowDialog(MainForm.thisForm);
                 
                 this.Close();
             }

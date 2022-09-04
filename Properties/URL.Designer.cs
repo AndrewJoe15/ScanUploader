@@ -25,140 +25,83 @@ namespace ScanUploader.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://10.219.95.85/prod-api/")]
-        public string prefix {
-            get {
-                return ((string)(this["prefix"]));
-            }
-            set {
-                this["prefix"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("http://10.219.95.85/prod-api/auth/login")]
-        public string httpLogin_MES {
+        public string httpLogin {
             get {
-                return ((string)(this["httpLogin_MES"]));
+                return ((string)(this["httpLogin"]));
             }
             set {
-                this["httpLogin_MES"] = value;
+                this["httpLogin"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("mes/machine/api/machineToMes/")]
-        public string subPrefix_MES {
+        [global::System.Configuration.DefaultSettingValueAttribute("http://10.219.95.85/prod-api/mes/machine/api/machineToMes/chemicalScanSourceVehic" +
+            "le")]
+        public string scanContainerOut {
             get {
-                return ((string)(this["subPrefix_MES"]));
+                return ((string)(this["scanContainerOut"]));
             }
             set {
-                this["subPrefix_MES"] = value;
+                this["scanContainerOut"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("chemicalScanSourceVehicle")]
-        public string postfix_scanContainerOut {
+        [global::System.Configuration.DefaultSettingValueAttribute("http://10.219.95.85/prod-api/mes/machine/api/machineToMes/chemicalScanSn")]
+        public string scanSn {
             get {
-                return ((string)(this["postfix_scanContainerOut"]));
+                return ((string)(this["scanSn"]));
             }
             set {
-                this["postfix_scanContainerOut"] = value;
+                this["scanSn"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("chemicalScanSn")]
-        public string postfix_scanSn {
+        [global::System.Configuration.DefaultSettingValueAttribute("http://10.219.95.85/prod-api/mes/machine/api/machineToMes/chemicalScanTargetVehic" +
+            "le")]
+        public string scanContainerIn {
             get {
-                return ((string)(this["postfix_scanSn"]));
+                return ((string)(this["scanContainerIn"]));
             }
             set {
-                this["postfix_scanSn"] = value;
+                this["scanContainerIn"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("chemicalScanTargetVehicle")]
-        public string postfix_scanContainerIn {
+        [global::System.Configuration.DefaultSettingValueAttribute("http://10.219.95.85/prod-api/mes/machine/api/machineToMes/chemicalScanSourceVehic" +
+            "leUnBind")]
+        public string scanContainerUnbind {
             get {
-                return ((string)(this["postfix_scanContainerIn"]));
+                return ((string)(this["scanContainerUnbind"]));
             }
             set {
-                this["postfix_scanContainerIn"] = value;
+                this["scanContainerUnbind"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("chemicalScanSourceVehicleUnBind")]
-        public string postfix_scanContainerUnbind {
+        [global::System.Configuration.DefaultSettingValueAttribute("http://10.219.95.85/prod-api/mes/machine/api/machineToMes/chemicalScanSubmit")]
+        public string submit {
             get {
-                return ((string)(this["postfix_scanContainerUnbind"]));
+                return ((string)(this["submit"]));
             }
             set {
-                this["postfix_scanContainerUnbind"] = value;
+                this["submit"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("chemicalScanSubmit")]
-        public string postfix_submit {
-            get {
-                return ((string)(this["postfix_submit"]));
-            }
-            set {
-                this["postfix_submit"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://10.210.192.31/stage-api/auth/login")]
-        public string httpLogin_WMS {
-            get {
-                return ((string)(this["httpLogin_WMS"]));
-            }
-            set {
-                this["httpLogin_WMS"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://10.210.192.31/stage-api/process/mes/stock/query")]
-        public string stockQuery_WMS {
-            get {
-                return ((string)(this["stockQuery_WMS"]));
-            }
-            set {
-                this["stockQuery_WMS"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://10.210.192.31/stage-api/process/mesUpperMaterialRecord/public/mes/validate" +
-            "")]
-        public string validate_WMS {
-            get {
-                return ((string)(this["validate_WMS"]));
-            }
-            set {
-                this["validate_WMS"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("getMesMoListByProductModelAndOperation")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://10.219.95.85/prod-api/mes/machine/api/machineToMes/getMesMoListByProductMo" +
+            "delAndOperation")]
         public string getMesMoList {
             get {
                 return ((string)(this["getMesMoList"]));

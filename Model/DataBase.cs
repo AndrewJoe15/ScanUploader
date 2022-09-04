@@ -9,7 +9,7 @@ namespace ScanUploader.Model
     /// <summary>
     /// 所有数据类的基类
     /// </summary>
-    public class DataBase : SingleTon<BasicInfo>, INotifyPropertyChanged
+    public class DataBase: INotifyPropertyChanged
     {
         //属性更改事件
         public event PropertyChangedEventHandler PropertyChanged;

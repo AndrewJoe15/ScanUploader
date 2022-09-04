@@ -1,5 +1,5 @@
 ﻿using System.Runtime.Serialization;
-
+using System.ComponentModel;
 using ScanUploader.Utils;
 
 namespace ScanUploader.Model
@@ -10,7 +10,7 @@ namespace ScanUploader.Model
     /// 由于该类需要序列化生成Json数据，所以谨慎改动，原则上不允许增删变量
     /// </summary>
     [DataContract]
-    public class BasicInfo : DataBase
+    public class BasicInfo : SingleTon<BasicInfo>, INotifyPropertyChanged
     {
         //工厂代码
         [DataMember]
@@ -121,5 +121,16 @@ namespace ScanUploader.Model
         private string _shift = "";
         private string _createBy = "";
         private string _order = "";
+
+        //属性更改事件
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        internal void SendChangedInfo(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
     }
 }
