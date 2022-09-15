@@ -44,15 +44,22 @@
             this.label_url_scanVehicleUnbind = new System.Windows.Forms.Label();
             this.label_url_scanSn = new System.Windows.Forms.Label();
             this.tabPage_url_info = new System.Windows.Forms.TabPage();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox_getProductModel = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox_getMesMoList = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label_url_login_MES = new System.Windows.Forms.Label();
             this.textBox_url_login_MES = new System.Windows.Forms.TextBox();
+            this.tabPage_logFileName = new System.Windows.Forms.TabPage();
+            this.textBox_logPrefix = new System.Windows.Forms.TextBox();
+            this.textBox_logDateFormat = new System.Windows.Forms.TextBox();
+            this.textBox_serialFigures = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.tabPage_socketPort = new System.Windows.Forms.TabPage();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.checkBox_socket_insert = new System.Windows.Forms.CheckBox();
+            this.textBox_port_insert = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox_socket_IP = new System.Windows.Forms.TextBox();
@@ -69,19 +76,12 @@
             this.label_port_submit = new System.Windows.Forms.Label();
             this.label_port_main = new System.Windows.Forms.Label();
             this.label_port_down = new System.Windows.Forms.Label();
-            this.tabPage_logFileName = new System.Windows.Forms.TabPage();
-            this.textBox_logPrefix = new System.Windows.Forms.TextBox();
-            this.textBox_logDateFormat = new System.Windows.Forms.TextBox();
-            this.textBox_serialFigures = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.button_restoreConfig = new System.Windows.Forms.Button();
             this.tabControl_config.SuspendLayout();
             this.tabPage_url_scan.SuspendLayout();
             this.tabPage_url_info.SuspendLayout();
-            this.tabPage_socketPort.SuspendLayout();
             this.tabPage_logFileName.SuspendLayout();
+            this.tabPage_socketPort.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -118,8 +118,8 @@
             // 
             this.tabControl_config.Controls.Add(this.tabPage_url_scan);
             this.tabControl_config.Controls.Add(this.tabPage_url_info);
-            this.tabControl_config.Controls.Add(this.tabPage_socketPort);
             this.tabControl_config.Controls.Add(this.tabPage_logFileName);
+            this.tabControl_config.Controls.Add(this.tabPage_socketPort);
             this.tabControl_config.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabControl_config.Location = new System.Drawing.Point(0, 0);
             this.tabControl_config.Margin = new System.Windows.Forms.Padding(4);
@@ -241,7 +241,7 @@
             // 
             // tabPage_url_info
             // 
-            this.tabPage_url_info.Controls.Add(this.textBox2);
+            this.tabPage_url_info.Controls.Add(this.textBox_getProductModel);
             this.tabPage_url_info.Controls.Add(this.label5);
             this.tabPage_url_info.Controls.Add(this.textBox_getMesMoList);
             this.tabPage_url_info.Controls.Add(this.label3);
@@ -255,18 +255,18 @@
             this.tabPage_url_info.Text = "信息URL";
             this.tabPage_url_info.UseVisualStyleBackColor = true;
             // 
-            // textBox2
+            // textBox_getProductModel
             // 
-            this.textBox2.Location = new System.Drawing.Point(185, 70);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(420, 25);
-            this.textBox2.TabIndex = 48;
+            this.textBox_getProductModel.Location = new System.Drawing.Point(185, 110);
+            this.textBox_getProductModel.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox_getProductModel.Name = "textBox_getProductModel";
+            this.textBox_getProductModel.Size = new System.Drawing.Size(420, 25);
+            this.textBox_getProductModel.TabIndex = 48;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(65, 77);
+            this.label5.Location = new System.Drawing.Point(65, 117);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(112, 15);
@@ -275,7 +275,7 @@
             // 
             // textBox_getMesMoList
             // 
-            this.textBox_getMesMoList.Location = new System.Drawing.Point(185, 103);
+            this.textBox_getMesMoList.Location = new System.Drawing.Point(185, 143);
             this.textBox_getMesMoList.Margin = new System.Windows.Forms.Padding(4);
             this.textBox_getMesMoList.Name = "textBox_getMesMoList";
             this.textBox_getMesMoList.Size = new System.Drawing.Size(420, 25);
@@ -284,7 +284,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(65, 110);
+            this.label3.Location = new System.Drawing.Point(65, 150);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(112, 15);
@@ -294,7 +294,7 @@
             // label_url_login_MES
             // 
             this.label_url_login_MES.AutoSize = true;
-            this.label_url_login_MES.Location = new System.Drawing.Point(65, 31);
+            this.label_url_login_MES.Location = new System.Drawing.Point(65, 71);
             this.label_url_login_MES.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_url_login_MES.Name = "label_url_login_MES";
             this.label_url_login_MES.Size = new System.Drawing.Size(76, 15);
@@ -303,216 +303,11 @@
             // 
             // textBox_url_login_MES
             // 
-            this.textBox_url_login_MES.Location = new System.Drawing.Point(185, 21);
+            this.textBox_url_login_MES.Location = new System.Drawing.Point(185, 61);
             this.textBox_url_login_MES.Margin = new System.Windows.Forms.Padding(4);
             this.textBox_url_login_MES.Name = "textBox_url_login_MES";
             this.textBox_url_login_MES.Size = new System.Drawing.Size(420, 25);
             this.textBox_url_login_MES.TabIndex = 44;
-            // 
-            // tabPage_socketPort
-            // 
-            this.tabPage_socketPort.Controls.Add(this.checkBox1);
-            this.tabPage_socketPort.Controls.Add(this.textBox1);
-            this.tabPage_socketPort.Controls.Add(this.label1);
-            this.tabPage_socketPort.Controls.Add(this.label2);
-            this.tabPage_socketPort.Controls.Add(this.textBox_socket_IP);
-            this.tabPage_socketPort.Controls.Add(this.label_socket_IP);
-            this.tabPage_socketPort.Controls.Add(this.checkBox_socket_submit);
-            this.tabPage_socketPort.Controls.Add(this.checkBox_socket_down);
-            this.tabPage_socketPort.Controls.Add(this.checkBox_socket_main);
-            this.tabPage_socketPort.Controls.Add(this.checkBox_socket_up);
-            this.tabPage_socketPort.Controls.Add(this.textBox_port_up);
-            this.tabPage_socketPort.Controls.Add(this.textBox_port_submit);
-            this.tabPage_socketPort.Controls.Add(this.textBox_port_main);
-            this.tabPage_socketPort.Controls.Add(this.textBox_port_down);
-            this.tabPage_socketPort.Controls.Add(this.label_port_up);
-            this.tabPage_socketPort.Controls.Add(this.label_port_submit);
-            this.tabPage_socketPort.Controls.Add(this.label_port_main);
-            this.tabPage_socketPort.Controls.Add(this.label_port_down);
-            this.tabPage_socketPort.Location = new System.Drawing.Point(4, 25);
-            this.tabPage_socketPort.Margin = new System.Windows.Forms.Padding(4);
-            this.tabPage_socketPort.Name = "tabPage_socketPort";
-            this.tabPage_socketPort.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage_socketPort.Size = new System.Drawing.Size(670, 330);
-            this.tabPage_socketPort.TabIndex = 1;
-            this.tabPage_socketPort.Text = "Socket端口";
-            this.tabPage_socketPort.UseVisualStyleBackColor = true;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(466, 231);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(18, 17);
-            this.checkBox1.TabIndex = 34;
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(279, 221);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(160, 25);
-            this.textBox1.TabIndex = 33;
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(214, 228);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 15);
-            this.label1.TabIndex = 32;
-            this.label1.Text = "插架";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label2.Location = new System.Drawing.Point(153, 90);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 15);
-            this.label2.TabIndex = 31;
-            this.label2.Text = "端口：";
-            // 
-            // textBox_socket_IP
-            // 
-            this.textBox_socket_IP.Location = new System.Drawing.Point(207, 31);
-            this.textBox_socket_IP.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox_socket_IP.Name = "textBox_socket_IP";
-            this.textBox_socket_IP.Size = new System.Drawing.Size(232, 25);
-            this.textBox_socket_IP.TabIndex = 30;
-            this.textBox_socket_IP.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label_socket_IP
-            // 
-            this.label_socket_IP.AutoSize = true;
-            this.label_socket_IP.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label_socket_IP.Location = new System.Drawing.Point(153, 33);
-            this.label_socket_IP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label_socket_IP.Name = "label_socket_IP";
-            this.label_socket_IP.Size = new System.Drawing.Size(41, 15);
-            this.label_socket_IP.TabIndex = 29;
-            this.label_socket_IP.Text = "IP：";
-            // 
-            // checkBox_socket_submit
-            // 
-            this.checkBox_socket_submit.AutoSize = true;
-            this.checkBox_socket_submit.Location = new System.Drawing.Point(466, 277);
-            this.checkBox_socket_submit.Margin = new System.Windows.Forms.Padding(4);
-            this.checkBox_socket_submit.Name = "checkBox_socket_submit";
-            this.checkBox_socket_submit.Size = new System.Drawing.Size(18, 17);
-            this.checkBox_socket_submit.TabIndex = 28;
-            this.checkBox_socket_submit.UseVisualStyleBackColor = true;
-            // 
-            // checkBox_socket_down
-            // 
-            this.checkBox_socket_down.AutoSize = true;
-            this.checkBox_socket_down.Location = new System.Drawing.Point(466, 179);
-            this.checkBox_socket_down.Margin = new System.Windows.Forms.Padding(4);
-            this.checkBox_socket_down.Name = "checkBox_socket_down";
-            this.checkBox_socket_down.Size = new System.Drawing.Size(18, 17);
-            this.checkBox_socket_down.TabIndex = 27;
-            this.checkBox_socket_down.UseVisualStyleBackColor = true;
-            // 
-            // checkBox_socket_main
-            // 
-            this.checkBox_socket_main.AutoSize = true;
-            this.checkBox_socket_main.Location = new System.Drawing.Point(466, 135);
-            this.checkBox_socket_main.Margin = new System.Windows.Forms.Padding(4);
-            this.checkBox_socket_main.Name = "checkBox_socket_main";
-            this.checkBox_socket_main.Size = new System.Drawing.Size(18, 17);
-            this.checkBox_socket_main.TabIndex = 26;
-            this.checkBox_socket_main.UseVisualStyleBackColor = true;
-            // 
-            // checkBox_socket_up
-            // 
-            this.checkBox_socket_up.AutoSize = true;
-            this.checkBox_socket_up.Location = new System.Drawing.Point(466, 88);
-            this.checkBox_socket_up.Margin = new System.Windows.Forms.Padding(4);
-            this.checkBox_socket_up.Name = "checkBox_socket_up";
-            this.checkBox_socket_up.Size = new System.Drawing.Size(18, 17);
-            this.checkBox_socket_up.TabIndex = 25;
-            this.checkBox_socket_up.UseVisualStyleBackColor = true;
-            // 
-            // textBox_port_up
-            // 
-            this.textBox_port_up.Location = new System.Drawing.Point(279, 81);
-            this.textBox_port_up.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox_port_up.Name = "textBox_port_up";
-            this.textBox_port_up.Size = new System.Drawing.Size(160, 25);
-            this.textBox_port_up.TabIndex = 18;
-            this.textBox_port_up.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // textBox_port_submit
-            // 
-            this.textBox_port_submit.Location = new System.Drawing.Point(279, 267);
-            this.textBox_port_submit.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox_port_submit.Name = "textBox_port_submit";
-            this.textBox_port_submit.Size = new System.Drawing.Size(160, 25);
-            this.textBox_port_submit.TabIndex = 20;
-            this.textBox_port_submit.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // textBox_port_main
-            // 
-            this.textBox_port_main.Location = new System.Drawing.Point(279, 129);
-            this.textBox_port_main.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox_port_main.Name = "textBox_port_main";
-            this.textBox_port_main.Size = new System.Drawing.Size(160, 25);
-            this.textBox_port_main.TabIndex = 22;
-            this.textBox_port_main.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // textBox_port_down
-            // 
-            this.textBox_port_down.Location = new System.Drawing.Point(279, 174);
-            this.textBox_port_down.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox_port_down.Name = "textBox_port_down";
-            this.textBox_port_down.Size = new System.Drawing.Size(160, 25);
-            this.textBox_port_down.TabIndex = 24;
-            this.textBox_port_down.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label_port_up
-            // 
-            this.label_port_up.AutoSize = true;
-            this.label_port_up.Location = new System.Drawing.Point(214, 90);
-            this.label_port_up.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label_port_up.Name = "label_port_up";
-            this.label_port_up.Size = new System.Drawing.Size(37, 15);
-            this.label_port_up.TabIndex = 17;
-            this.label_port_up.Text = "上料";
-            // 
-            // label_port_submit
-            // 
-            this.label_port_submit.AutoSize = true;
-            this.label_port_submit.Location = new System.Drawing.Point(214, 274);
-            this.label_port_submit.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label_port_submit.Name = "label_port_submit";
-            this.label_port_submit.Size = new System.Drawing.Size(37, 15);
-            this.label_port_submit.TabIndex = 19;
-            this.label_port_submit.Text = "提交";
-            // 
-            // label_port_main
-            // 
-            this.label_port_main.AutoSize = true;
-            this.label_port_main.Location = new System.Drawing.Point(214, 138);
-            this.label_port_main.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label_port_main.Name = "label_port_main";
-            this.label_port_main.Size = new System.Drawing.Size(37, 15);
-            this.label_port_main.TabIndex = 21;
-            this.label_port_main.Text = "主体";
-            // 
-            // label_port_down
-            // 
-            this.label_port_down.AutoSize = true;
-            this.label_port_down.Location = new System.Drawing.Point(214, 183);
-            this.label_port_down.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label_port_down.Name = "label_port_down";
-            this.label_port_down.Size = new System.Drawing.Size(37, 15);
-            this.label_port_down.TabIndex = 23;
-            this.label_port_down.Text = "下料";
             // 
             // tabPage_logFileName
             // 
@@ -588,6 +383,211 @@
             this.label7.TabIndex = 14;
             this.label7.Text = "流水号位数：";
             // 
+            // tabPage_socketPort
+            // 
+            this.tabPage_socketPort.Controls.Add(this.checkBox_socket_insert);
+            this.tabPage_socketPort.Controls.Add(this.textBox_port_insert);
+            this.tabPage_socketPort.Controls.Add(this.label1);
+            this.tabPage_socketPort.Controls.Add(this.label2);
+            this.tabPage_socketPort.Controls.Add(this.textBox_socket_IP);
+            this.tabPage_socketPort.Controls.Add(this.label_socket_IP);
+            this.tabPage_socketPort.Controls.Add(this.checkBox_socket_submit);
+            this.tabPage_socketPort.Controls.Add(this.checkBox_socket_down);
+            this.tabPage_socketPort.Controls.Add(this.checkBox_socket_main);
+            this.tabPage_socketPort.Controls.Add(this.checkBox_socket_up);
+            this.tabPage_socketPort.Controls.Add(this.textBox_port_up);
+            this.tabPage_socketPort.Controls.Add(this.textBox_port_submit);
+            this.tabPage_socketPort.Controls.Add(this.textBox_port_main);
+            this.tabPage_socketPort.Controls.Add(this.textBox_port_down);
+            this.tabPage_socketPort.Controls.Add(this.label_port_up);
+            this.tabPage_socketPort.Controls.Add(this.label_port_submit);
+            this.tabPage_socketPort.Controls.Add(this.label_port_main);
+            this.tabPage_socketPort.Controls.Add(this.label_port_down);
+            this.tabPage_socketPort.Location = new System.Drawing.Point(4, 25);
+            this.tabPage_socketPort.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPage_socketPort.Name = "tabPage_socketPort";
+            this.tabPage_socketPort.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage_socketPort.Size = new System.Drawing.Size(670, 330);
+            this.tabPage_socketPort.TabIndex = 1;
+            this.tabPage_socketPort.Text = "Socket端口";
+            this.tabPage_socketPort.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_socket_insert
+            // 
+            this.checkBox_socket_insert.AutoSize = true;
+            this.checkBox_socket_insert.Location = new System.Drawing.Point(486, 235);
+            this.checkBox_socket_insert.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox_socket_insert.Name = "checkBox_socket_insert";
+            this.checkBox_socket_insert.Size = new System.Drawing.Size(18, 17);
+            this.checkBox_socket_insert.TabIndex = 34;
+            this.checkBox_socket_insert.UseVisualStyleBackColor = true;
+            // 
+            // textBox_port_insert
+            // 
+            this.textBox_port_insert.Location = new System.Drawing.Point(299, 225);
+            this.textBox_port_insert.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox_port_insert.Name = "textBox_port_insert";
+            this.textBox_port_insert.Size = new System.Drawing.Size(160, 25);
+            this.textBox_port_insert.TabIndex = 33;
+            this.textBox_port_insert.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(234, 232);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(37, 15);
+            this.label1.TabIndex = 32;
+            this.label1.Text = "插架";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label2.Location = new System.Drawing.Point(173, 94);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(55, 15);
+            this.label2.TabIndex = 31;
+            this.label2.Text = "端口：";
+            // 
+            // textBox_socket_IP
+            // 
+            this.textBox_socket_IP.Location = new System.Drawing.Point(227, 35);
+            this.textBox_socket_IP.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox_socket_IP.Name = "textBox_socket_IP";
+            this.textBox_socket_IP.Size = new System.Drawing.Size(232, 25);
+            this.textBox_socket_IP.TabIndex = 30;
+            this.textBox_socket_IP.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label_socket_IP
+            // 
+            this.label_socket_IP.AutoSize = true;
+            this.label_socket_IP.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label_socket_IP.Location = new System.Drawing.Point(173, 37);
+            this.label_socket_IP.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_socket_IP.Name = "label_socket_IP";
+            this.label_socket_IP.Size = new System.Drawing.Size(41, 15);
+            this.label_socket_IP.TabIndex = 29;
+            this.label_socket_IP.Text = "IP：";
+            // 
+            // checkBox_socket_submit
+            // 
+            this.checkBox_socket_submit.AutoSize = true;
+            this.checkBox_socket_submit.Location = new System.Drawing.Point(486, 281);
+            this.checkBox_socket_submit.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox_socket_submit.Name = "checkBox_socket_submit";
+            this.checkBox_socket_submit.Size = new System.Drawing.Size(18, 17);
+            this.checkBox_socket_submit.TabIndex = 28;
+            this.checkBox_socket_submit.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_socket_down
+            // 
+            this.checkBox_socket_down.AutoSize = true;
+            this.checkBox_socket_down.Location = new System.Drawing.Point(486, 183);
+            this.checkBox_socket_down.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox_socket_down.Name = "checkBox_socket_down";
+            this.checkBox_socket_down.Size = new System.Drawing.Size(18, 17);
+            this.checkBox_socket_down.TabIndex = 27;
+            this.checkBox_socket_down.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_socket_main
+            // 
+            this.checkBox_socket_main.AutoSize = true;
+            this.checkBox_socket_main.Location = new System.Drawing.Point(486, 139);
+            this.checkBox_socket_main.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox_socket_main.Name = "checkBox_socket_main";
+            this.checkBox_socket_main.Size = new System.Drawing.Size(18, 17);
+            this.checkBox_socket_main.TabIndex = 26;
+            this.checkBox_socket_main.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_socket_up
+            // 
+            this.checkBox_socket_up.AutoSize = true;
+            this.checkBox_socket_up.Location = new System.Drawing.Point(486, 92);
+            this.checkBox_socket_up.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBox_socket_up.Name = "checkBox_socket_up";
+            this.checkBox_socket_up.Size = new System.Drawing.Size(18, 17);
+            this.checkBox_socket_up.TabIndex = 25;
+            this.checkBox_socket_up.UseVisualStyleBackColor = true;
+            // 
+            // textBox_port_up
+            // 
+            this.textBox_port_up.Location = new System.Drawing.Point(299, 85);
+            this.textBox_port_up.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox_port_up.Name = "textBox_port_up";
+            this.textBox_port_up.Size = new System.Drawing.Size(160, 25);
+            this.textBox_port_up.TabIndex = 18;
+            this.textBox_port_up.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox_port_submit
+            // 
+            this.textBox_port_submit.Location = new System.Drawing.Point(299, 271);
+            this.textBox_port_submit.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox_port_submit.Name = "textBox_port_submit";
+            this.textBox_port_submit.Size = new System.Drawing.Size(160, 25);
+            this.textBox_port_submit.TabIndex = 20;
+            this.textBox_port_submit.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox_port_main
+            // 
+            this.textBox_port_main.Location = new System.Drawing.Point(299, 133);
+            this.textBox_port_main.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox_port_main.Name = "textBox_port_main";
+            this.textBox_port_main.Size = new System.Drawing.Size(160, 25);
+            this.textBox_port_main.TabIndex = 22;
+            this.textBox_port_main.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox_port_down
+            // 
+            this.textBox_port_down.Location = new System.Drawing.Point(299, 178);
+            this.textBox_port_down.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox_port_down.Name = "textBox_port_down";
+            this.textBox_port_down.Size = new System.Drawing.Size(160, 25);
+            this.textBox_port_down.TabIndex = 24;
+            this.textBox_port_down.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label_port_up
+            // 
+            this.label_port_up.AutoSize = true;
+            this.label_port_up.Location = new System.Drawing.Point(234, 94);
+            this.label_port_up.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_port_up.Name = "label_port_up";
+            this.label_port_up.Size = new System.Drawing.Size(37, 15);
+            this.label_port_up.TabIndex = 17;
+            this.label_port_up.Text = "上料";
+            // 
+            // label_port_submit
+            // 
+            this.label_port_submit.AutoSize = true;
+            this.label_port_submit.Location = new System.Drawing.Point(234, 278);
+            this.label_port_submit.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_port_submit.Name = "label_port_submit";
+            this.label_port_submit.Size = new System.Drawing.Size(37, 15);
+            this.label_port_submit.TabIndex = 19;
+            this.label_port_submit.Text = "提交";
+            // 
+            // label_port_main
+            // 
+            this.label_port_main.AutoSize = true;
+            this.label_port_main.Location = new System.Drawing.Point(234, 142);
+            this.label_port_main.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_port_main.Name = "label_port_main";
+            this.label_port_main.Size = new System.Drawing.Size(37, 15);
+            this.label_port_main.TabIndex = 21;
+            this.label_port_main.Text = "主体";
+            // 
+            // label_port_down
+            // 
+            this.label_port_down.AutoSize = true;
+            this.label_port_down.Location = new System.Drawing.Point(234, 187);
+            this.label_port_down.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_port_down.Name = "label_port_down";
+            this.label_port_down.Size = new System.Drawing.Size(37, 15);
+            this.label_port_down.TabIndex = 23;
+            this.label_port_down.Text = "下料";
+            // 
             // button_restoreConfig
             // 
             this.button_restoreConfig.Location = new System.Drawing.Point(158, 377);
@@ -619,10 +619,10 @@
             this.tabPage_url_scan.PerformLayout();
             this.tabPage_url_info.ResumeLayout(false);
             this.tabPage_url_info.PerformLayout();
-            this.tabPage_socketPort.ResumeLayout(false);
-            this.tabPage_socketPort.PerformLayout();
             this.tabPage_logFileName.ResumeLayout(false);
             this.tabPage_logFileName.PerformLayout();
+            this.tabPage_socketPort.ResumeLayout(false);
+            this.tabPage_socketPort.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -662,8 +662,8 @@
         private System.Windows.Forms.Label label_port_submit;
         private System.Windows.Forms.Label label_port_main;
         private System.Windows.Forms.Label label_port_down;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.CheckBox checkBox_socket_insert;
+        private System.Windows.Forms.TextBox textBox_port_insert;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox_logPrefix;
         private System.Windows.Forms.TextBox textBox_logDateFormat;
@@ -672,7 +672,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TabPage tabPage_url_info;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox_getProductModel;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBox_getMesMoList;
         private System.Windows.Forms.Label label3;

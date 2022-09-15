@@ -23,5 +23,8 @@
     <Setting Name="getMesMoList" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://10.219.95.85/prod-api/mes/machine/api/machineToMes/getMesMoListByProductModelAndOperation</Value>
     </Setting>
+    <Setting Name="getProductModel" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://10.219.95.85/prod-api/mes/product-model/getProductModelBySite</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

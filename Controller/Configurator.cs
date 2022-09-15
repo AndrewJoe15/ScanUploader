@@ -17,14 +17,49 @@ namespace ScanUploader.Controller
     public class Configurator : SingleTon<Configurator>
     {
         //属性配置对象
-        private static Properties.URL url = Properties.URL.Default;
-        private static Properties.Settings settings = Properties.Settings.Default;
-        private static Properties.Socket socket = Properties.Socket.Default;
-        private static Properties.User_Http user_http = Properties.User_Http.Default;
-        private static Properties.LogFileName logFileSetting = Properties.LogFileName.Default;
+        private Properties.URL url = Properties.URL.Default;
+        private Properties.Settings settings = Properties.Settings.Default;
+        private Properties.Socket socket = Properties.Socket.Default;
+        private Properties.User_Http user_http = Properties.User_Http.Default;
+        private Properties.LogFileName logFileSetting = Properties.LogFileName.Default;
 
 
+        public void Init()
+        {
+            switch (settings.workSite)
+            {
+                case 'H':
+                    InitHP();
+                    break;
+                case 'B':
+                    InitBDS();
+                    break;
+                case 'C':
+                    InitCM();
+                    break;
+                default:
+                    break;
+            }
+        }
 
+        private void InitHP()
+        {
+
+        }
+        private void InitBDS()
+        {
+            url.scanSn = "http://10.219.95.85/prod-api/mes/machine/api/machineToMes/insertByScaning";
+        }
+        private void InitCM()
+        {
+            url.scanSn = "http://10.219.95.85/prod-api/mes/machine/api/machineToMes/kibbleScanSn";
+            url.scanContainerIn = "http://10.219.95.85/prod-api/mes/machine/api/machineToMes/kibbleScanTargetVehicle";
+            url.submit = "http://10.219.95.85/prod-api/mes/machine/api/machineToMes/cuMoScanSubmit";
+
+            user_http.username_MES = "test";
+
+            logFileSetting.prefix = "CM";
+        }
 
     }
 }

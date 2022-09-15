@@ -26,7 +26,6 @@ namespace ScanUploader.View
         private void LoginForm_Loaded(object sender, EventArgs e)
         {
             textBox_userName.Text = userName;
-            textBox_password.Focus();
         }
 
         private void button_login_Click(object sender, EventArgs e)

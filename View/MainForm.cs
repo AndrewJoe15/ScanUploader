@@ -23,7 +23,7 @@ namespace ScanUploader.View
 
         public ConfigureForm configureForm = new ConfigureForm();
 
-        private HttpUser httpUser;
+        private HttpUser httpUser = UserManager.httpUser_MES;
 
         //BasicInfo单例
         private BasicInfo basicInfo = BasicInfo.Instance;
@@ -47,6 +47,8 @@ namespace ScanUploader.View
         private static readonly string _statistics_file_name = "良率统计_" + DateTime.Now.ToString("yyyyMMddHHmm") + ".csv";
 
         private ListView _listView_statistics = new ListView();
+
+        Dictionary<string, List<string>> modelVersions = new Dictionary<string, List<string>>();
 
         public MainForm()
         {
@@ -327,7 +329,7 @@ namespace ScanUploader.View
             }
         }
 
-        private void DataBind_Item(ComboBox combo, object dataSource, string dataMember)
+        private void BindData_Item(ComboBox combo, object dataSource, string dataMember)
         {
             if (dataSource != null)
             {
@@ -348,7 +350,7 @@ namespace ScanUploader.View
             BindData_Text(comboBox_productModelVersion, basicInfo, nameof(basicInfo.productModelVersion));
             BindData_Text(comboBox_shift, basicInfo, nameof(basicInfo.shift));
             BindData_Text(comboBox_createBy, basicInfo, nameof(basicInfo.createBy));
-            DataBind_Item(comboBox_order, basicInfo, nameof(basicInfo.order));
+            BindData_Item(comboBox_order, basicInfo, nameof(basicInfo.order));
 
             //http user
             BindData_Text(textBox_http_username, httpUser, nameof(httpUser.username));
@@ -440,7 +442,6 @@ namespace ScanUploader.View
             label_socketStatus_submit.Visible = false;
 #endif
 
-            httpUser = UserManager.httpUser_MES;
         }
 
         /// <summary>
@@ -478,21 +479,15 @@ namespace ScanUploader.View
             WindowState = FormWindowState.Maximized;
         }
 
-        private void menuStrip_top_Config_Click(object sender, EventArgs e)
-        {
-            LoginForm_Admin form = new LoginForm_Admin();
-            form.ShowDialog(this);
-        }
-
         private void button_openLogFile_Click(object sender, EventArgs e)
         {
             if (tabControl_log.SelectedTab == tabPage_logInfo)
-                openFile(LogFile.logFile.filePath + LogFile.logFile.fileName);
+                OpenFile(LogFile.logFile.filePath + LogFile.logFile.fileName);
             else if (tabControl_log.SelectedTab == tabPage_debugInfo)
-                openFile(LogFile.debugFile.filePath + LogFile.debugFile.fileName);
+                OpenFile(LogFile.debugFile.filePath + LogFile.debugFile.fileName);
         }
 
-        private void openFile(string file)
+        private void OpenFile(string file)
         {
             if (file != null)
             {
@@ -522,40 +517,9 @@ namespace ScanUploader.View
 
 
 
-        private void button_empty_Click(object sender, EventArgs e)
-        {
-            if (tabControl_list.SelectedTab == tabPage_error_info)
-            {
-                listView_errorInfo.Items.Clear(); //清空error表格所有数据项
-            }
-            else if (tabControl_list.SelectedTab == tabPage_NG_threeCode)
-            {
-                listView_NG_threeCodes.Items.Clear(); //清空NG表格所有数据项
-            }
-        }
-
         private void button_export_excel_Click(object sender, EventArgs e)
         {
-            if (tabControl_list.SelectedTab == tabPage_error_info)
-            {
-                FileUtil.ExportExcel("Error信息统计", listView_errorInfo);
-            }
-            else if (tabControl_list.SelectedTab == tabPage_NG_threeCode)
-            {
-                FileUtil.ExportExcel("NG三码信息统计", listView_NG_threeCodes);
-            }
-            else if (tabControl_list.SelectedTab == tabPage_OK_threeCode)
-            {
-                FileUtil.ExportExcel("OK三码信息统计", listView_OK_threeCodes);
-            }
-            else if (tabControl_list.SelectedTab == tabPage_OK_info)
-            {
-                FileUtil.ExportExcel("OK信息统计", listView_OK_info);
-            }
-            else if (tabControl_list.SelectedTab == tabPage_NG_info)
-            {
-                FileUtil.ExportExcel("NG信息统计", listView_NG_info);
-            }
+
         }
 
         /// <summary>
@@ -570,6 +534,13 @@ namespace ScanUploader.View
 
         private void Button_save_basicInfo_Click(object sender, EventArgs e)
         {
+            //表单验证
+            if (CheckEmpty(panel_basicInformation))
+            {
+                ShowUtil.ShowTips("录入信息不能为空！");
+                return;
+            }
+
             //保存BasicInfo到设置文件
             SaveBasicInfoSetting(comboBox_site, basicInfSetting.site);
             SaveBasicInfoSetting(comboBox_operation, basicInfSetting.operation);
@@ -593,13 +564,7 @@ namespace ScanUploader.View
         /// <param name="sc">设置文件的StringCollection属性</param>
         /// <param name="comboBox">界面中文本框</param>
         private void SaveBasicInfoSetting(ComboBox comboBox, StringCollection sc)
-        {
-            //表单验证
-            if (CheckEmpty(panel_basicInformation))
-            {
-                ShowUtil.ShowTips("录入信息不能为空！");
-                return;
-            }
+        {            
             string text = comboBox.Text.Trim();
 
             if (sc.Count == 0)
@@ -635,22 +600,67 @@ namespace ScanUploader.View
         private void button_http_login_Click(object sender, EventArgs e)
         {
             //登录MES
-            if (UserManager.HttpLogin(httpUser))
-            {
-                //登录成功 保存用户名密码
-                Properties.User_Http user_http = Properties.User_Http.Default;
-                user_http.username_MES_hp = textBox_http_username.Text;
-                user_http.password_MES_hp = textBox_http_password.Text;
-                user_http.site_MES = textBox_http_site.Text;
+            UserManager.HttpLogin(httpUser);
 
-                user_http.Save();
+            //保存用户名密码
+            Properties.User_Http user_http = Properties.User_Http.Default;
+            user_http.username_MES = textBox_http_username.Text;
+            user_http.password_MES = textBox_http_password.Text;
+            user_http.site_MES = textBox_http_site.Text;
+
+            user_http.Save();
+
+        }
+
+        private void ComboBox_ProductModel_DropDown(object sender, EventArgs e)
+        {
+            //将鼠标指针设置为等待状态
+            Cursor = Cursors.WaitCursor;
+            comboBox_productModel.Items.Clear();
+            modelVersions.Clear();
+
+            //发送Http请求获取数据
+            JObject result = HttpUtil.GetResponse(URL.Instance.getProductModel, "site", comboBox_site.Text);
+
+            //获取工单列表成功
+            if (result?["code"]?.ToString() == ReturnData.code_success)
+            {
+                //获取JSon数据中的mo列表
+                var jModelList = result?["data"];
+
+                //列表存入下拉列表中
+                foreach (var item in jModelList)
+                {
+                    string model = item?["productModel"].ToString();
+                    string version = item?["version"].ToString();
+                    if (modelVersions.Keys.Contains(model))
+                    {
+                        modelVersions[model].Add(version);
+                    }
+                    else
+                    {
+                        modelVersions.Add(model, new List<string>() { version });
+                    }
+
+                    if (!comboBox_productModel.Items.Contains(model))
+                        comboBox_productModel.Items.Add(model);
+                }
+
+
+            }
+            else
+            {
+                //获取工单失败
+                ShowUtil.ShowError("获取产品型号失败，" + result?["msg"]);
             }
 
+            Cursor = Cursors.Default;
         }
 
         private void ComboBox_Order_DropDown(object sender, EventArgs e)
         {
             GetMesMoList();
+            return;
         }
 
         private void GetMesMoList()
@@ -669,6 +679,7 @@ namespace ScanUploader.View
             JObject result = HttpUtil.PostResponse(URL.Instance.getMesMoList, postData.ToString());
 
             //获取工单列表成功
+            
             if (result?["code"]?.ToString() == ReturnData.code_success)
             {
                 //获取JSon数据中的mo列表
@@ -680,12 +691,8 @@ namespace ScanUploader.View
                     //工单列表存入下拉列表中
                     comboBox_order.Items.Clear();
                     foreach (var item in jMos)
-                    {
                         comboBox_order.Items.Add(item.ToString());
-                    }
-                    comboBox_order.SelectedIndex = 0;
                 }
-
             }
             else
             {
@@ -726,15 +733,15 @@ namespace ScanUploader.View
         private void button_openCsvFile_Click(object sender, EventArgs e)
         {
             if (tabControl_list.SelectedTab == tabPage_OK_threeCode)
-                openFile(_OK_list_file_path_threeCode + _OK_list_file_name);
+                OpenFile(_OK_list_file_path_threeCode + _OK_list_file_name);
             else if (tabControl_list.SelectedTab == tabPage_NG_threeCode)
-                openFile(_NG_list_file_path_threeCode + _NG_list_file_name);
+                OpenFile(_NG_list_file_path_threeCode + _NG_list_file_name);
             else if (tabControl_list.SelectedTab == tabPage_OK_info)
-                openFile(_OK_list_file_path + _OK_list_file_name);
+                OpenFile(_OK_list_file_path + _OK_list_file_name);
             else if (tabControl_list.SelectedTab == tabPage_NG_info)
-                openFile(_NG_list_file_path + _NG_list_file_name);
+                OpenFile(_NG_list_file_path + _NG_list_file_name);
             else if (tabControl_list.SelectedTab == tabPage_error_info)
-                openFile(_error_list_file_path + _error_list_file_name);
+                OpenFile(_error_list_file_path + _error_list_file_name);
         }
 
         private void button_openCsvDir_Click(object sender, EventArgs e)
@@ -774,13 +781,31 @@ namespace ScanUploader.View
             //写入文件
             FileUtil.AppendLastItemToExcel(_listView_statistics, _statistics_file_path, _statistics_file_name);
 
-            openFile(_statistics_file_path + _statistics_file_name);
+            OpenFile(_statistics_file_path + _statistics_file_name);
         }
 
         private void ToolStripMenuItem_Config_Click(object sender, EventArgs e)
         {
             LoginForm_Admin loginForm = new LoginForm_Admin();
             loginForm.ShowDialog();
+        }
+
+        private void ComboBox_productModelVersion_DropDown(object sender, EventArgs e)
+        {
+
+            if (modelVersions.Count > 0)
+            {
+                comboBox_productModelVersion.Items.Clear();
+                try
+                {
+                    comboBox_productModelVersion.Items.AddRange(modelVersions?[comboBox_productModel.Text].ToArray());
+
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("产品型号填写有误！");
+                }
+            }
         }
     }
 }

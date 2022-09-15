@@ -110,5 +110,17 @@ namespace ScanUploader.Properties {
                 this["getMesMoList"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://10.219.95.85/prod-api/mes/product-model/getProductModelBySite")]
+        public string getProductModel {
+            get {
+                return ((string)(this["getProductModel"]));
+            }
+            set {
+                this["getProductModel"] = value;
+            }
+        }
     }
 }

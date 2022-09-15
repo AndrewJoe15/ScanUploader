@@ -42,6 +42,7 @@ namespace ScanUploader.View
         {
             //数据绑定
             //控件 -> 属性设置
+            //-- URL
             BindData_Text(textBox_url_scanContainerOut, URL.Instance, nameof(URL.Instance.scanContainerOut));
             BindData_Text(textBox_url_scanSn, URL.Instance, nameof(URL.Instance.scanSn));
             BindData_Text(textBox_url_scanContainerIn, URL.Instance, nameof(URL.Instance.scanContainerIn));
@@ -51,21 +52,27 @@ namespace ScanUploader.View
             BindData_Text(textBox_url_login_MES, URL.Instance, nameof(URL.Instance.httpLogin));
 
             BindData_Text(textBox_getMesMoList, URL.Instance, nameof(URL.Instance.getMesMoList));
+            BindData_Text(textBox_getProductModel, URL.Instance, nameof(URL.Instance.getProductModel));
 
+            //-- Log
+            textBox_logPrefix.Text = log.prefix;
+            textBox_logDateFormat.Text = log.dateFormat;
+            textBox_serialFigures.Text = log.serialFigureCount.ToString();
+
+            //socket
             textBox_socket_IP.Text = socket.IP_host;
             textBox_port_up.Text = socket.port_up.ToString();
             textBox_port_main.Text = socket.port_main.ToString();
             textBox_port_down.Text = socket.port_down.ToString();
+            textBox_port_insert.Text = socket.port_insert.ToString();            
             textBox_port_submit.Text = socket.port_submit.ToString();            
 
             textBox_port_up.Enabled = checkBox_socket_up.Checked = socket.enable_socket_up;
             textBox_port_main.Enabled = checkBox_socket_main.Checked = socket.enable_socket_main;
             textBox_port_down.Enabled = checkBox_socket_down.Checked = socket.enable_socket_down;
+            textBox_port_insert.Enabled = checkBox_socket_insert.Checked = socket.enable_socket_insert;
             textBox_port_submit.Enabled = checkBox_socket_submit.Checked = socket.enable_socket_submit;
 
-            textBox_logPrefix.Text = log.prefix;
-            textBox_logDateFormat.Text = log.dateFormat;
-            textBox_serialFigures.Text = log.serialFigureCount.ToString();
         }
 
         /// <summary>
@@ -79,8 +86,6 @@ namespace ScanUploader.View
 
             SaveSocketConfig();
             SaveLogFileNameConfig();
-
-            MessageBox.Show(url.scanContainerOut + "," + URL.Instance.scanContainerOut);
         }
 
 
@@ -111,8 +116,7 @@ namespace ScanUploader.View
         }
 
         private void Button_RestoreConfig_Click(object sender, EventArgs e)
-        {
-            
+        {         
 
             if (MessageBox.Show("确定重置所有设置吗？", "退出",
                 MessageBoxButtons.OKCancel) == DialogResult.OK)

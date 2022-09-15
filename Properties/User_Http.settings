@@ -2,20 +2,14 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ScanUploader.Properties" GeneratedClassName="User_Http">
   <Profiles />
   <Settings>
-    <Setting Name="username_MES_hp" Type="System.String" Scope="User">
+    <Setting Name="username_MES" Type="System.String" Scope="User">
       <Value Profile="(Default)">yfhp</Value>
     </Setting>
-    <Setting Name="password_MES_hp" Type="System.String" Scope="User">
+    <Setting Name="password_MES" Type="System.String" Scope="User">
       <Value Profile="(Default)">123456</Value>
     </Setting>
     <Setting Name="site_MES" Type="System.String" Scope="User">
       <Value Profile="(Default)">2018</Value>
-    </Setting>
-    <Setting Name="username_MES_cm" Type="System.String" Scope="User">
-      <Value Profile="(Default)">test</Value>
-    </Setting>
-    <Setting Name="password_MES_cm" Type="System.String" Scope="User">
-      <Value Profile="(Default)">123456</Value>
     </Setting>
   </Settings>
 </SettingsFile>

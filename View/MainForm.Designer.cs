@@ -165,7 +165,8 @@
             this.comboBox_productModel.Name = "comboBox_productModel";
             this.comboBox_productModel.Size = new System.Drawing.Size(101, 23);
             this.comboBox_productModel.TabIndex = 7;
-            this.comboBox_productModel.TextChanged += new System.EventHandler(this.OnComboBoxTextUpdate);
+            this.comboBox_productModel.DropDown += new System.EventHandler(this.ComboBox_ProductModel_DropDown);
+            this.comboBox_productModel.DropDownClosed += new System.EventHandler(this.OnComboBoxTextUpdate);
             // 
             // label_productModelVersion
             // 
@@ -191,6 +192,7 @@
             this.comboBox_productModelVersion.Name = "comboBox_productModelVersion";
             this.comboBox_productModelVersion.Size = new System.Drawing.Size(101, 23);
             this.comboBox_productModelVersion.TabIndex = 9;
+            this.comboBox_productModelVersion.DropDown += new System.EventHandler(this.ComboBox_productModelVersion_DropDown);
             this.comboBox_productModelVersion.TextChanged += new System.EventHandler(this.OnComboBoxTextUpdate);
             // 
             // comboBox_resource
@@ -319,6 +321,8 @@
             // 
             // comboBox_order
             // 
+            this.comboBox_order.Items.AddRange(new object[] {
+            "-"});
             this.comboBox_order.Location = new System.Drawing.Point(94, 228);
             this.comboBox_order.Name = "comboBox_order";
             this.comboBox_order.Size = new System.Drawing.Size(101, 23);
@@ -803,7 +807,7 @@
             this.tabPage_NG_info.Location = new System.Drawing.Point(4, 25);
             this.tabPage_NG_info.Name = "tabPage_NG_info";
             this.tabPage_NG_info.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_NG_info.Size = new System.Drawing.Size(673, 286);
+            this.tabPage_NG_info.Size = new System.Drawing.Size(678, 286);
             this.tabPage_NG_info.TabIndex = 3;
             this.tabPage_NG_info.Text = "扫码NG";
             this.tabPage_NG_info.UseVisualStyleBackColor = true;
@@ -821,7 +825,7 @@
             this.listView_NG_info.HideSelection = false;
             this.listView_NG_info.Location = new System.Drawing.Point(3, 3);
             this.listView_NG_info.Name = "listView_NG_info";
-            this.listView_NG_info.Size = new System.Drawing.Size(667, 280);
+            this.listView_NG_info.Size = new System.Drawing.Size(672, 280);
             this.listView_NG_info.TabIndex = 34;
             this.listView_NG_info.UseCompatibleStateImageBehavior = false;
             this.listView_NG_info.View = System.Windows.Forms.View.Details;
@@ -851,7 +855,7 @@
             this.tabPage_OK_threeCode.Location = new System.Drawing.Point(4, 25);
             this.tabPage_OK_threeCode.Name = "tabPage_OK_threeCode";
             this.tabPage_OK_threeCode.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_OK_threeCode.Size = new System.Drawing.Size(673, 286);
+            this.tabPage_OK_threeCode.Size = new System.Drawing.Size(678, 286);
             this.tabPage_OK_threeCode.TabIndex = 2;
             this.tabPage_OK_threeCode.Text = "OK插架";
             this.tabPage_OK_threeCode.UseVisualStyleBackColor = true;
@@ -870,7 +874,7 @@
             this.listView_OK_threeCodes.HideSelection = false;
             this.listView_OK_threeCodes.Location = new System.Drawing.Point(3, 3);
             this.listView_OK_threeCodes.Name = "listView_OK_threeCodes";
-            this.listView_OK_threeCodes.Size = new System.Drawing.Size(667, 280);
+            this.listView_OK_threeCodes.Size = new System.Drawing.Size(672, 280);
             this.listView_OK_threeCodes.TabIndex = 1;
             this.listView_OK_threeCodes.UseCompatibleStateImageBehavior = false;
             this.listView_OK_threeCodes.View = System.Windows.Forms.View.Details;
@@ -901,7 +905,7 @@
             this.tabPage_NG_threeCode.Location = new System.Drawing.Point(4, 25);
             this.tabPage_NG_threeCode.Name = "tabPage_NG_threeCode";
             this.tabPage_NG_threeCode.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_NG_threeCode.Size = new System.Drawing.Size(673, 286);
+            this.tabPage_NG_threeCode.Size = new System.Drawing.Size(678, 286);
             this.tabPage_NG_threeCode.TabIndex = 1;
             this.tabPage_NG_threeCode.Text = "NG插架";
             this.tabPage_NG_threeCode.UseVisualStyleBackColor = true;
@@ -920,7 +924,7 @@
             this.listView_NG_threeCodes.HideSelection = false;
             this.listView_NG_threeCodes.Location = new System.Drawing.Point(3, 3);
             this.listView_NG_threeCodes.Name = "listView_NG_threeCodes";
-            this.listView_NG_threeCodes.Size = new System.Drawing.Size(667, 280);
+            this.listView_NG_threeCodes.Size = new System.Drawing.Size(672, 280);
             this.listView_NG_threeCodes.TabIndex = 0;
             this.listView_NG_threeCodes.UseCompatibleStateImageBehavior = false;
             this.listView_NG_threeCodes.View = System.Windows.Forms.View.Details;
@@ -951,7 +955,7 @@
             this.tabPage_error_info.Location = new System.Drawing.Point(4, 25);
             this.tabPage_error_info.Name = "tabPage_error_info";
             this.tabPage_error_info.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_error_info.Size = new System.Drawing.Size(673, 286);
+            this.tabPage_error_info.Size = new System.Drawing.Size(678, 286);
             this.tabPage_error_info.TabIndex = 0;
             this.tabPage_error_info.Text = "错误信息";
             this.tabPage_error_info.UseVisualStyleBackColor = true;
@@ -968,7 +972,7 @@
             this.listView_errorInfo.HideSelection = false;
             this.listView_errorInfo.Location = new System.Drawing.Point(3, 3);
             this.listView_errorInfo.Name = "listView_errorInfo";
-            this.listView_errorInfo.Size = new System.Drawing.Size(667, 280);
+            this.listView_errorInfo.Size = new System.Drawing.Size(672, 280);
             this.listView_errorInfo.TabIndex = 33;
             this.listView_errorInfo.UseCompatibleStateImageBehavior = false;
             this.listView_errorInfo.View = System.Windows.Forms.View.Details;
@@ -1169,10 +1173,10 @@
             this.tabPage_http.Controls.Add(this.button_http_login);
             this.tabPage_http.Controls.Add(this.label_http_status);
             this.tabPage_http.Controls.Add(this.label_http_status_color);
-            this.tabPage_http.Location = new System.Drawing.Point(4, 27);
+            this.tabPage_http.Location = new System.Drawing.Point(4, 25);
             this.tabPage_http.Name = "tabPage_http";
             this.tabPage_http.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_http.Size = new System.Drawing.Size(197, 176);
+            this.tabPage_http.Size = new System.Drawing.Size(197, 178);
             this.tabPage_http.TabIndex = 1;
             this.tabPage_http.Text = "MES通信";
             this.tabPage_http.UseVisualStyleBackColor = true;
@@ -1275,14 +1279,14 @@
             this.ToolStripMenuItem_config});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1008, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1008, 30);
             this.menuStrip1.TabIndex = 34;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // ToolStripMenuItem_config
             // 
             this.ToolStripMenuItem_config.Name = "ToolStripMenuItem_config";
-            this.ToolStripMenuItem_config.Size = new System.Drawing.Size(53, 24);
+            this.ToolStripMenuItem_config.Size = new System.Drawing.Size(53, 26);
             this.ToolStripMenuItem_config.Text = "配置";
             this.ToolStripMenuItem_config.Click += new System.EventHandler(this.ToolStripMenuItem_Config_Click);
             // 

@@ -40,7 +40,7 @@ namespace ScanUploader
             Optimizer.StartPeriodGarbageCollection();
 
             //初始化配置
-            //Configurator.Init();
+            Configurator.Instance.Init();
         }
     }
 }

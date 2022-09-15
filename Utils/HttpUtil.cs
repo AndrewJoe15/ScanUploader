@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
+using RestSharp;
 
 using ScanUploader.View;
 using ScanUploader.Controller;
@@ -63,6 +64,73 @@ namespace ScanUploader.Utils
                 }
             }
             return result;
+        }
+
+
+        /// <summary>
+        /// get请求 
+        /// body中带一个参数 form-data格式
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="postData">post数据</param>
+        /// <returns>json对象</returns>
+        public static JObject GetResponse(string url, string key, string value)
+        {
+            if (string.IsNullOrEmpty(url))
+            {
+                ShowUtil.ShowError("URL不能为空。");
+                return new JObject();
+            }
+
+            UIInfoManager.AppendDebugInfo("上位机->MES，" + key + ":" + value);
+
+            if (url.StartsWith("https"))
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
+
+            RestClient client = new RestClient(url);
+            RestRequest request = new RestRequest();
+
+            request.Method = Method.Get;
+            request.Timeout = -1;
+            //request.AlwaysMultipartFormData = true;
+            //request.AddHeader("content-type", "multipart/form-data");
+            request.AddParameter(key, value);
+
+            if (authorization_MES.Length > 0)
+            {
+                request.AddHeader("Authorization", authorization_MES);
+            }
+            try
+            {
+                RestResponse response = client.Execute(request);
+
+                if (response.IsSuccessful)
+                {
+                    string result = response.Content;
+                    JObject jo = (JObject)JsonConvert.DeserializeObject(result);
+
+                    UIInfoManager.AppendDebugInfo("MES->上位机，" + jo.ToString());
+
+                    return jo;
+                }
+                else if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    //处理令牌为空的报错                    
+                    MainForm.thisForm.UpdateHttpStatus(false);
+                    JObject jo = new JObject();
+                    jo.Add("code", (int)HttpStatusCode.Unauthorized);
+                    jo.Add("msg", "MES登录失效，请重新登录。");
+
+                    UIInfoManager.AppendDebugInfo("MES->上位机，" + jo.ToString());
+
+                    return jo;
+                }
+            }
+            catch (Exception e)
+            {
+                ExceptionUtil.ExceptionHandler(e);
+            }
+            return new JObject();
         }
 
         /// <summary>

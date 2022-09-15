@@ -26,24 +26,24 @@ namespace ScanUploader.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("yfhp")]
-        public string username_MES_hp {
+        public string username_MES {
             get {
-                return ((string)(this["username_MES_hp"]));
+                return ((string)(this["username_MES"]));
             }
             set {
-                this["username_MES_hp"] = value;
+                this["username_MES"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("123456")]
-        public string password_MES_hp {
+        public string password_MES {
             get {
-                return ((string)(this["password_MES_hp"]));
+                return ((string)(this["password_MES"]));
             }
             set {
-                this["password_MES_hp"] = value;
+                this["password_MES"] = value;
             }
         }
         
@@ -56,30 +56,6 @@ namespace ScanUploader.Properties {
             }
             set {
                 this["site_MES"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("test")]
-        public string username_MES_cm {
-            get {
-                return ((string)(this["username_MES_cm"]));
-            }
-            set {
-                this["username_MES_cm"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("123456")]
-        public string password_MES_cm {
-            get {
-                return ((string)(this["password_MES_cm"]));
-            }
-            set {
-                this["password_MES_cm"] = value;
             }
         }
     }

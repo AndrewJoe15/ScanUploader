@@ -22,5 +22,17 @@ namespace ScanUploader.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("H")]
+        public char workSite {
+            get {
+                return ((char)(this["workSite"]));
+            }
+            set {
+                this["workSite"] = value;
+            }
+        }
     }
 }

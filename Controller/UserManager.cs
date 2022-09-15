@@ -14,7 +14,9 @@ namespace ScanUploader.Controller
 {
     internal static class UserManager
     {
-        public static HttpUser httpUser_MES;
+        private static Properties.User_Http httpUserSetting = Properties.User_Http.Default;
+        
+        public static HttpUser httpUser_MES = new HttpUser(httpUserSetting.username_MES, httpUserSetting.password_MES, httpUserSetting.site_MES);
         /// <summary>
         /// 登录MES 获取token
         /// </summary>
