@@ -98,7 +98,7 @@ namespace ScanUploader.Model
         public string createTime { get => TimeUtil.currentTimeString; }
 
         //工单号
-#if CHEMICALSCAN
+#if CHEMICALSCAN || CUMOSCAN
         [DataMember(Name = "mo")] //序列化后的字段名
 #else
         [DataMember]

@@ -41,6 +41,7 @@
             this.label_operation = new System.Windows.Forms.Label();
             this.comboBox_createBy = new System.Windows.Forms.ComboBox();
             this.comboBox_site = new System.Windows.Forms.ComboBox();
+            this.basicInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label_site = new System.Windows.Forms.Label();
             this.comboBox_shift = new System.Windows.Forms.ComboBox();
             this.panel_basicInformation = new System.Windows.Forms.Panel();
@@ -263,6 +264,10 @@
             this.comboBox_site.Size = new System.Drawing.Size(101, 23);
             this.comboBox_site.TabIndex = 1;
             this.comboBox_site.TextChanged += new System.EventHandler(this.OnComboBoxTextUpdate);
+            // 
+            // basicInfoBindingSource
+            // 
+            this.basicInfoBindingSource.DataSource = typeof(ScanUploader.Model.BasicInfo);
             // 
             // label_site
             // 
@@ -1313,6 +1318,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
+            ((System.ComponentModel.ISupportInitialize)(this.basicInfoBindingSource)).EndInit();
             this.panel_basicInformation.ResumeLayout(false);
             this.panel_basicInformation.PerformLayout();
             this.panel_log.ResumeLayout(false);

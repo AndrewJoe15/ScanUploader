@@ -441,7 +441,15 @@ namespace ScanUploader.View
             label_socketStatus_insert.Visible = false;
             label_socketStatus_submit.Visible = false;
 #endif
+#if CUMOSCAN
+            label_socketPort_up.Visible = false;
+            label_socketStatus_up.Visible = false;
 
+            label_socketPort_down.Text = "下料载具扫码";
+
+            columnHeader_sourceVehicle_OK.Text = "";
+            columnHeader_sourceVehicle_NG.Text = "";
+#endif
         }
 
         /// <summary>

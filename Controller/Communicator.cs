@@ -514,6 +514,7 @@ namespace ScanUploader.Controller
                 foreach (var item in submitData.supplementList)
                 {
                     logStr += "\t\t玻璃码：" + item.snNumber + " 上料载具码：" + item.sourceVehicle + " 下料载具码：" + item.targetVehicle + "\r\n";
+#endif
                 }
                 LogUtil.WriteLog(logStr);
             }
